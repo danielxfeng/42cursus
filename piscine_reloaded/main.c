@@ -5,6 +5,7 @@
 //#include "./ex08/ft_is_negative.c"
 #include "./ex09/ft_ft.c"
 #include "./ex10/ft_swap.c"
+#include "./ex11/ft_div_mod.c"
 
 
 int	main(void)
@@ -26,4 +27,11 @@ int	main(void)
 	int b = 11;
 	ft_swap(&a, &b);
 	printf("%d, %d\n", a, b);
+	// ex11
+	int a11 = 5;
+	int b11 = 2;
+	int c11;
+	int d11;
+	ft_div_mod(a11, b11, &c11, &d11);
+	printf("%d, %d\n", c11, d11);
 }
