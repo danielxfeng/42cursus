@@ -7,6 +7,7 @@
 #include "./ex10/ft_swap.c"
 #include "./ex11/ft_div_mod.c"
 #include "./ex12/ft_iterative_factorial.c"
+#include "./ex13/ft_recursive_factorial.c"
 
 
 int	main(void)
@@ -38,4 +39,7 @@ int	main(void)
 	// ex12
 	int nb12 = 10;
 	printf("%d\n", ft_iterative_factorial(nb12)); // 3628800
+	// ex13
+	int nb13 = 10;
+	printf("%d\n", ft_recursive_factorial(nb13));
 }
