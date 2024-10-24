@@ -6,6 +6,7 @@
 #include "./ex09/ft_ft.c"
 #include "./ex10/ft_swap.c"
 #include "./ex11/ft_div_mod.c"
+#include "./ex12/ft_iterative_factorial.c"
 
 
 int	main(void)
@@ -34,4 +35,7 @@ int	main(void)
 	int d11;
 	ft_div_mod(a11, b11, &c11, &d11);
 	printf("%d, %d\n", c11, d11);
+	// ex12
+	int nb12 = 10;
+	printf("%d\n", ft_iterative_factorial(nb12)); // 3628800
 }
