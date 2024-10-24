@@ -10,6 +10,7 @@
 #include "./ex13/ft_recursive_factorial.c"
 #include "./ex14/ft_sqrt.c"
 #include "./ex15/ft_putstr.c"
+#include "./ex16/ft_strlen.c"
 
 
 int	main(void)
@@ -51,4 +52,6 @@ int	main(void)
 	printf("%d\n", ft_sqrt(nb));
 	// ex15
 	ft_putstr("Hi\n");
+	// ex16
+	printf("%d\n", ft_strlen("Hi"));
 }
