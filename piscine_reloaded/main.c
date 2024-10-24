@@ -11,42 +11,50 @@
 #include "./ex14/ft_sqrt.c"
 #include "./ex15/ft_putstr.c"
 #include "./ex16/ft_strlen.c"
-
+#include "./ex17/ft_strcmp.c"
 
 int	main(void)
 {
+	int	nbr;
+	int	a;
+	int	b;
+	int	a11;
+	int	b11;
+	int	c11;
+	int	d11;
+	int	nb12;
+	int	nb13;
+	int	nb;
+
 	// ex06
-	//ft_print_alphabet();
+	// ft_print_alphabet();
 	// ex07
-	//ft_print_numbers();
+	// ft_print_numbers();
 	// ex08
-	//ft_is_negative(9);
-	//ft_is_negative(-1);
-	//ft_is_negative(0);
+	// ft_is_negative(9);
+	// ft_is_negative(-1);
+	// ft_is_negative(0);
 	// ex09
-	int nbr;
 	ft_ft(&nbr);
 	printf("%d\n", nbr);
 	// ex10
-	int a = 10;
-	int b = 11;
+	a = 10;
+	b = 11;
 	ft_swap(&a, &b);
 	printf("%d, %d\n", a, b);
 	// ex11
-	int a11 = 5;
-	int b11 = 2;
-	int c11;
-	int d11;
+	a11 = 5;
+	b11 = 2;
 	ft_div_mod(a11, b11, &c11, &d11);
 	printf("%d, %d\n", c11, d11);
 	// ex12
-	int nb12 = 10;
+	nb12 = 10;
 	printf("%d\n", ft_iterative_factorial(nb12)); // 3628800
 	// ex13
-	int nb13 = 10;
+	nb13 = 10;
 	printf("%d\n", ft_recursive_factorial(nb13));
 	// ex14
-	int nb = 10000;
+	nb = 10000;
 	printf("%d\n", ft_sqrt(nb));
 	nb = 100001;
 	printf("%d\n", ft_sqrt(nb));
@@ -54,4 +62,12 @@ int	main(void)
 	ft_putstr("Hi\n");
 	// ex16
 	printf("%d\n", ft_strlen("Hi"));
+	// ex17
+	printf("%d\n", ft_strcmp("abc", "abc"));
+	printf("%d\n", ft_strcmp("abc", "def"));
+	printf("%d\n", ft_strcmp("abc", "ab"));
+	printf("%d\n", ft_strcmp("ab", "abc"));
+	printf("%d\n", ft_strcmp("ab", ""));
+	printf("%d\n", ft_strcmp("", "ab"));
+	printf("%d\n", ft_strcmp("", ""));
 }
