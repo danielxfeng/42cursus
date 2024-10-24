@@ -9,6 +9,7 @@
 #include "./ex12/ft_iterative_factorial.c"
 #include "./ex13/ft_recursive_factorial.c"
 #include "./ex14/ft_sqrt.c"
+#include "./ex15/ft_putstr.c"
 
 
 int	main(void)
@@ -48,4 +49,6 @@ int	main(void)
 	printf("%d\n", ft_sqrt(nb));
 	nb = 100001;
 	printf("%d\n", ft_sqrt(nb));
+	// ex15
+	ft_putstr("Hi\n");
 }
