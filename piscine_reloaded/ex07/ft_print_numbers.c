@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_alphabet.c                                :+:      :+:    :+:   */
+/*   ft_print_numbers.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 19:51:16 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/10/24 19:59:06 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/10/24 19:54:08 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/10/24 20:00:52 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void	ft_print_alphabet(void)
+void	ft_print_numbers(void)
 {
-	char	c;
+	char n;
 
-	c = 'a';
-	while (c <= 'z')
+	n = '0';
+	while (n <= '9')
 	{
-		ft_putchar(c);
-		++c;
+		ft_putchar(n);
+		++n;
 	}
 }
