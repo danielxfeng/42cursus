@@ -1,6 +1,6 @@
-rm -rf ex00
-mkdir ex00
-cd ex00
+rm -rf ../ex00
+mkdir ../ex00
+cd ../ex00
 mkdir test0
 touch test1
 mkdir test2

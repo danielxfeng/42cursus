@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-//#include "./ex06/ft_print_alphabet.c"
-//#include "./ex07/ft_print_numbers.c"
-//#include "./ex08/ft_is_negative.c"
-#include "./ex09/ft_ft.c"
-#include "./ex10/ft_swap.c"
-#include "./ex11/ft_div_mod.c"
-#include "./ex12/ft_iterative_factorial.c"
-#include "./ex13/ft_recursive_factorial.c"
-#include "./ex14/ft_sqrt.c"
-#include "./ex15/ft_putstr.c"
-#include "./ex16/ft_strlen.c"
-#include "./ex17/ft_strcmp.c"
+//#include "../ex06/ft_print_alphabet.c"
+//#include "../ex07/ft_print_numbers.c"
+//#include "../ex08/ft_is_negative.c"
+#include "../ex09/ft_ft.c"
+#include "../ex10/ft_swap.c"
+#include "../ex11/ft_div_mod.c"
+#include "../ex12/ft_iterative_factorial.c"
+#include "../ex13/ft_recursive_factorial.c"
+#include "../ex14/ft_sqrt.c"
+#include "../ex15/ft_putstr.c"
+#include "../ex16/ft_strlen.c"
+#include "../ex17/ft_strcmp.c"
 
 int	main(void)
 {
