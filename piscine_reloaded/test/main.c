@@ -17,6 +17,7 @@
 #include "../ex22/ft_abs.h"
 #include "../ex23/ft_point.h"
 #include "../ex25/ft_foreach.c"
+#include "../ex26/ft_count_if.c"
 
 void	set_point(t_point *point)
 {
@@ -27,6 +28,11 @@ void	set_point(t_point *point)
 void	p(int n)
 {
 	printf("%d, ", n);
+}
+
+int	starth(char *str)
+{
+	return (str[0] == 'h');
 }
 
 int	main(void)
@@ -44,6 +50,7 @@ int	main(void)
 	int		*res;
 	t_point	point;
 	int		arr[] = {1, 2, 3};
+	char	*strs[] = {"hi", "hihi", "lala", NULL};
 
 	// ex06
 	// ft_print_alphabet();
@@ -105,4 +112,7 @@ int	main(void)
 	printf("%s", "done\n");
 	// ex25
 	ft_foreach(arr, 3, p);
+	printf("\n");
+	// ex26
+	printf("%d\n", ft_count_if(strs, starth));
 }
