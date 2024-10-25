@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:37:36 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/10/25 10:39:59 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/10/25 10:54:44 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ void	ft_putstr(char *str)
 
 int	main(int argc, char **argv)
 {
-	int i;
+	int	i;
 
-	i = 0;
+	i = 1;
 	while (i < argc)
 	{
 		ft_putstr(argv[i]);
+		ft_putchar('\n');
 		++i;
 	}
 }
