@@ -16,11 +16,17 @@
 #include "../ex21/ft_range.c"
 #include "../ex22/ft_abs.h"
 #include "../ex23/ft_point.h"
+#include "../ex25/ft_foreach.c"
 
 void	set_point(t_point *point)
 {
 	point->x = 42;
 	point->y = 21;
+}
+
+void	p(int n)
+{
+	printf("%d, ", n);
 }
 
 int	main(void)
@@ -37,6 +43,7 @@ int	main(void)
 	int		nb;
 	int		*res;
 	t_point	point;
+	int		arr[] = {1, 2, 3};
 
 	// ex06
 	// ft_print_alphabet();
@@ -95,5 +102,7 @@ int	main(void)
 	printf("%d, %d\n", ABS(-4), ABS(4));
 	// ex23
 	set_point(&point);
-	printf("%s", "done");
+	printf("%s", "done\n");
+	// ex25
+	ft_foreach(arr, 3, p);
 }
