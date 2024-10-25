@@ -15,19 +15,28 @@
 #include "../ex20/ft_strdup.c"
 #include "../ex21/ft_range.c"
 #include "../ex22/ft_abs.h"
+#include "../ex23/ft_point.h"
+
+void	set_point(t_point *point)
+{
+	point->x = 42;
+	point->y = 21;
+}
 
 int	main(void)
 {
-	int	nbr;
-	int	a;
-	int	b;
-	int	a11;
-	int	b11;
-	int	c11;
-	int	d11;
-	int	nb12;
-	int	nb13;
-	int	nb;
+	int		nbr;
+	int		a;
+	int		b;
+	int		a11;
+	int		b11;
+	int		c11;
+	int		d11;
+	int		nb12;
+	int		nb13;
+	int		nb;
+	int		*res;
+	t_point	point;
 
 	// ex06
 	// ft_print_alphabet();
@@ -76,7 +85,7 @@ int	main(void)
 	// ex20
 	printf("%s\n", ft_strdup("hi"));
 	// ex21
-	int *res = ft_range(1, 5);
+	res = ft_range(1, 5);
 	for (int i = 0; i < 5; ++i)
 	{
 		printf("%d, ", res[i]);
@@ -84,4 +93,7 @@ int	main(void)
 	printf("\n");
 	// ex22
 	printf("%d, %d\n", ABS(-4), ABS(4));
+	// ex23
+	set_point(&point);
+	printf("%s", "done");
 }
