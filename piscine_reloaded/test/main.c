@@ -13,6 +13,7 @@
 // #include "../ex16/ft_strlen.c"
 #include "../ex17/ft_strcmp.c"
 #include "../ex20/ft_strdup.c"
+#include "../ex21/ft_range.c"
 
 int	main(void)
 {
@@ -73,4 +74,11 @@ int	main(void)
 	printf("%d\n", ft_strcmp("", ""));
 	// ex20
 	printf("%s\n", ft_strdup("hi"));
+	// ex21
+	int *res = ft_range(1, 5);
+	for (int i = 0; i < 5; ++i)
+	{
+		printf("%d, ", res[i]);
+	}
+	printf("\n");
 }
