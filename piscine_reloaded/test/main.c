@@ -10,10 +10,11 @@
 #include "../ex13/ft_recursive_factorial.c"
 #include "../ex14/ft_sqrt.c"
 #include "../ex15/ft_putstr.c"
-// #include "../ex16/ft_strlen.c"
+//#include "../ex16/ft_strlen.c"
 #include "../ex17/ft_strcmp.c"
 #include "../ex20/ft_strdup.c"
 #include "../ex21/ft_range.c"
+#include "../ex22/ft_abs.h"
 
 int	main(void)
 {
@@ -81,4 +82,6 @@ int	main(void)
 		printf("%d, ", res[i]);
 	}
 	printf("\n");
+	// ex22
+	printf("%d, %d\n", ABS(-4), ABS(4));
 }
