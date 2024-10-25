@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 19:54:08 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/10/25 20:05:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/10/25 21:59:27 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	ft_count_if(char **tab, int (*f)(char *))
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
-    count = 0;
+	count = 0;
 	while (tab[i] != NULL)
 	{
 		if (f(tab[i]))
