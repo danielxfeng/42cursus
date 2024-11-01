@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <limits.h>
+#include <stdio.h>
 
 // Setup function called before each test
 void setUp(void) {
@@ -152,6 +153,19 @@ void test_ft_strlen(void)
     }
 }
 
+void test_ft_memset()
+{
+    char test[8] = "aaaaaaaa";
+    char test2[8] = "aaaaaaaa";
+    memset((void *)test, '0', 2);
+    ft_memset((void *)test2, '0', 2);
+    TEST_ASSERT_EQUAL_STRING("00aaaaaa", test2);
+    TEST_ASSERT_EQUAL_MEMORY(test, test2, sizeof(test));
+    memset((void *)test, 1000, 4);
+    ft_memset((void *)test2, 1000, 4);
+    TEST_ASSERT_EQUAL_MEMORY(test, test2, sizeof(test));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -160,6 +174,7 @@ int main(void) {
     // RUN_TEST(test_isalnum);
     // RUN_TEST(test_isascii);
     // RUN_TEST(test_isprint);
-    RUN_TEST(test_ft_strlen);
+    // RUN_TEST(test_ft_strlen);
+    RUN_TEST(test_ft_memset);
     return UNITY_END();
 }
