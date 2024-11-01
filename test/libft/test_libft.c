@@ -175,6 +175,22 @@ void test_bzero()
     TEST_ASSERT_EQUAL_MEMORY(test, test2, sizeof(test));
 }
 
+void test_memcpy()
+{
+    char test[8] = "aaaaaaaa";
+    char test2[10] = "bbbbbbbbbb";
+    char test3[8] = "aaaaaaaa";
+    char test4[10] = "bbbbbbbbbb";
+    memcpy(test, test2, 1);
+    ft_memcpy(test3, test4, 1);
+    TEST_ASSERT_EQUAL_MEMORY(test, test3, sizeof(test));
+    memcpy(test, test2, 10);
+    ft_memcpy(test3, test4, 10);
+    TEST_ASSERT_EQUAL_MEMORY(test, test3, sizeof(test));
+    memcpy(0, 0, 10);
+    ft_memcpy(0, 0, 10);
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -185,6 +201,7 @@ int main(void) {
     // RUN_TEST(test_isprint);
     // RUN_TEST(test_ft_strlen);
     // RUN_TEST(test_ft_memset);
-    RUN_TEST(test_bzero);
+    // RUN_TEST(test_bzero);
+    RUN_TEST(test_memcpy);
     return UNITY_END();
 }
