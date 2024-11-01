@@ -125,12 +125,30 @@ void test_isascii(void) {
     TEST_ASSERT_EQUAL_INT(isascii(n) != 0, ft_isascii(n));
 }
 
+void test_isprint(void) {
+    for (int i = 0; i < 128; ++i)
+    {
+       TEST_ASSERT_EQUAL_INT(isprint(i) != 0, ft_isprint(i)); 
+    }
+
+    int n;
+
+    n = -1;  
+    TEST_ASSERT_EQUAL_INT(0, ft_isprint(n));
+    TEST_ASSERT_EQUAL_INT(isprint(n) != 0, ft_isprint(n));
+
+    n = 130;  
+    TEST_ASSERT_EQUAL_INT(0, ft_isprint(n));
+    TEST_ASSERT_EQUAL_INT(isprint(n) != 0, ft_isprint(n));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
     // RUN_TEST(test_isalpha);
     // RUN_TEST(test_isdigit);
     // RUN_TEST(test_isalnum);
-    RUN_TEST(test_isascii);
+    // RUN_TEST(test_isascii);
+    RUN_TEST(test_isprint);
     return UNITY_END();
 }
