@@ -166,6 +166,15 @@ void test_ft_memset()
     TEST_ASSERT_EQUAL_MEMORY(test, test2, sizeof(test));
 }
 
+void test_bzero()
+{
+    char test[8] = "aaaaaaaa";
+    char test2[8] = "aaaaaaaa";
+    bzero(test, 2);
+    ft_bzero(test2, 2);
+    TEST_ASSERT_EQUAL_MEMORY(test, test2, sizeof(test));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -175,6 +184,7 @@ int main(void) {
     // RUN_TEST(test_isascii);
     // RUN_TEST(test_isprint);
     // RUN_TEST(test_ft_strlen);
-    RUN_TEST(test_ft_memset);
+    // RUN_TEST(test_ft_memset);
+    RUN_TEST(test_bzero);
     return UNITY_END();
 }
