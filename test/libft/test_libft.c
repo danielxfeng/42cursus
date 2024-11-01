@@ -1,6 +1,7 @@
 #include "unity.h"
-#include "../../src/libft/includes/libft.h"
+#include "../../src/libft/libft.h"
 #include <ctype.h>
+#include <string.h>
 #include <limits.h>
 
 // Setup function called before each test
@@ -142,6 +143,15 @@ void test_isprint(void) {
     TEST_ASSERT_EQUAL_INT(isprint(n) != 0, ft_isprint(n));
 }
 
+void test_ft_strlen(void)
+{
+    char *test_arrs[] = {"", "test"};
+    for (int i = 0; i < 2; ++i)
+    {
+        TEST_ASSERT_EQUAL_INT(strlen(test_arrs[i]), ft_strlen(test_arrs[i]));
+    }
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -149,6 +159,7 @@ int main(void) {
     // RUN_TEST(test_isdigit);
     // RUN_TEST(test_isalnum);
     // RUN_TEST(test_isascii);
-    RUN_TEST(test_isprint);
+    // RUN_TEST(test_isprint);
+    RUN_TEST(test_ft_strlen);
     return UNITY_END();
 }
