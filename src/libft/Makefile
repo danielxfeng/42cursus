@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 19:36:06 by Xifeng            #+#    #+#              #
-#    Updated: 2024/11/01 12:13:18 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/11/01 15:17:10 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS_DIR = srcs
 INCLUDES_DIR = includes
 OBJS_DIR = objs
 
-SRCS = $(wildcard $(SRCS_DIR)/*.c)
+SRCS = sample.c
 OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
 all: $(NAME)
