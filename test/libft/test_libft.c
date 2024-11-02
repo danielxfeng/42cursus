@@ -226,6 +226,32 @@ void test_toupper()
     TEST_ASSERT_EQUAL_CHAR('-', ft_toupper('-'));    
 }
 
+void test_strchr()
+{
+    char *s1 = "abcbd";
+    TEST_ASSERT_EQUAL_PTR(s1 + 1, ft_strchr(s1, 'b'));
+    TEST_ASSERT_EQUAL_PTR(strchr(s1, 'b'), ft_strchr(s1, 'b'));
+    char *s2 = "abc";
+    TEST_ASSERT_EQUAL_PTR(s2 + 3, ft_strchr(s2, '\0'));
+    TEST_ASSERT_EQUAL_PTR(strchr(s2, '\0'), ft_strchr(s2, '\0'));
+    char *s3 = "abc";
+    TEST_ASSERT_EQUAL_PTR(NULL, ft_strchr(s3, 'd'));
+    TEST_ASSERT_EQUAL_PTR(strchr(s3, 'd'), ft_strchr(s3, 'd'));
+}
+
+void test_strrchr()
+{
+    char *s1 = "abcbd";
+    TEST_ASSERT_EQUAL_PTR(s1 + 3, ft_strrchr(s1, 'b'));
+    TEST_ASSERT_EQUAL_PTR(strrchr(s1, 'b'), ft_strrchr(s1, 'b'));
+    char *s2 = "abc";
+    TEST_ASSERT_EQUAL_PTR(s2 + 3, ft_strchr(s2, '\0'));
+    TEST_ASSERT_EQUAL_PTR(strrchr(s2, '\0'), ft_strrchr(s2, '\0'));
+    char *s3 = "abc";
+    TEST_ASSERT_EQUAL_PTR(NULL, ft_strchr(s3, 'd'));
+    TEST_ASSERT_EQUAL_PTR(strrchr(s3, 'd'), ft_strrchr(s3, 'd'));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -241,5 +267,7 @@ int main(void) {
     // RUN_TEST(test_memmove);
     // RUN_TEST(test_tolower);
     // RUN_TEST(test_toupper);
+    RUN_TEST(test_strchr);
+    RUN_TEST(test_strrchr);
     return UNITY_END();
 }
