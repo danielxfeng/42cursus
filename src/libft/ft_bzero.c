@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:14:56 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/02 14:09:53 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/02 14:19:38 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdio.h"
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {

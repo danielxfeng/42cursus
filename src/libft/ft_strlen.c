@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 17:07:41 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/02 14:10:44 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/02 14:20:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdio.h"
+#include "libft.h"
 
 size_t	ft_strlen(const char *s)
 {

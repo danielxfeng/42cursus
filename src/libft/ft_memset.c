@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 17:28:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/02 14:10:27 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/02 14:20:02 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdio.h"
+#include "libft.h"
 
 void	*ft_memset(void *s, int c, size_t n)
 {
