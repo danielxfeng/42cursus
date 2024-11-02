@@ -3,5 +3,9 @@
       "editor.defaultFormatter": "keyhr.42-c-format"
   },
   "42header.username": "Xifeng",
-  "42header.email": "xifeng@student.hive.fi"
+  "42header.email": "xifeng@student.hive.fi",
+  "files.associations": {
+    "*.css": "tailwindcss",
+    "unity.h": "c"
+  }
 }

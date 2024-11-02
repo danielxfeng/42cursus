@@ -4,6 +4,7 @@
 #include <string.h>
 #include <limits.h>
 #include <stdio.h>
+// #include <bsd/string.h>
 
 // Setup function called before each test
 void setUp(void) {
@@ -211,6 +212,107 @@ void test_memmove()
     TEST_ASSERT_EQUAL_INT(0, ft_memmove(0, 0, 9));
 }
 
+void test_strlcpy()
+{
+    char src1[] = "hi";
+    char dest1[10] = "look";
+    char dest2[10] = "look";
+    int res1;
+    int res2;
+    res1 = strlcpy(dest1, src1, 2);
+    res2 = ft_strlcpy(dest1, src1, 2);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(dest1, "look");
+    strcpy(dest2, "look");
+    res1 = ft_strlcpy(dest1, src1, 0);
+    res2 = ft_strlcpy(dest2, src1, 0);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(dest1, "look");
+    strcpy(dest2, "look");
+    res1 = ft_strlcpy(dest1, src1, 10);
+    res2 = ft_strlcpy(dest2, src1, 10);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(src1, "look");
+    strcpy(dest1, "hi");
+    strcpy(dest2, "hi");
+    res1 = strlcpy(dest1, src1, 2);
+    res2 = ft_strlcpy(dest1, src1, 2);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(dest1, "hi");
+    strcpy(dest2, "hi");
+    res1 = ft_strlcpy(dest1, src1, 0);
+    res2 = ft_strlcpy(dest2, src1, 0);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(dest1, "hi");
+    strcpy(dest2, "hi");
+    res1 = ft_strlcpy(dest1, src1, 4);
+    res2 = ft_strlcpy(dest2, src1, 4);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(src1, "");
+    strcpy(dest1, "hi");
+    strcpy(dest2, "hi");
+    res1 = strlcpy(dest1, src1, 2);
+    res2 = ft_strlcpy(dest1, src1, 2);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(dest1, "hi");
+    strcpy(dest2, "hi");
+    res1 = strlcpy(dest1, src1, 0);
+    res2 = ft_strlcpy(dest1, src1, 0);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(dest1, "hi");
+    strcpy(dest2, "hi");
+    res1 = strlcpy(dest1, src1, 4);
+    res2 = ft_strlcpy(dest1, src1, 4);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(src1, "hi");
+    strcpy(dest1, "");
+    strcpy(dest2, "");
+    res1 = strlcpy(dest1, src1, 2);
+    res2 = ft_strlcpy(dest1, src1, 2);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(dest1, "");
+    strcpy(dest2, "");
+    res1 = strlcpy(dest1, src1, 0);
+    res2 = ft_strlcpy(dest1, src1, 0);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(dest1, "");
+    strcpy(dest2, "");
+    res1 = strlcpy(dest1, src1, 4);
+    res2 = ft_strlcpy(dest1, src1, 4);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(src1, "");
+    strcpy(dest1, "");
+    strcpy(dest2, "");
+    res1 = strlcpy(dest1, src1, 2);
+    res2 = ft_strlcpy(dest1, src1, 2);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(dest1, "");
+    strcpy(dest2, "");
+    res1 = strlcpy(dest1, src1, 0);
+    res2 = ft_strlcpy(dest1, src1, 0);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    strcpy(dest1, "");
+    strcpy(dest2, "");
+    res1 = strlcpy(dest1, src1, 4);
+    res2 = ft_strlcpy(dest1, src1, 4);
+    TEST_ASSERT_EQUAL_INT(res1, res2);
+    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -223,6 +325,7 @@ int main(void) {
     // RUN_TEST(test_ft_memset);
     // RUN_TEST(test_bzero);
     // RUN_TEST(test_memcpy);
-    RUN_TEST(test_memmove);
+    // RUN_TEST(test_memmove);
+    // RUN_TEST(test_strlcpy);
     return UNITY_END();
 }
