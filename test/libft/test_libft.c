@@ -212,105 +212,18 @@ void test_memmove()
     TEST_ASSERT_EQUAL_INT(0, ft_memmove(0, 0, 9));
 }
 
-void test_strlcpy()
+void test_tolower()
 {
-    char src1[] = "hi";
-    char dest1[10] = "look";
-    char dest2[10] = "look";
-    int res1;
-    int res2;
-    res1 = strlcpy(dest1, src1, 2);
-    res2 = ft_strlcpy(dest1, src1, 2);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(dest1, "look");
-    strcpy(dest2, "look");
-    res1 = ft_strlcpy(dest1, src1, 0);
-    res2 = ft_strlcpy(dest2, src1, 0);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(dest1, "look");
-    strcpy(dest2, "look");
-    res1 = ft_strlcpy(dest1, src1, 10);
-    res2 = ft_strlcpy(dest2, src1, 10);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(src1, "look");
-    strcpy(dest1, "hi");
-    strcpy(dest2, "hi");
-    res1 = strlcpy(dest1, src1, 2);
-    res2 = ft_strlcpy(dest1, src1, 2);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(dest1, "hi");
-    strcpy(dest2, "hi");
-    res1 = ft_strlcpy(dest1, src1, 0);
-    res2 = ft_strlcpy(dest2, src1, 0);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(dest1, "hi");
-    strcpy(dest2, "hi");
-    res1 = ft_strlcpy(dest1, src1, 4);
-    res2 = ft_strlcpy(dest2, src1, 4);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(src1, "");
-    strcpy(dest1, "hi");
-    strcpy(dest2, "hi");
-    res1 = strlcpy(dest1, src1, 2);
-    res2 = ft_strlcpy(dest1, src1, 2);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(dest1, "hi");
-    strcpy(dest2, "hi");
-    res1 = strlcpy(dest1, src1, 0);
-    res2 = ft_strlcpy(dest1, src1, 0);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(dest1, "hi");
-    strcpy(dest2, "hi");
-    res1 = strlcpy(dest1, src1, 4);
-    res2 = ft_strlcpy(dest1, src1, 4);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(src1, "hi");
-    strcpy(dest1, "");
-    strcpy(dest2, "");
-    res1 = strlcpy(dest1, src1, 2);
-    res2 = ft_strlcpy(dest1, src1, 2);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(dest1, "");
-    strcpy(dest2, "");
-    res1 = strlcpy(dest1, src1, 0);
-    res2 = ft_strlcpy(dest1, src1, 0);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(dest1, "");
-    strcpy(dest2, "");
-    res1 = strlcpy(dest1, src1, 4);
-    res2 = ft_strlcpy(dest1, src1, 4);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(src1, "");
-    strcpy(dest1, "");
-    strcpy(dest2, "");
-    res1 = strlcpy(dest1, src1, 2);
-    res2 = ft_strlcpy(dest1, src1, 2);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(dest1, "");
-    strcpy(dest2, "");
-    res1 = strlcpy(dest1, src1, 0);
-    res2 = ft_strlcpy(dest1, src1, 0);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
-    strcpy(dest1, "");
-    strcpy(dest2, "");
-    res1 = strlcpy(dest1, src1, 4);
-    res2 = ft_strlcpy(dest1, src1, 4);
-    TEST_ASSERT_EQUAL_INT(res1, res2);
-    TEST_ASSERT_EQUAL_MEMORY(dest1, dest2, sizeof(dest1));
+    TEST_ASSERT_EQUAL_CHAR('a', ft_tolower('A'));
+    TEST_ASSERT_EQUAL_CHAR('a', ft_tolower('a'));
+    TEST_ASSERT_EQUAL_CHAR('-', ft_tolower('-'));
+}
+
+void test_toupper()
+{
+    TEST_ASSERT_EQUAL_CHAR('A', ft_toupper('A'));
+    TEST_ASSERT_EQUAL_CHAR('A', ft_toupper('a'));
+    TEST_ASSERT_EQUAL_CHAR('-', ft_toupper('-'));    
 }
 
 // Main function to run the tests
@@ -326,6 +239,7 @@ int main(void) {
     // RUN_TEST(test_bzero);
     // RUN_TEST(test_memcpy);
     // RUN_TEST(test_memmove);
-    // RUN_TEST(test_strlcpy);
+    // RUN_TEST(test_tolower);
+    // RUN_TEST(test_toupper);
     return UNITY_END();
 }
