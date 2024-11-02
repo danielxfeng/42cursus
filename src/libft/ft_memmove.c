@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 20:30:07 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/02 10:57:46 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/02 14:10:21 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "stdio.h"
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {

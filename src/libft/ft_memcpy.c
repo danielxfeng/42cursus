@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/01 18:57:53 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/02 14:10:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "stdio.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
