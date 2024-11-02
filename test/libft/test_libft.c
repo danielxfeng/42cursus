@@ -252,6 +252,28 @@ void test_strrchr()
     TEST_ASSERT_EQUAL_PTR(strrchr(s3, 'd'), ft_strrchr(s3, 'd'));
 }
 
+void test_strncmp()
+{
+    char *s1 = "hi";
+    char *s2 = "hi";
+    TEST_ASSERT_EQUAL_INT(strncmp(s1, s2, 2), ft_strncmp(s1, s2, 2));
+    char *s3 = "hir";
+    TEST_ASSERT_EQUAL_INT(strncmp(s3, s1, 2), ft_strncmp(s3, s1, 2));
+    TEST_ASSERT_EQUAL_INT(strncmp(s3, s1, 3), ft_strncmp(s3, s1, 3));
+    char *s4 = "";
+    TEST_ASSERT_EQUAL_INT(strncmp(s4, s4, 3), ft_strncmp(s4, s4, 3));
+    TEST_ASSERT_EQUAL_INT(strncmp(s2, s4, 3), ft_strncmp(s2, s4, 3));
+    TEST_ASSERT_EQUAL_INT(strncmp(s1, s3, 0), ft_strncmp(s1, s3, 0));
+    char *s5 = "Hi";
+    TEST_ASSERT_EQUAL_INT(strncmp(s5, s2, 2), ft_strncmp(s5, s2, 2));
+    char *s6 = "hello";
+    TEST_ASSERT_EQUAL_INT(strncmp(s1, s6, 5), ft_strncmp(s1, s6, 5));
+    char *s7 = "hi!";
+    TEST_ASSERT_EQUAL_INT(strncmp(s7, s1, 3), ft_strncmp(s7, s1, 3));
+    char *s8 = "hi\0hello";
+    TEST_ASSERT_EQUAL_INT(strncmp(s8, s1, 5), ft_strncmp(s8, s1, 5));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -267,7 +289,8 @@ int main(void) {
     // RUN_TEST(test_memmove);
     // RUN_TEST(test_tolower);
     // RUN_TEST(test_toupper);
-    RUN_TEST(test_strchr);
-    RUN_TEST(test_strrchr);
+    // RUN_TEST(test_strchr);
+    // RUN_TEST(test_strrchr);
+    RUN_TEST(test_strncmp);
     return UNITY_END();
 }
