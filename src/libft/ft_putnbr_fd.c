@@ -6,20 +6,47 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 17:46:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 17:59:03 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/03 23:25:36 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
+
+static void	itoa(int n, char *buf)
+{
+	long	ln;
+	size_t	i;
+
+	ln = n;
+	if (ln == 0)
+	{
+		buf[0] = '0';
+		return ;
+	}
+	ft_bzero(buf, 16);
+	i = 15;
+	if (ln < 0)
+		ln = -ln;
+	while (ln != 0)
+	{
+		buf[--i] = ln % 10 + '0';
+		ln /= 10;
+	}
+	if (n < 0)
+		buf[--i] = '-';
+}
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	char	*s;
+	char	buf[16];
+	size_t	i;
 
-	s = ft_itoa(n);
-	if (!s)
-		return ;
-	ft_putstr_fd(s, fd);
-	free(s);
+	itoa(n, buf);
+	i = 0;
+	while (i < 16)
+	{
+		if (buf[i])
+			ft_putchar_fd(buf[i], fd);
+		++i;
+	}
 }

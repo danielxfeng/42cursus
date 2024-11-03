@@ -3,7 +3,7 @@ $> hostname; uname -msr
 MacBookPro.lan
 Darwin 24.1.0 arm64
 $> date
-Sun  3 Nov 2024 23:11:33 EET
+Sun  3 Nov 2024 23:26:17 EET
 $> gcc --version
 Apple clang version 16.0.0 (clang-1600.0.26.4)
 Target: arm64-apple-darwin24.1.0
@@ -71,7 +71,7 @@ $> make bonus
 make: *** No rule to make target `bonus'.  Stop.
 
 $> ls -la libft.a
--rw-r--r--@ 1 hf  staff  36800  3 Nov 23:11 /Users/hf/Project/c/42cursus/other_test/libftwar/dirlibft/libft.a
+-rw-r--r--@ 1 hf  staff  37328  3 Nov 23:26 /Users/hf/Project/c/42cursus/other_test/libftwar/dirlibft/libft.a
 
 = Part1_functions ==============================================================
 
