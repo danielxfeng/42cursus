@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:10:06 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 13:32:59 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/03 13:33:40 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		else
 			d_len = len;
 	}
-	p = calloc((d_len + 1), sizeof(char));
+	p = ft_calloc((d_len + 1), sizeof(char));
 	if (!p)
 		return (NULL);
 	ft_memcpy(p, s + start, d_len);
