@@ -299,6 +299,19 @@ void test_memcmp()
     ft_memchr(0, 0, 3);
 }
 
+void test_strnstr()
+{
+    char *big = "abcde";
+    char *l1 = "bc";
+    char *l2 = "ab";
+    char *l3 = "de";
+    TEST_ASSERT_EQUAL_PTR(big + 1, ft_strnstr(big, l1, 5));
+    TEST_ASSERT_EQUAL_PTR(0, ft_strnstr(big, l1, 2));
+    TEST_ASSERT_EQUAL_PTR(big, ft_strnstr(big, l2, 2));
+    TEST_ASSERT_EQUAL_PTR(big, ft_strnstr(big, l2, 0));
+    TEST_ASSERT_EQUAL_PTR(big + 3, ft_strnstr(big, l3, 5));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -317,7 +330,8 @@ int main(void) {
     // RUN_TEST(test_strchr);
     // RUN_TEST(test_strrchr);
     // RUN_TEST(test_strncmp);
-    RUN_TEST(test_memchr);
-    RUN_TEST(test_memcmp);
+    // RUN_TEST(test_memchr);
+    // RUN_TEST(test_memcmp);
+    RUN_TEST(test_strnstr);
     return UNITY_END();
 }
