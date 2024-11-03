@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:10:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 14:44:05 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/03 15:12:34 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,5 @@ char	*ft_strtrim(char const *s1, char const *set)
 	end = ft_strlen(s1);
 	while (end > start && ft_strchr(set, s1[end - 1]))
 		--end;
-	p = ft_calloc(end - start + 1, sizeof(char));
-	if (!p)
-		return (NULL);
-	ft_memcpy(p, s1 + start, end - start);
-	p[end - start] = '\0';
-	return (p);
+	return ft_substr(s1, start, end - start);
 }

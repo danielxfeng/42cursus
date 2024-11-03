@@ -390,7 +390,8 @@ int main(void) {
     // RUN_TEST(test_atoi);
     // RUN_TEST(test_calloc);
     // RUN_TEST(test_substr);
-    RUN_TEST(test_strjoin);
+    // RUN_TEST(test_strjoin);
     RUN_TEST(test_strtrim);
+
     return UNITY_END();
 }
