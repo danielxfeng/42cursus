@@ -6,18 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:34:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 14:03:13 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/03 14:51:30 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static size_t	get_len(char const *s)
-{
-	if (!s)
-		return (0);
-	return (ft_strlen(s));
-}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -25,15 +18,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t len_s2;
 	char *p;
 
-	len_s1 = get_len(s1);
-	len_s2 = get_len(s2);
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
 	p = ft_calloc(len_s1 + len_s2 + 1, sizeof(char));
 	if (!p)
 		return (NULL);
-    if (s1)
-	    ft_memcpy(p, s1, len_s1);
-    if (s2)
-	    ft_memcpy(p + len_s1, s2, len_s2);
+    ft_memcpy(p, s1, len_s1);
+	ft_memcpy(p + len_s1, s2, len_s2);
 	p[len_s1 + len_s2] = '\0';
 	return (p);
 }
