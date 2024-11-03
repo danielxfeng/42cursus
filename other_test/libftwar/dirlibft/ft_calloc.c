@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 16:55:33 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 23:09:53 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/03 11:43:06 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/03 19:26:10 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdint.h>
+#include <stdlib.h>
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+void	*ft_calloc(size_t nelem, size_t elsize)
 {
-	size_t	i;
-	size_t	j;
+	void	*p;
+	size_t	size;
 
-	if (!*little)
-		return ((char *)(big));
-	if (!len)
+	if (nelem && SIZE_MAX / nelem < elsize)
 		return (NULL);
-	i = 0;
-	while (big[i] && i < len)
-	{
-		if (big[i] == little[0])
-		{
-			j = 0;
-			while (little[j] && i + j < len && little[j] == big[i + j])
-				++j;
-			if (!little[j])
-				return ((char *)(big + i));
-		}
-		++i;
-	}
-	return (0);
+	size = nelem * elsize;
+	p = malloc(size);
+	if (!p)
+		return (NULL);
+	ft_bzero(p, size);
+	return (p);
 }

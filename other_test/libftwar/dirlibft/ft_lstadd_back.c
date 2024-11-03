@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 16:55:33 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 23:09:53 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/03 18:10:55 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/03 18:37:34 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+static void	add_back_helper(t_list *lst, t_list *new)
 {
-	size_t	i;
-	size_t	j;
-
-	if (!*little)
-		return ((char *)(big));
-	if (!len)
-		return (NULL);
-	i = 0;
-	while (big[i] && i < len)
+	if (!lst->next)
 	{
-		if (big[i] == little[0])
-		{
-			j = 0;
-			while (little[j] && i + j < len && little[j] == big[i + j])
-				++j;
-			if (!little[j])
-				return ((char *)(big + i));
-		}
-		++i;
+		lst->next = new;
+		return ;
 	}
-	return (0);
+	add_back_helper(lst->next, new);
+}
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	if (!(*lst))
+	{
+		*lst = new;
+		return ;
+	}
+	add_back_helper(*lst, new);
 }

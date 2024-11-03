@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 16:55:33 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 23:09:53 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/01 18:19:32 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/02 14:19:53 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	size_t	i;
-	size_t	j;
+	unsigned char		*ptr_dest;
+	const unsigned char	*ptr_src;
+	const unsigned char	*stop;
 
-	if (!*little)
-		return ((char *)(big));
-	if (!len)
-		return (NULL);
-	i = 0;
-	while (big[i] && i < len)
+	ptr_dest = dest;
+	ptr_src = src;
+	if (!ptr_dest && !ptr_src)
+		return (dest);
+	stop = src + n;
+	while (ptr_src < stop)
 	{
-		if (big[i] == little[0])
-		{
-			j = 0;
-			while (little[j] && i + j < len && little[j] == big[i + j])
-				++j;
-			if (!little[j])
-				return ((char *)(big + i));
-		}
-		++i;
+		*ptr_dest = *ptr_src;
+		++ptr_src;
+		++ptr_dest;
 	}
-	return (0);
+	return (dest);
 }

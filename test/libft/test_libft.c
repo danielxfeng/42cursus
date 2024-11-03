@@ -342,7 +342,7 @@ void	test_strnstr(void)
 	TEST_ASSERT_EQUAL_PTR(big + 1, ft_strnstr(big, l1, 5));
 	TEST_ASSERT_EQUAL_PTR(0, ft_strnstr(big, l1, 2));
 	TEST_ASSERT_EQUAL_PTR(big, ft_strnstr(big, l2, 2));
-	TEST_ASSERT_EQUAL_PTR(big, ft_strnstr(big, l2, 0));
+	TEST_ASSERT_NULL(ft_strnstr(big, l2, 0));
 	TEST_ASSERT_EQUAL_PTR(big + 3, ft_strnstr(big, l3, 5));
 }
 
