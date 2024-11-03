@@ -5,6 +5,8 @@
 #include <limits.h>
 #include <stdio.h>
 
+// cc debug.c ../src/libft/*.c -lbsd
+
 void test_strlcpy() {
     char src1[] = "hi";
     char dest1[10];
@@ -142,8 +144,21 @@ void test_strlcat() {
     printf("res1: %d, res2: %d, dest1: %s, dest2: %s\n", res1, res2, dest1, dest2);
 }
 
+void test_putendl_fd()
+{
+    ft_putendl_fd("test", 1);
+}
+
+void test_putnbr_fd()
+{
+    ft_putnbr_fd(345, 1);
+    ft_putendl_fd("", 1);
+}
+
 int main(void)
 {
     //test_strlcpy();
-    test_strlcat();
+    //test_strlcat();
+    test_putendl_fd();
+    test_putnbr_fd();
 }
