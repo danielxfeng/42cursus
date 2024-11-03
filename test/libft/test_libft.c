@@ -383,6 +383,16 @@ void test_split()
     TEST_ASSERT_EQUAL_STRING_ARRAY(res4, ret4, 1);
 }
 
+void test_itoa()
+{
+    TEST_ASSERT_EQUAL_STRING("0", ft_itoa(0));
+    TEST_ASSERT_EQUAL_STRING("100", ft_itoa(100));
+    TEST_ASSERT_EQUAL_STRING("-234", ft_itoa(-234));
+    TEST_ASSERT_EQUAL_STRING("1234", ft_itoa(1234));
+    TEST_ASSERT_EQUAL_STRING("2147483647", ft_itoa(2147483647));
+    TEST_ASSERT_EQUAL_STRING("-2147483648", ft_itoa(-2147483648));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -409,7 +419,8 @@ int main(void) {
     // RUN_TEST(test_substr);
     // RUN_TEST(test_strjoin);
     // RUN_TEST(test_strtrim);
-    RUN_TEST(test_split);
+    // RUN_TEST(test_split);
+    RUN_TEST(test_itoa);
 
     return UNITY_END();
 }
