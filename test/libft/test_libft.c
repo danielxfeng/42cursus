@@ -312,6 +312,19 @@ void test_strnstr()
     TEST_ASSERT_EQUAL_PTR(big + 3, ft_strnstr(big, l3, 5));
 }
 
+void test_atoi()
+{
+    TEST_ASSERT_EQUAL_INT(999, ft_atoi("999"));
+    TEST_ASSERT_EQUAL_INT(999, ft_atoi("+999"));
+    TEST_ASSERT_EQUAL_INT(999, ft_atoi("   +999"));
+    TEST_ASSERT_EQUAL_INT(-999, ft_atoi("   -999"));
+    TEST_ASSERT_EQUAL_INT(-999, ft_atoi("   -999sss"));
+    TEST_ASSERT_EQUAL_INT(-999, ft_atoi("   -999  "));
+    TEST_ASSERT_EQUAL_INT(0, ft_atoi("   --999  "));
+    TEST_ASSERT_EQUAL_INT(atoi("9999999999999999999999999"), ft_atoi("9999999999999999999999999"));
+    TEST_ASSERT_EQUAL_INT(atoi("-9999999999999999999999999"), ft_atoi("-9999999999999999999999999"));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -332,6 +345,7 @@ int main(void) {
     // RUN_TEST(test_strncmp);
     // RUN_TEST(test_memchr);
     // RUN_TEST(test_memcmp);
-    RUN_TEST(test_strnstr);
+    // RUN_TEST(test_strnstr);
+    RUN_TEST(test_atoi);
     return UNITY_END();
 }
