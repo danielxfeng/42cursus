@@ -3,7 +3,7 @@ $> hostname; uname -msr
 MacBookPro.lan
 Darwin 24.1.0 arm64
 $> date
-Sun  3 Nov 2024 22:57:39 EET
+Sun  3 Nov 2024 23:04:17 EET
 $> gcc --version
 Apple clang version 16.0.0 (clang-1600.0.26.4)
 Target: arm64-apple-darwin24.1.0
@@ -71,7 +71,7 @@ $> make bonus
 make: *** No rule to make target `bonus'.  Stop.
 
 $> ls -la libft.a
--rw-r--r--@ 1 hf  staff  36792  3 Nov 22:57 /Users/hf/Project/c/42cursus/other_test/libftwar/dirlibft/libft.a
+-rw-r--r--@ 1 hf  staff  36792  3 Nov 23:04 /Users/hf/Project/c/42cursus/other_test/libftwar/dirlibft/libft.a
 
 = Part1_functions ==============================================================
 
@@ -517,7 +517,7 @@ Diff OK :D
 = Test 10 ==================================================
 $> ./user_exe 10
 $> diff -U 3 user_output_test10 test10.output
---- /Users/hf/Project/c/42cursus/other_test/libftwar/tests/Part1_functions/ft_strnstr/user_output_test10	2024-11-03 22:57:54$
+--- /Users/hf/Project/c/42cursus/other_test/libftwar/tests/Part1_functions/ft_strnstr/user_output_test10	2024-11-03 23:04:32$
 +++ /Users/hf/Project/c/42cursus/other_test/libftwar/tests/Part1_functions/ft_strnstr/test10.output	2024-11-03 22:29:20$
 @@ -1 +1 @@$
 -lorem ipsum dolor sit amet$
@@ -584,15 +584,8 @@ Diff OK :D
 = Test 11 ==================================================
 $> ./user_exe 11
 $> diff -U 3 user_output_test11 test11.output
---- /Users/hf/Project/c/42cursus/other_test/libftwar/tests/Part1_functions/ft_strncmp/user_output_test11	2024-11-03 22:57:56$
-+++ /Users/hf/Project/c/42cursus/other_test/libftwar/tests/Part1_functions/ft_strncmp/test11.output	2024-11-03 22:29:20$
-@@ -1 +1 @@$
---1$
-\ No newline at end of file$
-+1$
-\ No newline at end of file$
 
-Diff KO :(
+Diff OK :D
 
 = ft_atoi.c ====================================================================
 $> norminette ft_atoi.c | grep -E '(Error|Warning)'

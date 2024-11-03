@@ -266,6 +266,8 @@ void	test_strncmp(void)
 	char	*s6;
 	char	*s7;
 	char	*s8;
+	char	*s9;
+	char	*s10;
 
 	s1 = "hi";
 	s2 = "hi";
@@ -285,6 +287,9 @@ void	test_strncmp(void)
 	TEST_ASSERT_EQUAL_INT(strncmp(s7, s1, 3), ft_strncmp(s7, s1, 3));
 	s8 = "hi\0hello";
 	TEST_ASSERT_EQUAL_INT(strncmp(s8, s1, 5), ft_strncmp(s8, s1, 5));
+	s9 = "test\200";
+	s10 = "test\0";
+	TEST_ASSERT_EQUAL_INT(strncmp(s9, s10, 6), ft_strncmp(s9, s10, 6));
 }
 
 void	test_memchr(void)
