@@ -43,6 +43,9 @@ void	test_isalpha(void)
 	n = 70;
 	TEST_ASSERT_EQUAL_INT(1, ft_isalpha(n));
 	TEST_ASSERT_EQUAL_INT(isalpha(n) != 0, ft_isalpha(n));
+	n = 92;
+	TEST_ASSERT_EQUAL_INT(0, ft_isalpha(n));
+	TEST_ASSERT_EQUAL_INT(isalpha(n) != 0, ft_isalpha(n));
 }
 
 void	test_isdigit(void)
