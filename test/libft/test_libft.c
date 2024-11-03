@@ -352,6 +352,16 @@ void test_substr()
     TEST_ASSERT_EQUAL_INT(0, ft_substr(0, 2, 0));
 }
 
+void test_strjoin()
+{
+    TEST_ASSERT_EQUAL_STRING("s1s2", ft_strjoin("s1", "s2"));
+    TEST_ASSERT_EQUAL_STRING("s1", ft_strjoin("s1", ""));
+    TEST_ASSERT_EQUAL_STRING("s1", ft_strjoin("s1", 0));
+    TEST_ASSERT_EQUAL_STRING("s2", ft_strjoin("", "s2"));
+    TEST_ASSERT_EQUAL_STRING("s2", ft_strjoin(0, "s2"));
+    TEST_ASSERT_EQUAL_STRING("", ft_strjoin(0, 0));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -375,6 +385,7 @@ int main(void) {
     // RUN_TEST(test_strnstr);
     // RUN_TEST(test_atoi);
     // RUN_TEST(test_calloc);
-    RUN_TEST(test_substr);
+    // RUN_TEST(test_substr);
+    RUN_TEST(test_strjoin);
     return UNITY_END();
 }
