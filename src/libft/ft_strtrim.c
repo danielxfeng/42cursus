@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:10:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 19:28:40 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/03 19:50:52 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	start;
 	size_t	end;
-	char	*p;
 
 	if (!s1 || !set)
 		return ((char *)(s1));
