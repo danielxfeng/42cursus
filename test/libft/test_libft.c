@@ -362,6 +362,13 @@ void test_strjoin()
     TEST_ASSERT_EQUAL_STRING("", ft_strjoin(0, 0));
 }
 
+void test_strtrim()
+{
+    TEST_ASSERT_EQUAL_STRING("strs", ft_strtrim("trstrstr","rt"));
+    TEST_ASSERT_EQUAL_INT(0, ft_strtrim(0,"rt"));
+    TEST_ASSERT_EQUAL_STRING("trstrstr", ft_strtrim("trstrstr",0));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -386,6 +393,7 @@ int main(void) {
     // RUN_TEST(test_atoi);
     // RUN_TEST(test_calloc);
     // RUN_TEST(test_substr);
-    RUN_TEST(test_strjoin);
+    // RUN_TEST(test_strjoin);
+    RUN_TEST(test_strtrim);
     return UNITY_END();
 }
