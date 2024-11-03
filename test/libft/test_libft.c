@@ -342,6 +342,15 @@ void test_strdup()
     TEST_ASSERT_EACH_EQUAL_STRING(strdup(""), ft_strdup(""), 1);
 }
 
+void test_substr()
+{
+    TEST_ASSERT_EACH_EQUAL_STRING("tri", ft_substr("string", 1, 3), 4);
+    TEST_ASSERT_EACH_EQUAL_STRING("st", ft_substr("string", 0, 2), 3);
+    TEST_ASSERT_EACH_EQUAL_STRING("g", ft_substr("string", 5, 3), 2);
+    TEST_ASSERT_EACH_EQUAL_STRING("", ft_substr("string", 10, 3), 1);
+    TEST_ASSERT_EACH_EQUAL_STRING("", ft_substr("string", 2, 0), 1);
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
