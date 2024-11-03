@@ -393,6 +393,36 @@ void test_itoa()
     TEST_ASSERT_EQUAL_STRING("-2147483648", ft_itoa(-2147483648));
 }
 
+char test_map(unsigned int i, char c)
+{
+    return (i + '0');
+}
+
+void test_iter(unsigned int i, char *c)
+{
+    *c = i + '0';
+}
+
+void test_strmapi()
+{
+    TEST_ASSERT_EQUAL_STRING("0", ft_strmapi("a", test_map));
+    TEST_ASSERT_EQUAL_STRING("01234", ft_strmapi("aaaaa", test_map));
+    TEST_ASSERT_EQUAL_STRING("", ft_strmapi("", test_map));
+}
+
+void test_striteri()
+{
+    char t1[] = "a";
+    ft_striteri(t1, test_iter);
+    TEST_ASSERT_EQUAL_STRING("0", t1);
+    char t2[] = "01234";
+    ft_striteri(t2, test_iter);
+    TEST_ASSERT_EQUAL_STRING("01234", t2);
+    char t3[] = "";
+    ft_striteri(t3, test_iter);
+    TEST_ASSERT_EQUAL_STRING("", t3);
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -420,7 +450,9 @@ int main(void) {
     // RUN_TEST(test_strjoin);
     // RUN_TEST(test_strtrim);
     // RUN_TEST(test_split);
-    RUN_TEST(test_itoa);
+    // RUN_TEST(test_itoa);
+    RUN_TEST(test_strmapi);
+    RUN_TEST(test_striteri);
 
     return UNITY_END();
 }
