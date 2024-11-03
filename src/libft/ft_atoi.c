@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 10:49:38 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 11:36:13 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/03 19:25:14 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ int	ft_atoi(const char *nptr)
 		return (-1);
 	if (n * sign < INT_MIN)
 		return (0);
-	return (int)(n * sign);
+	return ((int)(n * sign));
 }

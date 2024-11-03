@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:10:06 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 13:49:25 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/03 19:26:24 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	d_len;
 	char	*p;
 
-    if (!s)
-        return (NULL);
+	if (!s)
+		return (NULL);
 	s_len = ft_strlen(s);
 	if (start > s_len)
 		d_len = 0;
