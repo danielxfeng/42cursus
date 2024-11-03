@@ -344,11 +344,12 @@ void test_strdup()
 
 void test_substr()
 {
-    TEST_ASSERT_EACH_EQUAL_STRING("tri", ft_substr("string", 1, 3), 4);
-    TEST_ASSERT_EACH_EQUAL_STRING("st", ft_substr("string", 0, 2), 3);
-    TEST_ASSERT_EACH_EQUAL_STRING("g", ft_substr("string", 5, 3), 2);
-    TEST_ASSERT_EACH_EQUAL_STRING("", ft_substr("string", 10, 3), 1);
-    TEST_ASSERT_EACH_EQUAL_STRING("", ft_substr("string", 2, 0), 1);
+    TEST_ASSERT_EQUAL_STRING("tri", ft_substr("string", 1, 3));
+    TEST_ASSERT_EQUAL_STRING("st", ft_substr("string", 0, 2));
+    TEST_ASSERT_EQUAL_STRING("g", ft_substr("string", 5, 3));
+    TEST_ASSERT_EQUAL_STRING("", ft_substr("string", 10, 3));
+    TEST_ASSERT_EQUAL_STRING("", ft_substr("string", 2, 0));
+    TEST_ASSERT_EQUAL_INT(0, ft_substr(0, 2, 0));
 }
 
 // Main function to run the tests
@@ -373,6 +374,7 @@ int main(void) {
     // RUN_TEST(test_memcmp);
     // RUN_TEST(test_strnstr);
     // RUN_TEST(test_atoi);
-    RUN_TEST(test_calloc);
+    // RUN_TEST(test_calloc);
+    RUN_TEST(test_substr);
     return UNITY_END();
 }
