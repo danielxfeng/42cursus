@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head.ejs", { title: title }) %>
+  <body>
+    <%- include("partials/header.ejs", { title: title }) %>
+    <main>
+      <h1><%= title %></h1>
+      <% if (locals.errors && errors.length > 0) { %> 
+        <%- include("partials/error.ejs", { errors: errors }) %> 
+      <% } %>
+      <div>
+        <form action="<%= `/${link}/create` %>" method="post">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+            <% if (link === "student") {%>
+            <label for="depart_id">Depart</label>
+            <select id="depart_id" name="depart_id" required>
+              <% departs.forEach(depart => { %>
+              <option value="<%= depart.id %>">
+                <%= depart.name %>
+              </option>
+              <% }) %>
+            </select>
+            <label for="nationality_id">Nationality</label>
+            <select id="nationality_id" name="nationality_id" required>
+              <% nationalities.forEach(nationality => { %>
+              <option value="<%= nationality.id %>">
+                <%= nationality.name %>
+              </option>
+              <% }) %>
+            </select>
+            <% } %>
+          </div>
+          <div>
+            <button type="submit">Create</button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+  </body>
+</html>

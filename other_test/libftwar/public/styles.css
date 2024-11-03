@@ -1,0 +1,185 @@
+html {
+  font-family: "Noto Sans", sans-serif;
+  background-color: #f5f5f5;
+  color: #075985;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+header {
+  background-color: #075985;
+  color: #f5f5f5;
+  width: 100%;
+  min-height: 75px;
+  flex: 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 50px;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 40px;
+}
+
+footer {
+  min-height: 50px;
+  flex: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  background-color: #075985;
+  color: #f5f5f5;
+}
+
+a {
+  display: inline-block;
+}
+
+a,
+button,
+.message {
+  transform: scale(1);
+  transition: transform 0.2s ease-in-out;
+}
+
+a:hover,
+button:hover,
+.message:hover {
+  transform: scale(1.08);
+}
+
+h1,
+h3,
+header p {
+  font-family: "Montserrat", system-ui;
+}
+
+header a,
+header a:hover,
+header a:visited,
+header a:active,
+header a:focus,
+footer a,
+footer a:hover,
+footer a:visited,
+footer a:active,
+footer a:focus {
+  color: inherit;
+}
+
+header a {
+  text-decoration: none;
+  font-size: 1.6rem;
+  margin-left: 40px;
+}
+
+ul {
+  display: flex;
+  gap: 20px;
+}
+
+li {
+  list-style: none;
+}
+
+nav a {
+  font-size: 1rem;
+}
+
+main h1,
+main div,
+main a,
+main form {
+  margin-left: 40px;
+}
+
+main a {
+  text-decoration: none;
+  width: fit-content;
+  color: #f5f5f5;
+  background-color: #075985;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+form, form div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 80%;
+}
+
+input,
+textarea,
+select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #075985;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: #075985;
+  color: #f5f5f5;
+  font-size: large;
+  cursor: pointer;
+}
+
+table {
+  width: 80%;
+}
+
+table .actions {
+  display: flex;
+  justify-content: center;
+}
+
+table .actions form {
+  width: fit-content;
+}
+
+th {
+  height: 30px;
+}
+
+th, td {
+  text-align: center;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+th, tbody tr:nth-child(even) {
+  background-color: #e5e7eb;
+}
+
+.id, .depart_id, .nationality_id {
+  display: none;
+}
+
+table .actions button, table .actions a {
+  line-height: 1.5;
+  padding: 5px 15px;
+  font-size: 0.8rem;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.errors {
+  color: red;
+}
