@@ -366,6 +366,23 @@ void test_strtrim()
     TEST_ASSERT_EQUAL_STRING("trstrstr", ft_strtrim("trstrstr",0));
 }
 
+void test_split()
+{
+    char *res1[] = {"a", "bb", "cc", NULL};
+    char **ret1 = ft_split("aebbecc", 'e');
+    int i = 0;
+    TEST_ASSERT_EQUAL_STRING_ARRAY(res1, ret1, 4);
+    char *res2[] = {"a", "bb", "cc", NULL};
+    char **ret2 = ft_split("eeaebbeecce", 'e');
+    TEST_ASSERT_EQUAL_STRING_ARRAY(res2, ret2, 4);
+    char *res3[] = {NULL};
+    char **ret3 = ft_split("", 'e');
+    TEST_ASSERT_EQUAL_STRING_ARRAY(res3, ret3, 1);
+    char *res4[] = {NULL};
+    char **ret4 = ft_split("eeeeeeeee", 'e');
+    TEST_ASSERT_EQUAL_STRING_ARRAY(res4, ret4, 1);
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -391,7 +408,8 @@ int main(void) {
     // RUN_TEST(test_calloc);
     // RUN_TEST(test_substr);
     // RUN_TEST(test_strjoin);
-    RUN_TEST(test_strtrim);
+    // RUN_TEST(test_strtrim);
+    RUN_TEST(test_split);
 
     return UNITY_END();
 }
