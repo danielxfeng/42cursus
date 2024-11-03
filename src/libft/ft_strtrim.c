@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:10:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 14:35:52 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/03 14:44:05 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char	*p;
 
 	if (!s1 || !set)
-		return (s1);
+		return (char *)(s1);
 	start = 0;
 	while (s1[start] && ft_strchr(set, s1[start]))
 		++start;
