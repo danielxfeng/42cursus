@@ -335,6 +335,13 @@ void test_calloc()
     TEST_ASSERT_EQUAL_INT(calloc(SIZE_MAX - 1, SIZE_MAX - 1), ft_calloc(SIZE_MAX - 1, SIZE_MAX - 1));
 }
 
+void test_strdup()
+{
+    TEST_ASSERT_EACH_EQUAL_STRING(strdup("str"), ft_strdup("str"), 4);
+    TEST_ASSERT_EACH_EQUAL_STRING(strdup("string"), ft_strdup("string"), 6);
+    TEST_ASSERT_EACH_EQUAL_STRING(strdup(""), ft_strdup(""), 1);
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
