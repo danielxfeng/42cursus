@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 12:09:54 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 12:16:13 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/03 12:19:40 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strdup(const char *s)
 	char	*p;
 
 	len = ft_strlen(s) + 1;
-	p = calloc(len, sizeof(char));
+	p = ft_calloc(len, sizeof(char));
 	if (!p)
 		return (NULL);
 	ft_strlcpy(p, s, len);
