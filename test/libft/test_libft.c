@@ -4,6 +4,8 @@
 #include <string.h>
 #include <limits.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
 // #include <bsd/string.h>
 
 // Setup function called before each test
@@ -325,6 +327,14 @@ void test_atoi()
     TEST_ASSERT_EQUAL_INT(atoi("-9999999999999999999999999"), ft_atoi("-9999999999999999999999999"));
 }
 
+void test_calloc()
+{
+    TEST_ASSERT_EQUAL_MEMORY(calloc(2, 3), ft_calloc(2, 3), 6);
+    TEST_ASSERT_EQUAL_MEMORY(calloc(0, 3), ft_calloc(0, 3), 1);
+    TEST_ASSERT_EQUAL_MEMORY(calloc(0, 0), ft_calloc(0, 0), 1);
+    TEST_ASSERT_EQUAL_INT(calloc(SIZE_MAX - 1, SIZE_MAX - 1), ft_calloc(SIZE_MAX - 1, SIZE_MAX - 1));
+}
+
 // Main function to run the tests
 int main(void) {
     UNITY_BEGIN();
@@ -346,6 +356,7 @@ int main(void) {
     // RUN_TEST(test_memchr);
     // RUN_TEST(test_memcmp);
     // RUN_TEST(test_strnstr);
-    RUN_TEST(test_atoi);
+    // RUN_TEST(test_atoi);
+    RUN_TEST(test_calloc);
     return UNITY_END();
 }
