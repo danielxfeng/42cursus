@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 19:36:06 by Xifeng            #+#    #+#              #
-#    Updated: 2024/11/05 14:38:31 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/11/05 22:43:33 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCSB = ft_lstnew_bonus.c ft_lstadd_front_bonus.c \
 	ft_lstmap_bonus.c
 OBJS = ${SRCS:.c=.o}
 OBJSB = ${SRCSB:.c=.o}
+BONUS = .bonus
 NAME = libft.a
 LIBC = ar rcs
 CC = cc
@@ -41,12 +42,17 @@ ${NAME}: ${OBJS}
 all: ${NAME}
 
 bonus: ${NAME} ${OBJSB}
-	${LIBC} ${NAME} ${OBJSB}
+	@ if [ ! -f ${BONUS} ]; then \
+		${LIBC} ${NAME} ${OBJSB}; \
+		touch ${BONUS}; \
+	fi
+	
 clean:
 	${RM} ${OBJS} ${OBJSB}
+	${RM} ${BONUS}
 
 fclean: clean
-	${RM} ${NAME} ${bonus}
+	${RM} ${NAME}
 
 re: fclean all
 
