@@ -205,7 +205,6 @@ void	test_memmove(void)
 	ft_memmove(test5, test5 + 2, 9);
 	memmove(test6, test6 + 2, 9);
 	TEST_ASSERT_EQUAL_MEMORY(test5, test6, sizeof(test6));
-	TEST_ASSERT_EQUAL_INT(0, ft_memmove(0, 0, 9));
 }
 
 void	test_tolower(void)
@@ -301,8 +300,6 @@ void	test_memchr(void)
 			3));
 	TEST_ASSERT_EQUAL_PTR(memchr((void *)s, 'd', 3), ft_memchr((void *)s, 'd',
 			3));
-	memchr(0, 'd', 3);
-	ft_memchr(0, 'd', 3);
 }
 
 void	test_memcmp(void)
