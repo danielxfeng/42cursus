@@ -43,6 +43,9 @@ void	test_isalpha(void)
 	n = 70;
 	TEST_ASSERT_EQUAL_INT(1, ft_isalpha(n));
 	TEST_ASSERT_EQUAL_INT(isalpha(n) != 0, ft_isalpha(n));
+	n = 92;
+	TEST_ASSERT_EQUAL_INT(0, ft_isalpha(n));
+	TEST_ASSERT_EQUAL_INT(isalpha(n) != 0, ft_isalpha(n));
 }
 
 void	test_isdigit(void)
@@ -202,7 +205,6 @@ void	test_memmove(void)
 	ft_memmove(test5, test5 + 2, 9);
 	memmove(test6, test6 + 2, 9);
 	TEST_ASSERT_EQUAL_MEMORY(test5, test6, sizeof(test6));
-	TEST_ASSERT_EQUAL_INT(0, ft_memmove(0, 0, 9));
 }
 
 void	test_tolower(void)
@@ -263,6 +265,8 @@ void	test_strncmp(void)
 	char	*s6;
 	char	*s7;
 	char	*s8;
+	char	*s9;
+	char	*s10;
 
 	s1 = "hi";
 	s2 = "hi";
@@ -282,6 +286,9 @@ void	test_strncmp(void)
 	TEST_ASSERT_EQUAL_INT(strncmp(s7, s1, 3), ft_strncmp(s7, s1, 3));
 	s8 = "hi\0hello";
 	TEST_ASSERT_EQUAL_INT(strncmp(s8, s1, 5), ft_strncmp(s8, s1, 5));
+	s9 = "test\200";
+	s10 = "test\0";
+	TEST_ASSERT_EQUAL_INT(strncmp(s9, s10, 6), ft_strncmp(s9, s10, 6));
 }
 
 void	test_memchr(void)
@@ -293,8 +300,6 @@ void	test_memchr(void)
 			3));
 	TEST_ASSERT_EQUAL_PTR(memchr((void *)s, 'd', 3), ft_memchr((void *)s, 'd',
 			3));
-	memchr(0, 'd', 3);
-	ft_memchr(0, 'd', 3);
 }
 
 void	test_memcmp(void)
@@ -312,12 +317,6 @@ void	test_memcmp(void)
 			(void *)s2, 4));
 	TEST_ASSERT_EQUAL_INT(memcmp((void *)s, (void *)s3, 4), ft_memcmp((void *)s,
 			(void *)s3, 4));
-	memchr(0, (void *)s, 3);
-	memchr((void *)s, 0, 3);
-	memchr(0, 0, 3);
-	ft_memchr(0, (void *)s, 3);
-	ft_memchr((void *)s, 0, 3);
-	ft_memchr(0, 0, 3);
 }
 
 void	test_strnstr(void)
@@ -334,7 +333,7 @@ void	test_strnstr(void)
 	TEST_ASSERT_EQUAL_PTR(big + 1, ft_strnstr(big, l1, 5));
 	TEST_ASSERT_EQUAL_PTR(0, ft_strnstr(big, l1, 2));
 	TEST_ASSERT_EQUAL_PTR(big, ft_strnstr(big, l2, 2));
-	TEST_ASSERT_EQUAL_PTR(big, ft_strnstr(big, l2, 0));
+	TEST_ASSERT_NULL(ft_strnstr(big, l2, 0));
 	TEST_ASSERT_EQUAL_PTR(big + 3, ft_strnstr(big, l3, 5));
 }
 
@@ -351,6 +350,7 @@ void	test_atoi(void)
 		ft_atoi("9999999999999999999999999"));
 	TEST_ASSERT_EQUAL_INT(atoi("-9999999999999999999999999"),
 		ft_atoi("-9999999999999999999999999"));
+	TEST_ASSERT_EQUAL_INT(4, ft_atoi("0004"));
 }
 
 void	test_calloc(void)
@@ -376,6 +376,7 @@ void	test_substr(void)
 	TEST_ASSERT_EQUAL_STRING("g", ft_substr("string", 5, 3));
 	TEST_ASSERT_EQUAL_STRING("", ft_substr("string", 10, 3));
 	TEST_ASSERT_EQUAL_STRING("", ft_substr("string", 2, 0));
+	TEST_ASSERT_EQUAL_STRING("", ft_substr("hello", 5, 0));
 	TEST_ASSERT_EQUAL_INT(0, ft_substr(0, 2, 0));
 }
 

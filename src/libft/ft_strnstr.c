@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 16:55:33 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 19:28:16 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/03 23:09:53 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	i;
 	size_t	j;
 
-	if (len == 0 || !*little)
+	if (!*little)
 		return ((char *)(big));
+	if (!len)
+		return (NULL);
 	i = 0;
 	while (big[i] && i < len)
 	{
