@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 17:46:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/03 23:25:36 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/07 11:16:16 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static void	itoa(int n, char *buf)
 	size_t	i;
 
 	ln = n;
+	ft_bzero(buf, 16);
 	if (ln == 0)
 	{
-		buf[0] = '0';
+		buf[15] = '0';
 		return ;
 	}
-	ft_bzero(buf, 16);
 	i = 15;
 	if (ln < 0)
 		ln = -ln;

@@ -317,12 +317,6 @@ void	test_memcmp(void)
 			(void *)s2, 4));
 	TEST_ASSERT_EQUAL_INT(memcmp((void *)s, (void *)s3, 4), ft_memcmp((void *)s,
 			(void *)s3, 4));
-	memchr(0, (void *)s, 3);
-	memchr((void *)s, 0, 3);
-	memchr(0, 0, 3);
-	ft_memchr(0, (void *)s, 3);
-	ft_memchr((void *)s, 0, 3);
-	ft_memchr(0, 0, 3);
 }
 
 void	test_strnstr(void)
