@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 19:36:06 by Xifeng            #+#    #+#              #
-#    Updated: 2024/11/07 11:43:57 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/11/07 11:59:37 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,9 +48,5 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-
-so:
-	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS)
-	gcc -nostartfiles -shared -o libft.so $(OBJS)
 
 re: fclean all
