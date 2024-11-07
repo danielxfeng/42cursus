@@ -350,6 +350,7 @@ void	test_atoi(void)
 		ft_atoi("9999999999999999999999999"));
 	TEST_ASSERT_EQUAL_INT(atoi("-9999999999999999999999999"),
 		ft_atoi("-9999999999999999999999999"));
+	TEST_ASSERT_EQUAL_INT(4, ft_atoi("0004"));
 }
 
 void	test_calloc(void)
@@ -375,6 +376,7 @@ void	test_substr(void)
 	TEST_ASSERT_EQUAL_STRING("g", ft_substr("string", 5, 3));
 	TEST_ASSERT_EQUAL_STRING("", ft_substr("string", 10, 3));
 	TEST_ASSERT_EQUAL_STRING("", ft_substr("string", 2, 0));
+	TEST_ASSERT_EQUAL_STRING("", ft_substr("hello", 5, 0));
 	TEST_ASSERT_EQUAL_INT(0, ft_substr(0, 2, 0));
 }
 

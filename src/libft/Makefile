@@ -6,12 +6,12 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 19:36:06 by Xifeng            #+#    #+#              #
-#    Updated: 2024/11/07 11:59:37 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/11/07 16:53:13 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-cc = gcc
+cc = cc
 FLAGS = -Wall -Wextra -Werror
 
 SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c \
@@ -48,5 +48,6 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+
 
 re: fclean all
