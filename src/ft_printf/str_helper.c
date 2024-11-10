@@ -6,13 +6,13 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:29:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/08 14:44:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/10 20:04:36 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-static int	ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:36:05 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/08 14:42:22 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/10 19:49:43 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 
+int		ft_strlen(const char *s);
 int		ft_printf(const char *str, ...);
 int		print_char(char c);
 int		print_str(char *s);
