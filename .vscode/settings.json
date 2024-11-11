@@ -8,6 +8,7 @@
     "*.embeddedhtml": "html",
     "*.css": "tailwindcss",
     "unity.h": "c",
-    "bitset": "c"
+    "bitset": "c",
+    "libft.h": "c"
   }
 }
