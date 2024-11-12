@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:49:44 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/08 15:09:27 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/12 18:21:22 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,24 @@ int	print_nbr(int n)
 	return (count);
 }
 
-static int	print_format_str(const char *str, va_list args)
+static int	print_format_str(const char *str, va_list *args)
 {
 	if (*str == 'c')
-		return (print_char((char)va_arg(args, int)));
+		return (print_char((char)va_arg(*args, int)));
 	if (*str == 's')
-		return (print_str(va_arg(args, char *)));
+		return (print_str(va_arg(*args, char *)));
 	if (*str == 'p')
-		return (print_ptr(va_arg(args, void *)));
+		return (print_ptr(va_arg(*args, void *)));
 	if (*str == 'd')
-		return (print_nbr(va_arg(args, int)));
+		return (print_nbr(va_arg(*args, int)));
 	if (*str == 'i')
-		return (print_nbr(va_arg(args, int)));
+		return (print_nbr(va_arg(*args, int)));
 	if (*str == 'u')
-		return (print_unsigned_nbr(va_arg(args, unsigned int)));
+		return (print_unsigned_nbr(va_arg(*args, unsigned int)));
 	if (*str == 'x')
-		return (print_hex(va_arg(args, unsigned int), 1));
+		return (print_hex(va_arg(*args, unsigned int), 1));
 	if (*str == 'X')
-		return (print_hex(va_arg(args, unsigned int), 0));
+		return (print_hex(va_arg(*args, unsigned int), 0));
 	return (0);
 }
 
@@ -80,7 +80,7 @@ int	ft_printf(const char *str, ...)
 			if (str[i] == '%')
 				count += print_char('%');
 			else
-				count += print_format_str(&str[i], args);
+				count += print_format_str(&str[i], &args);
 		}
 		else
 			count += print_char(str[i]);
