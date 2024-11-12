@@ -9,6 +9,7 @@
     "*.embeddedhtml": "html",
     "unity.h": "c",
     "bitset": "c",
+    "libft.h": "c",
     "unistd.h": "c"
   }
 }
