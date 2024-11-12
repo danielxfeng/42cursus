@@ -5,10 +5,11 @@
   "42header.username": "Xifeng",
   "42header.email": "xifeng@student.hive.fi",
   "files.associations": {
-    "*.embeddedhtml": "html",
     "*.css": "tailwindcss",
+    "*.embeddedhtml": "html",
     "unity.h": "c",
     "bitset": "c",
-    "libft.h": "c"
+    "libft.h": "c",
+    "unistd.h": "c"
   }
 }
