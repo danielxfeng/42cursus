@@ -6,12 +6,12 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:41:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/10 20:17:18 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/12 10:56:49 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include <stdint.h>
-#include <unistd.h>
 
 static int	utoa_base(uintptr_t n, char *base, char *buf, size_t buf_size)
 {
@@ -44,7 +44,6 @@ int	print_ptr(void *ptr)
 	}
 	write(1, "0x", 2);
 	first_idx = utoa_base((uintptr_t)ptr, "0123456789abcdef", buf, 16);
-	write(1, "00000000", 8 - (15 - first_idx));
 	return (write(1, &buf[first_idx], 16 - first_idx) + 2);
 }
 
