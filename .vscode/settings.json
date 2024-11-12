@@ -10,6 +10,7 @@
     "unity.h": "c",
     "bitset": "c",
     "libft.h": "c",
-    "unistd.h": "c"
+    "unistd.h": "c",
+    "stdio.h": "c"
   }
 }

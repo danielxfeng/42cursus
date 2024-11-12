@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:53:40 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/12 13:37:20 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/12 14:54:21 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	join_str(char **prev, char **buf)
 	i = 0;
 	if (*prev)
 	{
-		while ((*prev)[i])
-			p[i] = (*prev)[i++];
+		ft_memcpy(p, *prev, str_length(*prev));
+		i = str_length(*prev);
 	}
 	j = 0;
 	while ((*buf)[j])
@@ -54,7 +54,7 @@ int	join_str(char **prev, char **buf)
 
 char	*split_str_by_lb(char **s)
 {
-	size_t	i;
+	ssize_t	i;
 
 	if (!s || !*s)
 		return (NULL);
@@ -66,11 +66,10 @@ char	*split_str_by_lb(char **s)
 	return (split_helper(s, i));
 }
 
-char	*split_helper(char **s, size_t idx)
+char	*split_helper(char **s, ssize_t idx)
 {
-	char *l;
-	char *r;
-	size_t i;
+	char	*l;
+	char	*r;
 
 	l = malloc((idx + 1) * sizeof(char));
 	if (!l)
@@ -81,13 +80,30 @@ char	*split_helper(char **s, size_t idx)
 		free(l);
 		return (NULL);
 	}
-	i = 0;
-	while (i < idx)
-		l[i] = (*s)[i++];
-	l[i] = '\0';
-	while (i < str_length(*s))
-		r[i - idx] = (*s)[i++];
+	ft_memcpy(l, *s, idx);
+	l[idx] = '\0';
+	ft_memcpy(r, &(*s)[idx], str_length(*s) - idx);
 	free(*s);
 	*s = r;
 	return (l);
+}
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char		*ptr_dest;
+	const unsigned char	*ptr_src;
+	const unsigned char	*stop;
+
+	ptr_dest = dest;
+	ptr_src = src;
+	if (!ptr_dest && !ptr_src)
+		return (dest);
+	stop = src + n;
+	while (ptr_src < stop)
+	{
+		*ptr_dest = *ptr_src;
+		++ptr_src;
+		++ptr_dest;
+	}
+	return (dest);
 }

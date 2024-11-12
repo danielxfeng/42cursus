@@ -6,14 +6,12 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:53:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/12 13:36:51 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/12 13:54:34 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h>
-#include <stdio.h>
-
 
 char	*get_next_line(int fd)
 {
@@ -94,5 +92,5 @@ char	*return_null(char **prev, char **buf)
 		free(buf);
 		*buf = NULL;
 	}
-	return (NULL);
+	return (0);
 }
