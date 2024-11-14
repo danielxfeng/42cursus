@@ -27,6 +27,7 @@ char *fill_str()
     char *s1 = malloc(100 * sizeof(char));
     while (str[i++])
         s1[i - 1] = str[i - 1];
+    s1[i - 1] = '\0';
     return s1;
 }
 
@@ -38,6 +39,7 @@ void    test_append_str()
     size_t len = 3;
     append_str_in_heap(&s1, s2, len);
     TEST_ASSERT_EQUAL_STRING("hello worldthi", s1);
+    free(s1);
     s1 = NULL;
     append_str_in_heap(&s1, s2, len);
     TEST_ASSERT_EQUAL_STRING("thi", s1);
@@ -57,13 +59,17 @@ void test_first_lb()
 void test_extract_line()
 {
     char *s1 = fill_str();
-    TEST_ASSERT_EQUAL_STRING("h", extract_line(&s1, 0));
+    char *v1 = extract_line(&s1, 0);
+    TEST_ASSERT_EQUAL_STRING("h", v1);
     TEST_ASSERT_EQUAL_STRING("ello world", s1);
     free(s1);
+    free(v1);
     char *s2 = fill_str();
-    TEST_ASSERT_EQUAL_STRING("hello", extract_line(&s2, 4));
+    char *v2 = extract_line(&s2, 4);
+    TEST_ASSERT_EQUAL_STRING("hello", v2);
     TEST_ASSERT_EQUAL_STRING(" world", s2);
     free(s2);
+    free(v2);
 }
 
 void test_wrong_file()
@@ -83,17 +89,23 @@ void test_empty_file()
 void test_empty_2lines()
 {
     int fd = open("./test/get_next_line/files/nl", O_RDWR);
-    TEST_ASSERT_EQUAL_STRING("\n", get_next_line(fd));
+    char *v1 = get_next_line(fd);
+    TEST_ASSERT_EQUAL_STRING("\n", v1);
     TEST_ASSERT_NULL(get_next_line(fd));
+    free(v1);
     close(fd);    
 }
 
 void test_41nl()
 {
     int fd = open("./test/get_next_line/files/41_with_nl", O_RDWR);
-    TEST_ASSERT_EQUAL_STRING("0123456789012345678901234567890123456789\n", get_next_line(fd));
-    TEST_ASSERT_EQUAL_STRING("0", get_next_line(fd));
+    char *v1 = get_next_line(fd);
+    TEST_ASSERT_EQUAL_STRING("0123456789012345678901234567890123456789\n", v1);
+    char *v2 = get_next_line(fd);
+    TEST_ASSERT_EQUAL_STRING("0", v2);
     TEST_ASSERT_NULL(get_next_line(fd));
+    free(v1);
+    free(v2);
     close(fd);    
 }
 
@@ -107,7 +119,5 @@ int	main(void)
     RUN_TEST(test_empty_file);
     RUN_TEST(test_empty_2lines);
     RUN_TEST(test_41nl);
-
-
 	return (UNITY_END());
 }
