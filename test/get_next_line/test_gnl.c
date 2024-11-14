@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
+// valgrind --leak-check=full --show-leak-kinds=all ./build/test_gnl 
 
 // Setup function called before each test
 void	setUp(void)
