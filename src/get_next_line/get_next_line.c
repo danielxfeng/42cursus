@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:27:29 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/14 16:45:08 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/14 18:03:54 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,13 @@ char	*replicate_str(char **str)
 	res[len] = '\0';
 	free_helper(str);
 	return (res);
+}
+
+void	free_helper(char **str)
+{
+	if (*str)
+	{
+		free(*str);
+		*str = NULL;
+	}
 }

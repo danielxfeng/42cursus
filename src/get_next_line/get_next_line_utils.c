@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:27:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/14 14:19:42 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/14 18:03:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,6 @@ size_t	str_len(char *s)
 	while (s[i])
 		++i;
 	return (i);
-}
-
-void	free_helper(char **str)
-{
-	if (*str)
-	{
-		free(*str);
-		*str = NULL;
-	}
 }
 
 // Appends `chars` to the end of `str`.
