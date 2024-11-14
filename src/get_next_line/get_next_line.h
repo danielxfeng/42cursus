@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:21:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/14 19:14:12 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/14 21:16:09 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-size_t	str_len(char *s);
-void	free_helper(char **str);
-void	append_str_in_heap(char **str, char *chars, size_t len);
-char	*extract_line(char **str, size_t idx);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-ssize_t	first_lb(const char *s);
-int		read_from_file(int fd, char **cache, ssize_t *bytesread);
 char	*get_next_line(int fd);
-char	*replicate_str(char **str);
 
 #endif

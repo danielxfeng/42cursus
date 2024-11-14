@@ -6,11 +6,13 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:27:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/14 20:45:24 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/14 21:15:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	free_helper(char **str);
 
 // ft_strlen, but returns `0` when `s` is NULL.
 size_t	str_len(char *s)
@@ -53,38 +55,13 @@ void	append_str_in_heap(char **str, char *chars, size_t len)
 	*str = res;
 }
 
-// Extract one line from `str`
-// `idx` is the position of first lb.
-// If `malloc` fails, `*str` is freed and set to NULL.
-char	*extract_line(char **str, size_t idx)
+static char *extract_free_helper(char **s1, char**s2)
 {
-	char	*left;
-	char	*right;
-	size_t	len;
-
-	left = malloc((idx + 2) * sizeof(char));
-	if (!left)
-	{
-		free_helper(str);
-		return (NULL);
-	}
-	len = str_len(*str);
-	right = malloc((len - idx) * sizeof(char));
-	if (!right)
-	{
-		free_helper(&left);
-		free_helper(str);
-		return (NULL);
-	}
-	ft_memcpy(left, *str, idx + 1);
-	left[idx + 1] = '\0';
-	ft_memcpy(right, &((*str)[idx + 1]), len - idx - 1);
-	right[len - idx - 1] = '\0';
-	free_helper(str);
-	*str = right;
-	if (**str == '\0')
-		free_helper(str);
-	return (left);
+	if (s1)
+		free_helper(s1);
+	if (s2)
+		free_helper(s2);
+	return (NULL);
 }
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
@@ -107,18 +84,32 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-// Returns the index of the first linebreaker in `s`.
-// Returns -1 when not found.
-ssize_t	first_lb(const char *s)
+// Extract one line from `str`
+// `idx` is the position of first lb.
+// If `malloc` fails, `*str` is freed and set to NULL.
+char	*extract_line(char **str, size_t idx)
 {
-	ssize_t	i;
+	char	*left;
+	char	*right;
+	size_t	len;
 
-	i = 0;
-	while (s[i])
+	left = malloc((idx + 2) * sizeof(char));
+	if (!left)
+		return extract_free_helper(str, NULL);
+	len = str_len(*str);
+	ft_memcpy(left, *str, idx + 1);
+	left[idx + 1] = '\0';	
+	if (len - idx > 1)
 	{
-		if (s[i] == '\n')
-			return (i);
-		++i;
+		right = malloc((len - idx) * sizeof(char));
+		if (!right)
+			return extract_free_helper(&left, str);
+		ft_memcpy(right, &((*str)[idx + 1]), len - idx - 1);
+		right[len - idx - 1] = '\0';
+		free_helper(str);
+		*str = right;
 	}
-	return (-1);
+	else
+		free_helper(str);
+	return (left);
 }
