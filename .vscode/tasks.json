@@ -62,7 +62,7 @@
                 "-g",
                 "-o", "build/${fileBasenameNoExtension}",
                 "${file}",
-                "src/ft_printf/*.c",
+                "src/get_next_line/*.c",
                 "test/unity/unity.c",
                 "-Itest/unity",
                 "-I./src/libft/includes"

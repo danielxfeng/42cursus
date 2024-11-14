@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/10 20:52:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/12 14:08:11 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/13 16:21:15 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/14 12:52:51 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-char	*get_next_line(int fd);
-char	*parse_from_file(int fd, char **buf, char **prev);
-char	*parse_from_buf(char **buf, char **prev);
-char	*return_null(char **prev, char **buf);
-ssize_t	str_length(char *s);
-int		join_str(char **prev, char **buf);
-char	*split_str_by_lb(char **s);
-char	*split_helper(char **s, ssize_t idx);
+size_t	str_len(char *s);
+void	free_helper(char **str);
+void	append_str_in_heap(char **str, char *chars, size_t len);
+char	*extract_line(char **str, size_t idx);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+ssize_t	first_lb(const char *s);
+int		read_from_file(int fd, char **cache, ssize_t *bytesread);
+char	*get_next_line(int fd);
 
 #endif

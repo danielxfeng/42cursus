@@ -5,92 +5,59 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/10 20:53:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/12 13:54:34 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/13 16:27:29 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/14 13:04:16 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
 
 char	*get_next_line(int fd)
 {
-	static char	*buf;
-	char		*prev;
-	char		*p;
+	static char	*cache;
+	char		*res;
+	ssize_t		idx;
+	ssize_t		bytesread;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	prev = NULL;
+	bytesread = 1;
 	while (1)
 	{
-		if (buf)
+		if (cache)
 		{
-			p = parse_from_buf(&buf, &prev);
-			if (p)
-				return (p);
-			if (!p && !buf)
-				return (NULL);
+			idx = first_lb(cache);
+			if (idx != -1)
+				return (extract_line(&cache, idx));
+			if (!bytesread)
+			{
+				res = cache;
+				cache = NULL;
+				return (res);
+			}
 		}
-		p = parse_from_file(fd, &buf, &prev);
-		if (p)
-			return (p);
-		if (!p && !buf)
+		if (!read_from_file(fd, &cache, &bytesread))
 			return (NULL);
 	}
 }
 
-char	*parse_from_file(int fd, char **buf, char **prev)
+int	read_from_file(int fd, char **cache, ssize_t *bytesread)
 {
-	ssize_t	bytes;
+	char	*buf;
 
-	*buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!*buf)
-		return (return_null(prev, NULL));
-	bytes = read(fd, *buf, BUFFER_SIZE);
-	if (bytes <= 0)
-		return (return_null(prev, buf));
-	(*buf)[bytes] = '\0';
-	if (!join_str(prev, buf))
-		return (return_null(prev, buf));
-	return (NULL);
-}
-
-char	*parse_from_buf(char **buf, char **prev)
-{
-	char	*p;
-
-	if (!buf || !*buf)
-		return (NULL);
-	p = split_str_by_lb(buf);
-	if (!p)
+	buf = malloc(BUFFER_SIZE * sizeof(char));
+	if (!buf)
 	{
-		free(*buf);
-		*buf = NULL;
-		return (NULL);
+		free_helper(cache);
+		return (0);
 	}
-	if (!(*buf)[0])
-	{
-		free(*buf);
-		*buf = NULL;
-	}
-	if (*buf || p[str_length(p) - 1] == '\n')
-		return (p);
-	*prev = p;
-	return (NULL);
-}
-
-char	*return_null(char **prev, char **buf)
-{
-	if (prev)
-	{
-		free(prev);
-		*prev = NULL;
-	}
-	if (buf)
-	{
-		free(buf);
-		*buf = NULL;
-	}
-	return (0);
+	*bytesread = read(fd, buf, BUFFER_SIZE);
+	if (*bytesread == -1)
+		free_helper(cache);
+	else
+		append_str_in_heap(cache, buf, *bytesread);
+	free_helper(&buf);
+	if (*bytesread == -1 || !cache)
+		return (0);
+	return (1);
 }
