@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 
 // Setup function called before each test
 void	setUp(void)
@@ -62,12 +63,39 @@ void test_extract_line()
     TEST_ASSERT_EQUAL_STRING(" world", s2);
 }
 
+void test_wrong_file()
+{
+    TEST_ASSERT_NULL(get_next_line(-1));
+    TEST_ASSERT_NULL(get_next_line(-1));
+}
+
+void test_empty_file()
+{
+    int fd = open("./test/get_next_line/files/empty", O_RDWR);
+    TEST_ASSERT_NULL(get_next_line(fd));
+    TEST_ASSERT_NULL(get_next_line(fd));
+    close(fd);
+}
+
+void test_empty_2lines()
+{
+    int fd = open("./test/get_next_line/files/nl", O_RDWR);
+    TEST_ASSERT_EQUAL_STRING("\n", get_next_line(fd));
+    printf("a%sa", get_next_line(fd));
+    //TEST_ASSERT_NULL(get_next_line(fd));
+    close(fd);    
+}
+
 int	main(void)
 {
 	UNITY_BEGIN();
 	RUN_TEST(test_append_str);
     RUN_TEST(test_first_lb);
     RUN_TEST(test_extract_line);
+    RUN_TEST(test_wrong_file);
+    RUN_TEST(test_empty_file);
+    RUN_TEST(test_empty_2lines);
+
 
 	return (UNITY_END());
 }

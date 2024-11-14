@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:27:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/14 12:59:59 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/14 14:19:42 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	append_str_in_heap(char **str, char *chars, size_t len)
 	size_t	i;
 	size_t	len_str;
 
+	if ((!*str || **str == '\0') && !len)
+		return (free_helper(str));
 	len_str = str_len(*str);
 	res = malloc((len_str + len + 1) * sizeof(char));
 	if (!res)

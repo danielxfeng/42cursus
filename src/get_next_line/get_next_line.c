@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:27:29 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/14 13:04:16 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/14 13:41:39 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	read_from_file(int fd, char **cache, ssize_t *bytesread)
 	else
 		append_str_in_heap(cache, buf, *bytesread);
 	free_helper(&buf);
-	if (*bytesread == -1 || !cache)
+	if (*bytesread == -1 || !*cache)
 		return (0);
 	return (1);
 }
