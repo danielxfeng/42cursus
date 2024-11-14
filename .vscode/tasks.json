@@ -60,6 +60,7 @@
             "command": "gcc",
             "args": [
                 "-g",
+                "-fsanitize=address",
                 "-o", "build/${fileBasenameNoExtension}",
                 "${file}",
                 "src/get_next_line/*.c",

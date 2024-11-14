@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:27:29 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/14 13:41:39 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/14 16:45:08 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*get_next_line(int fd)
 {
 	static char	*cache;
-	char		*res;
 	ssize_t		idx;
 	ssize_t		bytesread;
 
@@ -30,11 +29,7 @@ char	*get_next_line(int fd)
 			if (idx != -1)
 				return (extract_line(&cache, idx));
 			if (!bytesread)
-			{
-				res = cache;
-				cache = NULL;
-				return (res);
-			}
+				return (replicate_str(&cache));
 		}
 		if (!read_from_file(fd, &cache, &bytesread))
 			return (NULL);
@@ -60,4 +55,22 @@ int	read_from_file(int fd, char **cache, ssize_t *bytesread)
 	if (*bytesread == -1 || !*cache)
 		return (0);
 	return (1);
+}
+
+char	*replicate_str(char **str)
+{
+	char	*res;
+	size_t	len;
+
+	len = str_len(*str);
+	res = malloc((len + 1) * sizeof(char));
+	if (!res)
+	{
+		free_helper(str);
+		return (NULL);
+	}
+	ft_memcpy(res, *str, len);
+	res[len] = '\0';
+	free_helper(str);
+	return (res);
 }

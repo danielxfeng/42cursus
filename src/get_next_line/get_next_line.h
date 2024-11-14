@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:21:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/14 12:52:51 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/14 15:56:05 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 30720
+#  define BUFFER_SIZE 42
 # endif
 
 # include <stdio.h>
@@ -29,5 +29,6 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
 ssize_t	first_lb(const char *s);
 int		read_from_file(int fd, char **cache, ssize_t *bytesread);
 char	*get_next_line(int fd);
+char	*replicate_str(char **str);
 
 #endif

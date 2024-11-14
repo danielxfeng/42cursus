@@ -41,6 +41,7 @@ void    test_append_str()
     s1 = NULL;
     append_str_in_heap(&s1, s2, len);
     TEST_ASSERT_EQUAL_STRING("thi", s1);
+    free(s1);
 }
 
 void test_first_lb()
@@ -58,9 +59,11 @@ void test_extract_line()
     char *s1 = fill_str();
     TEST_ASSERT_EQUAL_STRING("h", extract_line(&s1, 0));
     TEST_ASSERT_EQUAL_STRING("ello world", s1);
+    free(s1);
     char *s2 = fill_str();
     TEST_ASSERT_EQUAL_STRING("hello", extract_line(&s2, 4));
     TEST_ASSERT_EQUAL_STRING(" world", s2);
+    free(s2);
 }
 
 void test_wrong_file()
@@ -81,8 +84,16 @@ void test_empty_2lines()
 {
     int fd = open("./test/get_next_line/files/nl", O_RDWR);
     TEST_ASSERT_EQUAL_STRING("\n", get_next_line(fd));
-    printf("a%sa", get_next_line(fd));
-    //TEST_ASSERT_NULL(get_next_line(fd));
+    TEST_ASSERT_NULL(get_next_line(fd));
+    close(fd);    
+}
+
+void test_41nl()
+{
+    int fd = open("./test/get_next_line/files/41_with_nl", O_RDWR);
+    TEST_ASSERT_EQUAL_STRING("0123456789012345678901234567890123456789\n", get_next_line(fd));
+    TEST_ASSERT_EQUAL_STRING("0", get_next_line(fd));
+    TEST_ASSERT_NULL(get_next_line(fd));
     close(fd);    
 }
 
@@ -95,6 +106,7 @@ int	main(void)
     RUN_TEST(test_wrong_file);
     RUN_TEST(test_empty_file);
     RUN_TEST(test_empty_2lines);
+    RUN_TEST(test_41nl);
 
 
 	return (UNITY_END());
