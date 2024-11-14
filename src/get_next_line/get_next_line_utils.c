@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:27:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/14 18:03:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/14 20:45:24 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ char	*extract_line(char **str, size_t idx)
 	right[len - idx - 1] = '\0';
 	free_helper(str);
 	*str = right;
+	if (**str == '\0')
+		free_helper(str);
 	return (left);
 }
 

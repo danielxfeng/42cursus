@@ -70,6 +70,12 @@ void test_extract_line()
     TEST_ASSERT_EQUAL_STRING(" world", s2);
     free(s2);
     free(v2);
+    char *s3 = fill_str();
+    char *v3 = extract_line(&s3, 10);
+    TEST_ASSERT_EQUAL_STRING("hello world", v3);
+    printf("----a%sa------", s3);
+    TEST_ASSERT_NULL(s3);
+    free(v3);
 }
 
 void test_wrong_file()
