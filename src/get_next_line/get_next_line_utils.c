@@ -5,89 +5,109 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/10 20:53:40 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/12 13:37:20 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/13 16:27:49 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/15 10:20:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-ssize_t	str_length(char *s)
+// ft_strlen, but returns `0` when `s` is NULL.
+size_t	str_len(char *s)
 {
-	ssize_t	i;
+	size_t	i;
 
-	i = 0;
 	if (!s)
-		return (i);
+		return (0);
+	i = 0;
 	while (s[i])
 		++i;
 	return (i);
 }
 
-int	join_str(char **prev, char **buf)
+// Appends `chars` to the end of `str`.
+// `str` should be dynamically allocated (on the heap).
+// `chars` is not null-terminated; `len` specifies its length.
+// If `malloc` fails, `*str` is freed and set to NULL.
+void	append_str_in_heap(char **str, char *chars, size_t len)
 {
-	ssize_t	len;
-	char	*p;
+	char	*res;
 	size_t	i;
-	size_t	j;
+	size_t	len_str;
 
-	len = str_length(*prev) + str_length(*buf);
-	p = malloc((len + 1) * sizeof(char));
-	if (!p)
-		return (0);
+	if ((!*str || **str == '\0') && !len)
+		return (free_helper(str));
+	len_str = str_len(*str);
+	res = malloc((len_str + len + 1) * sizeof(char));
+	if (!res)
+		return (free_helper(str));
 	i = 0;
-	if (*prev)
-	{
-		while ((*prev)[i])
-			p[i] = (*prev)[i++];
-	}
-	j = 0;
-	while ((*buf)[j])
-		p[i++] = (*buf)[j++];
-	p[i] = '\0';
-	free(*prev);
-	free(*buf);
-	*prev = NULL;
-	*buf = p;
-	return (1);
+	while (i++ < len_str)
+		res[i - 1] = (*str)[i - 1];
+	if (len_str)
+		free_helper(str);
+	i = 0;
+	while (i++ < len)
+		res[i + len_str - 1] = chars[i - 1];
+	res[i + len_str - 1] = '\0';
+	*str = res;
 }
 
-char	*split_str_by_lb(char **s)
+static char	*extract_free_helper(char **s1, char **s2)
 {
-	size_t	i;
-
-	if (!s || !*s)
-		return (NULL);
-	i = 0;
-	while ((*s)[i] && (*s)[i] != '\n')
-		++i;
-	if ((*s)[i] == '\n')
-		++i;
-	return (split_helper(s, i));
+	if (s1)
+		free_helper(s1);
+	if (s2)
+		free_helper(s2);
+	return (NULL);
 }
 
-char	*split_helper(char **s, size_t idx)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char *l;
-	char *r;
-	size_t i;
+	unsigned char		*ptr_dest;
+	const unsigned char	*ptr_src;
+	const unsigned char	*stop;
 
-	l = malloc((idx + 1) * sizeof(char));
-	if (!l)
-		return (NULL);
-	r = malloc((str_length(*s) - idx + 1) * sizeof(char));
-	if (!r)
+	ptr_dest = dest;
+	ptr_src = src;
+	if (!ptr_dest && !ptr_src)
+		return (dest);
+	stop = src + n;
+	while (ptr_src < stop)
 	{
-		free(l);
-		return (NULL);
+		*ptr_dest = *ptr_src;
+		++ptr_src;
+		++ptr_dest;
 	}
-	i = 0;
-	while (i < idx)
-		l[i] = (*s)[i++];
-	l[i] = '\0';
-	while (i < str_length(*s))
-		r[i - idx] = (*s)[i++];
-	free(*s);
-	*s = r;
-	return (l);
+	return (dest);
+}
+
+// Extract one line from `str`
+// `idx` is the position of first lb.
+// If `malloc` fails, `*str` is freed and set to NULL.
+char	*extract_line(char **str, size_t idx)
+{
+	char	*left;
+	char	*right;
+	size_t	len;
+
+	left = malloc((idx + 2) * sizeof(char));
+	if (!left)
+		return (extract_free_helper(str, NULL));
+	len = str_len(*str);
+	ft_memcpy(left, *str, idx + 1);
+	left[idx + 1] = '\0';
+	if (len - idx > 1)
+	{
+		right = malloc((len - idx) * sizeof(char));
+		if (!right)
+			return (extract_free_helper(&left, str));
+		ft_memcpy(right, &((*str)[idx + 1]), len - idx - 1);
+		right[len - idx - 1] = '\0';
+		free_helper(str);
+		*str = right;
+	}
+	else
+		free_helper(str);
+	return (left);
 }
