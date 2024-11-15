@@ -6,16 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:27:29 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/14 21:16:03 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/15 10:23:23 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	str_len(char *s);
-void	append_str_in_heap(char **str, char *chars, size_t len);
-char	*extract_line(char **str, size_t idx);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 void	free_helper(char **str)
 {
@@ -28,7 +23,7 @@ void	free_helper(char **str)
 
 // Returns the index of the first linebreaker in `s`.
 // Returns -1 when not found.
-static ssize_t	first_lb(const char *s)
+ssize_t	first_lb(const char *s)
 {
 	ssize_t	i;
 
@@ -104,4 +99,3 @@ char	*get_next_line(int fd)
 			return (NULL);
 	}
 }
-

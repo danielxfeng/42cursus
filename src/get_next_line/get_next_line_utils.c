@@ -6,13 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:27:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/14 21:15:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/15 10:20:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void	free_helper(char **str);
 
 // ft_strlen, but returns `0` when `s` is NULL.
 size_t	str_len(char *s)
@@ -55,7 +53,7 @@ void	append_str_in_heap(char **str, char *chars, size_t len)
 	*str = res;
 }
 
-static char *extract_free_helper(char **s1, char**s2)
+static char	*extract_free_helper(char **s1, char **s2)
 {
 	if (s1)
 		free_helper(s1);
@@ -95,15 +93,15 @@ char	*extract_line(char **str, size_t idx)
 
 	left = malloc((idx + 2) * sizeof(char));
 	if (!left)
-		return extract_free_helper(str, NULL);
+		return (extract_free_helper(str, NULL));
 	len = str_len(*str);
 	ft_memcpy(left, *str, idx + 1);
-	left[idx + 1] = '\0';	
+	left[idx + 1] = '\0';
 	if (len - idx > 1)
 	{
 		right = malloc((len - idx) * sizeof(char));
 		if (!right)
-			return extract_free_helper(&left, str);
+			return (extract_free_helper(&left, str));
 		ft_memcpy(right, &((*str)[idx + 1]), len - idx - 1);
 		right[len - idx - 1] = '\0';
 		free_helper(str);
