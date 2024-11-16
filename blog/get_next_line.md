@@ -39,7 +39,7 @@ Given the constraints of the project, I opted for a **char array** for simplicit
 2. Otherwise, it continuously `pushes` data (using `read_from_file` and `append_str`) into the queue until a complete line is found.
 
 This approach is space-efficient, as the `queue` only holds the unprocessed portion of the file at any time. However, each `push` and `pop` operation incurs a cost of memory copying, which impacts performance.  
-![Pseudo-code](../pseudo_code/get_next_line.jpg)
+![Pseudo-code](../pseudo_code/get_next_line.png)
 
 #### Key Points
 
