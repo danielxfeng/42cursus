@@ -23,7 +23,7 @@ This repository showcases my learning journey at **Hive Helsinki**, a 42 program
 
 - **`online_test`**  
   Contains online testing tools. Thanks to the authors for providing beautiful UIs and extensive corner cases!  
-  I run these tests before submission, though sometimes I question the necessity of certain test cases.
+  I run these tests before submission, and occasionally, some test cases inspire thoughts about what might be considered appropriate error handling.
 
 - **`pdfs`**  
   Contains project requirements and instructions.
