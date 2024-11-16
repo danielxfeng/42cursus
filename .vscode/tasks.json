@@ -9,7 +9,7 @@
                 "-g",
                 "-o", "build/${fileBasenameNoExtension}",
                 "${file}",
-                "src/get_next_line/*.c",
+                "src/push_swap/*.c",
                 "test/unity/unity.c",
                 "-Itest/unity",
                 "-I./src/libft/includes"
