@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 20:49:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/16 21:52:19 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/17 20:05:53 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_stack *get_curr_stack(t_stacks *stacks, bool is_a)
         stack = stacks->stack_b;
     return (stack);  
 }
+
 // Returns the length of `stack`.
 size_t get_len(t_stacks *stacks, bool is_a)
 {
@@ -32,11 +33,12 @@ size_t get_len(t_stacks *stacks, bool is_a)
 }
 
 // Push an int to `stack`;
-void push_stack(t_stacks *stacks, int n, bool is_a)
+t_stacks *push_stack(t_stacks *stacks, int n, bool is_a)
 {
     t_stack *stack;
     
     stack = get_curr_stack(stacks, is_a);
-    stack->arr[get_raw_idx(stack, stack->len)] = n;
-    ++stack->len;
+    if (!push_back(stack, n))
+        return (free_helper(&stacks));
+    return (stacks);
 }

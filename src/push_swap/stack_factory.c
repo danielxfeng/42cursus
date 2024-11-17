@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:41:45 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/16 21:56:15 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/17 19:33:18 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // Helper function of `new_stacks` to create a new `stack`.
 // The only caller of this function is `new_stacks` who will free the memory on error.
-static t_stack *new_stack(size_t capacity, char label)
+static t_stack *new_stack(char label)
 {
     t_stack *stack;
     int *arr;
@@ -23,28 +23,24 @@ static t_stack *new_stack(size_t capacity, char label)
     stack = malloc(sizeof(t_stack));
     if (!stack)
         return (NULL);
-    stack->head = 0;
+    stack->root = NULL;
     stack->label = label;
     stack->len = 0;
-    stack->capacity = capacity;
-    stack->arr = malloc(capacity * sizeof(int));
-    if (!(stack->arr))
-        return (NULL);
     return (stack);
 }
 
 // To create a new `stacks`.
-t_stacks *new_stacks(size_t capacity)
+t_stacks *new_stacks()
 {
     t_stacks *stacks;
 
     stacks = malloc(sizeof(t_stacks));
     if (!stacks)
         return (NULL);
-    stacks->stack_a = new_stack(capacity, 'a');
+    stacks->stack_a = new_stack('a');
     if (!stacks->stack_a)
         return (free_helper(&stacks));
-    stacks->stack_b = new_stack(capacity, 'b');
+    stacks->stack_b = new_stack('b');
     if (!stacks->stack_b)
         return (free_helper(&stacks));
     return (stacks);
@@ -53,12 +49,22 @@ t_stacks *new_stacks(size_t capacity)
 // Helper function of `free_helper` to free the `stack`.
 static void free_helper_stack (t_stack **stack)
 {
+    t_node *curr;
+    t_node *temp;
+    
     if (*stack)
     {
-        if ((*stack)->arr)
+        if ((*stack)->root)
         {
-            free((*stack)->arr);
-            (*stack)->arr = NULL;
+            curr = (*stack)->root->next;
+            while (curr != (*stack)->root)
+            {
+                temp = curr->next;
+                free(curr);
+                curr = temp;
+            }
+            free((*stack)->root);
+            (*stack)->root = NULL;
         }
         free(*stack);
         *stack = NULL;

@@ -6,19 +6,13 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:33:08 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/16 21:51:41 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/17 20:38:18 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 t_stack *get_curr_stack(t_stacks *stacks, bool is_a);
-
-// To get the raw idx of `stack-arr`.
-size_t get_raw_idx(t_stack *stack, size_t idx)
-{
-    return ((stack-> head + idx) % stack->capacity);
-}
 
 // To swap 2 elements ont the top of `stack`.
 // Returns the label of `stack`.
@@ -28,9 +22,9 @@ char s(t_stacks *stacks, bool is_a)
     int temp;
 
     stack = get_curr_stack(stacks, is_a);
-    temp = stack->arr[get_raw_idx(stack, 0)];
-    stack->arr[get_raw_idx(stack, 0)] = stack->arr[get_raw_idx(stack, 1)];
-    stack->arr[get_raw_idx(stack, 1)] = temp;
+    temp = stack->root->value;
+    stack->root->value = stack->root->next->value;
+    stack->root->next->value = temp;
     return (stack->label);
 }
 
@@ -39,9 +33,11 @@ char s(t_stacks *stacks, bool is_a)
 char r(t_stacks *stacks, bool is_a)
 {
     t_stack *stack;
+    t_node *curr;
 
     stack = get_curr_stack(stacks, is_a);
-    stack->head = get_raw_idx(stack, 1);
+    curr = stack->root;
+    stack->root = stack->root->next;
     return (stack->label);
 }
 
@@ -52,7 +48,7 @@ char rr(t_stacks *stacks, bool is_a)
     t_stack *stack;
 
     stack = get_curr_stack(stacks, is_a);
-    stack->head = get_raw_idx(stack, stack->len - 1);
+    stack->root = stack->root->prev;
     return (stack->label);
 }
 
@@ -62,7 +58,7 @@ char p(t_stacks *stacks, bool is_a)
 {
     t_stack *curr_stack;
     t_stack *opposite_stack;
-    int temp;
+    t_node *temp;
     
 
     curr_stack = stacks->stack_a;
@@ -72,11 +68,7 @@ char p(t_stacks *stacks, bool is_a)
         curr_stack = stacks->stack_b;
         opposite_stack = stacks->stack_a;
     }
-    temp = opposite_stack->arr[get_raw_idx(opposite_stack, 0)];
-    curr_stack->arr[get_raw_idx(curr_stack, curr_stack->head - 1)] = temp;
-    curr_stack->head = get_raw_idx(curr_stack, curr_stack->head - 1);
-    ++(curr_stack->len);
-    opposite_stack->head = get_raw_idx(opposite_stack, 1);
-    --(opposite_stack->len);
+    temp = pop_front(opposite_stack);
+    insert_front(curr_stack, temp);
     return (curr_stack->label);
 }
