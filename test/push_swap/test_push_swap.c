@@ -70,9 +70,9 @@ void test_stack(void)
     TEST_ASSERT_EQUAL_INT(3, stack_a->len);
     int expected5[2] = {1, 3};
     int expected6[1] = {2};
-    p(stacks, true);
-    int *arr_b[100];
-    int *reversed_b[100];
+    p(stacks, false);
+    int arr_b[100];
+    int reversed_b[100];
     t_stack *stack_b = stacks->stack_b;
     export_list(stack_a, arr, reversed);
     export_list(stack_b, arr_b, reversed_b);
@@ -81,6 +81,26 @@ void test_stack(void)
     TEST_ASSERT_EQUAL_INT_ARRAY(expected5, reversed, 2);
     TEST_ASSERT_EQUAL_INT(2, stack_a->len);
     TEST_ASSERT_EQUAL_INT(1, stack_b->len);
+    int expected7[1] = {3};
+    int expected8[2] = {1, 2};
+    p(stacks, false);
+    export_list(stack_a, arr, reversed);
+    export_list(stack_b, arr_b, reversed_b);
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected7, arr, 1);
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected8, arr_b, 2);
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected7, reversed, 1);
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected8, reversed_b, 2);
+    TEST_ASSERT_EQUAL_INT(1, stack_a->len);
+    TEST_ASSERT_EQUAL_INT(2, stack_b->len);
+    int expected9[3] = {3, 1, 2};
+    int rev_expected9[3] = {3, 2, 1};
+    p(stacks, false);
+    export_list(stack_b, arr_b, reversed_b);
+    TEST_ASSERT_NULL(stack_a->root);
+    TEST_ASSERT_EQUAL_INT_ARRAY(expected9, arr_b, 3);
+    TEST_ASSERT_EQUAL_INT_ARRAY(rev_expected9, reversed_b, 2);
+    TEST_ASSERT_EQUAL_INT(0, stack_a->len);
+    TEST_ASSERT_EQUAL_INT(3, stack_b->len);
     free_helper(&stacks);
 }
 
