@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// valgrind --leak-check=full --show-leak-kinds=all ./build/test_push_swap
+
 // Setup function called before each test
 void	setUp(void)
 {
