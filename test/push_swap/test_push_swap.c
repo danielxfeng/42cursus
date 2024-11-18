@@ -120,18 +120,56 @@ void test_atoi()
     TEST_ASSERT_EQUAL_INT(22, n);
     TEST_ASSERT_EQUAL_INT(1, my_atoi("   22", &n));
     TEST_ASSERT_EQUAL_INT(22, n);
-    TEST_ASSERT_EQUAL_INT(1, my_atoi("-2147483648sss", &n));
+    TEST_ASSERT_EQUAL_INT(0, my_atoi("22a", &n));
+    TEST_ASSERT_EQUAL_INT(1, my_atoi("-2147483648", &n));
     TEST_ASSERT_EQUAL_INT(-2147483648, n);
     TEST_ASSERT_EQUAL_INT(0, my_atoi("2147483648", &n));
     TEST_ASSERT_EQUAL_INT(0, my_atoi("=22", &n));
     TEST_ASSERT_EQUAL_INT(0, my_atoi("18446744073709551618", &n));
+    TEST_ASSERT_EQUAL_INT(0, my_atoi("22a", &n));
+}
+
+void test_insert_value_to_stacks()
+{
+    t_stacks *stacks = new_stacks();
+    int arr[100];
+    int rev[100];
+    char *argv[] = {"prog", "1", "2", "11"};
+    TEST_ASSERT_EQUAL_INT(1, insert_value_to_stacks(stacks, 4, argv));
+    TEST_ASSERT_EQUAL_INT(3, stacks->stack_a->len);
+    char *argv2[] = {"prog", "-2 12 8"};
+    TEST_ASSERT_EQUAL_INT(1, insert_value_to_stacks(stacks, 2, argv2));
+    TEST_ASSERT_EQUAL_INT(6, stacks->stack_a->len);
+    char *argv3[] = {"prog", "3 9 111", "5"};
+    TEST_ASSERT_EQUAL_INT(1, insert_value_to_stacks(stacks, 3, argv3));
+    TEST_ASSERT_EQUAL_INT(10, stacks->stack_a->len);
+    int expect[] = {1, 2, 11, -2, 12, 8, 3, 9, 111, 5};
+    export_list(stacks->stack_a, arr, rev);
+    TEST_ASSERT_EQUAL_INT_ARRAY(expect, arr, 10);
+    char *argv4[] = {"prog", ""};
+    TEST_ASSERT_EQUAL_INT(0, insert_value_to_stacks(stacks, 2, argv4));
+    char *argv5[] = {"prog", "-2s"};
+    TEST_ASSERT_EQUAL_INT(0, insert_value_to_stacks(stacks, 2, argv5));
+    char *argv6[] = {"prog", "s"};
+    TEST_ASSERT_EQUAL_INT(0, insert_value_to_stacks(stacks, 2, argv6));
+    char *argv7[] = {"prog", "11"};
+    TEST_ASSERT_EQUAL_INT(0, insert_value_to_stacks(stacks, 2, argv7));
+    char *argv8[] = {"prog", "99  98"};
+    TEST_ASSERT_EQUAL_INT(1, insert_value_to_stacks(stacks, 2, argv8));
+    TEST_ASSERT_EQUAL_INT(12, stacks->stack_a->len);
+    char *argv9[] = {"prog", "  76  75  "};
+    TEST_ASSERT_EQUAL_INT(1, insert_value_to_stacks(stacks, 2, argv9));
+    TEST_ASSERT_EQUAL_INT(14, stacks->stack_a->len);
+    int expect2[] = {1, 2, 11, -2, 12, 8, 3, 9, 111, 5, 99, 98, 76, 75};
+    export_list(stacks->stack_a, arr, rev);
+    TEST_ASSERT_EQUAL_INT_ARRAY(expect2, arr, 14);
 }
 
 void test_push_swap()
 {
     char *argv[] = {"prog", "1", "2", "3"};
     TEST_ASSERT_EQUAL_INT(0, push_swap(4, argv, NULL));
-    char *argv2[] = {"prog", "-2147483648", "  +2", "3ss"};
+    char *argv2[] = {"prog", "-2147483648", "  +2", "3"};
     TEST_ASSERT_EQUAL_INT(0, push_swap(4, argv2, NULL));
     char *argv3[] = {"prog", "-1", "2147483648", "3"};
     TEST_ASSERT_EQUAL_INT(1, push_swap(4, argv3, NULL));
@@ -149,6 +187,7 @@ int	main(void)
 	UNITY_BEGIN();
     RUN_TEST(test_stack);
     RUN_TEST(test_atoi);
+    RUN_TEST(test_insert_value_to_stacks);
     RUN_TEST(test_push_swap);
 
 	return (UNITY_END());

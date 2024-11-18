@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:17:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/18 09:56:34 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/18 20:37:32 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,31 @@ int error_exit(t_stacks **stacks)
 
 // Insert the arguments to stacks. 
 // Returns false on error, otherwise returns true.
-static bool insert_value_to_stacks(t_stacks *stacks, int argc, char **argv)
+bool insert_value_to_stacks(t_stacks *stacks, int argc, char **argv)
 {
     int i;
+    int j;
     int n;
+    char **list;
 
     i = 1;
     while (i < argc)
     {
-        if (!my_atoi(argv[i++], &n) || !push_stack(stacks, n, true))
+        list = ft_split(argv[i], ' ');
+        if (!list || !*list)
             return (false);
+        j = 0;
+        while (list[j])
+        {
+            if (!my_atoi(list[j], &n) || !push_stack(stacks, n, true))
+            {
+                free_helper_split(list);
+                return (false);
+            }
+            ++j;            
+        }
+        free_helper_split(list);  
+        ++i;
     }
     return (true);
 }

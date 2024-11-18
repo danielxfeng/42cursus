@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/18 10:00:33 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/18 20:37:56 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,14 @@ typedef struct s_node
 } t_node;
 
 int push_swap(int argc, char **argv, void (*apply_sort_func)(t_stacks *));
+bool insert_value_to_stacks(t_stacks *stacks, int argc, char **argv);
 
 bool	my_atoi(const char *nptr, int *n);
 void ft_putstr(char *s);
+char	**ft_split(char const *s, char c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+void free_helper_split(char **arr);
+
 
 t_stacks *new_stacks();
 t_stacks *free_helper(t_stacks **stacks);
