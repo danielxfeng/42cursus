@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/17 19:53:32 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/18 10:00:33 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ typedef struct s_node
     t_node *next;
 } t_node;
 
+int push_swap(int argc, char **argv, void (*apply_sort_func)(t_stacks *));
+
+bool	my_atoi(const char *nptr, int *n);
+void ft_putstr(char *s);
+
 t_stacks *new_stacks();
 t_stacks *free_helper(t_stacks **stacks);
 char s(t_stacks *stacks, bool is_a);
@@ -50,9 +55,10 @@ char r(t_stacks *stacks, bool is_a);
 char rr(t_stacks *stacks, bool is_a);
 char p(t_stacks *stacks, bool is_a);
 size_t get_len(t_stacks *stacks, bool is_a);
-t_stacks *push_stack(t_stacks *stacks, int n, bool is_a);
+bool push_stack(t_stacks *stacks, int n, bool is_a);
 t_node *push_back(t_stack *stack, int value);
 t_node *insert_front(t_stack *stack, t_node *node);
 t_node *pop_front(t_stack *stack);
+bool has(t_stack *stack, int n);
 
 #endif

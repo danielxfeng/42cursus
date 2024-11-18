@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:41:45 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/17 19:33:18 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/18 09:33:38 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ t_stacks *new_stacks()
         return (NULL);
     stacks->stack_a = new_stack('a');
     if (!stacks->stack_a)
-        return (free_helper(&stacks));
+        return (NULL);
     stacks->stack_b = new_stack('b');
     if (!stacks->stack_b)
-        return (free_helper(&stacks));
+        return (NULL);
     return (stacks);
 }
 

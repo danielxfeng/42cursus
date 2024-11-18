@@ -11,6 +11,9 @@
     "bitset": "c",
     "libft.h": "c",
     "unistd.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "deque": "c",
+    "string": "c",
+    "vector": "c"
   }
 }

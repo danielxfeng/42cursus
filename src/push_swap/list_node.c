@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:23:57 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/17 20:01:49 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/18 09:08:19 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,21 @@ t_node *pop_front(t_stack *stack)
     }
     --(stack->len);
     return (res);
+}
+
+// Returns if the given `n` exists in the `stack`.
+bool has(t_stack *stack, int n)
+{
+    t_node *curr;
+    
+    if (!stack->root)
+        return (false);
+    curr = stack->root->next;
+    while (curr != stack->root)
+    {
+        if (curr->value == n)
+            return (true);
+        curr = curr->next;
+    }
+    return (curr->value == n);
 }

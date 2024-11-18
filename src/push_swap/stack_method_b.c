@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 20:49:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/17 20:05:53 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/18 09:41:14 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ size_t get_len(t_stacks *stacks, bool is_a)
     return (stack->len);
 }
 
-// Push an int to `stack`;
-t_stacks *push_stack(t_stacks *stacks, int n, bool is_a)
+// Push an int to `stack`; Duplicated value is not allowed.
+bool push_stack(t_stacks *stacks, int n, bool is_a)
 {
     t_stack *stack;
     
     stack = get_curr_stack(stacks, is_a);
-    if (!push_back(stack, n))
-        return (free_helper(&stacks));
-    return (stacks);
+    if (has(stack, n) || !push_back(stack, n))
+        return (false);
+    return (true);
 }
