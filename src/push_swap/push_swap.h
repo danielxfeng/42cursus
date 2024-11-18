@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/18 20:37:56 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/18 21:37:29 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	my_atoi(const char *nptr, int *n);
 void ft_putstr(char *s);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-void free_helper_split(char **arr);
+bool free_helper_split(char **arr);
 
 
 t_stacks *new_stacks();

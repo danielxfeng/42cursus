@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:17:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/18 20:37:32 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/18 21:37:08 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,12 @@ bool insert_value_to_stacks(t_stacks *stacks, int argc, char **argv)
     {
         list = ft_split(argv[i], ' ');
         if (!list || !*list)
-            return (false);
+            return (free_helper_split(list));
         j = 0;
         while (list[j])
         {
             if (!my_atoi(list[j], &n) || !push_stack(stacks, n, true))
-            {
-                free_helper_split(list);
-                return (false);
-            }
+                return (free_helper_split(list));
             ++j;            
         }
         free_helper_split(list);  

@@ -157,12 +157,15 @@ void test_insert_value_to_stacks()
     char *argv8[] = {"prog", "99  98"};
     TEST_ASSERT_EQUAL_INT(1, insert_value_to_stacks(stacks, 2, argv8));
     TEST_ASSERT_EQUAL_INT(12, stacks->stack_a->len);
-    char *argv9[] = {"prog", "  76  75  "};
+    char *argv9[] = {"prog", "  76  75 "};
     TEST_ASSERT_EQUAL_INT(1, insert_value_to_stacks(stacks, 2, argv9));
     TEST_ASSERT_EQUAL_INT(14, stacks->stack_a->len);
     int expect2[] = {1, 2, 11, -2, 12, 8, 3, 9, 111, 5, 99, 98, 76, 75};
     export_list(stacks->stack_a, arr, rev);
     TEST_ASSERT_EQUAL_INT_ARRAY(expect2, arr, 14);
+    char *argv10[] = {"prog", "    "};
+    TEST_ASSERT_EQUAL_INT(0, insert_value_to_stacks(stacks, 2, argv10));
+    free_helper(&stacks);
 }
 
 void test_push_swap()

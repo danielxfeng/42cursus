@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:41:44 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/18 20:35:59 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/18 21:39:31 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,12 @@ char	**ft_split(char const *s, char c)
 	return (split_helper(s, arr, c));
 }
 
-void free_helper_split(char **arr)
+bool free_helper_split(char **arr)
 {    
 	size_t i;
 	
-	
 	if (!arr)
-        return;
+        return (false);
 	i = 0;
 	while (arr[i])
 	{
@@ -101,4 +100,5 @@ void free_helper_split(char **arr)
 		++i;
 	}
 	free(arr);
+	return (false);
 }
