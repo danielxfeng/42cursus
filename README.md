@@ -52,6 +52,11 @@ The bonus part involves supporting additional parameters, which I have not imple
 - [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/ft_printf)
 
 #### **`get_next_line`**  
-One of the most interesting projects!  
+An interesting projects!  
 - [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/get_next_line)  
 - [My Thoughts](https://github.com/danielxfeng/42cursus/tree/main/blog/get_next_line.md)
+
+#### **`push_swap`**
+Practical Double-Stack Sorting, Circular Doubly Linked List, and Dependency Injection
+- [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/push_swap)  
+- [My Thoughts](https://github.com/danielxfeng/42cursus/tree/main/blog/push_swap.md)
