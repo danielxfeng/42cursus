@@ -18,7 +18,7 @@ I divided the project into two main parts:
 - **Entry Function**: Serves as the entry point of the program, handling input validation, stack initialization, and calling the sorting function to perform the sorting operation.
 - **Stack**: Implements the data structure and exposes the necessary stack operations (`s`, `r`, `rr`, `p`).
 - **Sorting Function**: Implements the sorting algorithm.
-![diagram](./imgs/push_swap1.png)
+![diagram](./imgs/push_swap_1.png)
 
 ### Data Structure:
 Initially, I attempted to implement the data structure using a **circular array**. However, I realized that after performing a rotation operation, pushing elements required significant copying, making the circular array unsuitable for this purpose.
