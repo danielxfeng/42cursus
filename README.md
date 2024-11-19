@@ -55,6 +55,10 @@ The bonus part involves supporting additional parameters, which I have not imple
 An interesting projects!  
 - [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/get_next_line)  
 - [My Thoughts](https://github.com/danielxfeng/42cursus/tree/main/blog/get_next_line.md)
+- 
+#### **`born2_be_root`**
+Just to launch a virtual machine.
+- [Scripts](https://github.com/danielxfeng/42cursus/tree/main/src/born2_be_root)  
 
 #### **`push_swap`**
 Practical Double-Stack Sorting, Circular Doubly Linked List, and Dependency Injection
