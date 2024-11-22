@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:08:35 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/22 17:58:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/22 22:31:34 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,17 @@ void	generate_move_plan_ab(t_stacks *stacks, size_t i, bool is_r,
 		plan->total_times = plan->a_op_times;
 }
 
-void	get_plan(t_stacks *stacks, size_t i, t_move_plan_ab *curr_plan)
+void get_plan(t_stacks *stacks, size_t i, t_move_plan_ab *curr_plan)
 {
-	t_move_plan_ab	*plan;
-	t_move_plan_ab	r_plan;
-	t_move_plan_ab	rr_plan;
-	t_stack			*curr_stack;
+    t_move_plan_ab r_plan;
+    t_move_plan_ab rr_plan;
 
-	generate_move_plan_ab(stacks, i, true, &r_plan);
-	generate_move_plan_ab(stacks, i, true, &rr_plan);
-	if (r_plan.total_times > rr_plan.total_times)
-		*plan = rr_plan;
-	else
-		*plan = r_plan;
-	curr_plan->a_op_times = plan->a_op_times;
-	curr_plan->b_op_times = plan->b_op_times;
-	curr_plan->is_r = plan->is_r;
-	curr_plan->total_times = plan->total_times;
+    generate_move_plan_ab(stacks, i, true, &r_plan);
+    generate_move_plan_ab(stacks, i, true, &rr_plan);
+    if (r_plan.total_times > rr_plan.total_times)
+        *curr_plan = rr_plan;
+    else
+        *curr_plan = r_plan;
 }
 
 void	apply_double_move(t_stacks *stacks, bool is_r, size_t times)
