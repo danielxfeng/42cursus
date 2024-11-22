@@ -6,54 +6,54 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:26:50 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/18 20:07:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:51:45 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <unistd.h>
-#include <stdlib.h>
 #include <limits.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 // A modified atoi.
 // The parsed value is `*n`, returns `true` on success, or `false` on error.
 bool	my_atoi(const char *nptr, int *n)
 {
-	int		sign;
-    size_t length;
+	int			sn;
+	size_t		len;
 	long long	ln;
 
 	while (*nptr && (*nptr >= 9 && *nptr <= 13 || *nptr == 32))
 		++nptr;
-	sign = 1;
+	sn = 1;
 	if (*nptr == '+' || *nptr == '-')
 	{
 		if (*nptr == '-')
-			sign = -1;
+			sn = -1;
 		++nptr;
 	}
 	ln = 0;
-    length = 0;
+	len = 0;
 	while (*nptr >= '0' && *nptr <= '9')
 	{
-        ++length;
+		++len;
 		ln = ln * 10 + *nptr - '0';
 		++nptr;
 	}
-    if (*nptr || !length || length > 10 || ln * sign > INT_MAX || ln * sign < INT_MIN)
-        return (false);
-	*n = ((int)(ln * sign));
-    return (true);
+	if (*nptr || !len || len > 10 || ln * sn > INT_MAX || ln * sn < INT_MIN)
+		return (false);
+	*n = ((int)(ln * sn));
+	return (true);
 }
 
-void ft_putstr(char *s)
+void	ft_putstr(char *s)
 {
-    size_t i;
+	size_t	i;
 
-    i = 0;
-    while (s[i])
-        ++i;
-    write(1, s, i);
+	i = 0;
+	while (s[i])
+		++i;
+	write(1, s, i);
 }
 
 static size_t	ft_strlen(const char *s)

@@ -6,17 +6,17 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/18 21:37:29 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:09:56 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <stdio.h>
 # include <stdbool.h>
+# include <stdio.h>
 
-typedef struct s_node t_node;
+typedef struct s_node	t_node;
 
 // Maintains a data structure of `stack`.
 // `root` is the int list, as well as a `circular doubly linked list`.
@@ -24,46 +24,48 @@ typedef struct s_node t_node;
 // `label` is either 'a' or 'b'.
 typedef struct s_stack
 {
-    t_node *root;
-    size_t len;
-    char label;
-} t_stack;
+	t_node				*root;
+	size_t				len;
+	char				label;
+}						t_stack;
 
 typedef struct s_stacks
 {
-    t_stack *stack_a;
-    t_stack *stack_b;
-} t_stacks;
+	t_stack				*stack_a;
+	t_stack				*stack_b;
+}						t_stacks;
 
 // Represents a node of `circular doubly linked list`.
 typedef struct s_node
 {
-    int value;
-    t_node *prev;
-    t_node *next;
-} t_node;
+	int					value;
+	t_node				*prev;
+	t_node				*next;
+}						t_node;
 
-int push_swap(int argc, char **argv, void (*apply_sort_func)(t_stacks *));
-bool insert_value_to_stacks(t_stacks *stacks, int argc, char **argv);
+int						push_swap(int argc, char **argv,
+							void (*apply_sort_func)(t_stacks *));
+bool					insert_value_to_stacks(t_stacks *stacks, int argc,
+							char **argv);
 
-bool	my_atoi(const char *nptr, int *n);
-void ft_putstr(char *s);
-char	**ft_split(char const *s, char c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-bool free_helper_split(char **arr);
+bool					my_atoi(const char *nptr, int *n);
+void					ft_putstr(char *s);
+char					**ft_split(char const *s, char c);
+char					*ft_substr(char const *s, unsigned int start,
+							size_t len);
+bool					free_helper_split(char **arr);
 
-
-t_stacks *new_stacks();
-t_stacks *free_helper(t_stacks **stacks);
-char s(t_stacks *stacks, bool is_a);
-char r(t_stacks *stacks, bool is_a);
-char rr(t_stacks *stacks, bool is_a);
-char p(t_stacks *stacks, bool is_a);
-size_t get_len(t_stacks *stacks, bool is_a);
-bool push_stack(t_stacks *stacks, int n, bool is_a);
-t_node *push_back(t_stack *stack, int value);
-t_node *insert_front(t_stack *stack, t_node *node);
-t_node *pop_front(t_stack *stack);
-bool has(t_stack *stack, int n);
+t_stacks				*new_stacks(void);
+t_stacks				*free_helper(t_stacks **stacks);
+char					s(t_stacks *stacks, bool is_a);
+char					r(t_stacks *stacks, bool is_a);
+char					rr(t_stacks *stacks, bool is_a);
+char					p(t_stacks *stacks, bool is_a);
+size_t					get_len(t_stacks *stacks, bool is_a);
+bool					push_stack(t_stacks *stacks, int n, bool is_a);
+t_node					*push_back(t_stack *stack, int value);
+t_node					*insert_front(t_stack *stack, t_node *node);
+t_node					*pop_front(t_stack *stack);
+bool					has(t_stack *stack, int n);
 
 #endif
