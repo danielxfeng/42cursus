@@ -14,6 +14,7 @@
     "stdio.h": "c",
     "deque": "c",
     "string": "c",
-    "vector": "c"
+    "vector": "c",
+    "push_swap.h": "c"
   }
 }

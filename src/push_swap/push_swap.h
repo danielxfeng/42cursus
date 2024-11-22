@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/22 11:09:56 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/22 15:05:14 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ typedef struct s_node
 	t_node				*next;
 }						t_node;
 
+typedef struct s_move_plan_ab
+{
+	bool				is_r;
+	int					total_times;
+	int					a_op_times;
+	int					b_op_times;
+}						t_move_plan_ab;
+
 int						push_swap(int argc, char **argv,
 							void (*apply_sort_func)(t_stacks *));
 bool					insert_value_to_stacks(t_stacks *stacks, int argc,
@@ -63,6 +71,8 @@ char					rr(t_stacks *stacks, bool is_a);
 char					p(t_stacks *stacks, bool is_a);
 size_t					get_len(t_stacks *stacks, bool is_a);
 bool					push_stack(t_stacks *stacks, int n, bool is_a);
+int						get_value_from_stack(t_stacks *stacks, bool is_a,
+							size_t idx);
 t_node					*push_back(t_stack *stack, int value);
 t_node					*insert_front(t_stack *stack, t_node *node);
 t_node					*pop_front(t_stack *stack);

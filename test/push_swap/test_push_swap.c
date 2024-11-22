@@ -103,6 +103,9 @@ void test_stack(void)
     TEST_ASSERT_EQUAL_INT_ARRAY(rev_expected9, reversed_b, 2);
     TEST_ASSERT_EQUAL_INT(0, stack_a->len);
     TEST_ASSERT_EQUAL_INT(3, stack_b->len);
+    TEST_ASSERT_EQUAL_INT(3, get_value_from_stack(stacks, false, 0));
+    TEST_ASSERT_EQUAL_INT(1, get_value_from_stack(stacks, false, 1));
+    TEST_ASSERT_EQUAL_INT(2, get_value_from_stack(stacks, false, 2));
     TEST_ASSERT_EQUAL_INT(0, push_stack(stacks, 2, false));
     TEST_ASSERT_EQUAL_INT(0, push_stack(stacks, 3, false));
     TEST_ASSERT_EQUAL_INT(0, push_stack(stacks, 1, false));

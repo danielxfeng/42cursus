@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 20:49:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/22 11:10:09 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/22 17:56:48 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,25 @@ t_stack	*get_curr_stack(t_stacks *stacks, bool is_a)
 	if (!is_a)
 		stack = stacks->stack_b;
 	return (stack);
+}
+
+// Get the value from a stack.
+int get_value_from_stack(t_stacks *stacks, bool is_a, size_t idx)
+{
+	t_stack	*stack;
+	t_node *curr;
+	size_t i;
+
+	stack = get_curr_stack(stacks, is_a);
+	if (stack->len <= idx)
+		return (__INT_MAX__);
+	if (idx == 0)
+		return (stack->root->value);
+	i = 1;
+	curr = stack->root->next;
+	while (i++ < idx)
+		curr = curr->next;
+	return (curr->value);
 }
 
 // Returns the length of `stack`.
