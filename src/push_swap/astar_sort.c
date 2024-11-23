@@ -6,11 +6,12 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:08:35 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/23 16:07:07 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/23 20:35:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "ft_printf.h"
 
 int	cal_cost_in_b(t_stacks *stacks, bool is_r, int value)
 {
@@ -80,13 +81,13 @@ void	apply_double_move(t_stacks *stacks, bool is_r, size_t times)
 		{
 			r(stacks, true);
 			r(stacks, true);
-			ft_putstr("rr\n");
+			ft_printf("rr\n");
 		}
 		else
 		{
 			rr(stacks, true);
 			rr(stacks, false);
-			ft_putstr("rrr\n");
+			ft_printf("rrr\n");
 		}
 		++i;
 	}
@@ -103,17 +104,17 @@ void	apply_single_move(t_stacks *stacks, bool is_a, bool is_r, size_t times)
 		{
 			r(stacks, is_a);
 			if (is_a)
-				ft_putstr("ra\n");
+				ft_printf("ra\n");
 			else
-				ft_putstr("rb\n");
+				ft_printf("rb\n");
 		}
 		else
 		{
 			rr(stacks, is_a);
 			if (is_a)
-				ft_putstr("rra\n");
+				ft_printf("rra\n");
 			else
-				ft_putstr("rrb\n");
+				ft_printf("rrb\n");
 		}
 		++i;
 	}
@@ -132,7 +133,7 @@ void	move_from_a(t_stacks *stacks, size_t i)
 		apply_single_move(stacks, false, curr_plan.is_r, curr_plan.total_times
 			- curr_plan.double_op_times);
 	p(stacks, true);
-	ft_putstr("pa\n");
+	ft_printf("pa\n");
 }
 
 int	cal_cost(t_stacks *stacks, size_t i)
@@ -192,6 +193,6 @@ void	astar_sort_func(t_stacks *stacks)
 	while (stacks->stack_b->len)
 	{
 		p(stacks, false);
-		ft_putstr("pb\n");
+		ft_printf("pb\n");
 	}
 }

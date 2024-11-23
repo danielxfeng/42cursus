@@ -13,7 +13,10 @@
                 "src/push_swap/*.c",
                 "test/unity/unity.c",
                 "-Itest/unity",
-                "-I./src/libft/includes"
+                "-I./src/push_swap/libft",
+                "-I./src/push_swap/ft_printf",
+                "src/push_swap/libft/*.c",
+                "src/push_swap/ft_printf/*.c"
             ],
             "group": "build",
             "problemMatcher": [

@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:49:44 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/23 20:18:36 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/23 20:45:37 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_helper.h"
 #include <stdarg.h>
 
 int	print_nbr(int n)

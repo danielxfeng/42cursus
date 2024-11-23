@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:29:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/23 20:25:39 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/23 20:45:46 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_helper.h"
 
 int	print_char(char c)
 {
