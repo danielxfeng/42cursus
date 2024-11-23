@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/22 15:05:14 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/23 16:05:17 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdbool.h>
 # include <stdio.h>
+# include <limits.h>
 
 typedef struct s_node	t_node;
 
@@ -27,6 +28,8 @@ typedef struct s_stack
 	t_node				*root;
 	size_t				len;
 	char				label;
+	int					max;
+	int					min;
 }						t_stack;
 
 typedef struct s_stacks
@@ -49,12 +52,17 @@ typedef struct s_move_plan_ab
 	int					total_times;
 	int					a_op_times;
 	int					b_op_times;
+	int					double_op_times;
 }						t_move_plan_ab;
 
 int						push_swap(int argc, char **argv,
 							void (*apply_sort_func)(t_stacks *));
 bool					insert_value_to_stacks(t_stacks *stacks, int argc,
 							char **argv);
+void					get_plan(t_stacks *stacks, size_t i,
+							t_move_plan_ab *curr_plan);
+void					generate_move_plan_ab(t_stacks *stacks, size_t i,
+							bool is_r, t_move_plan_ab *plan);
 
 bool					my_atoi(const char *nptr, int *n);
 void					ft_putstr(char *s);

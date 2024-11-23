@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:41:45 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/22 11:50:13 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/23 16:05:05 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // Helper function of `new_stacks` to create a new `stack`.
 // The only caller of this function is `new_stacks` who will free the memory on error.
+// The `max` and `min` are only updated when `push`, so after `pop`, it may be wrong. 
 static t_stack	*new_stack(char label)
 {
 	t_stack	*stack;
@@ -26,6 +27,8 @@ static t_stack	*new_stack(char label)
 	stack->root = NULL;
 	stack->label = label;
 	stack->len = 0;
+	stack->max = INT_MIN;
+	stack->min = INT_MAX;
 	return (stack);
 }
 

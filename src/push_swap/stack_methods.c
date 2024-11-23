@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:33:08 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/22 11:10:23 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/23 16:15:10 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,9 @@ char	p(t_stacks *stacks, bool is_a)
 	}
 	temp = pop_front(opposite_stack);
 	insert_front(curr_stack, temp);
+	if (temp->value < curr_stack->min)
+		curr_stack->min = temp->value;
+	if (temp->value > curr_stack->max)
+		curr_stack->max = temp->value;	
 	return (curr_stack->label);
 }

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 20:49:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/22 17:56:48 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/23 16:07:40 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int get_value_from_stack(t_stacks *stacks, bool is_a, size_t idx)
 
 	stack = get_curr_stack(stacks, is_a);
 	if (stack->len <= idx)
-		return (__INT_MAX__);
+		return (INT_MAX);
 	if (idx == 0)
 		return (stack->root->value);
 	i = 1;
@@ -59,5 +59,9 @@ bool	push_stack(t_stacks *stacks, int n, bool is_a)
 	stack = get_curr_stack(stacks, is_a);
 	if (has(stack, n) || !push_back(stack, n))
 		return (false);
+	if (n > stack->max)
+		stack->max = n;
+	if (n < stack->min)
+		stack->min = n;
 	return (true);
 }
