@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/07 19:29:06 by Xifeng            #+#    #+#              #
-#    Updated: 2024/11/12 13:21:49 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/11/23 20:04:13 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBC = ar rcs
 FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-SRCS = ft_printf.c str_helper.c unsigned_helper.c ft_bzero.c ft_memset.c
+SRCS = ft_printf.c str_helper.c unsigned_helper.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,21 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:29:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/12 10:40:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/23 20:25:39 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		++i;
-	return (i);
-}
+#include "ft_printf.h"
 
 int	print_char(char c)
 {
