@@ -10,7 +10,7 @@
                 "-o",
                 "build/${fileBasenameNoExtension}",
                 "${file}",
-                "src/push_swap/*.c",
+                "src/ft_printf/*.c",
                 "test/unity/unity.c",
                 "-Itest/unity",
                 "-I./src/libft/includes"
