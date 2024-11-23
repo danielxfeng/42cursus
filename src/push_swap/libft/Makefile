@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 19:36:06 by Xifeng            #+#    #+#              #
-#    Updated: 2024/11/23 19:29:18 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/11/23 19:30:51 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(NAME): $(OBJS)
 
 bonus: .bonus
 
-.bonus: $(OBJS_BONUS) $(OBJS)
+.bonus: $(OBJS) $(OBJS_BONUS) 
 	ar -rc $(NAME) $^
 	@touch .bonus
 
