@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:41:45 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/24 10:31:38 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/24 15:34:46 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static t_stack	*new_stack(char label)
 	stack->root = NULL;
 	stack->label = label;
 	stack->len = 0;
-	stack->max = INT_MIN;
-	stack->min = INT_MAX;
 	return (stack);
 }
 

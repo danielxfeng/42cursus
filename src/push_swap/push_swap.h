@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/24 10:21:11 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/24 15:34:34 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ typedef struct s_stack
 	t_node				*root;
 	size_t				len;
 	char				label;
-	int					max;
-	int					min;
 }						t_stack;
 
 // The data structure of stacks.

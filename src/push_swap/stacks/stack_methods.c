@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 20:49:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/24 10:31:56 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/24 15:35:35 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,5 @@ bool	push_stack(t_stacks *stacks, int n, bool is_a)
 	stack = get_curr_stack(stacks, is_a);
 	if (has(stack, n) || !push_back(stack, n))
 		return (false);
-	if (n > stack->max)
-		stack->max = n;
-	if (n < stack->min)
-		stack->min = n;
 	return (true);
 }

@@ -116,8 +116,6 @@ void	test_stack(void)
 	TEST_ASSERT_EQUAL_INT(0, push_stack(stacks, 2, false));
 	TEST_ASSERT_EQUAL_INT(0, push_stack(stacks, 3, false));
 	TEST_ASSERT_EQUAL_INT(0, push_stack(stacks, 1, false));
-    TEST_ASSERT_EQUAL_INT(3, stacks->stack_b->max);
-    TEST_ASSERT_EQUAL_INT(1, stacks->stack_b->min);
 	close_stacks(&stacks);
 }
 
