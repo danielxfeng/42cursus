@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/23 16:05:17 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/24 10:21:11 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PUSH_SWAP_H
 
 # include <stdbool.h>
-# include <stdio.h>
+# include <stddef.h>
 # include <limits.h>
 
 typedef struct s_node	t_node;
@@ -32,6 +32,7 @@ typedef struct s_stack
 	int					min;
 }						t_stack;
 
+// The data structure of stacks.
 typedef struct s_stacks
 {
 	t_stack				*stack_a;
@@ -64,26 +65,20 @@ void					get_plan(t_stacks *stacks, size_t i,
 void					generate_move_plan_ab(t_stacks *stacks, size_t i,
 							bool is_r, t_move_plan_ab *plan);
 
-bool					my_atoi(const char *nptr, int *n);
-void					ft_putstr(char *s);
-char					**ft_split(char const *s, char c);
-char					*ft_substr(char const *s, unsigned int start,
-							size_t len);
-bool					free_helper_split(char **arr);
-
 t_stacks				*new_stacks(void);
-t_stacks				*free_helper(t_stacks **stacks);
-char					s(t_stacks *stacks, bool is_a);
-char					r(t_stacks *stacks, bool is_a);
-char					rr(t_stacks *stacks, bool is_a);
-char					p(t_stacks *stacks, bool is_a);
-size_t					get_len(t_stacks *stacks, bool is_a);
+t_stacks				*close_stacks(t_stacks **stacks);
+void					s(t_stacks *stacks, bool is_a);
+void					ss(t_stacks *stacks);
+void					r(t_stacks *stacks, bool is_a);
+void					double_r(t_stacks *stacks);
+void					rr(t_stacks *stacks, bool is_a);
+void					rrr(t_stacks *stacks);
+void					p(t_stacks *stacks, bool is_a);
 bool					push_stack(t_stacks *stacks, int n, bool is_a);
 int						get_value_from_stack(t_stacks *stacks, bool is_a,
 							size_t idx);
-t_node					*push_back(t_stack *stack, int value);
-t_node					*insert_front(t_stack *stack, t_node *node);
-t_node					*pop_front(t_stack *stack);
-bool					has(t_stack *stack, int n);
+
+bool					ps_atoi(const char *nptr, int *n); 
+bool					free_str_arr(char **arr);
 
 #endif

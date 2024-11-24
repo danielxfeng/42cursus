@@ -118,7 +118,7 @@ void	test_stack(void)
 	TEST_ASSERT_EQUAL_INT(0, push_stack(stacks, 1, false));
     TEST_ASSERT_EQUAL_INT(3, stacks->stack_b->max);
     TEST_ASSERT_EQUAL_INT(1, stacks->stack_b->min);
-	free_helper(&stacks);
+	close_stacks(&stacks);
 }
 
 void	test_atoi(void)
@@ -126,21 +126,21 @@ void	test_atoi(void)
 	int	n;
 
 	n = 0;
-	TEST_ASSERT_EQUAL_INT(1, my_atoi("22", &n));
+	TEST_ASSERT_EQUAL_INT(1, ps_atoi("22", &n));
 	TEST_ASSERT_EQUAL_INT(22, n);
-	TEST_ASSERT_EQUAL_INT(1, my_atoi("-22", &n));
+	TEST_ASSERT_EQUAL_INT(1, ps_atoi("-22", &n));
 	TEST_ASSERT_EQUAL_INT(-22, n);
-	TEST_ASSERT_EQUAL_INT(1, my_atoi("+22", &n));
+	TEST_ASSERT_EQUAL_INT(1, ps_atoi("+22", &n));
 	TEST_ASSERT_EQUAL_INT(22, n);
-	TEST_ASSERT_EQUAL_INT(1, my_atoi("   22", &n));
+	TEST_ASSERT_EQUAL_INT(1, ps_atoi("   22", &n));
 	TEST_ASSERT_EQUAL_INT(22, n);
-	TEST_ASSERT_EQUAL_INT(0, my_atoi("22a", &n));
-	TEST_ASSERT_EQUAL_INT(1, my_atoi("-2147483648", &n));
+	TEST_ASSERT_EQUAL_INT(0, ps_atoi("22a", &n));
+	TEST_ASSERT_EQUAL_INT(1, ps_atoi("-2147483648", &n));
 	TEST_ASSERT_EQUAL_INT(-2147483648, n);
-	TEST_ASSERT_EQUAL_INT(0, my_atoi("2147483648", &n));
-	TEST_ASSERT_EQUAL_INT(0, my_atoi("=22", &n));
-	TEST_ASSERT_EQUAL_INT(0, my_atoi("18446744073709551618", &n));
-	TEST_ASSERT_EQUAL_INT(0, my_atoi("22a", &n));
+	TEST_ASSERT_EQUAL_INT(0, ps_atoi("2147483648", &n));
+	TEST_ASSERT_EQUAL_INT(0, ps_atoi("=22", &n));
+	TEST_ASSERT_EQUAL_INT(0, ps_atoi("18446744073709551618", &n));
+	TEST_ASSERT_EQUAL_INT(0, ps_atoi("22a", &n));
 }
 
 void	test_insert_value_to_stacks(void)
@@ -181,7 +181,7 @@ void	test_insert_value_to_stacks(void)
 	export_list(stacks->stack_a, arr, rev);
 	TEST_ASSERT_EQUAL_INT_ARRAY(expect2, arr, 14);
 	TEST_ASSERT_EQUAL_INT(0, insert_value_to_stacks(stacks, 2, argv10));
-	free_helper(&stacks);
+	close_stacks(&stacks);
 }
 
 void	test_push_swap(void)
@@ -228,6 +228,7 @@ void	test_astar_sort(void)
 		generate_move_plan_ab(stacks, i, false, &plan);
         printf("Plan_rr: i: %d, a_time: %d, b_time: %d, total: %d, double: %d, is_r: %d\n", i, plan.a_op_times, plan.b_op_times, plan.total_times, plan.double_op_times, plan.is_r);
 	}
+	close_stacks(&stacks);
 }
 
 // Main function to run the tests

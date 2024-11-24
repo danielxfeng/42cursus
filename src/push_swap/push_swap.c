@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:17:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/23 20:57:46 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/24 09:41:21 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	error_exit(t_stacks **stacks)
 {
 	if (stacks && *stacks)
-		free_helper(stacks);
+		close_stacks(stacks);
 	ft_printf("Error\n");
 	return (1);
 }
@@ -36,15 +36,15 @@ bool	insert_value_to_stacks(t_stacks *stacks, int argc, char **argv)
 	{
 		list = ft_split(argv[i], ' ');
 		if (!list || !*list)
-			return (free_helper_split(list));
+			return (free_str_arr(list));
 		j = 0;
 		while (list[j])
 		{
-			if (!my_atoi(list[j], &n) || !push_stack(stacks, n, true))
-				return (free_helper_split(list));
+			if (!ps_atoi(list[j], &n) || !push_stack(stacks, n, true))
+				return (free_str_arr(list));
 			++j;
 		}
-		free_helper_split(list);
+		free_str_arr(list);
 		++i;
 	}
 	return (true);
@@ -65,6 +65,6 @@ int	push_swap(int argc, char **argv, void (*apply_sort_func)(t_stacks *))
 		return (error_exit(&stacks));
 	if (apply_sort_func)
 		apply_sort_func(stacks);
-	free_helper(&stacks);
+	close_stacks(&stacks);
 	return (0);
 }

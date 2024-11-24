@@ -15,6 +15,7 @@
     "deque": "c",
     "string": "c",
     "vector": "c",
-    "push_swap.h": "c"
+    "push_swap.h": "c",
+    "ft_printf.h": "c"
   }
 }

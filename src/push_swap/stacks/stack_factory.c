@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:41:45 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/23 16:05:05 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/24 10:31:38 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 #include <stdlib.h>
 
 // Helper function of `new_stacks` to create a new `stack`.
@@ -76,7 +76,7 @@ static void	free_helper_stack(t_stack **stack)
 
 // Free the whole `stacks`,
 // and designed for anti double free by checking NULL before free.
-t_stacks	*free_helper(t_stacks **stacks)
+t_stacks	*close_stacks(t_stacks **stacks)
 {
 	if (*stacks)
 	{

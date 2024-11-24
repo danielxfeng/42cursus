@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:26:50 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/23 20:32:16 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/24 09:40:46 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-// A modified atoi.
+// A modified atoi that reject invalid value and overflow.
 // The parsed value is `*n`, returns `true` on success, or `false` on error.
-bool	my_atoi(const char *nptr, int *n)
+bool	ps_atoi(const char *nptr, int *n)
 {
 	int			sn;
 	size_t		len;
@@ -46,7 +46,8 @@ bool	my_atoi(const char *nptr, int *n)
 	return (true);
 }
 
-bool	free_helper_split(char **arr)
+// To free a string array.
+bool	free_str_arr(char **arr)
 {
 	size_t	i;
 

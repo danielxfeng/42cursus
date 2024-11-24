@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_method_b.c                                   :+:      :+:    :+:   */
+/*   stack_methods.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 20:49:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/23 16:07:40 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/24 10:31:56 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
+
+t_node					*push_back(t_stack *stack, int value);
+bool					has(t_stack *stack, int n);
 
 // A helper function for methods.
 t_stack	*get_curr_stack(t_stacks *stacks, bool is_a)
@@ -23,7 +26,7 @@ t_stack	*get_curr_stack(t_stacks *stacks, bool is_a)
 	return (stack);
 }
 
-// Get the value from a stack.
+// Get the value from a stack by index.
 int get_value_from_stack(t_stacks *stacks, bool is_a, size_t idx)
 {
 	t_stack	*stack;
@@ -40,15 +43,6 @@ int get_value_from_stack(t_stacks *stacks, bool is_a, size_t idx)
 	while (i++ < idx)
 		curr = curr->next;
 	return (curr->value);
-}
-
-// Returns the length of `stack`.
-size_t	get_len(t_stacks *stacks, bool is_a)
-{
-	t_stack	*stack;
-
-	stack = get_curr_stack(stacks, is_a);
-	return (stack->len);
 }
 
 // Push an int to `stack`; Duplicated value is not allowed.
