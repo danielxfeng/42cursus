@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/25 12:21:26 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/25 12:39:17 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void					p(t_stacks *stacks, bool is_a);
 bool					push_stack(t_stacks *stacks, int n, bool is_a);
 int						get_value_from_stack(t_stacks *stacks, bool is_a,
 							size_t idx);
+size_t get_idx_by_value(t_stacks *stacks, int n, bool is_a);
 
 bool					ps_atoi(const char *nptr, int *n); 
 bool					free_str_arr(char **arr);

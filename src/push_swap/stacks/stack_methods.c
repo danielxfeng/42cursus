@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 20:49:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/24 15:35:35 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/25 12:35:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,24 @@ bool	push_stack(t_stacks *stacks, int n, bool is_a)
 	if (has(stack, n) || !push_back(stack, n))
 		return (false);
 	return (true);
+}
+
+// Return the idx of a stack, returns INT_MAX when not found.
+size_t get_idx_by_value(t_stacks *stacks, int n, bool is_a)
+{
+	size_t i;
+	t_stack	*stack;
+	t_node *curr;
+
+	stack = get_curr_stack(stacks, is_a);
+	curr = stack->root;
+	i = 0;
+	while (i < stack->len)
+	{
+		if (curr->value == n)
+			return (i);
+		curr = curr->next;
+		++i;
+	}
+	return (size_t)(INT_MAX);
 }
