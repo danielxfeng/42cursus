@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:41:45 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/24 15:34:46 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/25 12:17:17 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static t_stack	*new_stack(char label)
 	if (!stack)
 		return (NULL);
 	stack->root = NULL;
+	stack->max = NULL;
 	stack->label = label;
 	stack->len = 0;
 	return (stack);
