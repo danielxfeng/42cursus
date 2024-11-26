@@ -6,19 +6,19 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 08:43:10 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/25 19:07:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/26 15:36:17 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
 // To calculate the cost that `insert` a number to sorted list `stack b`.
-static int cal_cost_to_b(t_stacks *stacks, size_t idx)
+static int	cal_cost_to_b(t_stacks *stacks, size_t idx)
 {
-    int n;
-	size_t i;
-	size_t start;
-	t_node *curr;
+	int		n;
+	size_t	i;
+	size_t	start;
+	t_node	*curr;
 
 	if (stacks->stack_b->len <= 2)
 		return (0);
@@ -29,16 +29,18 @@ static int cal_cost_to_b(t_stacks *stacks, size_t idx)
 	while (i++ < stacks->stack_b->len)
 	{
 		if (n > curr->value)
-			return ((stacks->stack_b->len + start + i - 1) % stacks->stack_b->len);
+			return ((stacks->stack_b->len + start + i - 1)
+				% stacks->stack_b->len);
 		curr = curr->next;
 	}
 	return (INT_MAX);
 }
 
 // Fill the plan with `stack a` related properties.
-static void fill_plan_a(t_move_plan_ab *plan, t_stacks *stacks, size_t idx, bool is_r)
+static void	fill_plan_a(t_move_plan_ab *plan, t_stacks *stacks, size_t idx,
+		bool is_r)
 {
-    plan->idx = idx;
+	plan->idx = idx;
 	plan->a_is_r = is_r;
 	if (is_r)
 		plan->a_op_times = idx;
@@ -46,8 +48,10 @@ static void fill_plan_a(t_move_plan_ab *plan, t_stacks *stacks, size_t idx, bool
 		plan->a_op_times = stacks->stack_a->len - idx;
 }
 
-// Fill the plan with `stack b` related properties, and calculate the `total times`.
-static void fill_plan_b(t_move_plan_ab *plan, t_stacks *stacks, int cost, bool is_r)
+// Fill the plan with `stack b` related properties,
+// and calculate the `total times`.
+static void	fill_plan_b(t_move_plan_ab *plan, t_stacks *stacks, int cost,
+		bool is_r)
 {
 	plan->b_is_r = is_r;
 	if (is_r)
@@ -70,17 +74,18 @@ static void fill_plan_b(t_move_plan_ab *plan, t_stacks *stacks, int cost, bool i
 		{
 			plan->double_op_times = plan->a_op_times;
 			plan->total_times = plan->b_op_times;
-		} 
+		}
 	}
-    plan->total_times += 1;		
+	plan->total_times += 1;
 }
 
 // To generate and compare different moving plans, and select the best one.
-void get_best_plan_ab(t_stacks *stacks, size_t idx, t_move_plan_ab *best_plan)
+void	get_best_plan_ab(t_stacks *stacks, size_t idx,
+		t_move_plan_ab *best_plan)
 {
-	int b_cost;
-	size_t i;
-	t_move_plan_ab plans[4];
+	int				b_cost;
+	size_t			i;
+	t_move_plan_ab	plans[4];
 
 	b_cost = cal_cost_to_b(stacks, idx);
 	fill_plan_a(&(plans[0]), stacks, idx, true);

@@ -6,16 +6,16 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:33:08 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/25 12:18:07 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/26 15:35:30 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
 #include "../ft_printf/ft_printf.h"
+#include "../push_swap.h"
 
-t_stack	*get_curr_stack(t_stacks *stacks, bool is_a);
-t_node	*insert_front(t_stack *stack, t_node *node);
-t_node	*pop_front(t_stack *stack);
+t_stack		*get_curr_stack(t_stacks *stacks, bool is_a);
+t_node		*insert_front(t_stack *stack, t_node *node);
+t_node		*pop_front(t_stack *stack);
 
 // Helper function of `s`, returns the label of `stack`.
 static char	swap(t_stacks *stacks, bool is_a)
@@ -31,15 +31,15 @@ static char	swap(t_stacks *stacks, bool is_a)
 }
 
 // To swap 2 elements ont the top of `stack`.
-void s(t_stacks *stacks, bool is_a)
+void	s(t_stacks *stacks, bool is_a)
 {
-	char label;
+	char	label;
 
 	label = swap(stacks, is_a);
 	ft_printf("%c%c%c", 's', label, '\n');
 }
 
-void ss(t_stacks *stacks)
+void	ss(t_stacks *stacks)
 {
 	swap(stacks, true);
 	swap(stacks, false);
@@ -68,9 +68,9 @@ static char	p_helper(t_stacks *stacks, bool is_a)
 }
 
 // To move the top element of opposite's `stack` to curr's `stack`.
-void p(t_stacks *stacks, bool is_a)
+void	p(t_stacks *stacks, bool is_a)
 {
-	char label;
+	char	label;
 
 	label = p_helper(stacks, is_a);
 	ft_printf("%c%c%c", 'p', label, '\n');

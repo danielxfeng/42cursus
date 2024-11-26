@@ -6,16 +6,16 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/26 06:58:29 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/26 15:35:41 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <limits.h>
 # include <stdbool.h>
 # include <stddef.h>
-# include <limits.h>
 
 typedef struct s_node	t_node;
 
@@ -29,7 +29,7 @@ typedef struct s_stack
 	t_node				*root;
 	size_t				len;
 	char				label;
-	t_node              *max;
+	t_node				*max;
 }						t_stack;
 
 // The data structure of stacks.
@@ -49,18 +49,19 @@ typedef struct s_node
 
 typedef struct s_move_plan_ab
 {
-	size_t              idx;
+	size_t				idx;
 	int					total_times;
 	bool				a_is_r;
 	int					a_op_times;
-	bool                b_is_r;
+	bool				b_is_r;
 	int					b_op_times;
 	int					double_op_times;
 }						t_move_plan_ab;
 
 int						push_swap(int argc, char **argv,
 							void (*apply_sort_func)(t_stacks *));
-void get_best_plan(t_stacks *stacks, size_t idx, t_move_plan_ab *best_plan);
+void					get_best_plan(t_stacks *stacks, size_t idx,
+							t_move_plan_ab *best_plan);
 
 t_stacks				*new_stacks(void);
 t_stacks				*close_stacks(t_stacks **stacks);
@@ -74,9 +75,9 @@ void					p(t_stacks *stacks, bool is_a);
 bool					push_stack(t_stacks *stacks, int n, bool is_a);
 int						get_value_from_stack(t_stacks *stacks, bool is_a,
 							size_t idx);
-size_t get_idx_by_value(t_stacks *stacks, int n, bool is_a);
+size_t					get_idx_by_value(t_stacks *stacks, int n, bool is_a);
 
-bool					ps_atoi(const char *nptr, int *n); 
+bool					ps_atoi(const char *nptr, int *n);
 bool					free_str_arr(char **arr);
 
 #endif

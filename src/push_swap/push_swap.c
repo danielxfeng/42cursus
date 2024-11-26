@@ -6,13 +6,13 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:17:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/24 09:41:21 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/26 15:35:37 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-#include "libft/libft.h"
 #include "ft_printf/ft_printf.h"
+#include "libft/libft.h"
+#include "push_swap.h"
 
 int	error_exit(t_stacks **stacks)
 {

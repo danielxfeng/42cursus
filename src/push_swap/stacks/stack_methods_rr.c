@@ -6,14 +6,14 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:33:08 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/24 10:32:55 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/26 15:35:26 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
 #include "../ft_printf/ft_printf.h"
+#include "../push_swap.h"
 
-t_stack	*get_curr_stack(t_stacks *stacks, bool is_a);
+t_stack		*get_curr_stack(t_stacks *stacks, bool is_a);
 
 // Helper function for `rr`, returns the label of `stack`.
 static char	rotate_rr(t_stacks *stacks, bool is_a)
@@ -26,19 +26,19 @@ static char	rotate_rr(t_stacks *stacks, bool is_a)
 }
 
 // To swap the bottom and top elements of the `stack`.
-void rr(t_stacks *stacks, bool is_a)
+void	rr(t_stacks *stacks, bool is_a)
 {
-	char label;
-		
+	char	label;
+
 	label = rotate_rr(stacks, is_a);
 	ft_printf("%s%c%c", "rr", label, '\n');
 }
 
 // To swap the bottom and top elements of the `stack`s.
-void rrr(t_stacks *stacks)
+void	rrr(t_stacks *stacks)
 {
-	char label;
-		
+	char	label;
+
 	rotate_rr(stacks, true);
 	rotate_rr(stacks, false);
 	ft_printf("rrr\n");
