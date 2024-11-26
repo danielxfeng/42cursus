@@ -67,6 +67,9 @@ void	test_stack(void)
 	push_stack(stacks, 3, true);
 	stack_a = stacks->stack_a;
 	export_list(stack_a, arr, reversed);
+	TEST_ASSERT_EQUAL_INT(0, get_idx_by_value(stacks, 1, true));
+	TEST_ASSERT_EQUAL_INT(1, get_idx_by_value(stacks, 2, true));
+	TEST_ASSERT_EQUAL_INT(2, get_idx_by_value(stacks, 3, true));
 	TEST_ASSERT_EQUAL_INT_ARRAY(expected, arr, 3);
 	TEST_ASSERT_EQUAL_INT_ARRAY(rev_expected, reversed, 3);
 	TEST_ASSERT_EQUAL_INT(3, stack_a->len);
@@ -117,6 +120,45 @@ void	test_stack(void)
 	TEST_ASSERT_EQUAL_INT(0, push_stack(stacks, 3, false));
 	TEST_ASSERT_EQUAL_INT(0, push_stack(stacks, 1, false));
 	close_stacks(&stacks);
+}
+
+void test_stack_op(void)
+{
+	t_stacks	*stacks;
+	t_stack		*stack_a;
+	t_stack *stack_b;
+
+	stacks = new_stacks();
+	push_stack(stacks, 1, true);
+	push_stack(stacks, 2, true);
+	push_stack(stacks, 3, true);
+	stack_a = stacks->stack_a;
+	stack_b = stacks->stack_b;
+	r(stacks, true);
+	TEST_ASSERT_EQUAL_INT(2, get_idx_by_value(stacks, 1, true));
+	TEST_ASSERT_EQUAL_INT(0, get_idx_by_value(stacks, 2, true));
+	rr(stacks, true);
+	TEST_ASSERT_EQUAL_INT(0, get_idx_by_value(stacks, 1, true));
+	TEST_ASSERT_EQUAL_INT(1, get_idx_by_value(stacks, 2, true));
+	s(stacks, true);
+	TEST_ASSERT_EQUAL_INT(1, get_idx_by_value(stacks, 1, true));
+	TEST_ASSERT_EQUAL_INT(0, get_idx_by_value(stacks, 2, true));		
+	p(stacks, false);
+	TEST_ASSERT_EQUAL_INT(0, get_idx_by_value(stacks, 1, true));
+	TEST_ASSERT_EQUAL_INT(1, get_idx_by_value(stacks, 3, true));		
+	TEST_ASSERT_EQUAL_INT(0, get_idx_by_value(stacks, 2, false));
+	TEST_ASSERT_EQUAL_INT(1, stack_b->len);
+	TEST_ASSERT_EQUAL_INT(2, stack_a->len);	
+	TEST_ASSERT_EQUAL_INT(2, stack_b->max->value);
+	p(stacks, false);
+	p(stacks, false);
+	TEST_ASSERT_EQUAL_INT(0, stack_a->len);
+	TEST_ASSERT_EQUAL_INT(3, stack_b->len);	
+	TEST_ASSERT_EQUAL_INT(3, stack_b->max->value);
+	TEST_ASSERT_EQUAL_INT(1, get_idx_by_value(stacks, 1, false));
+	TEST_ASSERT_EQUAL_INT(0, get_idx_by_value(stacks, 3, false));		
+	TEST_ASSERT_EQUAL_INT(2, get_idx_by_value(stacks, 2, false));
+	TEST_ASSERT_EQUAL_INT(INT_MAX, get_idx_by_value(stacks, 5, true));
 }
 
 void	test_atoi(void)
@@ -220,6 +262,7 @@ int	main(void)
 	RUN_TEST(test_atoi);
 	RUN_TEST(test_insert_value_to_stacks);
 	RUN_TEST(test_push_swap);
+	RUN_TEST(test_stack_op);
     // RUN_TEST(test_astar_sort);
 	return (UNITY_END());
 }
