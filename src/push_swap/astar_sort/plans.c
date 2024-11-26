@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 08:43:10 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/25 13:00:21 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/25 19:07:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,20 @@ static int cal_cost_to_b(t_stacks *stacks, size_t idx)
 {
     int n;
 	size_t i;
-	bool sign;
+	size_t start;
 	t_node *curr;
 
 	if (stacks->stack_b->len <= 2)
-		return (stacks->stack_b->len);
-	n = get_value_from_stack(stacks, false, idx);
-	if (n == stacks->stack_b->max->value || n == stacks->stack_b->max->prev->value)
-		return (cal_min_max_cost_to_b(stacks, idx));
+		return (0);
+	n = get_value_from_stack(stacks, true, idx);
+	start = get_idx_by_value(stacks, stacks->stack_b->max->value, false);
 	i = 0;
-	curr = stacks->stack_b->root;
-	sign = curr->value > n;
+	curr = stacks->stack_b->max;
 	while (i++ < stacks->stack_b->len)
 	{
-		if (sign != curr->value > n)
-			return (i - 1);
+		if (n > curr->value)
+			return ((stacks->stack_b->len + start + i - 1) % stacks->stack_b->len);
+		curr = curr->next;
 	}
 	return (INT_MAX);
 }
@@ -83,15 +82,15 @@ void get_best_plan_ab(t_stacks *stacks, size_t idx, t_move_plan_ab *best_plan)
 	size_t i;
 	t_move_plan_ab plans[4];
 
-	b_cost = cal_plan_to_b(stacks, idx);
+	b_cost = cal_cost_to_b(stacks, idx);
 	fill_plan_a(&(plans[0]), stacks, idx, true);
 	fill_plan_b(&(plans[0]), stacks, b_cost, true);
 	fill_plan_a(&(plans[1]), stacks, idx, true);
 	fill_plan_b(&(plans[1]), stacks, b_cost, false);
 	fill_plan_a(&(plans[2]), stacks, idx, false);
 	fill_plan_b(&(plans[2]), stacks, b_cost, true);
-	fill_plan_a(&(plans[2]), stacks, idx, false);
-	fill_plan_b(&(plans[2]), stacks, b_cost, false);
+	fill_plan_a(&(plans[3]), stacks, idx, false);
+	fill_plan_b(&(plans[3]), stacks, b_cost, false);
 	*best_plan = plans[0];
 	i = 1;
 	while (i < 4)
