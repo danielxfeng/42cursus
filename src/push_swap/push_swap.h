@@ -1,0 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/23 16:05:17 by Xifeng           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+
+# include <stdbool.h>
+# include <stdio.h>
+# include <limits.h>
+
+typedef struct s_node	t_node;
+
+// Maintains a data structure of `stack`.
+// `root` is the int list, as well as a `circular doubly linked list`.
+// `len` is the length of `stack`.
+// `label` is either 'a' or 'b'.
+typedef struct s_stack
+{
+	t_node				*root;
+	size_t				len;
+	char				label;
+	int					max;
+	int					min;
+}						t_stack;
+
+typedef struct s_stacks
+{
+	t_stack				*stack_a;
+	t_stack				*stack_b;
+}						t_stacks;
+
+// Represents a node of `circular doubly linked list`.
+typedef struct s_node
+{
+	int					value;
+	t_node				*prev;
+	t_node				*next;
+}						t_node;
+
+typedef struct s_move_plan_ab
+{
+	bool				is_r;
+	int					total_times;
+	int					a_op_times;
+	int					b_op_times;
+	int					double_op_times;
+}						t_move_plan_ab;
+
+int						push_swap(int argc, char **argv,
+							void (*apply_sort_func)(t_stacks *));
+bool					insert_value_to_stacks(t_stacks *stacks, int argc,
+							char **argv);
+void					get_plan(t_stacks *stacks, size_t i,
+							t_move_plan_ab *curr_plan);
+void					generate_move_plan_ab(t_stacks *stacks, size_t i,
+							bool is_r, t_move_plan_ab *plan);
+
+bool					my_atoi(const char *nptr, int *n);
+void					ft_putstr(char *s);
+char					**ft_split(char const *s, char c);
+char					*ft_substr(char const *s, unsigned int start,
+							size_t len);
+bool					free_helper_split(char **arr);
+
+t_stacks				*new_stacks(void);
+t_stacks				*free_helper(t_stacks **stacks);
+char					s(t_stacks *stacks, bool is_a);
+char					r(t_stacks *stacks, bool is_a);
+char					rr(t_stacks *stacks, bool is_a);
+char					p(t_stacks *stacks, bool is_a);
+size_t					get_len(t_stacks *stacks, bool is_a);
+bool					push_stack(t_stacks *stacks, int n, bool is_a);
+int						get_value_from_stack(t_stacks *stacks, bool is_a,
+							size_t idx);
+t_node					*push_back(t_stack *stack, int value);
+t_node					*insert_front(t_stack *stack, t_node *node);
+t_node					*pop_front(t_stack *stack);
+bool					has(t_stack *stack, int n);
+
+#endif

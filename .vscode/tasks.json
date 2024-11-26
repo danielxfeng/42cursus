@@ -7,18 +7,18 @@
             "command": "gcc",
             "args": [
                 "-g",
-                "-o", "build/${fileBasenameNoExtension}",
+                "-o",
+                "build/${fileBasenameNoExtension}",
                 "${file}",
-                "src/get_next_line/*.c",
+                "src/ft_printf/*.c",
                 "test/unity/unity.c",
                 "-Itest/unity",
                 "-I./src/libft/includes"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": ["$gcc"],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
             "detail": "Compiles the test file and source files with Unity"
         }
     ]
