@@ -241,16 +241,48 @@ void	test_push_swap(void)
 	TEST_ASSERT_EQUAL_INT(1, push_swap(4, argv6, NULL));
 }
 
-void	test_astar_sort(void)
+void test_plan(void)
 {
 	int		value_1[] = {159, 146, 137, 125, 105, 99, 88};
 	int		value_2[] = {158, 136, 128, 110, 101, 98, 86};
 	t_stacks	*stacks;
-		t_move_plan_ab plan;
+	t_move_plan_ab plan;
 
 	stacks = new_stacks();
-	for (int i = 0; i < 7; ++i)
+	for (size_t i = 0; i < 7; ++i)
 		push_stack(stacks, value_1[i], true);
+	for (size_t i = 0; i < 7; ++i)
+	{
+		get_best_plan_ab(stacks, i, &plan);
+		size_t cost = i;
+		if (7 - i < cost)
+			cost = 7 - i;
+		TEST_ASSERT_EQUAL_INT(cost, plan.a_op_times);
+		TEST_ASSERT_EQUAL_INT(cost == i, plan.a_is_r);
+		TEST_ASSERT_EQUAL_INT(0, plan.b_op_times);
+		TEST_ASSERT_EQUAL_INT(1, plan.b_is_r);
+		TEST_ASSERT_EQUAL_INT(cost + 1, plan.total_times);
+		// printf("a_is_r: %d, a_op_times: %d, b_is_r: %d, b_op_times: %d, double_times: %d, idx: %d, total_times: %d\n", plan.a_is_r, plan.a_op_times, plan.b_is_r, plan.b_op_times, plan.double_op_times, plan.idx, plan.total_times);
+	}
+	for (size_t j = 0; j < 7; ++j)
+	{
+		push_stack(stacks, value_2[j], false);
+		if (!stacks->stack_b->max || value_2[j] > stacks->stack_b->max->value)
+			stacks->stack_b->max = stacks->stack_b->root;
+		for (size_t i = 0; i < 7; ++i)
+		{
+			get_best_plan_ab(stacks, i, &plan);
+			size_t cost = i;
+			if (7 - i < cost)
+				cost = 7 - i;
+			//TEST_ASSERT_EQUAL_INT(cost, plan.a_op_times);
+			//TEST_ASSERT_EQUAL_INT(cost == i, plan.a_is_r);
+			//TEST_ASSERT_EQUAL_INT(0, plan.b_op_times);
+			//TEST_ASSERT_EQUAL_INT(1, plan.b_is_r);
+			//TEST_ASSERT_EQUAL_INT(cost + 1, plan.total_times);
+			printf("j: %d, i: %d; a_is_r: %d, a_op_times: %d, b_is_r: %d, b_op_times: %d, double_times: %d, idx: %d, total_times: %d\n", j, i, plan.a_is_r, plan.a_op_times, plan.b_is_r, plan.b_op_times, plan.double_op_times, plan.idx, plan.total_times);
+		}
+	}
 	close_stacks(&stacks);
 }
 
@@ -263,6 +295,7 @@ int	main(void)
 	RUN_TEST(test_insert_value_to_stacks);
 	RUN_TEST(test_push_swap);
 	RUN_TEST(test_stack_op);
-    // RUN_TEST(test_astar_sort);
+	RUN_TEST(test_plan);
+    //RUN_TEST(test_astar_sort);
 	return (UNITY_END());
 }

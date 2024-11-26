@@ -17,7 +17,8 @@
                 "-I./src/push_swap/ft_printf",
                 "src/push_swap/libft/*.c",
                 "src/push_swap/ft_printf/*.c",
-                "src/push_swap/stacks/*.c"
+                "src/push_swap/stacks/*.c",
+                "src/push_swap/astar_sort/*.c"
             ],
             "group": "build",
             "problemMatcher": [
