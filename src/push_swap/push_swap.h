@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/27 18:18:53 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 18:57:56 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_move_plan_ab
 }						t_move_plan_ab;
 
 int						push_swap(int argc, char **argv,
-							void (*apply_sort_func)(t_stacks *));
+							int (*apply_sort_func)(t_stacks *));
 void					get_best_plan_ab(t_stacks *stacks, size_t idx,
 							t_move_plan_ab *best_plan);
 int						astar_sort_func(t_stacks *stacks);

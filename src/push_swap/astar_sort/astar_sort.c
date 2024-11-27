@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:08:35 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/27 18:15:49 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 19:12:51 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void					get_best_plan_ab(t_stacks *stacks, size_t idx,
 static t_move_plan_ab	get_next_move_plan_ab(t_stacks *stacks,
 		t_move_plan_ab *next_plan)
 {
-	size_t			i;
-	size_t			j;
+	int				i;
+	int				j;
 	int				cheapest;
 	t_move_plan_ab	plans[60];
 
@@ -32,7 +32,7 @@ static t_move_plan_ab	get_next_move_plan_ab(t_stacks *stacks,
 		get_best_plan_ab(stacks, 0, next_plan);
 		return (*next_plan);
 	}
-	while (i < 30 && i < cheapest && i <= (stacks->stack_a->len + 1) / 2)
+	while (i < 30 && i < cheapest && i <= (int)((stacks->stack_a->len + 1) / 2))
 	{
 		get_best_plan_ab(stacks, i, &(plans[i]));
 		if (plans[i].total_times < cheapest)
@@ -52,12 +52,13 @@ static t_move_plan_ab	get_next_move_plan_ab(t_stacks *stacks,
 			return (*next_plan = plans[60 - 1 - j]);
 		++j;
 	}
+	return (*next_plan);
 }
 
 // Perform move from `stack a` to `stack b`.
 static void	perform_move_ab(t_stacks *stacks, t_move_plan_ab *plan)
 {
-	size_t	i;
+	int		i;
 	void	(*double_func)(t_stacks * stacks);
 	void	(*single_func)(t_stacks * stacks, bool is_a);
 
@@ -85,8 +86,8 @@ static void	perform_move_ab(t_stacks *stacks, t_move_plan_ab *plan)
 // Sort the `stack_b`
 static int	sort_stack_b(t_stacks *stacks)
 {
-	size_t	i;
-	int		max_idx_in_b;
+	int	i;
+	int	max_idx_in_b;
 
 	max_idx_in_b = get_idx_by_value(stacks, stacks->stack_b->max->value, false);
 	i = 0;
@@ -111,6 +112,6 @@ int	astar_sort_func(t_stacks *stacks)
 	total_times += sort_stack_b(stacks) + stacks->stack_b->len;
 	while (stacks->stack_b->len)
 		p(stacks, true);
-	ft_printf("Total cost for debug: %d\n", total_times);
+	// ft_printf("Total cost for debug: %d\n", total_times);
 	return (total_times);
 }

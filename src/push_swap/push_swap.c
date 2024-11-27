@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:17:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/27 18:18:31 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 18:53:32 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	insert_value_to_stacks(t_stacks *stacks, int argc, char **argv)
 // `apply_sort_func` is a function pointer for sorting.
 // Dependency injection is to decouple the sorting logic,
 // making it easier to test and extend with different sorting algorithms.
-int	push_swap(int argc, char **argv, void (*apply_sort_func)(t_stacks *))
+int	push_swap(int argc, char **argv, int (*apply_sort_func)(t_stacks *))
 {
 	t_stacks	*stacks;
 

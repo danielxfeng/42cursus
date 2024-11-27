@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:41:45 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/26 15:35:52 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 19:06:35 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 static t_stack	*new_stack(char label)
 {
 	t_stack	*stack;
-	int		*arr;
 
 	stack = malloc(sizeof(t_stack));
 	if (!stack)

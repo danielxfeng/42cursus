@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:33:08 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/26 15:35:26 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 19:07:21 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	rr(t_stacks *stacks, bool is_a)
 // To swap the bottom and top elements of the `stack`s.
 void	rrr(t_stacks *stacks)
 {
-	char	label;
-
 	rotate_rr(stacks, true);
 	rotate_rr(stacks, false);
 	ft_printf("rrr\n");

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:26:50 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/26 06:58:21 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 19:00:53 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	ps_atoi(const char *nptr, int *n)
 	size_t		len;
 	long long	ln;
 
-	while (*nptr && (*nptr >= 9 && *nptr <= 13 || *nptr == 32))
+	while (*nptr && ((*nptr >= 9 && *nptr <= 13) || *nptr == 32))
 		++nptr;
 	sn = 1;
 	if (*nptr == '+' || *nptr == '-')
