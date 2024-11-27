@@ -275,15 +275,25 @@ void test_plan(void)
 			size_t cost = i;
 			if (7 - i < cost)
 				cost = 7 - i;
-			//TEST_ASSERT_EQUAL_INT(cost, plan.a_op_times);
-			//TEST_ASSERT_EQUAL_INT(cost == i, plan.a_is_r);
+			TEST_ASSERT_EQUAL_INT(cost, plan.a_op_times);
+			TEST_ASSERT_EQUAL_INT(cost == i, plan.a_is_r);
 			//TEST_ASSERT_EQUAL_INT(0, plan.b_op_times);
 			//TEST_ASSERT_EQUAL_INT(1, plan.b_is_r);
 			//TEST_ASSERT_EQUAL_INT(cost + 1, plan.total_times);
 			printf("j: %d, i: %d; a_is_r: %d, a_op_times: %d, b_is_r: %d, b_op_times: %d, double_times: %d, idx: %d, total_times: %d\n", j, i, plan.a_is_r, plan.a_op_times, plan.b_is_r, plan.b_op_times, plan.double_op_times, plan.idx, plan.total_times);
 		}
+		printf("\n");
 	}
 	close_stacks(&stacks);
+}
+
+void test_astar_sort()
+{
+	int		value_1[] = {1, 2, 3, 4, 5};
+	t_stacks *stacks = new_stacks();
+	for (size_t i = 0; i < 5; ++i)
+		push_stack(stacks, value_1[i], true);
+	astar_sort_func(stacks);
 }
 
 // Main function to run the tests
@@ -295,7 +305,7 @@ int	main(void)
 	RUN_TEST(test_insert_value_to_stacks);
 	RUN_TEST(test_push_swap);
 	RUN_TEST(test_stack_op);
-	RUN_TEST(test_plan);
-    //RUN_TEST(test_astar_sort);
+	//RUN_TEST(test_plan);
+    RUN_TEST(test_astar_sort);
 	return (UNITY_END());
 }

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:33:08 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/26 15:35:20 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/26 18:34:37 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ t_stack		*get_curr_stack(t_stacks *stacks, bool is_a);
 static char	rotate_r(t_stacks *stacks, bool is_a)
 {
 	t_stack	*stack;
-	t_node	*curr;
 
 	stack = get_curr_stack(stacks, is_a);
-	curr = stack->root;
 	stack->root = stack->root->next;
 	return (stack->label);
 }
