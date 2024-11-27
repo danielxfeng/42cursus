@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 08:43:10 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/26 17:25:39 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 17:22:52 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	cal_cost_to_b(t_stacks *stacks, size_t idx)
 	size_t	start;
 	t_node	*curr;
 
-	if (stacks->stack_b->len <= 2)
+	if (stacks->stack_b->len < 2)
 		return (0);
 	n = get_value_from_stack(stacks, true, idx);
 	if (stacks->stack_b->max)
@@ -36,7 +36,7 @@ static int	cal_cost_to_b(t_stacks *stacks, size_t idx)
 				% stacks->stack_b->len);
 		curr = curr->next;
 	}
-	return (start);
+	return ((start) % stacks->stack_b->len);
 }
 
 // Fill the plan with `stack a` related properties.

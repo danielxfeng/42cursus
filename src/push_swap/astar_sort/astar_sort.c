@@ -6,15 +6,15 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:08:35 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/27 09:23:51 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 18:15:49 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf/ft_printf.h"
 #include "../push_swap.h"
 
-void			get_best_plan_ab(t_stacks *stacks, size_t idx,
-					t_move_plan_ab *best_plan);
+void					get_best_plan_ab(t_stacks *stacks, size_t idx,
+							t_move_plan_ab *best_plan);
 
 // Returns the plan of next move from `stack a` to `stack b`.
 static t_move_plan_ab	get_next_move_plan_ab(t_stacks *stacks,
@@ -27,12 +27,18 @@ static t_move_plan_ab	get_next_move_plan_ab(t_stacks *stacks,
 
 	i = 0;
 	cheapest = INT_MAX;
-	while (i < 30 && i < cheapest && i < stacks->stack_a->len / 2)
+	if (stacks->stack_a->len == 1)
+	{
+		get_best_plan_ab(stacks, 0, next_plan);
+		return (*next_plan);
+	}
+	while (i < 30 && i < cheapest && i <= (stacks->stack_a->len + 1) / 2)
 	{
 		get_best_plan_ab(stacks, i, &(plans[i]));
 		if (plans[i].total_times < cheapest)
 			cheapest = plans[i].total_times;
-		get_best_plan_ab(stacks, stacks->stack_a->len - 1 - i, &(plans[60 - 1 - i]));
+		get_best_plan_ab(stacks, stacks->stack_a->len - 1 - i, &(plans[60 - 1
+				- i]));
 		if (plans[60 - 1 - i].total_times < cheapest)
 			cheapest = plans[60 - 1 - i].total_times;
 		++i;
@@ -52,8 +58,8 @@ static t_move_plan_ab	get_next_move_plan_ab(t_stacks *stacks,
 static void	perform_move_ab(t_stacks *stacks, t_move_plan_ab *plan)
 {
 	size_t	i;
-	void	(*double_func)(t_stacks *stacks);
-	void	(*single_func)(t_stacks *stacks, bool is_a);
+	void	(*double_func)(t_stacks * stacks);
+	void	(*single_func)(t_stacks * stacks, bool is_a);
 
 	i = 0;
 	double_func = rrr;
@@ -77,18 +83,15 @@ static void	perform_move_ab(t_stacks *stacks, t_move_plan_ab *plan)
 }
 
 // Sort the `stack_b`
-static int sort_stack_b(t_stacks *stacks)
+static int	sort_stack_b(t_stacks *stacks)
 {
-	size_t i;
-	int max_idx_in_b;
-	
+	size_t	i;
+	int		max_idx_in_b;
+
 	max_idx_in_b = get_idx_by_value(stacks, stacks->stack_b->max->value, false);
 	i = 0;
-	while (max_idx_in_b <= stacks->stack_b->len / 2 && i++ < max_idx_in_b)
+	while (i++ < max_idx_in_b)
 		r(stacks, false);
-	while (max_idx_in_b > stacks->stack_b->len / 2
-		&& i++ < stacks->stack_b->len - max_idx_in_b)
-		rr(stacks, false);
 	return (i - 1);
 }
 

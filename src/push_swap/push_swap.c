@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:17:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/26 15:35:37 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 18:18:31 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
-int	error_exit(t_stacks **stacks)
+static int	error_exit(t_stacks **stacks)
 {
 	if (stacks && *stacks)
 		close_stacks(stacks);
@@ -24,7 +24,7 @@ int	error_exit(t_stacks **stacks)
 
 // Insert the arguments to stacks.
 // Returns false on error, otherwise returns true.
-bool	insert_value_to_stacks(t_stacks *stacks, int argc, char **argv)
+static bool	insert_value_to_stacks(t_stacks *stacks, int argc, char **argv)
 {
 	int		i;
 	int		j;
@@ -67,4 +67,9 @@ int	push_swap(int argc, char **argv, void (*apply_sort_func)(t_stacks *))
 		apply_sort_func(stacks);
 	close_stacks(&stacks);
 	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	push_swap(argc, argv, astar_sort_func);
 }

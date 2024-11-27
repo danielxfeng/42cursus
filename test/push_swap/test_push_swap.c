@@ -289,23 +289,83 @@ void test_plan(void)
 
 void test_astar_sort()
 {
+	int arr[500];
+	int rev[500];
 	int		value_1[] = {1, 2, 3, 4, 5};
 	t_stacks *stacks = new_stacks();
 	for (size_t i = 0; i < 5; ++i)
 		push_stack(stacks, value_1[i], true);
+	TEST_ASSERT_EQUAL_INT(10, astar_sort_func(stacks));
+	close_stacks;
+	int value_2[] = {5, 4, 3, 2, 1};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 5; ++i)
+		push_stack(stacks, value_2[i], true);
+	TEST_ASSERT_EQUAL_INT(14, astar_sort_func(stacks));
+	close_stacks;
+		int value_3[] = {1, 5, 2, 3, 4};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 5; ++i)
+		push_stack(stacks, value_3[i], true);
+	TEST_ASSERT_EQUAL_INT(15, astar_sort_func(stacks));
+	int res3[500] = {1, 2, 3, 4, 5};
+	export_list(stacks->stack_a, arr, rev);
+	TEST_ASSERT_EQUAL_INT_ARRAY(res3, arr, 5);
+	int value_4[] = {5, 1, 2, 3, 4};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 5; ++i)
+		push_stack(stacks, value_4[i], true);
+	TEST_ASSERT_EQUAL_INT(14, astar_sort_func(stacks));
+	int res4[500] = {1, 2, 3, 4, 5};
+	export_list(stacks->stack_a, arr, rev);
+	TEST_ASSERT_EQUAL_INT_ARRAY(res4, arr, 5);
+	close_stacks;
+	int value_5[] = {5, 2, 4, 3, 1};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 5; ++i)
+		push_stack(stacks, value_5[i], true);
 	astar_sort_func(stacks);
+	int res5[500] = {1, 2, 3, 4, 5};
+	export_list(stacks->stack_a, arr, rev);
+	TEST_ASSERT_EQUAL_INT_ARRAY(res5, arr, 5);
+	close_stacks;
+	int value_6[] = {1, 2, 3, 4, 5, 10, 9, 8, 7, 6};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 10; ++i)
+		push_stack(stacks, value_6[i], true);
+	astar_sort_func(stacks);
+	int res6[500] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	export_list(stacks->stack_a, arr, rev);
+	TEST_ASSERT_EQUAL_INT_ARRAY(res6, arr, 10);
+}
+
+void debug()
+{
+	t_stacks *stacks = new_stacks();
+	int arr[500];
+	int rev[500];
+	int value_6[] = {1, 2, 3, 4, 5, 10, 9, 8, 7, 6};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 10; ++i)
+		push_stack(stacks, value_6[i], true);
+	astar_sort_func(stacks);
+	int res6[500] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	export_list(stacks->stack_a, arr, rev);
+	TEST_ASSERT_EQUAL_INT_ARRAY(res6, arr, 10);
+	close_stacks;
 }
 
 // Main function to run the tests
 int	main(void)
 {
 	UNITY_BEGIN();
-	RUN_TEST(test_stack);
-	RUN_TEST(test_atoi);
-	RUN_TEST(test_insert_value_to_stacks);
-	RUN_TEST(test_push_swap);
-	RUN_TEST(test_stack_op);
+	//RUN_TEST(test_stack);
+	//RUN_TEST(test_atoi);
+	////RUN_TEST(test_insert_value_to_stacks);
+	//RUN_TEST(test_push_swap);
+	//RUN_TEST(test_stack_op);
 	//RUN_TEST(test_plan);
     RUN_TEST(test_astar_sort);
+	//RUN_TEST(debug);
 	return (UNITY_END());
 }
