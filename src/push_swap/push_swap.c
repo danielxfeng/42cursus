@@ -6,19 +6,20 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:17:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/27 18:53:32 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 20:15:07 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
 #include "libft/libft.h"
 #include "push_swap.h"
+#include <unistd.h>
 
 static int	error_exit(t_stacks **stacks)
 {
 	if (stacks && *stacks)
 		close_stacks(stacks);
-	ft_printf("Error\n");
+	write(2, "Error\n", 6);
 	return (1);
 }
 
