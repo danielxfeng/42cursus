@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/28 21:31:45 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/28 21:43:56 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef enum a_direction
 // xy: the point of `Tile`.
 // `is_collectible`: if there is a `collectible`.
 // `is_player`: if the `player` is here.
+// `is_visited`: for `path_check`.
 typedef struct s_tile
 {
 	t_type		type;
@@ -51,6 +52,7 @@ typedef struct s_tile
 	int			y;
 	bool		is_collectible;
 	bool		is_exit;
+	bool		is_visited;
 }				t_tile;
 
 // Represents a `Player`.
@@ -96,15 +98,7 @@ typedef struct s_board_check
 	int			i;
 }				t_board_check;
 
-typedef struct s_path_check
-{
-	int *xs;
-	int *ys;
-	int len;
-	int x;
-	int y;
-} t_path_check;
-
+// Represents 2 points, the prev and curr points.
 typedef struct s_next_point
 {
 	int x;
