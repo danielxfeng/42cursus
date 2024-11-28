@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:54 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/28 20:04:19 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/28 21:23:41 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static bool	create_tile(int x, int y, char c, t_tile *tile)
 		tile->type = TILE_EMPTY;
 	tile->is_collectible = (c == 'C');
 	tile->is_exit = (c == 'E');
-	tile->is_player = (c == 'P');
 	return (true);
 }
 
@@ -130,7 +129,7 @@ t_game	*create_game(int length, int height, char **parameter)
 	if (!game->player)
 		exit_prog(&game, &parameter, 1);
 	game->board = create_board(length, height, parameter, game->player);
-	if (!game->board)
+	if (!game->board || !path_check(game))
 		exit_prog(&game, &parameter, 1);
 	game->status = STATUS_NOT_START;
 	return (game);

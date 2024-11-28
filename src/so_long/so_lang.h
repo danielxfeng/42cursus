@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/28 20:04:03 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/28 21:31:45 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef enum a_status
 	STATUS_NOT_START,
 	STATUS_IN_PROGRESS,
 	STATUS_WON,
-	STATUS_LOSE,
 }				t_status;
 
 // Enum of `directions`, up, down, left and right.
@@ -51,7 +50,6 @@ typedef struct s_tile
 	int			x;
 	int			y;
 	bool		is_collectible;
-	bool		is_player;
 	bool		is_exit;
 }				t_tile;
 
@@ -98,7 +96,34 @@ typedef struct s_board_check
 	int			i;
 }				t_board_check;
 
+typedef struct s_path_check
+{
+	int *xs;
+	int *ys;
+	int len;
+	int x;
+	int y;
+} t_path_check;
+
+typedef struct s_next_point
+{
+	int x;
+	int y;
+	int new_x;
+	int new_y;
+	t_direction direction;
+} t_next_point;
+
 void			exit_prog(t_game **game, char ***parameter, int status);
 t_game			*create_game(int length, int height, char **parameter);
+
+void set_next_point(t_next_point *next_point);
+
+bool is_valid_point(t_game *game, int x, int y);
+bool path_check(t_game *game);
+void move(t_game *game, t_direction direction);
+
+void draw_move(t_game *game);
+void draw_init(t_game *game);
 
 #endif
