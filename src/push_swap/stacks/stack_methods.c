@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 20:49:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/26 15:35:33 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/28 14:31:35 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ size_t	get_idx_by_value(t_stacks *stacks, int n, bool is_a)
 		curr = curr->next;
 		++i;
 	}
-	return (size_t)(INT_MAX);
+	return ((size_t)(INT_MAX));
 }
