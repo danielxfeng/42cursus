@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:41:44 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/22 11:09:39 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/03 16:22:17 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static size_t	get_count(char const *s, char c)
@@ -81,24 +81,8 @@ char	**ft_split(char const *s, char c)
 	char	**arr;
 
 	len = get_count(s, c);
-	arr = malloc((len + 1) * sizeof(char *));
+	arr = ft_calloc((len + 1), sizeof(char *));
 	if (!arr)
 		return (NULL);
 	return (split_helper(s, arr, c));
-}
-
-bool	free_helper_split(char **arr)
-{
-	size_t	i;
-
-	if (!arr)
-		return (false);
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		++i;
-	}
-	free(arr);
-	return (false);
 }

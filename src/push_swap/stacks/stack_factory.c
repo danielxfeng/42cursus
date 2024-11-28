@@ -6,29 +6,29 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:41:45 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/23 16:05:05 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/28 14:30:58 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 #include <stdlib.h>
 
 // Helper function of `new_stacks` to create a new `stack`.
-// The only caller of this function is `new_stacks` who will free the memory on error.
-// The `max` and `min` are only updated when `push`, so after `pop`, it may be wrong. 
+// The only caller of this function is `new_stacks` 
+// who will free the memory on error.
+// The `max` and `min` are only updated when `push`, so after `pop`,
+// it may be wrong.
 static t_stack	*new_stack(char label)
 {
 	t_stack	*stack;
-	int		*arr;
 
 	stack = malloc(sizeof(t_stack));
 	if (!stack)
 		return (NULL);
 	stack->root = NULL;
+	stack->max = NULL;
 	stack->label = label;
 	stack->len = 0;
-	stack->max = INT_MIN;
-	stack->min = INT_MAX;
 	return (stack);
 }
 
@@ -76,7 +76,7 @@ static void	free_helper_stack(t_stack **stack)
 
 // Free the whole `stacks`,
 // and designed for anti double free by checking NULL before free.
-t_stacks	*free_helper(t_stacks **stacks)
+t_stacks	*close_stacks(t_stacks **stacks)
 {
 	if (*stacks)
 	{

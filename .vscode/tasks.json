@@ -13,7 +13,37 @@
                 "src/ft_printf/*.c",
                 "test/unity/unity.c",
                 "-Itest/unity",
-                "-I./src/libft/includes"
+                "-I./src/push_swap/libft",
+                "-I./src/push_swap/ft_printf",
+                "src/push_swap/libft/*.c",
+                "src/push_swap/ft_printf/*.c",
+                "src/push_swap/stacks/*.c",
+                "src/push_swap/astar_sort/*.c"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Compiles the test file and source files with Unity"
+        },
+        {
+            "label": "C/C++: gcc build active file",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "-o",
+                "build/${fileBasenameNoExtension}",
+                "${file}",
+                "src/push_swap/*.c",
+                "test/unity/unity.c",
+                "-Itest/unity",
+                "-I./src/push_swap/libft",
+                "-I./src/push_swap/ft_printf",
+                "src/push_swap/libft/*.c",
+                "src/push_swap/ft_printf/*.c",
+                "src/push_swap/stacks/*.c",
+                "src/push_swap/astar_sort/*.c"
             ],
             "group": "build",
             "problemMatcher": [

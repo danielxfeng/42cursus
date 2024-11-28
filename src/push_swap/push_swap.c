@@ -6,23 +6,26 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:17:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/22 11:09:52 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/28 14:15:54 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf/ft_printf.h"
+#include "libft/libft.h"
 #include "push_swap.h"
+#include <unistd.h>
 
-int	error_exit(t_stacks **stacks)
+static int	error_exit(t_stacks **stacks)
 {
 	if (stacks && *stacks)
-		free_helper(stacks);
-	ft_putstr("Error\n");
+		close_stacks(stacks);
+	write(2, "Error\n", 6);
 	return (1);
 }
 
 // Insert the arguments to stacks.
 // Returns false on error, otherwise returns true.
-bool	insert_value_to_stacks(t_stacks *stacks, int argc, char **argv)
+static bool	insert_value_to_stacks(t_stacks *stacks, int argc, char **argv)
 {
 	int		i;
 	int		j;
@@ -34,15 +37,15 @@ bool	insert_value_to_stacks(t_stacks *stacks, int argc, char **argv)
 	{
 		list = ft_split(argv[i], ' ');
 		if (!list || !*list)
-			return (free_helper_split(list));
+			return (free_str_arr(list));
 		j = 0;
 		while (list[j])
 		{
-			if (!my_atoi(list[j], &n) || !push_stack(stacks, n, true))
-				return (free_helper_split(list));
+			if (!ps_atoi(list[j], &n) || !push_stack(stacks, n, true))
+				return (free_str_arr(list));
 			++j;
 		}
-		free_helper_split(list);
+		free_str_arr(list);
 		++i;
 	}
 	return (true);
@@ -52,7 +55,7 @@ bool	insert_value_to_stacks(t_stacks *stacks, int argc, char **argv)
 // `apply_sort_func` is a function pointer for sorting.
 // Dependency injection is to decouple the sorting logic,
 // making it easier to test and extend with different sorting algorithms.
-int	push_swap(int argc, char **argv, void (*apply_sort_func)(t_stacks *))
+int	push_swap(int argc, char **argv, int (*apply_sort_func)(t_stacks *))
 {
 	t_stacks	*stacks;
 
@@ -63,6 +66,11 @@ int	push_swap(int argc, char **argv, void (*apply_sort_func)(t_stacks *))
 		return (error_exit(&stacks));
 	if (apply_sort_func)
 		apply_sort_func(stacks);
-	free_helper(&stacks);
+	close_stacks(&stacks);
 	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	push_swap(argc, argv, astar_sort_func);
 }

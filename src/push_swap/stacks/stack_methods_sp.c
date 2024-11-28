@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_methods.c                                    :+:      :+:    :+:   */
+/*   stack_methods_sp.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:33:08 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/23 16:15:10 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/26 15:35:30 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../ft_printf/ft_printf.h"
+#include "../push_swap.h"
 
-t_stack	*get_curr_stack(t_stacks *stacks, bool is_a);
+t_stack		*get_curr_stack(t_stacks *stacks, bool is_a);
+t_node		*insert_front(t_stack *stack, t_node *node);
+t_node		*pop_front(t_stack *stack);
 
-// To swap 2 elements ont the top of `stack`.
-// Returns the label of `stack`.
-char	s(t_stacks *stacks, bool is_a)
+// Helper function of `s`, returns the label of `stack`.
+static char	swap(t_stacks *stacks, bool is_a)
 {
 	t_stack	*stack;
 	int		temp;
@@ -28,33 +30,24 @@ char	s(t_stacks *stacks, bool is_a)
 	return (stack->label);
 }
 
-// To swap the top and bottom elements of the `stack`.
-// Returns the label of `stack`.
-char	r(t_stacks *stacks, bool is_a)
+// To swap 2 elements ont the top of `stack`.
+void	s(t_stacks *stacks, bool is_a)
 {
-	t_stack	*stack;
-	t_node	*curr;
+	char	label;
 
-	stack = get_curr_stack(stacks, is_a);
-	curr = stack->root;
-	stack->root = stack->root->next;
-	return (stack->label);
+	label = swap(stacks, is_a);
+	ft_printf("%c%c%c", 's', label, '\n');
 }
 
-// To swap the bottom and top elements of the `stack`.
-// Returns the label of `stack`.
-char	rr(t_stacks *stacks, bool is_a)
+void	ss(t_stacks *stacks)
 {
-	t_stack	*stack;
-
-	stack = get_curr_stack(stacks, is_a);
-	stack->root = stack->root->prev;
-	return (stack->label);
+	swap(stacks, true);
+	swap(stacks, false);
+	ft_printf("ss\n");
 }
 
-// To move the top element of opposite's `stack` to curr's `stack`.
-// Returns the label of `stack`.
-char	p(t_stacks *stacks, bool is_a)
+// Helper function for `p`, returns the label of `stack`.
+static char	p_helper(t_stacks *stacks, bool is_a)
 {
 	t_stack	*curr_stack;
 	t_stack	*opposite_stack;
@@ -69,9 +62,16 @@ char	p(t_stacks *stacks, bool is_a)
 	}
 	temp = pop_front(opposite_stack);
 	insert_front(curr_stack, temp);
-	if (temp->value < curr_stack->min)
-		curr_stack->min = temp->value;
-	if (temp->value > curr_stack->max)
-		curr_stack->max = temp->value;	
+	if (!curr_stack->max || temp->value >= curr_stack->max->value)
+		curr_stack->max = temp;
 	return (curr_stack->label);
+}
+
+// To move the top element of opposite's `stack` to curr's `stack`.
+void	p(t_stacks *stacks, bool is_a)
+{
+	char	label;
+
+	label = p_helper(stacks, is_a);
+	ft_printf("%c%c%c", 'p', label, '\n');
 }

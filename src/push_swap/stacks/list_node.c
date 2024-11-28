@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:23:57 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/22 11:09:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 19:06:09 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 #include <stdlib.h>
 
 // Create a new node for the value.
@@ -25,6 +25,7 @@ static t_node	*new_node(int value)
 	node->prev = NULL;
 	node->next = NULL;
 	node->value = value;
+	return (node);
 }
 
 // Add a node for given `value`, then push to the end of `list`.

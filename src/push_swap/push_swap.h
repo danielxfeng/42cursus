@@ -6,16 +6,16 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/23 16:05:17 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/27 18:57:56 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <stdbool.h>
-# include <stdio.h>
 # include <limits.h>
+# include <stdbool.h>
+# include <stddef.h>
 
 typedef struct s_node	t_node;
 
@@ -23,15 +23,16 @@ typedef struct s_node	t_node;
 // `root` is the int list, as well as a `circular doubly linked list`.
 // `len` is the length of `stack`.
 // `label` is either 'a' or 'b'.
+// `max` updates only when: Operation `p`.
 typedef struct s_stack
 {
 	t_node				*root;
 	size_t				len;
 	char				label;
-	int					max;
-	int					min;
+	t_node				*max;
 }						t_stack;
 
+// The data structure of stacks.
 typedef struct s_stacks
 {
 	t_stack				*stack_a;
@@ -48,42 +49,36 @@ typedef struct s_node
 
 typedef struct s_move_plan_ab
 {
-	bool				is_r;
+	size_t				idx;
 	int					total_times;
+	bool				a_is_r;
 	int					a_op_times;
+	bool				b_is_r;
 	int					b_op_times;
 	int					double_op_times;
 }						t_move_plan_ab;
 
 int						push_swap(int argc, char **argv,
-							void (*apply_sort_func)(t_stacks *));
-bool					insert_value_to_stacks(t_stacks *stacks, int argc,
-							char **argv);
-void					get_plan(t_stacks *stacks, size_t i,
-							t_move_plan_ab *curr_plan);
-void					generate_move_plan_ab(t_stacks *stacks, size_t i,
-							bool is_r, t_move_plan_ab *plan);
-
-bool					my_atoi(const char *nptr, int *n);
-void					ft_putstr(char *s);
-char					**ft_split(char const *s, char c);
-char					*ft_substr(char const *s, unsigned int start,
-							size_t len);
-bool					free_helper_split(char **arr);
+							int (*apply_sort_func)(t_stacks *));
+void					get_best_plan_ab(t_stacks *stacks, size_t idx,
+							t_move_plan_ab *best_plan);
+int						astar_sort_func(t_stacks *stacks);
 
 t_stacks				*new_stacks(void);
-t_stacks				*free_helper(t_stacks **stacks);
-char					s(t_stacks *stacks, bool is_a);
-char					r(t_stacks *stacks, bool is_a);
-char					rr(t_stacks *stacks, bool is_a);
-char					p(t_stacks *stacks, bool is_a);
-size_t					get_len(t_stacks *stacks, bool is_a);
+t_stacks				*close_stacks(t_stacks **stacks);
+void					s(t_stacks *stacks, bool is_a);
+void					ss(t_stacks *stacks);
+void					r(t_stacks *stacks, bool is_a);
+void					double_r(t_stacks *stacks);
+void					rr(t_stacks *stacks, bool is_a);
+void					rrr(t_stacks *stacks);
+void					p(t_stacks *stacks, bool is_a);
 bool					push_stack(t_stacks *stacks, int n, bool is_a);
 int						get_value_from_stack(t_stacks *stacks, bool is_a,
 							size_t idx);
-t_node					*push_back(t_stack *stack, int value);
-t_node					*insert_front(t_stack *stack, t_node *node);
-t_node					*pop_front(t_stack *stack);
-bool					has(t_stack *stack, int n);
+size_t					get_idx_by_value(t_stacks *stacks, int n, bool is_a);
+
+bool					ps_atoi(const char *nptr, int *n);
+bool					free_str_arr(char **arr);
 
 #endif
