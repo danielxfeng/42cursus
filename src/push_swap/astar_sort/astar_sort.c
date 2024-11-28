@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:08:35 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/27 19:12:51 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/28 15:49:18 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 
 void					get_best_plan_ab(t_stacks *stacks, size_t idx,
 							t_move_plan_ab *best_plan);
+
+static void	update_plan(t_stacks *stacks, t_move_plan_ab *plans, int *i,
+		int *cheapest)
+{
+	get_best_plan_ab(stacks, *i, &plans[*i]);
+	if (plans[*i].total_times < *cheapest)
+		*cheapest = plans[*i].total_times;
+	get_best_plan_ab(stacks, stacks->stack_a->len - 1 - *i, &plans[60 - 1
+		- *i]);
+	if (plans[60 - 1 - *i].total_times < *cheapest)
+		*cheapest = plans[60 - 1 - *i].total_times;
+	++i;
+}
 
 // Returns the plan of next move from `stack a` to `stack b`.
 static t_move_plan_ab	get_next_move_plan_ab(t_stacks *stacks,
@@ -33,16 +46,7 @@ static t_move_plan_ab	get_next_move_plan_ab(t_stacks *stacks,
 		return (*next_plan);
 	}
 	while (i < 30 && i < cheapest && i <= (int)((stacks->stack_a->len + 1) / 2))
-	{
-		get_best_plan_ab(stacks, i, &(plans[i]));
-		if (plans[i].total_times < cheapest)
-			cheapest = plans[i].total_times;
-		get_best_plan_ab(stacks, stacks->stack_a->len - 1 - i, &(plans[60 - 1
-				- i]));
-		if (plans[60 - 1 - i].total_times < cheapest)
-			cheapest = plans[60 - 1 - i].total_times;
-		++i;
-	}
+		update_plan(stacks, plans, &i, &cheapest);
 	j = 0;
 	while (j < i)
 	{
@@ -59,8 +63,8 @@ static t_move_plan_ab	get_next_move_plan_ab(t_stacks *stacks,
 static void	perform_move_ab(t_stacks *stacks, t_move_plan_ab *plan)
 {
 	int		i;
-	void	(*double_func)(t_stacks * stacks);
-	void	(*single_func)(t_stacks * stacks, bool is_a);
+	void	(*double_func)(t_stacks *stacks);
+	void	(*single_func)(t_stacks *stacks, bool is_a);
 
 	i = 0;
 	double_func = rrr;
@@ -112,6 +116,5 @@ int	astar_sort_func(t_stacks *stacks)
 	total_times += sort_stack_b(stacks) + stacks->stack_b->len;
 	while (stacks->stack_b->len)
 		p(stacks, true);
-	// ft_printf("Total cost for debug: %d\n", total_times);
 	return (total_times);
 }

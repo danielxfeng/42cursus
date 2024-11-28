@@ -478,12 +478,12 @@ void debug()
 int	main(void)
 {
 	UNITY_BEGIN();
-	//RUN_TEST(test_stack);
-	//RUN_TEST(test_atoi);
+	RUN_TEST(test_stack);
+	RUN_TEST(test_atoi);
 	////RUN_TEST(test_insert_value_to_stacks);
-	//RUN_TEST(test_push_swap);
-	//RUN_TEST(test_stack_op);
-	//RUN_TEST(test_plan);
+	RUN_TEST(test_push_swap);
+	RUN_TEST(test_stack_op);
+	RUN_TEST(test_plan);
     RUN_TEST(test_astar_sort);
 	//RUN_TEST(debug);
 	return (UNITY_END());
