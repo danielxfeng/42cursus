@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 11:08:35 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/28 15:49:18 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/28 15:54:58 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	update_plan(t_stacks *stacks, t_move_plan_ab *plans, int *i,
 		- *i]);
 	if (plans[60 - 1 - *i].total_times < *cheapest)
 		*cheapest = plans[60 - 1 - *i].total_times;
-	++i;
+	++(*i);
 }
 
 // Returns the plan of next move from `stack a` to `stack b`.
@@ -63,8 +63,8 @@ static t_move_plan_ab	get_next_move_plan_ab(t_stacks *stacks,
 static void	perform_move_ab(t_stacks *stacks, t_move_plan_ab *plan)
 {
 	int		i;
-	void	(*double_func)(t_stacks *stacks);
-	void	(*single_func)(t_stacks *stacks, bool is_a);
+	void	(*double_func)(t_stacks * stacks);
+	void	(*single_func)(t_stacks * stacks, bool is_a);
 
 	i = 0;
 	double_func = rrr;
