@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:44:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 12:12:39 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 18:40:10 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_lang.h"
+#include "so_long.h"
 
 // Set the next point by `direction`.
 void	set_next_point(t_point *point, t_direction direction)

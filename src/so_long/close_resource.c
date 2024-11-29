@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:01:48 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 18:37:23 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 18:40:18 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_lang.h"
+#include "so_long.h"
 #include "ft_printf/ft_printf.h"
 #include <stdlib.h>
 

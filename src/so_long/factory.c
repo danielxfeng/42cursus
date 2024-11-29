@@ -6,11 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:54 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 18:33:33 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 18:40:14 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_lang.h"
+#include "so_long.h"
 #include <stdlib.h>
 
 void free_board(t_tile ***board, int height);
