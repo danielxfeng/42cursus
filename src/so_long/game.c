@@ -6,29 +6,27 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:44:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 11:59:33 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:12:39 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_lang.h"
 
 // Set the next point by `direction`.
-void	set_next_point(t_next_point *next_point)
+void	set_next_point(t_point *point, t_direction direction)
 {
-	next_point->new_x = next_point->x;
-	next_point->new_y = next_point->y;
-	if (next_point->direction == DIR_U)
-		next_point->new_y = next_point->y - 1;
-	else if (next_point->direction == DIR_D)
-		next_point->new_y = next_point->y + 1;
-	else if (next_point->direction == DIR_L)
-		next_point->new_x = next_point->x - 1;
-	else if (next_point->direction == DIR_R)
-		next_point->new_x = next_point->x + 1;
+	if (direction == DIR_U)
+		--(point->y);
+	else if (direction == DIR_D)
+		++(point->y);
+	else if (direction == DIR_L)
+		--(point->x);
+	else if (direction == DIR_R)
+		++(point->x);
 	else
 	{
-		next_point->new_x = -1;
-		next_point->new_y = -1;
+		point->x = -1;
+		point->y = -1;
 	}
 }
 
@@ -59,24 +57,23 @@ static void	check_game_over(t_game *game)
 void	move(t_game *game, t_direction direction,
 		void *(draw_move)(t_game *game))
 {
-	t_next_point	next_point;
+	t_point	point;
 
-	next_point.direction = direction;
-	next_point.x = game->player->x;
-	next_point.y = game->player->y;
-	set_next_point(&next_point);
-	if (!is_valid_point(game, next_point.new_x, next_point.new_y))
+	point.x = game->player->x;
+	point.y = game->player->y;
+	set_next_point(&point, direction);
+	if (!is_valid_point(game, point.x, point.y))
 		return ;
 	game->player->prev_x = game->player->x;
 	game->player->prev_y = game->player->y;
-	game->player->x = next_point.new_x;
-	game->player->y = next_point.new_y;
+	game->player->x = point.x;
+	game->player->y = point.y;
 	if (game->board[game->player->y][game->player->x].is_collectible)
 	{
 		++(game->player->has_collectible);
 		game->board[game->player->y][game->player->x].is_collectible = false;
 	}
 	++(game->player->movements);
-    draw_move(game);
+	draw_move(game);
 	check_game_over(game);
 }

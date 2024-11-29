@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 12:02:03 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:03:25 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,20 +98,17 @@ typedef struct s_board_check
 	int			i;
 }				t_board_check;
 
-// Represents 2 points, the prev and curr points.
-typedef struct s_next_point
+// Represents a point.
+typedef struct s_point
 {
 	int			x;
 	int			y;
-	int			new_x;
-	int			new_y;
-	t_direction	direction;
-}				t_next_point;
+}				t_point;
 
 void			exit_prog(t_game **game, char ***parameter, int status);
 t_game			*create_game(int length, int height, char **parameter);
 
-void			set_next_point(t_next_point *next_point);
+void			set_next_point(t_point *point, t_direction direction);
 
 bool			is_valid_point(t_game *game, int x, int y);
 bool			path_check(t_game *game);
