@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:54 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/28 21:42:38 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:56:40 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool	create_tile(int x, int y, char c, t_tile *tile)
 		return (false);
 	tile->x = x;
 	tile->y = y;
-    tile->is_visited = false;
+	tile->is_visited = false;
 	if (c == '1')
 		tile->type = TILE_WALL;
 	else
