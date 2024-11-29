@@ -6,26 +6,29 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:01:48 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 12:21:55 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 18:37:23 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_lang.h"
+#include "ft_printf/ft_printf.h"
 #include <stdlib.h>
 
-// A helper function for `create_board_row`, it returns `NULL` for norm.
-t_tile	*free_row(t_tile **row)
+// A helper function for `create_board_row`.
+static void free_row(t_tile **row)
 {
+	int	i;
+
+	i = 0;
 	if (row && *row)
 	{
 		free(*row);
 		*row = NULL;
 	}
-	return (NULL);
 }
 
-// The helper function for `exit_prog`, it returns `NULL` for norm.
-t_tile	**free_board(t_tile ***board, int height)
+// The helper function for `exit_prog`.
+void free_board(t_tile ***board, int height)
 {
 	int	i;
 
@@ -41,23 +44,26 @@ t_tile	**free_board(t_tile ***board, int height)
 		free(*board);
 		*board = NULL;
 	}
-	return (NULL);
 }
 
-// Call this function before exit.
-// `msg`: set to NULL for normal exit.
-void	exit_prog(t_game **game, char ***parameter, char *msg)
+// Free parameter
+static void free_parameter(char ***parameter)
 {
-	int	i;
+	int i;
 
-	i = 0;
 	if (parameter && *parameter)
 	{
-		while (*parameter[i])
-			free(*parameter[i++]);
+		i = 0;
+		while ((*parameter)[i])
+			free((*parameter)[i++]);
 		free(*parameter);
 		*parameter = NULL;
 	}
+}
+
+// A helper function to free the game.
+static void free_game(t_game **game)
+{	
 	if (game && *game)
 	{
 		if ((*game)->player)
@@ -69,8 +75,16 @@ void	exit_prog(t_game **game, char ***parameter, char *msg)
 		free(*game);
 		*game = NULL;
 	}
+}
+
+// Call this function before exit.
+// `msg`: set to NULL for normal exit.
+void	exit_prog(t_game **game, char ***parameter, char *msg)
+{
+	free_parameter(parameter);
+	free_game(game);
 	if (!msg)
-		exit(0);
-	perror(msg);
-	exit(1);
+		exit(EXIT_SUCCESS);
+	ft_printf("Error\n%s\n", msg);
+	exit(EXIT_FAILURE);
 }

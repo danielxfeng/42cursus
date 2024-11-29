@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 12:26:12 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 18:27:30 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define SO_LONG_H
 
 # include <stdbool.h>
-
-# define INVALID_ARGUMENT "Invalid argument"
-# define MEM_ERR "Memory allocation error"
 
 // Enum of the type of `tile`.
 typedef enum a_type
@@ -88,18 +85,6 @@ typedef struct s_game
 	t_status	status;
 	int			total_collectible;
 }				t_game;
-
-// The struct for checking the board
-// There should be one `exit`, one `entrance`, at least one `collectible`.
-// length and i is the parameter when creating a row of `Tiles`.
-typedef struct s_board_check
-{
-	int			exit;
-	int			collectible;
-	int			entrance;
-	int			length;
-	int			i;
-}				t_board_check;
 
 // Represents a point.
 typedef struct s_point

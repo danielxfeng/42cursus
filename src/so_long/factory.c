@@ -6,25 +6,23 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:54 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 12:26:58 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 18:33:33 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_lang.h"
 #include <stdlib.h>
 
-t_tile			*free_row(t_tile **row);
-t_tile			**free_board(t_tile ***board, int height);
+void free_board(t_tile ***board, int height);
 
 // The constructor of Player.
-// Will not free anything here, even on error, the caller should do it.
-static t_player	*create_player(void)
+static t_player	*create_player(char **parameter, t_game *game)
 {
 	t_player	*player;
 
 	player = malloc(sizeof(t_player));
 	if (!player)
-		return (NULL);
+		exit_prog(&game, &parameter, "Memory allocation failed: player creation.");
 	player->prev_x = -1;
 	player->prev_y = -1;
 	player->has_collectible = 0;
@@ -33,11 +31,8 @@ static t_player	*create_player(void)
 }
 
 // The constructor of Tile.
-// Will not free anything here, even on error, the caller should do it.
-static bool	create_tile(int x, int y, char c, t_tile *tile)
+static void	create_tile(int x, int y, char c, t_tile *tile)
 {
-	if (c != '1' && c != '0' && c != 'C' && c != 'E' && c != 'P')
-		return (false);
 	tile->x = x;
 	tile->y = y;
 	tile->is_visited = false;
@@ -47,91 +42,72 @@ static bool	create_tile(int x, int y, char c, t_tile *tile)
 		tile->type = TILE_EMPTY;
 	tile->is_collectible = (c == 'C');
 	tile->is_exit = (c == 'E');
-	return (true);
 }
 
-static t_tile	*create_board_row(t_board_check *board_check, char **parameter,
-		t_player *player)
+// A helper function for creating each row of board.
+static t_tile	*create_board_row(int i, int length, char **p, t_game *game)
 {
 	int		j;
 	t_tile	*row;
 
-	row = malloc(board_check->length * sizeof(t_tile));
+	row = malloc(length * sizeof(t_tile));
 	if (!row)
 		return (NULL);
 	j = 0;
-	while (j < board_check->length)
+	while (j < length)
 	{
-		if (!create_tile(j, board_check->i, parameter[board_check->i][j],
-				&(row[j])))
-			return (free_row(&row));
-		if (parameter[board_check->i][j] == 'P')
+		create_tile(j, i, p[i][j], &(row[j]));
+		if (p[i][j] == 'P')
 		{
-			++(board_check->entrance);
-			player->x = j;
-			player->y = board_check->i;
+			game->player->x = j;
+			game->player->y = i;
 		}
-		if (parameter[board_check->i][j] == 'E')
-			++(board_check->exit);
-		if (parameter[board_check->i][j] == 'C')
-			++(board_check->collectible);
 		++j;
 	}
 	return (row);
 }
 
 // The constructor of Board.
-// Will not free anything here, even on error, the caller should do it.
 static t_tile	**create_board(int length, int height, char **parameter,
-		t_player *player)
+		t_game *game)
 {
 	int				i;
 	t_tile			**board;
-	t_board_check	board_check;
 
-	board_check.collectible = 0;
-	board_check.entrance = 0;
-	board_check.exit = 0;
 	board = malloc(height * sizeof(t_tile *));
 	if (!board)
-		return (NULL);
+		exit_prog(&game, &parameter, "Memory allocation failed: map creation.");
 	i = 0;
-	board_check.length = length;
 	while (i < height)
 	{
-		board_check.i = i;
-		board[i] = create_board_row(&board_check, parameter, player);
+		board[i] = create_board_row(i, length, parameter, game);
 		if (!board[i])
-			return (free_board(&board, i));
+		{
+			free_board(&board, i);
+			exit_prog(&game, &parameter, "Memory allocation failed: map row creation.");
+		}
 		++i;
 	}
-	if (board_check.collectible <= 0 || board_check.entrance != 1
-		|| board_check.exit != 1)
-		return (free_board(&board, height));
 	return (board);
 }
 
 // The constructor of Game.
-// Will not free anything here, even on error, the caller should do it.
+// Will not validate the parameter, please do it before call this func.
 t_game	*create_game(int length, int height, char **parameter)
 {
 	t_game	*game;
 
 	if (length <= 0 || height <= 0)
-		exit_prog(NULL, &parameter, INVALID_ARGUMENT);
+		exit_prog(NULL, &parameter, "Map should be a Rectangle.");
 	game = malloc(sizeof(t_game));
 	if (!game)
-		exit_prog(NULL, &parameter, );
+		exit_prog(NULL, &parameter, "Memory allocation failed: game creation.");
 	game->player = NULL;
 	game->board = NULL;
 	game->length = length;
 	game->height = height;
-	game->player = create_player();
-	if (!game->player)
-		exit_prog(&game, &parameter, 1);
-	game->board = create_board(length, height, parameter, game->player);
-	if (!game->board || !path_check(game))
-		exit_prog(&game, &parameter, 1);
+	game->player = create_player(parameter, game);
+	game->board = create_board(length, height, parameter, game);
 	game->status = STATUS_NOT_START;
 	return (game);
 }
