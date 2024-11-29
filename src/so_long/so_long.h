@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 18:41:20 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 19:28:24 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 # include <stdbool.h>
+# include <stddef.h>
 
 // Enum of the type of `tile`.
 typedef enum a_type
@@ -102,5 +103,10 @@ bool			is_valid_point(t_game *game, int x, int y);
 bool			path_check(t_game *game);
 void			move(t_game *game, t_direction direction,
 					void *(draw_move)(t_game *game));
+void start_game(t_game *game);
+
+int so_long(int argc, char** argv);
+
+int str_arr_len(char **arr);
 
 #endif

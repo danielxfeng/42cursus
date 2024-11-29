@@ -1,15 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui.c                                               :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 21:14:16 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 19:29:05 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/29 18:53:19 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/29 18:56:22 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+// Returns the length of a null terminated string array. 
+int str_arr_len(char **arr)
+{
+    int i;
 
-
+    i = 0;
+    while (arr[i])
+        ++i;
+    return (i);
+}

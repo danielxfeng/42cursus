@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:44:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 18:40:10 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 19:26:44 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,10 @@ void	move(t_game *game, t_direction direction,
 	++(game->player->movements);
 	draw_move(game);
 	check_game_over(game);
+}
+
+// To start the game.
+void start_game(t_game *game)
+{
+	
 }
