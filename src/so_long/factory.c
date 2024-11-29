@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:54 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 11:56:40 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:26:58 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ t_game	*create_game(int length, int height, char **parameter)
 	t_game	*game;
 
 	if (length <= 0 || height <= 0)
-		exit_prog(NULL, &parameter, 1);
+		exit_prog(NULL, &parameter, INVALID_ARGUMENT);
 	game = malloc(sizeof(t_game));
 	if (!game)
-		exit_prog(NULL, &parameter, 1);
+		exit_prog(NULL, &parameter, );
 	game->player = NULL;
 	game->board = NULL;
 	game->length = length;

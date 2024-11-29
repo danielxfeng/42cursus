@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close.c                                            :+:      :+:    :+:   */
+/*   close_resource.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:01:48 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/28 20:03:27 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:21:55 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ t_tile	**free_board(t_tile ***board, int height)
 }
 
 // Call this function before exit.
-// `status`: set to 0 for normal exit, 1 for error.
-void	exit_prog(t_game **game, char ***parameter, int status)
+// `msg`: set to NULL for normal exit.
+void	exit_prog(t_game **game, char ***parameter, char *msg)
 {
 	int	i;
 
@@ -69,8 +69,8 @@ void	exit_prog(t_game **game, char ***parameter, int status)
 		free(*game);
 		*game = NULL;
 	}
-	if (!status)
+	if (!msg)
 		exit(0);
-	write(2, "Error\n", 6);
+	perror(msg);
 	exit(1);
 }

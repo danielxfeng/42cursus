@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 12:03:25 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:26:12 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define SO_LONG_H
 
 # include <stdbool.h>
+
+# define INVALID_ARGUMENT "Invalid argument"
+# define MEM_ERR "Memory allocation error"
 
 // Enum of the type of `tile`.
 typedef enum a_type
@@ -105,16 +108,14 @@ typedef struct s_point
 	int			y;
 }				t_point;
 
-void			exit_prog(t_game **game, char ***parameter, int status);
+void			exit_prog(t_game **game, char ***parameter, char *msg);
 t_game			*create_game(int length, int height, char **parameter);
 
 void			set_next_point(t_point *point, t_direction direction);
 
 bool			is_valid_point(t_game *game, int x, int y);
 bool			path_check(t_game *game);
-void			move(t_game *game, t_direction direction);
-
-void			draw_move(t_game *game);
-void			draw_init(t_game *game);
+void			move(t_game *game, t_direction direction,
+					void *(draw_move)(t_game *game));
 
 #endif
