@@ -54,33 +54,76 @@ The stack's construction and destruction are encapsulated within factory functio
         t_node *root;
         size_t len;
         char label;
+        t_node *max;
     } t_stack;
 
     t_stacks *new_stacks();
-    t_stacks *free_helper(t_stacks **stacks);
+    t_stacks	*close_stacks(t_stacks **stacks);
     // ... other APIs
     ```
-### Sorting Algorithm Discussion
+### Algorithm Section
 
-Common optimized sorting algorithms like **merge sort** and **quick sort** have a time complexity of O(n log n) and space complexity of O(1). However, due to the constraints of stack operations, these algorithms cannot be directly applied in this project. Additionally, these algorithms require random access to the data within the stack, which is not possible in this case.
+#### Challenges
 
-The biggest challenge in the algorithm part of this project is that **common sorting algorithms cannot be directly used** because of the limitations.
+As per the project requirements, sorting **500 numbers** must be completed within **5500 operations**, implying an **O(n log n)** time complexity. Additionally, with a dual-stack design, the space complexity is restricted to **O(n)**.
 
-Upon observation, we note that, unlike traditional sorting, **reading data is completely free** in this project. The only operation with a cost is writing data.
+#### Analysis
 
-In my opinion, the only feasible method to implement sorting in this scenario is by swapping elements at the top of the stack (by `p` operation). However, because random access is not allowed, moving each element to the top of the stack (by `r` operation) has a worst-case complexity of O(n), making the overall worst-case writing cost for this double-stack sorting approach **O(n²)**.
+Traditional sorting algorithms like **merge sort** and **quick sort** can theoretically meet the time complexity requirement (quick sort achieves an average of **O(n log n)** but can degrade to **O(n²)** in the worst case). However, there are two key differences in our project that make these algorithms unsuitable:
 
-#### Let's do some math:
+1. **Read operations** are free, but **write operations** consume the limited number of allowed moves.
+2. The stack structure does not allow **random access** to data, making traditional sorting algorithms infeasible.
 
-For example, with 500 elements, the project suggests that we aim for **5,500 operations**.  
-In theory, **O(n²)** would give us **250,000 operations**.  
-However, in practice, as the stack shortens with each operation, the worst-case scenario becomes **125,000 operations**.  
-At the same time, with the ability to use `r` and `rr`, the total number of operations reduces to **62,500**.  
-On average, we expect around **31,250 operations**.
+After researching various approaches discussed online for this project, I decided to base my implementation on [TUK sorting](https://medium.com/@ayogun/push-swap-c1f5d2d41e97) while incorporating ideas inspired by the [A* search algorithm](https://www.geeksforgeeks.org/a-algorithm-and-its-heuristic-search-strategy-in-artificial-intelligence/) to develop a custom solution.
 
-#### Optimization by `rrr`
+### A\*-like Algorithm
 
-We must not forget about the **`rrr` operation**. This operation enables us to move both stacks simultaneously, significantly optimizing the sorting process.
+#### Move Cost
 
-...to be continued
+- **Definition**: The cost of moving an element involves:
+  1. Rotating the element to the top of stack A.
+  2. Pushing it to stack B.
+  3. Rotating stack B to maintain its descending order.
 
+#### Approach
+
+1. Treat **shallow nodes** in stack A as **reachable nodes**.
+2. Calculate the **move cost** for each reachable node and select the node with the **lowest cost** for the next operation.
+3. Once a node is moved to stack B, continue exploring other nodes until stack A is empty.
+4. Reverse stack B to complete the sorting process.
+
+#### Optimization
+
+- **Shallow Nodes**: By focusing only on shallow nodes, the algorithm avoids unnecessary deep rotations in stack A.
+- **Dual-stack Operations**: Using dual-stack operations like **RR** and **RRR** minimizes the overall cost of rotations, further reducing the total move cost.
+
+#### Implementation
+
+![diagram](../pseudo_code/push_swap.png)
+
+##### Key Points
+
+1. **`plan` Structure**
+- During the operation cost calculation, a **`plan` structure** is generated simultaneously.
+- This approach decouples **cost calculation** and **execution**, allowing operations to be performed without recalculating costs.
+
+2. **Calculating Rotations for Stack B**
+- When determining the number of rotations needed for **stack B** during a push operation, I maintain a pointer `*max` in **stack B** that always points to its maximum element.
+- This simplifies finding the correct insertion point, minimizing computational overhead.
+
+3. **Special Scenarios: Maximum and Minimum Values**
+- Extra care is required when inserting a value that is either:
+  - **Larger than the maximum** in stack B.
+  - **Smaller than the minimum** in stack B.
+- These edge cases must be handled explicitly to ensure the rotations are calculated correctly.
+
+4. **Maximum Exploration Depth (Pruning)**
+- To maintain efficiency, I limit the exploration depth to prevent excessive costs from moving deeply buried elements.
+- Ideally, this depth would be dynamically determined based on the number of elements in the stack.
+- However, to avoid the complexity of dynamic allocation, I use a **fixed hyperparameter of `60`** as the maximum depth.
+  - This is the only "magic number" in the project and was chosen to balance simplicity and performance.
+
+
+#### Key 
+
+This hybrid approach combines the simplicity of stack operations with the heuristic-driven prioritization of **A\***, ensuring that the sorting process is both efficient and meets the constraints of the project.
