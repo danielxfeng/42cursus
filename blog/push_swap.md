@@ -123,7 +123,4 @@ After researching various approaches discussed online for this project, I decide
 - However, to avoid the complexity of dynamic allocation, I use a **fixed hyperparameter of `60`** as the maximum depth.
   - This is the only "magic number" in the project and was chosen to balance simplicity and performance.
 
-
-#### Key 
-
 This hybrid approach combines the simplicity of stack operations with the heuristic-driven prioritization of **A\***, ensuring that the sorting process is both efficient and meets the constraints of the project.
