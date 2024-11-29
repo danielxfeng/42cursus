@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_check.c                                       :+:      :+:    :+:   */
+/*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 19:42:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 12:12:44 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/29 18:41:15 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_lang.h"
+#include "so_long.h"
 
 // A recursive call helper for `path_check`.
 static bool	path_check_helper(t_game *game, int x, int y)
