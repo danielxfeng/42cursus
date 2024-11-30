@@ -38,6 +38,7 @@ char **mock_parameter(void)
         free(param[0]);
         free(param[1]);
         free(param[2]);
+        free(param[3]);
         free(param);
         return NULL;
     }
@@ -64,7 +65,7 @@ void test_create_game_success(void)
         for (int j = 0; j < game->length; ++j)
         {
             TEST_ASSERT_NOT_NULL(&(game->board[i][j]));
-            if (i == 0 || i < game->height - 1 || j == 0 || j < game->length - 1)
+            if (i == 0 || i == game->height - 1 || j == 0 || j == game->length - 1)
             {
                 TEST_ASSERT_EQUAL_INT(TILE_WALL, game->board[i][j].type);
                 TEST_ASSERT_EQUAL_INT(false, game->board[i][j].is_collectible);

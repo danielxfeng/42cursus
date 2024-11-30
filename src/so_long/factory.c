@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:54 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 18:40:14 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 17:02:02 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static t_tile	*create_board_row(int i, int length, char **p, t_game *game)
 			game->player->x = j;
 			game->player->y = i;
 		}
+		if (p[i][j] == 'C')
+			++(game->total_collectible);
 		++j;
 	}
 	return (row);
