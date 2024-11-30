@@ -78,11 +78,13 @@ I came across some discussions about this project online and found several high-
 
 My final idea was simple: our goal is to sort 500 numbers within 5500 operations, which also means the average cost per move should be less than 11 operations. So let's do it to optimize each moving, the project can be completed successfully.
 
-This idea aligns with the approach of TUK’s algorithm but differs in implementation. Specifically, I incorporated graph-based pathfinding algorithms to further optimize the process. The pathfinding algorithm dynamically evaluates the current state of the stacks and selects the most efficient path for reducing the overall operation count.
+This idea aligns with the approach of TUK’s algorithm but differs in implementation. I found the process of finding the optimal solution is heuristic in nature, as it involves a local BFS-based shortest path exploration. This makes it more closely aligned with graph theory principles. To enhance this, I introduced elements of the [A* search algorithm](https://www.geeksforgeeks.org/a-algorithm-and-its-heuristic-search-strategy-in-artificial-intelligence/) into my implementation, which allowed for a more efficient evaluation of potential moves and their costs.
 
-While there is still significant room for optimization, my current implementation meets the project requirements in average cases. Given this, I decided to stop optimizing further for now, as the solution already achieves the intended goal.
+Regrettably, after implementing the **lowest move cost calculation**, I had already achieved the project's goal of sorting 500 numbers in an average of 5500 operations. This outcome fulfilled the requirements and left me without the motivation to implement the **estimated remaining cost** (heuristic) aspect of the A* structure. 
 
-### A\*-like Algorithm
+As a result, the algorithm effectively regressed to a **Greedy Selection** approach. While it lacks the full power of A*, this simplified version proved sufficient for the average case. Nevertheless, this indicates that further optimization, such as incorporating heuristics, could still reduce operation counts, particularly in edge cases.
+
+### A*-like Algorithm (Simplified to a Greedy-Based Approach)
 
 #### Move Cost
 
@@ -93,10 +95,11 @@ While there is still significant room for optimization, my current implementatio
 
 #### Approach
 
-1. Treat **shallow nodes** in stack A as **reachable nodes**.
-2. Calculate the **move cost** for each reachable node and select the node with the **lowest cost** for the next operation.
-3. Once a node is moved to stack B, continue exploring other nodes until stack A is empty.
-4. Reverse stack B to complete the sorting process.
+1. **Pruning**: Treat shallow nodes in stack A as **reachable nodes** to limit the depth of exploration and reduce computational complexity.  
+2. **Local BFS**: Calculate the **move cost** for each reachable node by exploring all possible operations.  
+3. **Greedy Selection**: Select the node with the **lowest move cost** for the next operation.  
+4. **Iterative Exploration**: After moving a node to stack B, repeat the process for other reachable nodes until stack A is empty.  
+5. **Final Step**: Reverse stack B to restore it to ascending order, completing the sorting process.
 
 #### Optimization
 
