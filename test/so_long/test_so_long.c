@@ -1,4 +1,5 @@
 #include "../../src/so_long/so_long.h"
+#include "../../src/so_long/libft/libft.h"
 #include "unity.h"
 #include <ctype.h>
 #include <limits.h>
@@ -26,13 +27,14 @@ void	tearDown(void)
 
 char **mock_parameter(void)
 {
-    char **param = malloc(4 * sizeof(char *));
+    char **param = malloc(5 * sizeof(char *));
     if (!param)
         return NULL;
     param[0] = strdup("11111");
     param[1] = strdup("10PC1");
     param[2] = strdup("1CE01");
     param[3] = strdup("11111");
+    param[4] = '\0';
     if (!param[0] || !param[1] || !param[2])
     {
         free(param[0]);
@@ -176,6 +178,44 @@ void test_valid_move()
     free_parameter(&param);
 }
 
+void test_play_game()
+{
+    char *map = "11111\n1C0E1\n10101\n1P0C1\n11111";
+    char **param = ft_split(map, '\n');
+    t_game *game = create_game(5, 5, param);
+    game->status = STATUS_WAIT_MOVE;
+    move(game, DIR_R);
+    move(game, DIR_R);
+    move(game, DIR_L);
+    move(game, DIR_L);
+    move(game, DIR_U);
+    move(game, DIR_U);
+    move(game, DIR_R);
+    move(game, DIR_R);
+    TEST_ASSERT_EQUAL_INT(STATUS_WON, game->status);
+    TEST_ASSERT_EQUAL_INT(8, game->player->movements);
+    free_game(&game);
+    free_parameter(&param);
+}
+
+void test_auto_play_game()
+{
+    char *map = "1111111111111111\n1P0000E1100C1111\n1001100000000011\n1C00000001100111\n1100C11100000C11\n11001110C0000001\n1C000000001100C1\n1111111111111111";
+    char **param = ft_split(map, '\n');
+    t_game *game = create_game(16, 8, param);
+    game->status = STATUS_WAIT_MOVE;
+    while (game->status != STATUS_WON)
+    {
+        t_direction d = (t_direction)(rand() % 4);
+        move(game, d);
+    }
+    TEST_ASSERT_EQUAL_INT(STATUS_WON, game->status);
+    TEST_ASSERT_EQUAL_INT(7, game->player->has_collectible);
+    printf("auto movements: %d\n", game->player->movements);
+    free_game(&game);
+    free_parameter(&param);
+}
+
 // Main function to run the tests
 int	main(void)
 {
@@ -183,5 +223,7 @@ int	main(void)
     RUN_TEST(test_create_game_success);
     RUN_TEST(test_valid_path);
     RUN_TEST(test_valid_move);
+    RUN_TEST(test_play_game);
+    RUN_TEST(test_auto_play_game);
 	return (UNITY_END());
 }

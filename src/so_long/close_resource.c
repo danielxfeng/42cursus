@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:01:48 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 18:16:13 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 21:52:42 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ void free_parameter(char ***parameter)
 	{
 		i = 0;
 		while ((*parameter)[i])
-			free((*parameter)[i++]);
+		{
+			free((*parameter)[i]);
+			(*parameter)[i] = NULL;
+			++i;
+		}
 		free(*parameter);
 		*parameter = NULL;
 	}
