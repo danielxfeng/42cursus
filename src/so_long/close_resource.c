@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:01:48 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 18:40:18 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 16:41:10 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void free_board(t_tile ***board, int height)
 }
 
 // Free parameter
-static void free_parameter(char ***parameter)
+void free_parameter(char ***parameter)
 {
 	int i;
 
@@ -62,7 +62,7 @@ static void free_parameter(char ***parameter)
 }
 
 // A helper function to free the game.
-static void free_game(t_game **game)
+void free_game(t_game **game)
 {	
 	if (game && *game)
 	{
