@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 19:42:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 18:54:40 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 21:02:33 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void validate_parameter(char **parameter)
 		validate_parameter_row(parameter, &pc, i++);
 	if (pc.collectible <= 0)
 		exit_prog(NULL, &parameter, "Map needs at least 1 collectible.");
-	if (pc.entrance != 0)
-		exit_prog(NULL, &parameter, "Map needs only 1 player.");
-	if (pc.exit != 0)
-		exit_prog(NULL, &parameter, "Map needs only 1 exit.");	
+	if (pc.entrance != 1)
+		exit_prog(NULL, &parameter, "Map needs exactly 1 player.");
+	if (pc.exit != 1)
+		exit_prog(NULL, &parameter, "Map needs exactly 1 exit.");	
 }

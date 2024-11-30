@@ -6,11 +6,11 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 18:42:18 by Xifeng            #+#    #+#              #
-#    Updated: 2024/11/30 18:12:14 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/11/30 20:24:14 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := so_lang
+NAME := so_long
 CC := cc
 LIBC = ar rcs
 CFLAGS := -Wall -Wextra -Werror

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:42:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 18:45:17 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 21:00:57 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,8 @@ int so_long(int argc, char** argv)
     return (0);
 }
 
-/**
 int main(int argc, char** argv)
 {
     so_long(argc, argv);
 }
-*/
+
