@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:44:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 18:16:31 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 19:10:34 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,3 @@ void	move(t_game *game, t_direction direction,
 	draw_move(game);
 	check_game_over(game);
 }
-

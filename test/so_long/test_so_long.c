@@ -89,6 +89,15 @@ void test_create_game_success(void)
     free_parameter(&param);
 }
 
+void set_not_vist(t_game *game)
+{
+    for (int i = 0; i < game->height; ++i)
+    {
+        for (int j = 0; j < game->length; ++j)
+            game->board[i][j].is_visited = false;
+    }
+}
+
 void test_valid_path()
 {
     char **param = mock_parameter();
@@ -100,8 +109,10 @@ void test_valid_path()
     game->board[2][3].type = TILE_WALL;
     game->board[3][1].is_exit = true;
     game->board[3][1].type = TILE_EMPTY;
+    set_not_vist(game);
     TEST_ASSERT_EQUAL_INT(true, path_check(game));
     game->board[2][1].type = TILE_WALL;
+    set_not_vist(game);
     TEST_ASSERT_EQUAL_INT(false, path_check(game));
     free_game(&game);
     free_parameter(&param);
