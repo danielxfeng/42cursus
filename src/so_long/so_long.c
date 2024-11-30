@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:42:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 12:23:36 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 18:45:17 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,21 @@ int so_long(int argc, char** argv)
 {
     char **parameter;
     t_game *game;
+    size_t len;
     
     if (argc != 2)
         exit_prog(NULL, NULL, "Please specify a map file.");
+    len = (int)ft_strlen(argv[1]);
+    if (len < 5 || argv[1][len - 4] != '.' || argv[1][len - 3] != 'b' 
+    || argv[1][len - 2] != 'e' || argv[1][len - 1] != 'r')
+        exit_prog(NULL, NULL, "Map file should be endwith '.ber'.");
     parameter = parse_parameter(argv[1]);
     validate_parameter(parameter);
     game = create_game(ft_strlen(parameter[0]), str_arr_len(parameter), parameter);
     if (!path_check(game))
         exit_prog(&game, &parameter, "There is no valid path in the map.");
-    start_game(game);
     exit_prog(&game, &parameter, NULL);
+    return (0);
 }
 
 /**

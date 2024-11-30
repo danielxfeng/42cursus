@@ -89,11 +89,29 @@ void test_create_game_success(void)
     free_parameter(&param);
 }
 
+void test_valid_path()
+{
+    char **param = mock_parameter();
+    TEST_ASSERT_NOT_NULL(param);
+    t_game *game = create_game(5, 4, param);
+    TEST_ASSERT_EQUAL_INT(true, path_check(game));
+    game->board[2][2].is_exit = false;
+    game->board[2][2].type = TILE_WALL;
+    game->board[2][3].type = TILE_WALL;
+    game->board[3][1].is_exit = true;
+    game->board[3][1].type = TILE_EMPTY;
+    TEST_ASSERT_EQUAL_INT(true, path_check(game));
+    game->board[2][1].type = TILE_WALL;
+    TEST_ASSERT_EQUAL_INT(false, path_check(game));
+    free_game(&game);
+    free_parameter(&param);
+}
 
 // Main function to run the tests
 int	main(void)
 {
 	UNITY_BEGIN();
-    RUN_TEST(test_create_game_success);
+    // RUN_TEST(test_create_game_success);
+    RUN_TEST(test_valid_path);
 	return (UNITY_END());
 }

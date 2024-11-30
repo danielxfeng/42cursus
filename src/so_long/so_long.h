@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 13:02:08 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 18:17:25 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void validate_parameter(char **parameter);
 
 void			move(t_game *game, t_direction direction,
 					void *(draw_move)(t_game *game));
-void start_game(t_game *game);
 
 int so_long(int argc, char** argv);
 

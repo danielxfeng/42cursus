@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:01:48 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 16:41:10 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 18:16:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 // A helper function for `create_board_row`.
 static void free_row(t_tile **row)
 {
-	int	i;
-
-	i = 0;
 	if (row && *row)
 	{
 		free(*row);

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 19:42:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 16:43:21 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 18:54:40 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static bool	path_check_helper(t_game *game, int x, int y)
 		return (false);
 	if (game->board[y][x].is_exit)
 		return (true);
-	point.x = x;
-	point.y = y;
 	game->board[y][x].is_visited = true;
 	direction = DIR_U;
 	while (direction <= DIR_R)
 	{
+		point.x = x;
+		point.y = y;
 		set_next_point(&point, direction);
 		if (path_check_helper(game, point.x, point.y))
 			return (true);
@@ -47,7 +47,7 @@ static void validate_parameter_row(char **p, t_parameter_check *pc, int i)
 {
 	int j;
 
-	if (ft_strlen(p[i]) != pc->length)
+	if ((int)ft_strlen(p[i]) != pc->length)
 		exit_prog(NULL, &p, "Map should be rectangular.");
 	j = 0;
 	while (j < pc->length)
