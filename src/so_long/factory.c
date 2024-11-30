@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:54 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 17:02:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 19:52:48 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_game	*create_game(int length, int height, char **parameter)
 	game->board = NULL;
 	game->length = length;
 	game->height = height;
+	game->total_collectible = 0;
 	game->player = create_player(parameter, game);
 	game->board = create_board(length, height, parameter, game);
 	game->status = STATUS_NOT_START;

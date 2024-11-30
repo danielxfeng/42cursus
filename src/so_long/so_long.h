@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 18:17:25 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 19:25:32 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef enum a_status
 {
 	STATUS_NOT_START,
 	STATUS_IN_PROGRESS,
+	STATUS_WAIT_MOVE,
+	STATUS_MOVING,
 	STATUS_WON,
 }				t_status;
 
@@ -113,8 +115,7 @@ bool			is_valid_point(t_game *game, int x, int y);
 bool			path_check(t_game *game);
 void validate_parameter(char **parameter);
 
-void			move(t_game *game, t_direction direction,
-					void *(draw_move)(t_game *game));
+void			move(t_game *game, t_direction direction);
 
 int so_long(int argc, char** argv);
 

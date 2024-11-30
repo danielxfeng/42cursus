@@ -118,11 +118,70 @@ void test_valid_path()
     free_parameter(&param);
 }
 
+void test_valid_move()
+{
+    char **param = mock_parameter();
+    TEST_ASSERT_NOT_NULL(param);
+    t_game *game = create_game(5, 4, param);
+    move(game, DIR_D);
+    TEST_ASSERT_EQUAL_INT(2, game->player->x);
+    TEST_ASSERT_EQUAL_INT(1, game->player->y);
+    game->status = STATUS_MOVING;
+    move(game, DIR_D);
+    TEST_ASSERT_EQUAL_INT(2, game->player->x);
+    TEST_ASSERT_EQUAL_INT(1, game->player->y);
+    game->status = STATUS_WAIT_MOVE;
+    move(game, DIR_U);
+    TEST_ASSERT_EQUAL_INT(2, game->player->x);
+    TEST_ASSERT_EQUAL_INT(1, game->player->y);
+    move(game, DIR_U);
+    TEST_ASSERT_EQUAL_INT(2, game->player->x);
+    TEST_ASSERT_EQUAL_INT(1, game->player->y);
+    move(game, DIR_L);
+    TEST_ASSERT_EQUAL_INT(1, game->player->x);
+    TEST_ASSERT_EQUAL_INT(1, game->player->y);
+    move(game, DIR_L);
+    TEST_ASSERT_EQUAL_INT(1, game->player->x);
+    TEST_ASSERT_EQUAL_INT(1, game->player->y);
+    move(game, DIR_R);
+    TEST_ASSERT_EQUAL_INT(2, game->player->x);
+    TEST_ASSERT_EQUAL_INT(1, game->player->y);
+    TEST_ASSERT_EQUAL_INT(true, game->board[1][3].is_collectible);
+    move(game, DIR_R);
+    TEST_ASSERT_EQUAL_INT(3, game->player->x);
+    TEST_ASSERT_EQUAL_INT(1, game->player->y);
+    TEST_ASSERT_EQUAL_INT(1, game->player->has_collectible);
+    TEST_ASSERT_EQUAL_INT(false, game->board[1][3].is_collectible);
+    move(game, DIR_D);
+    TEST_ASSERT_EQUAL_INT(3, game->player->x);
+    TEST_ASSERT_EQUAL_INT(2, game->player->y);
+    move(game, DIR_D);
+    TEST_ASSERT_EQUAL_INT(3, game->player->x);
+    TEST_ASSERT_EQUAL_INT(2, game->player->y);
+    TEST_ASSERT_EQUAL_INT(true, game->board[2][2].is_exit);
+    move(game, DIR_L);
+    TEST_ASSERT_EQUAL_INT(2, game->player->x);
+    TEST_ASSERT_EQUAL_INT(2, game->player->y);
+    move(game, DIR_L);
+    TEST_ASSERT_EQUAL_INT(1, game->player->x);
+    TEST_ASSERT_EQUAL_INT(2, game->player->y);
+    TEST_ASSERT_EQUAL_INT(false, game->board[2][1].is_collectible);
+    TEST_ASSERT_EQUAL_INT(2, game->player->has_collectible);
+    move(game, DIR_R);
+    TEST_ASSERT_EQUAL_INT(2, game->player->x);
+    TEST_ASSERT_EQUAL_INT(2, game->player->y);
+    TEST_ASSERT_EQUAL_INT(STATUS_WON, game->status);
+    TEST_ASSERT_EQUAL_INT(7, game->player->movements);
+    free_game(&game);
+    free_parameter(&param);
+}
+
 // Main function to run the tests
 int	main(void)
 {
 	UNITY_BEGIN();
-    // RUN_TEST(test_create_game_success);
+    RUN_TEST(test_create_game_success);
     RUN_TEST(test_valid_path);
+    RUN_TEST(test_valid_move);
 	return (UNITY_END());
 }

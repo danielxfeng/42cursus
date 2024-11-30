@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:44:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 19:10:34 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 19:51:58 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,29 @@ static void	check_game_over(t_game *game)
 	if (game->total_collectible == game->player->has_collectible
 		&& game->board[game->player->y][game->player->x].is_exit)
 		game->status = STATUS_WON;
+	else
+		game->status = STATUS_WAIT_MOVE;
 }
 
 // Perform the move of the game.
 // Return if it's not a valid move.
 // Collect the possible collectible.
 // Update the counts of movements.
-void	move(t_game *game, t_direction direction,
-		void *(draw_move)(t_game *game))
+void	move(t_game *game, t_direction direction)
 {
 	t_point	point;
 
+	if (game->status != STATUS_WAIT_MOVE)
+		return ;
+	game->status = STATUS_MOVING;
 	point.x = game->player->x;
 	point.y = game->player->y;
 	set_next_point(&point, direction);
 	if (!is_valid_point(game, point.x, point.y))
+	{
+		game->status = STATUS_WAIT_MOVE;
 		return ;
+	}
 	game->player->prev_x = game->player->x;
 	game->player->prev_y = game->player->y;
 	game->player->x = point.x;
@@ -74,6 +81,5 @@ void	move(t_game *game, t_direction direction,
 		game->board[game->player->y][game->player->x].is_collectible = false;
 	}
 	++(game->player->movements);
-	draw_move(game);
 	check_game_over(game);
 }
