@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 19:42:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 13:00:28 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 14:03:42 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ static void validate_parameter_row(char **p, t_parameter_check *pc, int i)
 		if (p[i][j] != '1' && p[i][j] != '0' && p[i][j] != 'C' 
 		&& p[i][j] != 'E' && p[i][j] != 'P')
 			exit_prog(NULL, &p, "Illegal character in map.");
+		if ((i == 0 || i == pc->height - 1 || j == 0 
+		|| j == pc->length - 1) && p[i][j] != '1')
+			exit_prog(NULL, &p, "Map should be surrounded by walls.");
 		if (p[i][j] == 'C')
 			++pc->collectible;
 		if (p[i][j] == 'E')
