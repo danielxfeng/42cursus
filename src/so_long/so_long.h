@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 19:28:24 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 13:02:08 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,16 @@ typedef struct s_point
 	int			y;
 }				t_point;
 
+// A struct for checking the parameter.
+typedef struct s_parameter_check
+{
+	int length;
+	int height;
+	int entrance;
+	int exit;
+	int collectible;
+} t_parameter_check;
+
 void			exit_prog(t_game **game, char ***parameter, char *msg);
 t_game			*create_game(int length, int height, char **parameter);
 
@@ -101,6 +111,8 @@ void			set_next_point(t_point *point, t_direction direction);
 
 bool			is_valid_point(t_game *game, int x, int y);
 bool			path_check(t_game *game);
+void validate_parameter(char **parameter);
+
 void			move(t_game *game, t_direction direction,
 					void *(draw_move)(t_game *game));
 void start_game(t_game *game);

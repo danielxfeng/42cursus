@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:42:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/29 21:13:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/11/30 12:23:36 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void close_fd_and_exit(int fd, char *msg)
 }
 
 // Parse the parameter with map file checking.
+// Returns a null-termited string array.
 static char **parse_parameter(char *file_name)
 {
     int fd;
