@@ -65,7 +65,7 @@ The stack's construction and destruction are encapsulated within factory functio
 
 #### Challenges
 
-As per the project requirements, sorting **500 numbers** must be completed within **5500 operations**, implying an **O(n log n)** time complexity. Additionally, with a dual-stack design, the space complexity is restricted to **O(n)**.
+As per the project requirements, sorting **500 numbers** must be completed within **5500 operations**, implying an nearly **O(n log n)** time complexity. Additionally, with a dual-stack design, the space complexity is restricted to **O(n)**.
 
 #### Analysis
 
@@ -74,7 +74,13 @@ Traditional sorting algorithms like **merge sort** and **quick sort** can theore
 1. **Read operations** are free, but **write operations** consume the limited number of allowed moves.
 2. The stack structure does not allow **random access** to data, making traditional sorting algorithms infeasible.
 
-After researching various approaches discussed online for this project, I decided to base my implementation on [TUK sorting](https://medium.com/@ayogun/push-swap-c1f5d2d41e97) while incorporating ideas inspired by the [A* search algorithm](https://www.geeksforgeeks.org/a-algorithm-and-its-heuristic-search-strategy-in-artificial-intelligence/) to develop a custom solution.
+I came across some discussions about this project online and found several high-quality articles that helped me complete it. For example, [one article](https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a) provided a detailed explanation of the project, and [TUK sorting](https://medium.com/@ayogun/push-swap-c1f5d2d41e97) inspired my final solution. However, I also encountered many solutions that I found difficult to understand—some were complex, some relied on "magic numbers," and others had confusing algorithm descriptions. To be honest, I was also a bit lazy to dive into the longer ones.
+
+My final idea was simple: our goal is to sort 500 numbers within 5500 operations, which also means the average cost per move should be less than 11 operations. So let's do it to optimize each moving, the project can be completed successfully.
+
+This idea aligns with the approach of TUK’s algorithm but differs in implementation. Specifically, I incorporated graph-based pathfinding algorithms to further optimize the process. The pathfinding algorithm dynamically evaluates the current state of the stacks and selects the most efficient path for reducing the overall operation count.
+
+While there is still significant room for optimization, my current implementation meets the project requirements in average cases. Given this, I decided to stop optimizing further for now, as the solution already achieves the intended goal.
 
 ### A\*-like Algorithm
 
