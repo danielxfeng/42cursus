@@ -65,7 +65,7 @@ Just to launch a virtual machine.
 ### **Zone 2**
 
 #### **`push_swap`**
-Practical Double-Stack Sorting, Circular Doubly Linked List, and Dependency Injection
+Practical Greedy, BFS, Circular Doubly Linked List, and Dependency Injection
 - [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/push_swap)  
 - [My Thoughts](https://github.com/danielxfeng/42cursus/tree/main/blog/push_swap.md)
 
