@@ -54,3 +54,4 @@ dkms.conf
 # Build
 build/*
 src/libft/.bonus
+minilibx-linux
