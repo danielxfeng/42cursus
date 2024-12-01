@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:16:25 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/01 19:03:55 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/01 20:48:29 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void close_view(t_view **view)
         return;
     if ((*view)->mlx)
     {
+        if ((*view)->img_background)
+            mlx_delete_image((*view)->mlx, (*view)->img_background);
         if ((*view)->img_collectible)
             mlx_delete_image((*view)->mlx, (*view)->img_collectible);
         if ((*view)->img_exit)
@@ -52,7 +54,33 @@ static mlx_image_t	*create_image(t_game *game, t_view *view, const char *file_na
 	return (img);
 }
 
-// Create the view.
+// Calcuate the window size by given tile numbers.
+static int get_win_size(int n)
+{
+    return (n * TILE_SIZE + 2 * PADDING);
+}
+
+// Create the background image.
+static void create_background(t_game *game, t_view *view)
+{
+    int i;
+    int width;
+    int height;
+    uint32_t *pixels;
+    
+    width = get_win_size(game->length);
+    height = get_win_size(game->height);
+    view->img_background = mlx_new_image(view->mlx, width, height);
+    if (!view->img_background 
+    || (mlx_image_to_window(view->mlx, view->img_background, 0, 0) < 0))
+        exit_prog(&game, NULL, &view, "MLX failed: background creation.");
+    i = 0;
+    pixels = (uint32_t *)view->img_background->pixels;
+    while (i < height * width)
+        pixels[i++] = BG_COLOR;
+}
+
+// Create the view with background.
 t_view *create_view(t_game *game)
 {
     t_view *view;
@@ -63,15 +91,16 @@ t_view *create_view(t_game *game)
     if (!view)
         exit_prog(&game, NULL, NULL, "Memory allocation failed: view creation.");
     view->mlx = NULL;
+    view->img_background = NULL;
     view->img_tile = NULL;
     view->img_wall = NULL;
     view->img_player = NULL;
     view->img_collectible = NULL;
     view->img_exit = NULL;
-    view->mlx = mlx_init(game->length * TILE_SIZE + 2 * (PADDING + MARGIN), 
-    game->height * TILE_SIZE + 2 * (PADDING + MARGIN), "So Long by Daniel", true);
+    view->mlx = mlx_init(get_win_size(game->length), get_win_size(game->height), "So Long by Daniel", true);
     if (!view->mlx)
         exit_prog(&game, NULL, view, "MLX init failed.");
+    create_background(game, view);
     view->img_tile = create_image(game, view, IMG_TILE);
     view->img_wall = create_image(game, view, IMG_WALL);
     view->img_player = create_image(game, view, IMG_PLAYER);

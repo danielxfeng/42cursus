@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/01 19:01:43 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/01 21:03:52 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 
 // The size of each `Tile`
 # define TILE_SIZE 32
-// The margin of the game board;
-# define MARGIN 50
 // The padding of the game board;
 # define PADDING 10
 // The background color;
@@ -126,6 +124,7 @@ typedef struct s_parameter_check
 typedef struct s_view
 {
 	void *mlx;
+	mlx_image_t		*img_background;
 	mlx_image_t		*img_tile;
 	mlx_image_t		*img_wall;
 	mlx_image_t		*img_collectible;
@@ -145,6 +144,8 @@ void validate_parameter(char **parameter);
 void			move(t_game *game, t_direction direction);
 
 t_view *create_view(t_game *game);
+void draw_all(t_game *game, t_view *view);
+void draw_move(t_game *game, t_view *view);
 
 int str_arr_len(char **arr);
 

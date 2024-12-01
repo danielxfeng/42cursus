@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:44:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 19:51:58 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/01 21:24:56 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ static void	check_game_over(t_game *game)
 }
 
 // Perform the move of the game.
-// Return if it's not a valid move.
+// Return if it's a valid move.
 // Collect the possible collectible.
 // Update the counts of movements.
-void	move(t_game *game, t_direction direction)
+bool	move(t_game *game, t_direction direction)
 {
 	t_point	point;
 
 	if (game->status != STATUS_WAIT_MOVE)
-		return ;
+		return (false);
 	game->status = STATUS_MOVING;
 	point.x = game->player->x;
 	point.y = game->player->y;
@@ -69,7 +69,7 @@ void	move(t_game *game, t_direction direction)
 	if (!is_valid_point(game, point.x, point.y))
 	{
 		game->status = STATUS_WAIT_MOVE;
-		return ;
+		return (false);
 	}
 	game->player->prev_x = game->player->x;
 	game->player->prev_y = game->player->y;
@@ -82,4 +82,5 @@ void	move(t_game *game, t_direction direction)
 	}
 	++(game->player->movements);
 	check_game_over(game);
+	return (true);
 }
