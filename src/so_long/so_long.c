@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:42:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/01 17:32:38 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/01 19:06:49 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int so_long(int argc, char** argv)
 {
     char **parameter;
     t_game *game;
-    t_mlx *mlx_ptrs;
+    t_view *view;
     size_t len;
     
     if (argc != 2)
@@ -74,8 +74,8 @@ int so_long(int argc, char** argv)
     if (!path_check(game))
         exit_prog(&game, &parameter, NULL, "There is no valid path in the map.");
     free_parameter(&parameter);
-    mlx_ptrs = create_view(game);
-    exit_prog(&game, &parameter, &mlx_ptrs, NULL);
+    view = create_view(game);
+    exit_prog(&game, &parameter, &view, NULL);
     return (0);
 }
 /**

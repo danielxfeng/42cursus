@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 19:42:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 21:02:33 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/01 19:06:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ static void validate_parameter_row(char **p, t_parameter_check *pc, int i)
 	int j;
 
 	if ((int)ft_strlen(p[i]) != pc->length)
-		exit_prog(NULL, &p, "Map should be rectangular.");
+		exit_prog(NULL, &p, NULL, "Map should be rectangular.");
 	j = 0;
 	while (j < pc->length)
 	{
 		if (p[i][j] != '1' && p[i][j] != '0' && p[i][j] != 'C' 
 		&& p[i][j] != 'E' && p[i][j] != 'P')
-			exit_prog(NULL, &p, "Illegal character in map.");
+			exit_prog(NULL, &p, NULL, "Illegal character in map.");
 		if ((i == 0 || i == pc->height - 1 || j == 0 
 		|| j == pc->length - 1) && p[i][j] != '1')
-			exit_prog(NULL, &p, "Map should be surrounded by walls.");
+			exit_prog(NULL, &p, NULL, "Map should be surrounded by walls.");
 		if (p[i][j] == 'C')
 			++pc->collectible;
 		if (p[i][j] == 'E')
@@ -83,9 +83,9 @@ void validate_parameter(char **parameter)
 	while (i < pc.height)
 		validate_parameter_row(parameter, &pc, i++);
 	if (pc.collectible <= 0)
-		exit_prog(NULL, &parameter, "Map needs at least 1 collectible.");
+		exit_prog(NULL, &parameter, NULL, "Map needs at least 1 collectible.");
 	if (pc.entrance != 1)
-		exit_prog(NULL, &parameter, "Map needs exactly 1 player.");
+		exit_prog(NULL, &parameter, NULL, "Map needs exactly 1 player.");
 	if (pc.exit != 1)
-		exit_prog(NULL, &parameter, "Map needs exactly 1 exit.");	
+		exit_prog(NULL, &parameter, NULL, "Map needs exactly 1 exit.");	
 }
