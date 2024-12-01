@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 18:42:18 by Xifeng            #+#    #+#              #
-#    Updated: 2024/11/30 20:24:14 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/12/01 18:38:24 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RM = rm -f
 SRC_DIR := .
 LIBFT_DIR := libft
 FT_PRINTF_DIR := ft_printf
-MINILIBX_DIR := minilibx-linux
+MINILIBX_DIR := mlx
 
 LIBFT := $(LIBFT_DIR)/libft.a
 FT_PRINTF := $(FT_PRINTF_DIR)/libftprintf.a

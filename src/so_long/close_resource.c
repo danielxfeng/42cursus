@@ -6,13 +6,15 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:01:48 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/01 17:28:59 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/01 19:02:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "ft_printf/ft_printf.h"
 #include <stdlib.h>
+
+void close_view(t_view **view);
 
 // A helper function for `create_board_row`.
 static void free_row(t_tile **row)
@@ -80,11 +82,11 @@ void free_game(t_game **game)
 
 // Call this function before exit.
 // `msg`: set to NULL for normal exit.
-void	exit_prog(t_game **game, char ***parameter, t_mlx **mlx_ptrs, char *msg)
+void	exit_prog(t_game **game, char ***parameter, t_view **view, char *msg)
 {
 	free_parameter(parameter);
 	free_game(game);
-	free_mlx(mlx_ptrs);
+	close_view(view);
 	if (!msg)
 		exit(EXIT_SUCCESS);
 	ft_printf("Error\n%s\n", msg);
