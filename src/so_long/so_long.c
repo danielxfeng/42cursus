@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:42:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 21:18:31 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/01 17:32:38 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 static void close_fd_and_exit(int fd, char *msg)
 {
     close(fd);
-    exit_prog(NULL, NULL, msg);
+    exit_prog(NULL, NULL, NULL, msg);
 }
 
 // Parse the parameter with map file checking.
@@ -33,7 +33,7 @@ static char **parse_parameter(char *file_name)
 
     fd = open(file_name, O_RDONLY);
     if (fd == -1)
-        exit_prog(NULL, NULL, "Error on opening a map.");
+        exit_prog(NULL, NULL, NULL, "Error on opening a map.");
     bytes_read = read(fd, buf, 38416);
     if (bytes_read == -1)
         close_fd_and_exit(fd, "Error on opening a map.");
@@ -45,7 +45,7 @@ static char **parse_parameter(char *file_name)
     buf[bytes_read] = '\0';
     parameter = ft_split(buf, '\n');
     if (!parameter)
-        exit_prog(NULL, NULL, "Memory allocation failed: parsing the map.");
+        exit_prog(NULL, NULL, NULL, "Memory allocation failed: parsing the map.");
     return (parameter);
 }
 
@@ -59,20 +59,23 @@ int so_long(int argc, char** argv)
 {
     char **parameter;
     t_game *game;
+    t_mlx *mlx_ptrs;
     size_t len;
     
     if (argc != 2)
-        exit_prog(NULL, NULL, "Please specify a map file.");
+        exit_prog(NULL, NULL, NULL, "Please specify a map file.");
     len = (int)ft_strlen(argv[1]);
     if (len < 5 || argv[1][len - 4] != '.' || argv[1][len - 3] != 'b' 
     || argv[1][len - 2] != 'e' || argv[1][len - 1] != 'r')
-        exit_prog(NULL, NULL, "Map file should be endwith '.ber'.");
+        exit_prog(NULL, NULL, NULL, "Map file should be endwith '.ber'.");
     parameter = parse_parameter(argv[1]);
     validate_parameter(parameter);
     game = create_game(ft_strlen(parameter[0]), str_arr_len(parameter), parameter);
     if (!path_check(game))
-        exit_prog(&game, &parameter, "There is no valid path in the map.");
-    exit_prog(&game, &parameter, NULL);
+        exit_prog(&game, &parameter, NULL, "There is no valid path in the map.");
+    free_parameter(&parameter);
+    mlx_ptrs = create_view(game);
+    exit_prog(&game, &parameter, &mlx_ptrs, NULL);
     return (0);
 }
 /**

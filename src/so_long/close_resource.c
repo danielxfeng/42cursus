@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:01:48 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 21:52:42 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/01 17:28:59 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,11 @@ void free_game(t_game **game)
 
 // Call this function before exit.
 // `msg`: set to NULL for normal exit.
-void	exit_prog(t_game **game, char ***parameter, char *msg)
+void	exit_prog(t_game **game, char ***parameter, t_mlx **mlx_ptrs, char *msg)
 {
 	free_parameter(parameter);
 	free_game(game);
+	free_mlx(mlx_ptrs);
 	if (!msg)
 		exit(EXIT_SUCCESS);
 	ft_printf("Error\n%s\n", msg);

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/30 19:25:32 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/01 17:33:00 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include <stdbool.h>
 # include <stddef.h>
+
+// The size of each `Tile`
+# define TILE_SIZE 32
+// The margin of the game board;
+# define MARGIN 50
+// The padding of the game board;
+# define PADDING 10
 
 // Enum of the type of `tile`.
 typedef enum a_type
@@ -106,7 +113,20 @@ typedef struct s_parameter_check
 	int collectible;
 } t_parameter_check;
 
-void			exit_prog(t_game **game, char ***parameter, char *msg);
+// The pointers of mlx.
+typedef struct s_mlx
+{
+	void *mlt;
+	void *win;
+	void *bg_col;
+	void *img_tile;
+	void *img_wall;
+	void *img_collectible;
+	void *img_exit;
+	void *img_player;
+} t_mlx;
+
+void			exit_prog(t_game **game, char ***parameter, t_mlx **mlx_ptrs, char *msg);
 t_game			*create_game(int length, int height, char **parameter);
 
 void			set_next_point(t_point *point, t_direction direction);
@@ -116,6 +136,8 @@ bool			path_check(t_game *game);
 void validate_parameter(char **parameter);
 
 void			move(t_game *game, t_direction direction);
+
+void *create_view(t_game *game);
 
 int so_long(int argc, char** argv);
 
