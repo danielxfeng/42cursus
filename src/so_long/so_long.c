@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:42:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/02 09:17:44 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/02 09:23:12 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ static char **parse_parameter(char *file_name)
     return (parameter);
 }
 
-// Define a MLX controller.
+// Start the mlx engine.
 // 1 register a key hook to handle the key press event.
-// 2 register a window close hook to handle the closing win
-void *mlx_controller(t_game *game)
+// 2 register a window close hook to handle the closing window event.
+// 3 enter the mlx loop.
+void *start_mlx_engine(t_game *game)
 {
     t_param *p;
 
@@ -71,8 +72,8 @@ void *mlx_controller(t_game *game)
 
 // Entry point here.
 // Initialize the resource and hand over to the controller.
-// The controller should free the memory before quit.
-int so_long(int argc, char** argv, void *(game_control)(t_game *game))
+// The game engine should free the memory before quit.
+int so_long(int argc, char** argv, void *(engine_start)(t_game *game))
 {
     char **parameter;
     t_game *game;
@@ -90,13 +91,13 @@ int so_long(int argc, char** argv, void *(game_control)(t_game *game))
     if (!path_check(game))
         exit_prog(&game, &parameter, NULL, "There is no valid path in the map.");
     free_parameter(&parameter);
-    if (game_control)
-        game_control(game);
+    if (engine_start)
+        engine_start(game);
     exit_prog(&game, NULL, NULL, NULL);
     return (0);
 }
 
 int main(int argc, char** argv)
 {
-    so_long(argc, argv, mlx_controller);
+    so_long(argc, argv, start_mlx_engine);
 }
