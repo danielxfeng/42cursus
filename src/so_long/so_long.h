@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/01 21:03:52 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/02 08:58:30 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,13 @@ typedef struct s_view
 	mlx_image_t		*img_player;
 } t_view;
 
+// Integrated parameter for key hook.
+typedef struct s_param
+{
+	t_view *view;
+	t_game *game;
+} t_param;
+
 void			exit_prog(t_game **game, char ***parameter, t_view **view, char *msg);
 t_game			*create_game(int length, int height, char **parameter);
 
@@ -141,12 +148,16 @@ bool			is_valid_point(t_game *game, int x, int y);
 bool			path_check(t_game *game);
 void validate_parameter(char **parameter);
 
-void			move(t_game *game, t_direction direction);
+bool			move(t_game *game, t_direction direction);
 
 t_view *create_view(t_game *game);
 void draw_all(t_game *game, t_view *view);
 void draw_move(t_game *game, t_view *view);
+void handle_key_press_event(mlx_key_data_t keydata, void *param);
+void handle_win_close_event(void *param);
+void exit_and_close_param(t_param **param, char *msg);
 
 int str_arr_len(char **arr);
+int two_to_one(int x, int y, t_game *game);
 
 #endif

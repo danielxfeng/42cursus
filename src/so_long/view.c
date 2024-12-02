@@ -6,17 +6,12 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:07:51 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/01 21:31:51 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/02 08:58:22 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// Convert 2d coordinator to 1d.
-static int two_to_one(int x, int y, t_game *game)
-{
-    return (y * game->length + x);
-}
+#include "ft_printf/ft_printf.h"
 
 // Helper function to draw a tile for `draw_all`.
 // Each tile is drawn with a `collectible image` by default, and then toggle
@@ -72,4 +67,42 @@ void draw_move(t_game *game, t_view *view)
     view->img_player->instances[0].y = game->player->y * TILE_SIZE + PADDING;
     if (!game->board[game->player->y][game->player->x].is_collectible)
         view->img_collectible->instances[two_to_one(game->player->x, game->player->y, game)].enabled = false;
+}
+
+// Handle key press event.
+void handle_key_press_event(mlx_key_data_t keydata, void *param)
+{
+	t_param *p;
+    t_direction direction;
+
+	p = (t_param *)param;
+    if (keydata.action != MLX_PRESS)
+        return ;
+    if (keydata.key == MLX_KEY_ESCAPE)
+        exit_and_close_param(&param, NULL);
+	if (keydata.key == MLX_KEY_W)
+        direction = DIR_U;
+	else if (keydata.key == MLX_KEY_S)
+        direction = DIR_D;
+	else if (keydata.key == MLX_KEY_A)
+        direction = DIR_L;
+	else if (keydata.key == MLX_KEY_D)
+        direction = DIR_R;
+    else
+        return ;
+    if (!move(p->game, direction))
+        return ;
+    draw_move(p->game, p->view);
+    ft_printf("Movements: %d\n", p->game->player->movements);
+    if (p->game->status == STATUS_WON)
+        exit_and_close_param(&param, NULL);
+}
+
+// Handle close window event.
+void handle_win_close_event(void *param)
+{
+    t_param *p;
+
+	p = (t_param *)param;
+    exit_and_close_param(&param, NULL);
 }

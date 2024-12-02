@@ -6,9 +6,11 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:53:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/01 19:06:26 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/02 08:32:43 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "so_long.h"
 
 // Returns the length of a null terminated string array. 
 int str_arr_len(char **arr)
@@ -19,4 +21,9 @@ int str_arr_len(char **arr)
     while (arr[i])
         ++i;
     return (i);
+}
+// Convert 2d coordinator to 1d.
+int two_to_one(int x, int y, t_game *game)
+{
+    return (y * game->length + x);
 }

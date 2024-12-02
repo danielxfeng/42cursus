@@ -6,12 +6,28 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:16:25 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/01 20:48:29 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/02 08:54:48 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdlib.h>
+
+// Helper function for free the param and exit the program.
+void exit_and_close_param(t_param **param, char *msg)
+{
+    t_game *game;
+    t_view *view;
+    
+    if (param && *param)
+    {
+        game = (*param)->game;
+        view = (*param)->view;
+        free(*param);
+        *param = NULL;
+        exit_prog(&game, NULL, &view, msg);
+    }
+}
 
 // Deconstructor of `view`.
 void close_view(t_view **view)

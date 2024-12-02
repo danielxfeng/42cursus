@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:42:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/01 19:06:49 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/02 09:17:44 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,33 @@ static char **parse_parameter(char *file_name)
     return (parameter);
 }
 
+// Define a MLX controller.
+// 1 register a key hook to handle the key press event.
+// 2 register a window close hook to handle the closing win
+void *mlx_controller(t_game *game)
+{
+    t_param *p;
+
+    p = malloc(sizeof(t_param));
+    if (!p)
+        exit_prog(&game, NULL, NULL, "Memory allocation failed: controller creation.");
+    p->view = create_view(game);
+    if (!p->view)
+        exit_prog(&game, NULL, NULL, "Memory allocation failed: view creation.");
+    p->game = game;
+    mlx_key_hook(p->view->mlx, handle_key_press_event, p);
+    mlx_close_hook(p->view->mlx, handle_win_close_event, p);
+    mlx_loop(p->view->mlx);
+    exit_and_close_param(&p, "Cannot enter the loop.");
+}
+
 // Entry point here.
-// 1 Check the parameter length first.
-// 2 Parse the map (with map file validation).
-// 2 Validate the parameter (check map file).
-// 3 Create the map.
-// 4 Check if the path is valid.
-int so_long(int argc, char** argv)
+// Initialize the resource and hand over to the controller.
+// The controller should free the memory before quit.
+int so_long(int argc, char** argv, void *(game_control)(t_game *game))
 {
     char **parameter;
     t_game *game;
-    t_view *view;
     size_t len;
     
     if (argc != 2)
@@ -74,14 +90,13 @@ int so_long(int argc, char** argv)
     if (!path_check(game))
         exit_prog(&game, &parameter, NULL, "There is no valid path in the map.");
     free_parameter(&parameter);
-    view = create_view(game);
-    exit_prog(&game, &parameter, &view, NULL);
+    if (game_control)
+        game_control(game);
+    exit_prog(&game, NULL, NULL, NULL);
     return (0);
 }
-/**
+
 int main(int argc, char** argv)
 {
-    so_long(argc, argv);
+    so_long(argc, argv, mlx_controller);
 }
-*/
-
