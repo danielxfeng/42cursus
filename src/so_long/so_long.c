@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:42:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 17:16:41 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 20:02:53 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	start_mlx_engine(t_game *game)
 // Entry point here.
 // Initialize the resource and hand over to the controller.
 // The game engine should free the memory before quit.
-int	so_long(int argc, char **argv, void(engine_start)(t_game *game))
+int	so_long(int argc, char **argv, void (*engine_start)(t_game *game))
 {
 	char	**parameter;
 	t_game	*game;

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:53:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 13:34:31 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 20:02:07 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,15 @@ int	str_arr_len(char **arr)
 		++i;
 	return (i);
 }
+
 // Convert 2d coordinator to 1d.
 int	two_to_one(int x, int y, t_game *game)
 {
 	return (y * game->length + x);
+}
+
+// Calcuate the window size by given tile numbers.
+int	gws(int n)
+{
+	return (n * TILE_SIZE + 2 * PADDING);
 }
