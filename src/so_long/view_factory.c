@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:16:25 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 13:34:38 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 13:37:21 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static mlx_image_t	*create_image(t_game *game, t_view *view,
 }
 
 // Calcuate the window size by given tile numbers.
-static int	get_win_size(int n)
+static int	gws(int n)
 {
 	return (n * TILE_SIZE + 2 * PADDING);
 }
@@ -85,8 +85,8 @@ static void	create_background(t_game *game, t_view *view)
 	int			height;
 	uint32_t	*pixels;
 
-	width = get_win_size(game->length);
-	height = get_win_size(game->height);
+	width = gws(game->length);
+	height = gws(game->height);
 	view->img_background = mlx_new_image(view->mlx, width, height);
 	if (!view->img_background || (mlx_image_to_window(view->mlx,
 				view->img_background, 0, 0) < 0))
@@ -115,8 +115,7 @@ t_view	*create_view(t_game *game)
 	view->img_player = NULL;
 	view->img_collectible = NULL;
 	view->img_exit = NULL;
-	view->mlx = mlx_init(get_win_size(game->length), get_win_size(game->height),
-			"So Long by Daniel", true);
+	view->mlx = mlx_init(gws(game->length), gws(game->height), "So Long", true);
 	if (!view->mlx)
 		exit_prog(&game, NULL, view, "MLX init failed.");
 	create_background(game, view);

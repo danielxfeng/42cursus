@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 19:42:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 13:34:35 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 13:36:01 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static bool	path_check_helper(t_game *game, int x, int y)
 	}
 	return (false);
 }
+
 // To check if there is a valid path from entrance to exit.
 bool	path_check(t_game *game)
 {
