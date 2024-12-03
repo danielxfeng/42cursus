@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 18:42:18 by Xifeng            #+#    #+#              #
-#    Updated: 2024/12/03 20:09:03 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/12/03 20:13:08 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ all: clone libmlx $(NAME)
 
 clone:
 	@if [ ! -d "$(REPO_DIR)" ]; then \
-		git clone $(REPO_URL) REPO_DIR; \
+		git clone $(REPO_URL) $(REPO_DIR); \
 	else \
 		echo "$(REPO_DIR) already exists."; \
 	fi
