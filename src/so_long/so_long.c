@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:42:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 13:34:25 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 13:47:27 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static char	**parse_parameter(char *file_name)
 		close_fd_and_exit(fd, "Cannot handle too big map.");
 	close(fd);
 	buf[bytes_read] = '\0';
+    if (buf[0] == '\n' || ft_strnstr(buf, "\n\n", bytes_read))
+        close_fd_and_exit(fd, "The map should be a rectangle.");
 	parameter = ft_split(buf, '\n');
 	if (!parameter)
 		exit_prog(NULL, NULL, NULL,

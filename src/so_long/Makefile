@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 18:42:18 by Xifeng            #+#    #+#              #
-#    Updated: 2024/12/01 18:38:24 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/12/03 13:55:02 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ FT_PRINTF := $(FT_PRINTF_DIR)/libftprintf.a
 MINILIBX := $(MINILIBX_DIR)/libmlx.a
 
 SRC_FILES := $(SRC_DIR)/so_long.c $(SRC_DIR)/factory.c $(SRC_DIR)/close_resource.c \
-             $(SRC_DIR)/game.c $(SRC_DIR)/utils.c $(SRC_DIR)/validation.c
+             $(SRC_DIR)/game.c $(SRC_DIR)/utils.c $(SRC_DIR)/validation.c $(SRC_DIR)/view.c \
+			 $(SRC_DIR)/view_factory.c
 
 OBJ_FILES := $(SRC_FILES:.c=.o)
 

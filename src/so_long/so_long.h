@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 13:34:29 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 13:38:39 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ void			exit_prog(t_game **game, char ***parameter, t_view **view,
 t_game			*create_game(int length, int height, char **parameter);
 
 void			set_next_point(t_point *point, t_direction direction);
-
 bool			is_valid_point(t_game *game, int x, int y);
 bool			path_check(t_game *game);
 void			validate_parameter(char **parameter);
