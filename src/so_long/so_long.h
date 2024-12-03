@@ -6,16 +6,16 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/02 08:58:30 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 13:34:29 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include "mlx/include/MLX42/MLX42.h"
 # include <stdbool.h>
 # include <stddef.h>
-# include "mlx/include/MLX42/MLX42.h"
 
 // The size of each `Tile`
 # define TILE_SIZE 32
@@ -113,51 +113,52 @@ typedef struct s_point
 // A struct for checking the parameter.
 typedef struct s_parameter_check
 {
-	int length;
-	int height;
-	int entrance;
-	int exit;
-	int collectible;
-} t_parameter_check;
+	int			length;
+	int			height;
+	int			entrance;
+	int			exit;
+	int			collectible;
+}				t_parameter_check;
 
 // The pointers of view.
 typedef struct s_view
 {
-	void *mlx;
-	mlx_image_t		*img_background;
-	mlx_image_t		*img_tile;
-	mlx_image_t		*img_wall;
-	mlx_image_t		*img_collectible;
-	mlx_image_t		*img_exit;
-	mlx_image_t		*img_player;
-} t_view;
+	void		*mlx;
+	mlx_image_t	*img_background;
+	mlx_image_t	*img_tile;
+	mlx_image_t	*img_wall;
+	mlx_image_t	*img_collectible;
+	mlx_image_t	*img_exit;
+	mlx_image_t	*img_player;
+}				t_view;
 
 // Integrated parameter for key hook.
 typedef struct s_param
 {
-	t_view *view;
-	t_game *game;
-} t_param;
+	t_view		*view;
+	t_game		*game;
+}				t_param;
 
-void			exit_prog(t_game **game, char ***parameter, t_view **view, char *msg);
+void			exit_prog(t_game **game, char ***parameter, t_view **view,
+					char *msg);
 t_game			*create_game(int length, int height, char **parameter);
 
 void			set_next_point(t_point *point, t_direction direction);
 
 bool			is_valid_point(t_game *game, int x, int y);
 bool			path_check(t_game *game);
-void validate_parameter(char **parameter);
+void			validate_parameter(char **parameter);
 
 bool			move(t_game *game, t_direction direction);
 
-t_view *create_view(t_game *game);
-void draw_all(t_game *game, t_view *view);
-void draw_move(t_game *game, t_view *view);
-void handle_key_press_event(mlx_key_data_t keydata, void *param);
-void handle_win_close_event(void *param);
-void exit_and_close_param(t_param **param, char *msg);
+t_view			*create_view(t_game *game);
+void			draw_all(t_game *game, t_view *view);
+void			draw_move(t_game *game, t_view *view);
+void			handle_key_press_event(mlx_key_data_t keydata, void *param);
+void			handle_win_close_event(void *param);
+void			exit_and_close_param(t_param **param, char *msg);
 
-int str_arr_len(char **arr);
-int two_to_one(int x, int y, t_game *game);
+int				str_arr_len(char **arr);
+int				two_to_one(int x, int y, t_game *game);
 
 #endif

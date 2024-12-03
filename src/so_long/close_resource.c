@@ -6,18 +6,18 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:01:48 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/01 19:02:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 13:34:06 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "ft_printf/ft_printf.h"
+#include "so_long.h"
 #include <stdlib.h>
 
-void close_view(t_view **view);
+void		close_view(t_view **view);
 
 // A helper function for `create_board_row`.
-static void free_row(t_tile **row)
+static void	free_row(t_tile **row)
 {
 	if (row && *row)
 	{
@@ -27,7 +27,7 @@ static void free_row(t_tile **row)
 }
 
 // The helper function for `exit_prog`.
-void free_board(t_tile ***board, int height)
+void	free_board(t_tile ***board, int height)
 {
 	int	i;
 
@@ -46,9 +46,9 @@ void free_board(t_tile ***board, int height)
 }
 
 // Free parameter
-void free_parameter(char ***parameter)
+void	free_parameter(char ***parameter)
 {
-	int i;
+	int	i;
 
 	if (parameter && *parameter)
 	{
@@ -65,8 +65,8 @@ void free_parameter(char ***parameter)
 }
 
 // A helper function to free the game.
-void free_game(t_game **game)
-{	
+void	free_game(t_game **game)
+{
 	if (game && *game)
 	{
 		if ((*game)->player)

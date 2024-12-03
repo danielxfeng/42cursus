@@ -6,14 +6,14 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:54 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/01 17:28:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 13:34:10 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdlib.h>
 
-void free_board(t_tile ***board, int height);
+void			free_board(t_tile ***board, int height);
 
 // The constructor of Player.
 static t_player	*create_player(char **parameter, t_game *game)
@@ -22,7 +22,8 @@ static t_player	*create_player(char **parameter, t_game *game)
 
 	player = malloc(sizeof(t_player));
 	if (!player)
-		exit_prog(&game, &parameter, NULL, "Memory allocation failed: player creation.");
+		exit_prog(&game, &parameter, NULL,
+			"Memory allocation failed: player creation.");
 	player->prev_x = -1;
 	player->prev_y = -1;
 	player->has_collectible = 0;
@@ -73,12 +74,13 @@ static t_tile	*create_board_row(int i, int length, char **p, t_game *game)
 static t_tile	**create_board(int length, int height, char **parameter,
 		t_game *game)
 {
-	int				i;
-	t_tile			**board;
+	int		i;
+	t_tile	**board;
 
 	board = malloc(height * sizeof(t_tile *));
 	if (!board)
-		exit_prog(&game, &parameter, NULL, "Memory allocation failed: map creation.");
+		exit_prog(&game, &parameter, NULL,
+			"Memory allocation failed: map creation.");
 	i = 0;
 	while (i < height)
 	{
@@ -86,7 +88,8 @@ static t_tile	**create_board(int length, int height, char **parameter,
 		if (!board[i])
 		{
 			free_board(&board, i);
-			exit_prog(&game, &parameter, NULL, "Memory allocation failed: map row creation.");
+			exit_prog(&game, &parameter, NULL,
+				"Memory allocation failed: map row creation.");
 		}
 		++i;
 	}
@@ -103,7 +106,8 @@ t_game	*create_game(int length, int height, char **parameter)
 		exit_prog(NULL, &parameter, NULL, "Map should be a Rectangle.");
 	game = malloc(sizeof(t_game));
 	if (!game)
-		exit_prog(NULL, &parameter, NULL, "Memory allocation failed: game creation.");
+		exit_prog(NULL, &parameter, NULL,
+			"Memory allocation failed: game creation.");
 	game->player = NULL;
 	game->board = NULL;
 	game->length = length;
