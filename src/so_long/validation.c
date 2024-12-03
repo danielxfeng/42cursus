@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 19:42:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 13:36:01 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 19:38:52 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 #include "so_long.h"
 
 // A recursive call helper for `path_check`.
-static bool	path_check_helper(t_game *game, int x, int y)
+static void	path_check_helper(t_game *game, int x, int y)
 {
 	t_direction	direction;
 	t_point		point;
 
 	if (!is_valid_point(game, x, y) || game->board[y][x].is_visited)
-		return (false);
-	if (game->board[y][x].is_exit)
-		return (true);
+		return ;
 	game->board[y][x].is_visited = true;
 	direction = DIR_U;
 	while (direction <= DIR_R)
@@ -30,17 +28,33 @@ static bool	path_check_helper(t_game *game, int x, int y)
 		point.x = x;
 		point.y = y;
 		set_next_point(&point, direction);
-		if (path_check_helper(game, point.x, point.y))
-			return (true);
+		path_check_helper(game, point.x, point.y);
 		++direction;
 	}
-	return (false);
+	return ;
 }
 
 // To check if there is a valid path from entrance to exit.
 bool	path_check(t_game *game)
 {
-	return (path_check_helper(game, game->player->x, game->player->y));
+	int		i;
+	int		j;
+
+	path_check_helper(game, game->player->x, game->player->y);
+	i = 0;
+	while (i < game->height)
+	{
+		j = 0;
+		while (j < game->length)
+		{
+			if ((game->board[i][j].is_collectible || game->board[i][j].is_exit)
+				&& !(game->board[i][j].is_visited))
+				return (false);
+			++j;
+		}
+		++i;
+	}
+	return (true);
 }
 
 // A helper function for `validate_parameter`.
@@ -77,6 +91,8 @@ void	validate_parameter(char **parameter)
 
 	pc.height = str_arr_len(parameter);
 	pc.length = ft_strlen(parameter[0]);
+	if (pc.height > 130 || pc.length > 130)
+		exit_prog(NULL, &parameter, NULL, "Map is too big to fit the game.");
 	pc.collectible = 0;
 	pc.entrance = 0;
 	pc.exit = 0;

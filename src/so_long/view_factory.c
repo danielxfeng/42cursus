@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:16:25 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 17:07:52 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 19:20:54 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ static mlx_image_t	*create_image(t_game *game, t_view *view,
 	mlx_delete_texture(tex);
 	if (!img)
 		exit_prog(&game, NULL, &view, "MLX failed: image creation.");
+	if (!mlx_resize_image(img, TILE_SIZE, TILE_SIZE))
+		exit_prog(&game, NULL, &view, "MLX failed: resizing image.");
 	return (img);
 }
 
@@ -114,6 +116,7 @@ t_view	*create_view(t_game *game)
 	view->img_player = NULL;
 	view->img_collectible = NULL;
 	view->img_exit = NULL;
+	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	view->mlx = mlx_init(gws(game->length), gws(game->height), "So Long", true);
 	if (!view->mlx)
 		exit_prog(&game, NULL, &view, "MLX init failed.");

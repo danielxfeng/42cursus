@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:01:48 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 13:34:06 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 19:24:40 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ void	exit_prog(t_game **game, char ***parameter, t_view **view, char *msg)
 	free_game(game);
 	close_view(view);
 	if (!msg)
+	{
+		ft_printf("Game Over!\n");
 		exit(EXIT_SUCCESS);
+	}	
 	ft_printf("Error\n%s\n", msg);
 	exit(EXIT_FAILURE);
 }

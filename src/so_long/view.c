@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:07:51 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 17:15:16 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 19:22:50 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	draw_all(t_game *game, t_view *view)
 // Update the ui for each moving.
 void	draw_move(t_game *game, t_view *view)
 {
-	ft_printf("drawmove\n");
 	view->img_player->instances[0].x = game->player->x * TILE_SIZE + PADDING;
 	view->img_player->instances[0].y = game->player->y * TILE_SIZE + PADDING;
 	if (!game->board[game->player->y][game->player->x].is_collectible)
@@ -83,13 +82,13 @@ void	handle_key_press_event(mlx_key_data_t keydata, void *param)
 		return ;
 	if (keydata.key == MLX_KEY_ESCAPE)
 		exit_and_close_param(&p, NULL);
-	if (keydata.key == MLX_KEY_W)
+	if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP)
 		direction = DIR_U;
-	else if (keydata.key == MLX_KEY_S)
+	else if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
 		direction = DIR_D;
-	else if (keydata.key == MLX_KEY_A)
+	else if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT)
 		direction = DIR_L;
-	else if (keydata.key == MLX_KEY_D)
+	else if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT)
 		direction = DIR_R;
 	else
 		return ;

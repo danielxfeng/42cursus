@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 16:37:12 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 19:26:48 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stddef.h>
 
 // The size of each `Tile`
-# define TILE_SIZE 32
+# define TILE_SIZE 32 * 2
 // The padding of the game board;
 # define PADDING 10
 // The background color;
