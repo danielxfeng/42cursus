@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:42:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 14:59:44 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 17:16:41 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	start_mlx_engine(t_game *game)
 		exit_prog(&game, NULL, NULL,
 			"Memory allocation failed: view creation.");
 	p->game = game;
+	draw_all(p->game, p->view);
 	mlx_key_hook(p->view->mlx, handle_key_press_event, p);
 	mlx_close_hook(p->view->mlx, handle_win_close_event, p);
 	mlx_loop(p->view->mlx);
@@ -101,6 +102,7 @@ int	so_long(int argc, char **argv, void(engine_start)(t_game *game))
 		exit_prog(&game, &parameter, NULL,
 			"There is no valid path in the map.");
 	free_parameter(&parameter);
+	game->status = STATUS_WAIT_MOVE;
 	if (engine_start)
 		engine_start(game);
 	exit_prog(&game, NULL, NULL, NULL);

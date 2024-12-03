@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:16:25 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 16:59:15 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 17:07:52 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static mlx_image_t	*create_image(t_game *game, t_view *view,
 {
 	mlx_texture_t	*tex;
 	mlx_image_t		*img;
+
 
 	tex = mlx_load_png(file_name);
 	if (!tex)

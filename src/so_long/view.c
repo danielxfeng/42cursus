@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:07:51 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 15:02:21 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 17:15:16 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	draw_all(t_game *game, t_view *view)
 // Update the ui for each moving.
 void	draw_move(t_game *game, t_view *view)
 {
+	ft_printf("drawmove\n");
 	view->img_player->instances[0].x = game->player->x * TILE_SIZE + PADDING;
 	view->img_player->instances[0].y = game->player->y * TILE_SIZE + PADDING;
 	if (!game->board[game->player->y][game->player->x].is_collectible)
