@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:16:25 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 13:37:21 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 16:59:15 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ static void	create_background(t_game *game, t_view *view)
 t_view	*create_view(t_game *game)
 {
 	t_view	*view;
-	int		win_width;
-	int		win_height;
 
 	view = malloc(sizeof(t_view));
 	if (!view)
@@ -117,12 +115,12 @@ t_view	*create_view(t_game *game)
 	view->img_exit = NULL;
 	view->mlx = mlx_init(gws(game->length), gws(game->height), "So Long", true);
 	if (!view->mlx)
-		exit_prog(&game, NULL, view, "MLX init failed.");
+		exit_prog(&game, NULL, &view, "MLX init failed.");
 	create_background(game, view);
 	view->img_tile = create_image(game, view, IMG_TILE);
 	view->img_wall = create_image(game, view, IMG_WALL);
 	view->img_player = create_image(game, view, IMG_PLAYER);
-	view->img_collectible = create_image(game, view, IMG_PLAYER);
+	view->img_collectible = create_image(game, view, IMG_COLLECTIBLE);
 	view->img_exit = create_image(game, view, IMG_EXIT);
 	return (view);
 }

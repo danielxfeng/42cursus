@@ -6,14 +6,17 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 18:42:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 13:47:27 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 14:59:44 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "so_long.h"
 #include <fcntl.h>
+#include <stdlib.h>
 #include <unistd.h>
+
+void		free_parameter(char ***parameter);
 
 // A helper function to deal with the file error.
 static void	close_fd_and_exit(int fd, char *msg)
@@ -43,8 +46,8 @@ static char	**parse_parameter(char *file_name)
 		close_fd_and_exit(fd, "Cannot handle too big map.");
 	close(fd);
 	buf[bytes_read] = '\0';
-    if (buf[0] == '\n' || ft_strnstr(buf, "\n\n", bytes_read))
-        close_fd_and_exit(fd, "The map should be a rectangle.");
+	if ((*buf && (buf[0] == '\n')) || ft_strnstr(buf, "\n\n", bytes_read))
+		close_fd_and_exit(fd, "The map should be a rectangle.");
 	parameter = ft_split(buf, '\n');
 	if (!parameter)
 		exit_prog(NULL, NULL, NULL,
@@ -56,7 +59,7 @@ static char	**parse_parameter(char *file_name)
 // 1 register a key hook to handle the key press event.
 // 2 register a window close hook to handle the closing window event.
 // 3 enter the mlx loop.
-void	*start_mlx_engine(t_game *game)
+void	start_mlx_engine(t_game *game)
 {
 	t_param	*p;
 
@@ -78,7 +81,7 @@ void	*start_mlx_engine(t_game *game)
 // Entry point here.
 // Initialize the resource and hand over to the controller.
 // The game engine should free the memory before quit.
-int	so_long(int argc, char **argv, void *(engine_start)(t_game *game))
+int	so_long(int argc, char **argv, void(engine_start)(t_game *game))
 {
 	char	**parameter;
 	t_game	*game;

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:03:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 13:38:39 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 16:37:12 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 // The background color;
 # define BG_COLOR 0x000000
 // The path to IMGs
-# define IMG_TILE "/assets/tile.png"
-# define IMG_WALL "/assets/wall.png"
-# define IMG_PLAYER "/assets/player.png"
-# define IMG_COLLECTIBLE "/assets/collectible.png"
-# define IMG_EXIT "/assets/exit.png"
+# define IMG_TILE "./assets/tile.png"
+# define IMG_WALL "./assets/wall.png"
+# define IMG_PLAYER "./assets/player.png"
+# define IMG_COLLECTIBLE "./assets/collectible.png"
+# define IMG_EXIT "./assets/exit.png"
 
 // Enum of the type of `tile`.
 typedef enum a_type

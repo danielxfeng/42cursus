@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:07:51 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 13:34:42 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/03 15:02:21 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	handle_key_press_event(mlx_key_data_t keydata, void *param)
 	if (keydata.action != MLX_PRESS)
 		return ;
 	if (keydata.key == MLX_KEY_ESCAPE)
-		exit_and_close_param(&param, NULL);
+		exit_and_close_param(&p, NULL);
 	if (keydata.key == MLX_KEY_W)
 		direction = DIR_U;
 	else if (keydata.key == MLX_KEY_S)
@@ -97,7 +97,7 @@ void	handle_key_press_event(mlx_key_data_t keydata, void *param)
 	draw_move(p->game, p->view);
 	ft_printf("Movements: %d\n", p->game->player->movements);
 	if (p->game->status == STATUS_WON)
-		exit_and_close_param(&param, NULL);
+		exit_and_close_param(&p, NULL);
 }
 
 // Handle close window event.
@@ -106,5 +106,5 @@ void	handle_win_close_event(void *param)
 	t_param	*p;
 
 	p = (t_param *)param;
-	exit_and_close_param(&param, NULL);
+	exit_and_close_param(&p, NULL);
 }

@@ -6,63 +6,57 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 18:42:18 by Xifeng            #+#    #+#              #
-#    Updated: 2024/12/03 13:55:02 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/12/03 16:28:34 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := so_long
+NAME = so_long
+NAMEBONUS = so_long_bonus
 CC := cc
-LIBC = ar rcs
-CFLAGS := -Wall -Wextra -Werror
-RM = rm -f
+CFLAGS := -Wall -Wextra -Werror -Wunreachable-code -Ofast -fPIC \
+	-I ./include -I ./libft -I ./ft_printf -I ./mlx/include
+LIBFT := ./libft
+PRINTF := ./ft_printf
+LIBMLX := ./mlx
+HEADERS = -I $(LIBMLX)/include/mlx
+LIBS := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm \
+	$(LIBFT)/libft.a $(PRINTF)/libftprintf.a
 
-SRC_DIR := .
-LIBFT_DIR := libft
-FT_PRINTF_DIR := ft_printf
-MINILIBX_DIR := mlx
+SRCS := close_resource.c factory.c game.c so_long.c utils.c validation.c view_factory.c view.c
+OBJS := ${SRCS:.c=.o}
+OBJSB := ${SRCSB:.c=.o}
+REPO_URL=https://github.com/codam-coding-college/MLX42.git
+REPO_DIR=mlx
 
-LIBFT := $(LIBFT_DIR)/libft.a
-FT_PRINTF := $(FT_PRINTF_DIR)/libftprintf.a
-MINILIBX := $(MINILIBX_DIR)/libmlx.a
+all: clone libmlx $(NAME)
 
-SRC_FILES := $(SRC_DIR)/so_long.c $(SRC_DIR)/factory.c $(SRC_DIR)/close_resource.c \
-             $(SRC_DIR)/game.c $(SRC_DIR)/utils.c $(SRC_DIR)/validation.c $(SRC_DIR)/view.c \
-			 $(SRC_DIR)/view_factory.c
+clone:
+	@if [ ! -d "$(REPO_DIR)" ]; then \
+		git clone $(REPO_URL); \
+	else \
+		echo "$(REPO_DIR) already exists."; \
+	fi
 
-OBJ_FILES := $(SRC_FILES:.c=.o)
-
-INCLUDES := -I$(SRC_DIR) -I$(LIBFT_DIR) -I$(FT_PRINTF_DIR) -I$(MINILIBX_DIR)
-LDFLAGS := -L$(MINILIBX_DIR) -lmlx -lX11 -lXext -lbsd
-
-all: $(LIBFT) $(FT_PRINTF) $(MINILIBX) $(NAME)
-
-$(NAME): $(OBJ_FILES)
-	$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBFT) $(FT_PRINTF) $(MINILIBX) $(LDFLAGS) -o $(NAME)
-
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
-
-$(FT_PRINTF):
-	$(MAKE) -C $(FT_PRINTF_DIR)
-
-$(MINILIBX):
-	$(MAKE) -C $(MINILIBX_DIR)
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
+
+$(NAME): $(OBJS)
+	${MAKE} -C ${LIBFT}
+	${MAKE} -C ${PRINTF}
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
-	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(FT_PRINTF_DIR) clean
-	$(MAKE) -C $(MINILIBX_DIR) clean
-	$(RM) $(OBJ_FILES)
+	@rm -rf $(OBJS) $(OBJSB)
+	@rm -rf $(LIBMLX)/build
+	${MAKE} -C ${LIBFT} fclean
+	${MAKE} -C ${PRINTF} clean
 
 fclean: clean
-	$(MAKE) -C $(LIBFT_DIR) fclean
-	$(MAKE) -C $(FT_PRINTF_DIR) fclean
-	$(MAKE) -C $(MINILIBX_DIR) fclean
-	$(RM) $(NAME)
+	@rm -rf $(NAME) $(NAMEBONUS)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus clone
