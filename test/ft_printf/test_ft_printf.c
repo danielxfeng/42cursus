@@ -1,4 +1,5 @@
 #include "../../src/ft_printf/ft_printf.h"
+#include "../../src/ft_printf/ft_printf_helper.h"
 #include "unity.h"
 #include <ctype.h>
 #include <limits.h>
