@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:17:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/28 14:15:54 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/04 12:01:25 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 #include <unistd.h>
+
+static bool is_ordered_stack(t_stacks *stacks)
+{
+	size_t i;
+	t_node *curr;
+
+	i = 0;
+	curr = stacks->stack_a->root;
+	while (i < stacks->stack_a->len)
+	{
+		if (i > 0 && curr->value < curr->prev->value)
+			return (false);
+		curr = curr->next;
+		++i;
+	}
+	return (true);	
+}
 
 static int	error_exit(t_stacks **stacks)
 {
@@ -64,8 +81,15 @@ int	push_swap(int argc, char **argv, int (*apply_sort_func)(t_stacks *))
 	stacks = new_stacks();
 	if (!stacks || !insert_value_to_stacks(stacks, argc, argv))
 		return (error_exit(&stacks));
-	if (apply_sort_func)
-		apply_sort_func(stacks);
+	if (!is_ordered_stack(stacks))
+	{
+		if (stacks->stack_a->len == 3)
+			sort_3_elems_stack(stacks);
+		else if (stacks->stack_a->len <= 5)
+			sort_less_6_elems_stack(stacks);
+		else if (apply_sort_func)
+			apply_sort_func(stacks);		
+	}
 	close_stacks(&stacks);
 	return (0);
 }
