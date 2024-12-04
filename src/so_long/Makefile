@@ -6,12 +6,11 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 18:42:18 by Xifeng            #+#    #+#              #
-#    Updated: 2024/12/03 20:13:08 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/12/04 16:12:36 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-NAMEBONUS = so_long_bonus
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -Wunreachable-code -Ofast -fPIC \
 	-I ./include -I ./libft -I ./ft_printf -I ./mlx/include
