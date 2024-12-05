@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 18:42:18 by Xifeng            #+#    #+#              #
-#    Updated: 2024/12/05 12:42:59 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/12/05 18:20:01 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC_FILES := $(SRC_DIR)/push_swap.c $(SRC_DIR)/utils.c \
              $(ASTAR_SORT_DIR)/astar_sort.c $(ASTAR_SORT_DIR)/plans.c \
              $(STACKS_DIR)/list_node.c $(STACKS_DIR)/stack_factory.c $(STACKS_DIR)/stack_methods.c \
 			 $(STACKS_DIR)/stack_methods_rr.c $(STACKS_DIR)/stack_methods_sp.c $(STACKS_DIR)/stack_methods_r.c \
-			 $(LESS_NUM_SORT_DIR)/less_numbers_sort.c
+			 $(LESS_NUM_SORT_DIR)/less_numbers_sort.c $(LESS_NUM_SORT_DIR)/sort_4_5_elems.c 
 
 OBJ_FILES := $(SRC_FILES:.c=.o)
 

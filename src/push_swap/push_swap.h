@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/05 12:26:58 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/05 17:04:45 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ typedef struct s_node	t_node;
 // `root` is the int list, as well as a `circular doubly linked list`.
 // `len` is the length of `stack`.
 // `label` is either 'a' or 'b'.
-// `max` updates only when: Operation `p`.
+// `max` and `min` updates only when: Operation `p`.
 typedef struct s_stack
 {
 	t_node				*root;
 	size_t				len;
 	char				label;
 	t_node				*max;
+	t_node				*min;
 }						t_stack;
 
 // The data structure of stacks.

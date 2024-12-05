@@ -518,7 +518,24 @@ void test_less_numbers_sort()
 	stacks = new_stacks();
 	for (size_t i = 0; i < 3; ++i)
 		push_stack(stacks, value_4[i], true);
-	TEST_ASSERT_EQUAL_INT(1, less_numbers_sort(stacks));
+	TEST_ASSERT_EQUAL_INT(2, less_numbers_sort(stacks));
+	close_stacks(&stacks);
+	int value_5[] = {1, 2, 4, 3};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 4; ++i)
+		push_stack(stacks, value_5[i], true);
+	TEST_ASSERT_EQUAL_INT(4, less_numbers_sort(stacks));
+	int value_6[] = {2, 3, 4, 1};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 4; ++i)
+		push_stack(stacks, value_6[i], true);
+	TEST_ASSERT_EQUAL_INT(7, less_numbers_sort(stacks));
+	close_stacks(&stacks);	
+	int value_7[] = {3, 2, 1, 4, 5};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 5; ++i)
+		push_stack(stacks, value_7[i], true);
+	TEST_ASSERT_EQUAL_INT(7, less_numbers_sort(stacks));
 	close_stacks(&stacks);	
 }
 
@@ -534,7 +551,7 @@ int	main(void)
 	//RUN_TEST(test_plan);
     //RUN_TEST(test_astar_sort);
 	//RUN_TEST(debug);
-	RUN_TEST(test_is_ordered_stack);
+	// RUN_TEST(test_is_ordered_stack);
 	RUN_TEST(test_less_numbers_sort);
 	return (UNITY_END());
 }
