@@ -76,8 +76,8 @@ A 2D game like `Pacman`, practical Object Oriented Programming, and Dependency I
 
 #### **`pipe_x`**
 
-- [Implementation]()  
-- [My Thoughts]()
+- Implementation 
+- My Thoughts
 
 ---
 
@@ -85,10 +85,10 @@ A 2D game like `Pacman`, practical Object Oriented Programming, and Dependency I
 
 #### **`mini_shell`**
 
-- [Implementation]()
-- [My Thoughts]()
+- Implementation
+- My Thoughts
 
 #### **`philosophers`**
 
-- [Implementation]()
-- [My Thoughts]()
+- Implementation
+- My Thoughts
