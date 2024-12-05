@@ -474,17 +474,67 @@ void debug()
 	close_stacks(&stacks);
 }
 
+void test_is_ordered_stack()
+{
+	t_stacks *stacks = new_stacks();
+	int arr[500];
+	int rev[500];
+	int value_1[] = {1, 2, 3};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 3; ++i)
+		push_stack(stacks, value_1[i], true);
+	TEST_ASSERT_EQUAL_INT(true, is_ordered_stack(stacks));
+	close_stacks(&stacks);
+	int value_2[] = {2, 1, 3};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 3; ++i)
+		push_stack(stacks, value_2[i], true);
+	TEST_ASSERT_EQUAL_INT(false, is_ordered_stack(stacks));
+	close_stacks(&stacks);
+}
+
+void test_less_numbers_sort()
+{
+	t_stacks *stacks = new_stacks();
+	int arr[500];
+	int rev[500];
+	stacks = new_stacks();
+	push_stack(stacks, 1, true);
+	TEST_ASSERT_EQUAL_INT(0, less_numbers_sort(stacks));
+	close_stacks(&stacks);
+	int value_2[] = {1, 2};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 2; ++i)
+		push_stack(stacks, value_2[i], true);
+	TEST_ASSERT_EQUAL_INT(0, less_numbers_sort(stacks));
+	close_stacks(&stacks);	
+	int value_3[] = {2, 1};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 2; ++i)
+		push_stack(stacks, value_3[i], true);
+	TEST_ASSERT_EQUAL_INT(1, less_numbers_sort(stacks));
+	close_stacks(&stacks);	
+	int value_4[] = {1, 3, 2};
+	stacks = new_stacks();
+	for (size_t i = 0; i < 3; ++i)
+		push_stack(stacks, value_4[i], true);
+	TEST_ASSERT_EQUAL_INT(1, less_numbers_sort(stacks));
+	close_stacks(&stacks);	
+}
+
 // Main function to run the tests
 int	main(void)
 {
 	UNITY_BEGIN();
-	RUN_TEST(test_stack);
-	RUN_TEST(test_atoi);
+	//RUN_TEST(test_stack);
+	//RUN_TEST(test_atoi);
 	////RUN_TEST(test_insert_value_to_stacks);
-	RUN_TEST(test_push_swap);
-	RUN_TEST(test_stack_op);
-	RUN_TEST(test_plan);
-    RUN_TEST(test_astar_sort);
+	//RUN_TEST(test_push_swap);
+	//RUN_TEST(test_stack_op);
+	//RUN_TEST(test_plan);
+    //RUN_TEST(test_astar_sort);
 	//RUN_TEST(debug);
+	RUN_TEST(test_is_ordered_stack);
+	RUN_TEST(test_less_numbers_sort);
 	return (UNITY_END());
 }

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 19:32:53 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/04 12:58:15 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/05 12:26:58 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int						push_swap(int argc, char **argv,
 void					get_best_plan_ab(t_stacks *stacks, size_t idx,
 							t_move_plan_ab *best_plan);
 int						astar_sort_func(t_stacks *stacks);
-int						sort_3_elems_stack(t_stacks *stacks);
+int						less_numbers_sort(t_stacks *stacks);
+bool					is_ordered_stack(t_stacks *stacks);
 
 t_stacks				*new_stacks(void);
 t_stacks				*close_stacks(t_stacks **stacks);

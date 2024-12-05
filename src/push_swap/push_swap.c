@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:17:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/04 12:01:25 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/05 14:12:03 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "push_swap.h"
 #include <unistd.h>
 
-static bool is_ordered_stack(t_stacks *stacks)
+bool is_ordered_stack(t_stacks *stacks)
 {
 	size_t i;
 	t_node *curr;
@@ -83,11 +83,9 @@ int	push_swap(int argc, char **argv, int (*apply_sort_func)(t_stacks *))
 		return (error_exit(&stacks));
 	if (!is_ordered_stack(stacks))
 	{
-		if (stacks->stack_a->len == 3)
-			sort_3_elems_stack(stacks);
-		else if (stacks->stack_a->len <= 5)
-			sort_less_6_elems_stack(stacks);
-		else if (apply_sort_func)
+		if (stacks->stack_a->len < 6)
+			less_numbers_sort(stacks);
+		else
 			apply_sort_func(stacks);		
 	}
 	close_stacks(&stacks);
@@ -98,3 +96,6 @@ int	main(int argc, char **argv)
 {
 	push_swap(argc, argv, astar_sort_func);
 }
+
+
+
