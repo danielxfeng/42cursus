@@ -17,6 +17,7 @@
     "vector": "c",
     "push_swap.h": "c",
     "ft_printf.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "pipe_x.h": "c"
   }
 }

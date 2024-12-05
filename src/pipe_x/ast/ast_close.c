@@ -1,50 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_factory.c                                      :+:      :+:    :+:   */
+/*   ast_close.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 21:41:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/03 21:41:31 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/12/03 21:58:36 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/12/03 22:05:06 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe_x.h"
-#include "libft/libft.h"
+#include "../pipe_x.h"
 #include <stdlib.h>
-
-// Constructor of a AST node.
-t_ast_node *create_ast_node(t_node_type type, int cmd_idx, int args_idx, int args_len)
-{
-    t_ast_node *node;
-
-    node = ft_calloc(1, sizeof(t_ast_node));
-    if (!node)
-        return (NULL);
-    node->type = type;
-    if (node->type == CMD)
-    {
-        node->cmd_idx = cmd_idx;
-        node->args_idx = args_idx;
-        node->args_len = args_len;
-    }
-    node->left = NULL;
-    node->right = NULL;
-    return (node);
-}
-
-// Constructor of AST tree.
-t_ast *create_ast()
-{
-    t_ast *ast;
-
-    ast = ft_calloc(1, sizeof(t_ast));
-    if (!ast)
-        return (NULL);
-    ast->root = NULL;
-    return (ast);
-}
 
 // Helper function to free a AST node.
 static void free_ast_node (t_ast_node *node)
