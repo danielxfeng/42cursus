@@ -63,6 +63,8 @@ The stack's construction and destruction are encapsulated within factory functio
     ```
 ### Algorithm Section
 
+**Actually, there are something missed in "subject.pdf", but apeared in eval table. We have to optimize our algorithm for the 3 and 5 elements sorting. Therefore, the best solution is that: we pushed the numbers from stack a to stack b one by one, until there are only 3 elements in stack_a, and then we push them back by the algorithm below.**
+
 #### Challenges
 
 As per the project requirements, sorting **500 numbers** must be completed within **5500 operations**, implying an nearly **O(n log n)** time complexity. Additionally, with a dual-stack design, the space complexity is restricted to **O(n)**.
