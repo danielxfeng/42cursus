@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/07 19:10:52 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/07 20:11:21 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdbool.h>
 #include <sys/types.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 # define MALLOC_ERR ": malloc() failed"
 # define FORK_ERR "fork() error"
@@ -25,6 +26,8 @@
 # define DIRECTORY_ERR ": Is a directory"
 # define DUP_ERR "dup2() error"
 # define CMD_ERR ": command not found"
+
+typedef struct s_ast_node t_ast_node;
 
 // Enum: type of AST nodes.
 typedef enum a_node_type
@@ -49,8 +52,8 @@ typedef struct s_ast_node
 {
     t_node_type type;
     void *prop;
-    void (*node_handler)(void *t_ast, void *t_ast_node);
-    void (*node_closer)(void *t_ast_node);
+    void (*node_handler)(t_ast *t_ast, t_ast_node *t_ast_node);
+    void (*node_closer)(t_ast_node *t_ast_node);
     t_ast_node *left;
     t_ast_node *right;
 } t_ast_node;
@@ -88,24 +91,28 @@ typedef struct s_pipe_prop
 // AST
 
 // The constructors of AST.
+
 t_ast *create_ast();
 t_ast_node *create_pipe_node(t_ast *ast);
 t_ast_node *create_cmd_node(t_ast *ast, char *argv);
 t_ast_node *create_red_node(t_ast *ast, char *file_name, bool is_in, bool is_single);
 
 // The deconstructors of AST.
+
 void close_ast(t_ast **ast);
 void close_pipe_node(t_ast_node *node);
 void close_cmd_node(t_ast_node *node);
 void close_red_node(t_ast_node *node);
 
 // Other methods of AST.
+
 void print_ast(t_ast *ast);
 
 // The handlers.
-void pipe_handler(void *t_ast, void *t_ast_node);
-void cmd_handler(void *t_ast, void *t_ast_node);
-void red_handler(void *t_ast, void *t_ast_node);
+
+void pipe_handler(t_ast *t_ast, t_ast_node *t_ast_node);
+void cmd_handler(t_ast *t_ast, t_ast_node *t_ast_node);
+void red_handler(t_ast *t_ast, t_ast_node *t_ast_node);
 
 void exit_prog(t_ast **ast, char *context, char *msg, int code);
 
