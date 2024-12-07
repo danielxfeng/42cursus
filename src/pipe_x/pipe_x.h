@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/07 20:11:21 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/07 22:00:23 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ typedef struct s_cmd_prop
     char **args;
 } t_cmd_prop;
 
-// Represents properties of REDIRECT.
-// `file_name_idx`: the index of filename in `argv` of `t_ast_node`.
+// Represents properties of RED.
+// `file_name`: the filename of `RED`.
 // `fd`: the file descriptor of a file.
 // `is_in`: `true` for `<` or `<<`.
 // `is_single`: `true` for `<` or '>'.
