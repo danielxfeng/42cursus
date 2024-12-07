@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:45:09 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/07 20:15:00 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/07 20:28:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void print_red_helper(t_ast_node *node)
     t_red_prop *prop;
 
     prop = (t_red_prop *)node->prop;
-    ft_printf("RED, fn: %s, fd: %d, is_in: %d, is_single: %d\n", 
+    ft_printf("RED, file: %s, fd: %d, is_in: %d, is_single: %d\n", 
     prop->file_name, prop->fd, prop->is_in, prop->is_single);
 }
 
