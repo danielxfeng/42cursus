@@ -42,7 +42,8 @@ void test_create_pipe_node(void)
     t_pipe_prop *prop = ast->root->prop;
     TEST_ASSERT_EQUAL_INT(-1, prop->fds[0]);
     TEST_ASSERT_EQUAL_INT(-1, prop->fds[1]);
-    TEST_ASSERT_EQUAL_INT(0, prop->pid);
+    TEST_ASSERT_EQUAL_INT(0, prop->pids[0]);
+    TEST_ASSERT_EQUAL_INT(0, prop->pids[1]);
     TEST_ASSERT_EQUAL_CHAR_ARRAY(path, ast->path, 2);
     print_ast(ast);
     close_ast(&ast);
@@ -109,7 +110,8 @@ void test_create_multi_nodes_ast(void)
     t_pipe_prop *prop = ast->root->prop;
     TEST_ASSERT_EQUAL_INT(-1, prop->fds[0]);
     TEST_ASSERT_EQUAL_INT(-1, prop->fds[1]);
-    TEST_ASSERT_EQUAL_INT(0, prop->pid);
+    TEST_ASSERT_EQUAL_INT(0, prop->pids[0]);
+    TEST_ASSERT_EQUAL_INT(0, prop->pids[1]);
     TEST_ASSERT_EQUAL_INT(CMD, ast->root->left->right->type);
     t_cmd_prop *prop2 = ast->root->left->right->prop;
     TEST_ASSERT_EQUAL_STRING("ls", prop2->cmd);

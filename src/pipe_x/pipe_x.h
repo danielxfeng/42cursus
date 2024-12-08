@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 18:21:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 20:49:29 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define DIRECTORY_ERR ": Is a directory"
 # define DUP_ERR "dup2() error"
 # define CMD_ERR ": command not found"
+# define LEFT 0
+# define RIGHT 1
 
 typedef struct s_ast_node t_ast_node;
 
@@ -84,15 +86,14 @@ typedef struct s_red_prop
 
 // Represents properties of PIPE.
 // `fds`: file descriptor of pipe.
-// `pid`: pid of sub-process.
+// `pids`: pid of sub-process.
 typedef struct s_pipe_prop
 {
     int fds[2];
-    pid_t pid; 
+    pid_t pids[2]; 
 } t_pipe_prop;
 
 // AST
-
 // The constructors of AST.
 
 t_ast *create_ast(char **envp);
