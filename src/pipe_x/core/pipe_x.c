@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:02:14 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 16:43:33 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 18:04:02 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void exit_prog(t_ast **ast, char *context, char *msg, int code)
 }
 
 // The entry point of pipe_x.
+// We do the validation first.
+// Then initialize the AST tree.
+// After that, we build the tree by given parameters.
+// We excute the tree recursively.
+// We clear the resource and quit.
 int pipe_x(int argc, char **argv, char **envp, bool is_bonus)
 {
     t_ast *ast;
@@ -44,7 +49,8 @@ int pipe_x(int argc, char **argv, char **envp, bool is_bonus)
 
     is_double = validate_param(argc, argv, is_bonus);
     ast = create_ast(parse_path(envp));
-    build_ast(ast, 1, argc - 1, !is_double);
-    exec_ast(ast);
+    build_ast(ast, argc - 1, &(argv[1]), !is_double);
+    ast->root->node_handler(ast, ast->root);
+    exit_prog(&ast, NULL, NULL, EXIT_SUCCESS);
     return (EXIT_FAILURE);
 }

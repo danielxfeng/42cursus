@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 16:42:55 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 17:18:32 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void print_ast(t_ast *ast);
 void pipe_handler(t_ast *ast, t_ast_node *ast_node);
 void cmd_handler(t_ast *ast, t_ast_node *ast_node);
 void red_handler(t_ast *ast, t_ast_node *ast_node);
-void build_ast(t_ast *ast, int left, int right, bool is_single);
+void build_ast(t_ast *ast, int argc, char **argv, bool is_single);
 void exec_ast(t_ast *ast);
 
 // Parameter handler.

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 15:43:45 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 16:24:13 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 17:58:27 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,5 @@ bool validate_param(int argc, char **argv, bool is_bonus)
 {
     if ((is_bonus && argc < 5) || (!is_bonus && argc != 5))
         exit_prog(NULL, NULL, "Usage: ./pipex infile cmd1 cmd2 outfile\n", EXIT_FAILURE);
-    return (is_bonus && argv[1] == "here_doc");
+    return (is_bonus && ft_strlen(argv[1]) == 8 && ft_strncmp(argv[1], "here_doc", 8));
 }
