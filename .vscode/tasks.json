@@ -10,7 +10,6 @@
                 "-o",
                 "build/${fileBasenameNoExtension}",
                 "${file}",
-                "src/pipe_x/*.c",
                 "test/unity/unity.c",
                 "-Itest/unity",
                 "-I./src/pipe_x",
@@ -19,6 +18,7 @@
                 "src/pipe_x/libft/*.c",
                 "src/pipe_x/ft_printf/*.c",
                 "src/pipe_x/ast/*.c",
+                "src/pipe_x/core/*.c",
             ],
             "group": "build",
             "problemMatcher": [
