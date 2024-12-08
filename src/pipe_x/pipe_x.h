@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 18:09:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 18:21:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_ast_node *create_pipe_node(t_ast *ast);
 t_ast_node *create_cmd_node(t_ast *ast, char *argv);
 t_ast_node *create_red_node(t_ast *ast, char *file_name, bool is_in, bool is_single);
 
-// The deconstructors of AST.
+// The destructors of AST.
 
 void close_ast(t_ast **ast);
 void close_pipe_node(t_ast_node *node);
