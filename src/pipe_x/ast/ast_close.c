@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:58:36 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 15:12:34 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 15:48:53 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,15 @@ void close_ast(t_ast **ast)
     {
         if ((*ast)->root)
             free_ast_node((*ast)->root);
-        if ((*ast)->envp)
+        if ((*ast)->path)
         {
-            while(((*ast)->envp)[i])
+            while(((*ast)->path)[i])
             {
-                free(((*ast)->envp)[i]);
-                ((*ast)->envp)[i++] = NULL;
+                free(((*ast)->path)[i]);
+                ((*ast)->path)[i++] = NULL;
             }
-            free((*ast)->envp);
-            (*ast)->envp = NULL;
+            free((*ast)->path);
+            (*ast)->path = NULL;
         }
         free(*ast);
         *ast = NULL;

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:45:09 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 15:32:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 15:49:28 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void print_ast(t_ast *ast)
     }
     ft_printf("ENVP: ");
     i = 0;
-    while (ast->envp && ast->envp[i])
-        ft_printf("%s, ", ast->envp[i++]);
+    while (ast->path && ast->path[i])
+        ft_printf("%s, ", ast->path[i++]);
     ft_printf("\n");
     print_ast_helper(ast->root, 0);
     ft_printf("------------------------------------------------------\n");

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:41:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 15:10:31 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 15:49:15 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_ast_node *create_red_node(t_ast *ast, char *file_name, bool is_in, bool is_sin
 }
 
 // Constructor of AST tree.
-t_ast *create_ast(char **envp)
+t_ast *create_ast(char **path)
 {
     t_ast *ast;
 
@@ -102,6 +102,6 @@ t_ast *create_ast(char **envp)
     if (!ast)
         exit_prog(&ast, "create_ast()", MALLOC_ERR, EXIT_FAILURE);;
     ast->root = NULL;
-    ast->envp = envp;
+    ast->path = path;
     return (ast);
 }

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 15:07:48 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 15:50:01 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ typedef enum a_node_type
 
 // The AST tree.
 // `root` the root node of AST tree.
-// `envp` the string array of `env`.
+// `path` the string array of path from `env`.
 typedef struct s_ast
 {
     t_ast_node *root;
-    char **envp;
+    char **path;
 } t_ast;
 
 // Represents a node of AST.
