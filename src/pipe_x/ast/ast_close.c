@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:58:36 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/07 18:36:44 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 15:12:34 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,22 @@ static void free_ast_node (t_ast_node *node)
 // Deconstructor of the AST tree.
 void close_ast(t_ast **ast)
 {
+    int i = 0;
+
     if (ast && *ast)
     {
         if ((*ast)->root)
             free_ast_node((*ast)->root);
+        if ((*ast)->envp)
+        {
+            while(((*ast)->envp)[i])
+            {
+                free(((*ast)->envp)[i]);
+                ((*ast)->envp)[i++] = NULL;
+            }
+            free((*ast)->envp);
+            (*ast)->envp = NULL;
+        }
         free(*ast);
         *ast = NULL;
     }

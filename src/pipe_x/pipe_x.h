@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/07 22:00:23 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 15:07:48 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,12 @@ typedef enum a_node_type
 } t_node_type;
 
 // The AST tree.
+// `root` the root node of AST tree.
+// `envp` the string array of `env`.
 typedef struct s_ast
 {
     t_ast_node *root;
+    char **envp;
 } t_ast;
 
 // Represents a node of AST.
@@ -92,7 +95,7 @@ typedef struct s_pipe_prop
 
 // The constructors of AST.
 
-t_ast *create_ast();
+t_ast *create_ast(char **envp);
 t_ast_node *create_pipe_node(t_ast *ast);
 t_ast_node *create_cmd_node(t_ast *ast, char *argv);
 t_ast_node *create_red_node(t_ast *ast, char *file_name, bool is_in, bool is_single);

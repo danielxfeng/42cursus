@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:02:14 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/07 18:39:31 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 15:12:52 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,4 @@ void exit_prog(t_ast **ast, char *context, char *msg, int code)
         close_ast(ast);
     exit(code);
 }
+

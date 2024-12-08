@@ -23,28 +23,39 @@ void	tearDown(void)
 
 void test_create_ast(void)
 {
-    t_ast *ast = create_ast();
+    char **envp = calloc(2, sizeof(char *));
+    envp[0] = calloc(2, sizeof(char));
+    envp[0][0] = 'a';
+    t_ast *ast = create_ast(envp);
     TEST_ASSERT_NULL(ast->root);
+    TEST_ASSERT_EQUAL_CHAR_ARRAY(envp, ast->envp, 2);
     print_ast(ast);
     close_ast(&ast);
 }
 
 void test_create_pipe_node(void)
 {
-    t_ast *ast = create_ast();
+    char **envp = calloc(2, sizeof(char *));
+    envp[0] = calloc(2, sizeof(char));
+    envp[0][0] = 'a';
+    t_ast *ast = create_ast(envp);
     ast->root = create_pipe_node(ast);
     TEST_ASSERT_EQUAL_INT(PIPE, ast->root->type);
     t_pipe_prop *prop = ast->root->prop;
     TEST_ASSERT_EQUAL_INT(-1, prop->fds[0]);
     TEST_ASSERT_EQUAL_INT(-1, prop->fds[1]);
     TEST_ASSERT_EQUAL_INT(0, prop->pid);
+    TEST_ASSERT_EQUAL_CHAR_ARRAY(envp, ast->envp, 2);
     print_ast(ast);
     close_ast(&ast);
 }
 
 void test_create_cmd_node(void)
 {
-    t_ast *ast = create_ast();
+    char **envp = calloc(2, sizeof(char *));
+    envp[0] = calloc(2, sizeof(char));
+    envp[0][0] = 'a';
+    t_ast *ast = create_ast(envp);
     ast->root = create_cmd_node(ast, "ls -r 000");
     TEST_ASSERT_EQUAL_INT(CMD, ast->root->type);
     t_cmd_prop *prop = ast->root->prop;
@@ -52,13 +63,17 @@ void test_create_cmd_node(void)
     TEST_ASSERT_EQUAL_STRING("ls", prop->args[0]);
     TEST_ASSERT_EQUAL_STRING("-r", prop->args[1]);
     TEST_ASSERT_EQUAL_STRING("000", prop->args[2]);
+    TEST_ASSERT_EQUAL_CHAR_ARRAY(envp, ast->envp, 2);
     print_ast(ast);
     close_ast(&ast);
 }
 
 void test_create_red_node(void)
 {
-    t_ast *ast = create_ast();
+    char **envp = calloc(2, sizeof(char *));
+    envp[0] = calloc(2, sizeof(char));
+    envp[0][0] = 'a';
+    t_ast *ast = create_ast(envp);
     ast->root = create_red_node(ast, "here", true, true);
     TEST_ASSERT_EQUAL_INT(RED, ast->root->type);
     t_red_prop *prop = ast->root->prop;
@@ -66,9 +81,13 @@ void test_create_red_node(void)
     TEST_ASSERT_EQUAL_INT(-1, prop->fd);
     TEST_ASSERT_EQUAL_INT(true, prop->is_in);
     TEST_ASSERT_EQUAL_INT(true, prop->is_single);
+    TEST_ASSERT_EQUAL_CHAR_ARRAY(envp, ast->envp, 2);
     print_ast(ast);
     close_ast(&ast);
-    ast = create_ast();
+    envp = calloc(2, sizeof(char *));
+    envp[0] = calloc(2, sizeof(char));
+    envp[0][0] = 'a';
+    ast = create_ast(envp);
     ast->root = create_red_node(ast, "here", false, false);
     prop = ast->root->prop;
     TEST_ASSERT_EQUAL_INT(false, prop->is_in);
@@ -80,7 +99,10 @@ void test_create_red_node(void)
 // here < ls -r 000 | >> here
 void test_create_multi_nodes_ast(void)
 {
-    t_ast *ast = create_ast();
+    char **envp = calloc(2, sizeof(char *));
+    envp[0] = calloc(2, sizeof(char));
+    envp[0][0] = 'a';
+    t_ast *ast = create_ast(envp);
     ast->root = create_pipe_node(ast);
     ast->root->left = create_red_node(ast, "here", true, true);
     ast->root->right = create_red_node(ast, "here", false, false);
@@ -107,6 +129,7 @@ void test_create_multi_nodes_ast(void)
     TEST_ASSERT_EQUAL_INT(-1, prop4->fd);
     TEST_ASSERT_EQUAL_INT(true, prop4->is_in);
     TEST_ASSERT_EQUAL_INT(true, prop4->is_single);
+    TEST_ASSERT_EQUAL_CHAR_ARRAY(envp, ast->envp, 2);
     print_ast(ast);
     close_ast(&ast);
 }

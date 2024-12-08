@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:45:09 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/07 21:07:12 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/08 15:32:02 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,19 @@ static void print_ast_helper(t_ast_node *node, int layer)
 // Print the AST tree by In-order Traversal.
 void print_ast(t_ast *ast)
 {
+    int i;
+
     ft_printf("-----------------------AST Tree-----------------------\n");
     if (!ast)
     {
         ft_printf("NULL\n");
         return ;
     }
+    ft_printf("ENVP: ");
+    i = 0;
+    while (ast->envp && ast->envp[i])
+        ft_printf("%s, ", ast->envp[i++]);
+    ft_printf("\n");
     print_ast_helper(ast->root, 0);
     ft_printf("------------------------------------------------------\n");
 }
