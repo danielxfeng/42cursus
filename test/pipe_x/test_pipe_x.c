@@ -23,9 +23,7 @@ void	tearDown(void)
 
 void test_create_ast(void)
 {
-    char **envp = calloc(2, sizeof(char *));
-    envp[0] = calloc(2, sizeof(char));
-    envp[0][0] = 'a';
+    char **envp = calloc(1, sizeof(char *));
     t_ast *ast = create_ast(envp);
     TEST_ASSERT_NULL(ast->root);
     TEST_ASSERT_EQUAL_CHAR_ARRAY(envp, ast->envp, 2);
