@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:02:14 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/09 18:44:13 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/09 19:31:23 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,18 @@ char **parse_path(char **envp)
 // Return if the RED is `<<` and `>>`.
 bool validate_param(int argc, char **argv, bool is_bonus)
 {
+    bool is_double;
+
     if ((is_bonus && argc < 5) || (!is_bonus && argc != 5))
         exit_prog(NULL, NULL, "Usage: ./pipex infile cmd1 cmd2 outfile\n", EXIT_FAILURE);
-    return (is_bonus && ft_strlen(argv[1]) == 8 && ft_strncmp(argv[1], "here_doc", 8));
+    is_double = ft_strlen(argv[1]) == 8 && ft_strncmp(argv[1], "here_doc", 8);
+    if (is_bonus && ft_strlen(argv[1]) == 8 && ft_strncmp(argv[1], "here_doc", 8))
+    {
+        is_double = true;
+        if (argc < 6)
+            exit_prog(NULL, NULL, "Usage: ./pipex here_doc EOF cmd1 cmd2 outfile\n", EXIT_FAILURE);
+    }
+    return (is_double);
 }
 
 // The function for exit the program after closing all resources on heap.
@@ -86,7 +95,10 @@ int pipe_x(int argc, char **argv, char **envp, bool is_bonus)
 
     is_double = validate_param(argc, argv, is_bonus);
     ast = create_ast(parse_path(envp));
-    build_ast(ast, argc - 1, &(argv[1]), !is_double);
+    if (!is_double)
+        build_ast(ast, argc - 2, &(argv[2]), !is_double);
+    else
+        build_ast(ast, argc - 1, &(argv[1]), !is_double);
     status = ast->root->node_handler(ast, ast->root);
     exit_prog(&ast, NULL, NULL, status);
     return (EXIT_FAILURE);
