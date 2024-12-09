@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 20:49:29 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/09 18:42:14 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_ast_node
 {
     t_node_type type;
     void *prop;
-    void (*node_handler)(t_ast *t_ast, t_ast_node *t_ast_node);
+    int (*node_handler)(t_ast *t_ast, t_ast_node *t_ast_node);
     void (*node_closer)(t_ast_node *t_ast_node);
     t_ast_node *left;
     t_ast_node *right;
@@ -114,7 +114,7 @@ void print_ast(t_ast *ast);
 
 // The handlers.
 
-void pipe_handler(t_ast *ast, t_ast_node *ast_node);
+int pipe_handler(t_ast *ast, t_ast_node *ast_node);
 void cmd_handler(t_ast *ast, t_ast_node *ast_node);
 void red_handler(t_ast *ast, t_ast_node *ast_node);
 void build_ast(t_ast *ast, int argc, char **argv, bool is_single);

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:42:01 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 21:48:43 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/09 18:39:01 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ static void handle_sub_fds(t_ast *ast, t_pipe_prop *prop, bool is_pipe_input)
 //  - In sub-proc, the process is created before `fork`'s return
 //    so `pid` cannot be updated.
 //  - In parent-proc. the `pid` has been updated by `fork`'s return.
-static void perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop, int direction)
+static int perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop, int direction)
 {
     t_ast_node *child;
+    int status;
 
     child = node->left;
     if (direction)
@@ -75,8 +76,10 @@ static void perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop, in
         child->node_handler(ast, child);
         exit(EXIT_SUCCESS);
     }
-    waitpid(prop->pids[direction], NULL, 0);
-    return ;
+    waitpid(prop->pids[direction], &status, 0);
+    if (WIFEXITED(status))
+        return (WEXITSTATUS(status));
+    return (EXIT_FAILURE);
 }
 
 // Handle the operation of PIPE.
@@ -93,14 +96,16 @@ static void perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop, in
 void pipe_handler(t_ast *ast, t_ast_node *ast_node)
 {
     t_pipe_prop *prop;
+    int status;
     
     prop = (t_pipe_prop *)ast_node->prop;
     if (pipe(prop->fds) < 0)
         exit_prog(&ast, "pipe()", PIPE_ERR, EXIT_FAILURE);
     perform_sub_proc(ast, ast_node, prop, LEFT);
-    perform_sub_proc(ast, ast_node, prop, RIGHT);
+    status = perform_sub_proc(ast, ast_node, prop, RIGHT);
     close(prop->fds[0]);
     close(prop->fds[1]);
     prop->fds[0] = -1;
     prop->fds[1] = -1;
+    return (status);
 }

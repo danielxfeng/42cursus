@@ -6,19 +6,19 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:56:09 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 21:34:49 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/09 18:42:37 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipe_x.h"
 #include <sys/wait.h>
 
-void cmd_handler(t_ast *ast, t_ast_node *ast_node)
+int cmd_handler(t_ast *ast, t_ast_node *ast_node)
 {
     
 }
 
-void red_handler(t_ast *ast, t_ast_node *ast_node)
+int red_handler(t_ast *ast, t_ast_node *ast_node)
 {
     
 }

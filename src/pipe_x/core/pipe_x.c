@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:02:14 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 18:11:15 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/09 18:44:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool validate_param(int argc, char **argv, bool is_bonus)
 // Also print the error infomation on error.
 void exit_prog(t_ast **ast, char *context, char *msg, int code)
 {
-    if (code != EXIT_SUCCESS)
+    if (context || msg)
     {
         ft_putstr_fd("pipex: ", 2);
         if (context)
@@ -82,11 +82,12 @@ int pipe_x(int argc, char **argv, char **envp, bool is_bonus)
 {
     t_ast *ast;
     bool is_double;
+    int status;
 
     is_double = validate_param(argc, argv, is_bonus);
     ast = create_ast(parse_path(envp));
     build_ast(ast, argc - 1, &(argv[1]), !is_double);
-    ast->root->node_handler(ast, ast->root);
-    exit_prog(&ast, NULL, NULL, EXIT_SUCCESS);
+    status = ast->root->node_handler(ast, ast->root);
+    exit_prog(&ast, NULL, NULL, status);
     return (EXIT_FAILURE);
 }
