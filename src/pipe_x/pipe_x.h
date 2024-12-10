@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/09 19:00:56 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 09:26:42 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ typedef enum a_node_type
 // The AST tree.
 // `root` the root node of AST tree.
 // `path` the string array of path from `env`.
+// `envp` is the raw `evn`.
 typedef struct s_ast
 {
     t_ast_node *root;
+    char **envp;
     char **path;
 } t_ast;
 
@@ -65,10 +67,11 @@ typedef struct s_ast_node
 
 // Represents properties of CMD.
 // `args` the cmd and argumens.
+// `pid` sub-process for running the `cmd`.
 typedef struct s_cmd_prop
 {
-    char *cmd;
     char **args;
+    pid_t pid;
 } t_cmd_prop;
 
 // Represents properties of RED.
@@ -96,7 +99,7 @@ typedef struct s_pipe_prop
 // AST
 // The constructors of AST.
 
-t_ast *create_ast(char **envp);
+t_ast *create_ast(char **envp, char **path);
 t_ast_node *create_pipe_node(t_ast *ast);
 t_ast_node *create_cmd_node(t_ast *ast, char *argv);
 t_ast_node *create_red_node(t_ast *ast, char *file_name, bool is_in, bool is_single);

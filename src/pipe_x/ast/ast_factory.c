@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:41:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 15:49:15 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 09:16:25 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_ast_node *create_cmd_node(t_ast *ast, char *argv)
         free(prop);
         exit_prog(&ast, "ft_split()", MALLOC_ERR, EXIT_FAILURE);
     }
-    prop->cmd = prop->args[0];
     node->type = CMD;
     node->prop = prop;
     node->node_handler = cmd_handler;
@@ -94,7 +93,7 @@ t_ast_node *create_red_node(t_ast *ast, char *file_name, bool is_in, bool is_sin
 }
 
 // Constructor of AST tree.
-t_ast *create_ast(char **path)
+t_ast *create_ast(char **envp, char **path)
 {
     t_ast *ast;
 
@@ -102,6 +101,7 @@ t_ast *create_ast(char **path)
     if (!ast)
         exit_prog(&ast, "create_ast()", MALLOC_ERR, EXIT_FAILURE);;
     ast->root = NULL;
+    ast->envp = envp;
     ast->path = path;
     return (ast);
 }
