@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:41:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 14:10:39 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 21:41:00 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ t_ast	*create_ast(char **envp, char **path)
 // ./pipex infile cmd1 cmd2 cmd3 outfile
 // == < infile cmd1 | cmd2 | cmd3 > outfile
 //               PIPE
-//              /    \
+//              /    /
 //         PIPE     RED(> outfile)
-//        /    \              \
+//        /    \              /
 // RED(<infile) CMD(cmd2)  CMD(cmd3)
 //       /
 //   CMD(cmd1)

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:42:01 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 14:12:05 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 21:42:51 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static int	perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop,
 //
 // Note the process is a recurrsive call by hybrid pre-post traversal,
 // which means mid->left->right->mid
-void	pipe_handler(t_ast *ast, t_ast_node *ast_node)
+int	pipe_handler(t_ast *ast, t_ast_node *ast_node)
 {
 	t_pipe_prop	*prop;
 	int			status;

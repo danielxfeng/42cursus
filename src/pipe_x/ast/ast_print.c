@@ -6,12 +6,12 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:45:09 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 19:16:11 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 21:41:26 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf/ft_printf.h"
-#include "pipe_x.h"
+#include "../ft_printf/ft_printf.h"
+#include "../pipe_x.h"
 
 static void	print_pipe_helper(t_ast_node *node)
 {

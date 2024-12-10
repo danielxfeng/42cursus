@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:08:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 21:18:42 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 21:42:08 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	cmd_handler(t_ast *ast, t_ast_node *ast_node)
 		ast_node->left->node_handler(ast, ast_node->left);
 	if (!(prop->args[0]) || !(prop->args[0][0]))
 		exit_prog(&ast, prop->args[0], CMD_ERR, EXIT_CMD_ERR);
-	if (parse_full_cmd(ast, &(prop->args[0])) && (prop->pid = fork()) < 0)
+	if (parse_full_cmd(ast, prop) && (prop->pid = fork()) < 0)
 		exit_prog(&ast, "fork()", FORK_ERR, EXIT_FAILURE);
 	if (prop->pid == 0)
 	{
