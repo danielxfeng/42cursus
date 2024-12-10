@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:45:09 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/08 15:49:28 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 10:08:49 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void print_pipe_helper(t_ast_node *node)
     t_pipe_prop *prop;
 
     prop = (t_pipe_prop *)node->prop;
-    ft_printf("-PIP, fd0: %d, fd1: %d, pid: %d\n", 
-    prop->fds[0], prop->fds[1], prop->pid);
+    ft_printf("-PIP, fd0: %d, fd1: %d, pids: %d, %d\n", 
+    prop->fds[0], prop->fds[1], prop->pids[0], prop->pids[1]);
 }
 
 static void print_cmd_helper(t_ast_node *node)
@@ -28,7 +28,7 @@ static void print_cmd_helper(t_ast_node *node)
     int i;
 
     prop = (t_cmd_prop *)node->prop;
-    ft_printf("-CMD, cmd: %s, args: ", prop->cmd);
+    ft_printf("-CMD, args: ");
     i = 0;
     while (prop->args[i])
         ft_printf("%s, ", prop->args[i++]);

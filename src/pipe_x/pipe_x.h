@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 09:26:42 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 10:16:53 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,19 @@ typedef struct s_ast
 
 // Represents a node of AST.
 // `prop`: the specific properties depends on `t_node_type`.
-// `node_handler`: the pointer to handler function.
-// `node_closer`: the pointer to closer function.
+// `node_handler`: the pointer to handler function. 
+//                 This ideasimilar to a "pure virtual function" in C++,
+//                 as it must be implemented differently for each node type.
+// `node_closer`: the pointer to closer function. Also a "pure virtual function"
+//                as well as the "destructor" in C++.
 // `left` `right`: left/right node.
+//
+// Note:
+// - The `prop`, `node_handler`, and `node_closer` fields together implement a form of 
+//   runtime polymorphism, allowing nodes of different types (`t_node_type`) to exhibit 
+//   type-specific behavior.
+// - This idea is from the concept of polymorphism in Object-Oriented Programming (OOP),
+//   while adhering to C's procedural programming paradigm.
 typedef struct s_ast_node
 {
     t_node_type type;
