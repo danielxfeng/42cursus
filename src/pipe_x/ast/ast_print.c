@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:45:09 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 14:10:54 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 19:16:11 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	print_cmd_helper(t_ast_node *node)
 	int			i;
 
 	prop = (t_cmd_prop *)node->prop;
-	ft_printf("-CMD, args: ");
+	ft_printf("-CMD, full path cmd: %s, args: ", prop->full_cmd);
 	i = 0;
 	while (prop->args[i])
 		ft_printf("%s, ", prop->args[i++]);

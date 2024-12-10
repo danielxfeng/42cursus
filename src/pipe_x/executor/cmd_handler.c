@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:08:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 17:16:39 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 21:18:42 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,37 +38,44 @@ static bool	file_check(t_ast *ast, char *full_cmd, char *cmd)
 	if (access(full_cmd, X_OK) < 0)
 	{
 		free(full_cmd);
-		exit_prog(&ast, cmd, PERMISSION_ERR, EXIT_FAILURE);
+		exit_prog(&ast, cmd, PERMISSION_ERR, EXIT_EXEC_ERR);
 	}
+	return (true);
+}
+
+// A helper function for `parse_full_cmd`.
+static bool return_helper_pfc(t_cmd_prop *prop, char *cmd)
+{
+	prop->full_cmd = cmd;
 	return (true);
 }
 
 // The helper function to join the `path` and `cmd`
 // and check the permissions.
-static void	parse_full_cmd(t_ast *ast, char **cmd)
+static bool	parse_full_cmd(t_ast *ast, t_cmd_prop *prop)
 {
 	int		i;
 	char	*joined;
 
-	if (file_check(ast, *cmd, *cmd))
-		return ;
-	if ((*cmd)[0] != '/' && ft_strncmp("./", (*cmd), 2) != 0)
+	if (prop->args[0][0] == '/' || ft_strncmp("./", prop->args[0], 2) == 0)
+	{
+		if (!file_check(ast, prop->args[0], prop->args[0]))
+			exit_prog(&ast, prop->args[0], FILE_ERR, EXIT_CMD_ERR);
+		else
+			return (return_helper_pfc(prop, ft_strdup(prop->args[0])));
+	}
+	else
 	{
 		i = 0;
 		while (ast->path[i])
 		{
-			joined = pipe_x_join_path(ast, ast->path[i], *cmd);
-			if (file_check(ast, joined, *cmd))
-			{
-				free(*cmd);
-				*cmd = joined;
-				return ;
-			}
-			++i;
-			free(joined);
+			joined = pipe_x_join_path(ast, ast->path[i++], prop->args[0]);
+			if (file_check(ast, joined, prop->args[0]))
+				return (return_helper_pfc(prop, joined));
 		}
 	}
-	exit_prog(&ast, *cmd, FILE_ERR, EXIT_FAILURE);
+	exit_prog(&ast, prop->args[0], CMD_ERR, EXIT_CMD_ERR);
+	return (false);
 }
 
 // The handler for `cmd` nodes in the AST.
@@ -77,8 +84,9 @@ static void	parse_full_cmd(t_ast *ast, char **cmd)
 // 2. Execute the command in the current node:
 //    2.1 Parse the command to get the executable path.
 //    2.2 Create a new sub-process to execute the command.
-//        If the `cmd` is a folder, there is an `execve` error.
-//        We can not use `stat`, so we do this here.
+//        There are 2 scenarios that `execve` returns -1:
+//        2.2.1 The `cmd` is a folder which includes '/'.
+//        2.2.2 The `cmd` is not a program.
 //    2.3 In the parent process, wait for the sub-process to complete.
 // 3. Execute the right child node (if any).
 //
@@ -98,13 +106,18 @@ int	cmd_handler(t_ast *ast, t_ast_node *ast_node)
 	prop = (t_cmd_prop *)ast_node->prop;
 	if (ast_node->left)
 		ast_node->left->node_handler(ast, ast_node->left);
-	parse_full_cmd(ast, &(prop->args[0]));
-	if ((prop->pid = fork()) < 0)
+	if (!(prop->args[0]) || !(prop->args[0][0]))
+		exit_prog(&ast, prop->args[0], CMD_ERR, EXIT_CMD_ERR);
+	if (parse_full_cmd(ast, &(prop->args[0])) && (prop->pid = fork()) < 0)
 		exit_prog(&ast, "fork()", FORK_ERR, EXIT_FAILURE);
 	if (prop->pid == 0)
 	{
 		if (execve(prop->args[0], prop->args, ast->envp) < 0)
-			exit_prog(&ast, prop->args[0], DIRECTORY_ERR, EXIT_FAILURE);
+		{
+			if (ft_strchr(prop->args[0], '/'))
+				exit_prog(&ast, prop->full_cmd, DIRECTORY_ERR, EXIT_EXEC_ERR);
+			exit_prog(&ast, prop->args[0], CMD_ERR, EXIT_CMD_ERR);
+		}
 	}
 	waitpid(prop->pid, &status, 0);
 	if (ast_node->right)

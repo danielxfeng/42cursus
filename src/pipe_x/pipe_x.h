@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 14:14:07 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 19:15:48 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define CMD_ERR ": command not found"
 # define LEFT 0
 # define RIGHT 1
+# define EXIT_EXEC_ERR 126
+# define EXIT_CMD_ERR 127
 
 typedef struct s_ast_node	t_ast_node;
 
@@ -81,10 +83,12 @@ typedef struct s_ast_node
 
 // Represents properties of CMD.
 // `args` the cmd and argumens.
+// `cmd` the cmd with full path.
 // `pid` sub-process for running the `cmd`.
 typedef struct s_cmd_prop
 {
 	char					**args;
+	char					*full_cmd;
 	pid_t					pid;
 }							t_cmd_prop;
 

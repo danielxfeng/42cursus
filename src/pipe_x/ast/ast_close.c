@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:58:36 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 14:10:32 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 19:16:32 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ void	close_cmd_node(t_ast_node *node)
 	prop = (t_cmd_prop *)node->prop;
 	if (prop)
 	{
+		if (prop->full_cmd)
+		{
+			free(prop->full_cmd);
+			prop->full_cmd = NULL;
+		}
 		if (prop->args)
 		{
 			i = 0;
