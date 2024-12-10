@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:08:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 17:10:57 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 17:16:39 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../pipe_x.h"
 #include <sys/wait.h>
 
+// Just join the path as: path/cmd.
 static char	*pipe_x_join_path(t_ast *ast, char *path, char *cmd)
 {
 	char	*joined;
@@ -29,6 +30,7 @@ static char	*pipe_x_join_path(t_ast *ast, char *path, char *cmd)
 	return (joined);
 }
 
+// Handle the errors.
 static bool	file_check(t_ast *ast, char *full_cmd, char *cmd)
 {
 	if (access(full_cmd, F_OK) < 0)
@@ -41,7 +43,8 @@ static bool	file_check(t_ast *ast, char *full_cmd, char *cmd)
 	return (true);
 }
 
-// The helper function to join the `path` and `cmd`;
+// The helper function to join the `path` and `cmd`
+// and check the permissions.
 static void	parse_full_cmd(t_ast *ast, char **cmd)
 {
 	int		i;
@@ -74,6 +77,8 @@ static void	parse_full_cmd(t_ast *ast, char **cmd)
 // 2. Execute the command in the current node:
 //    2.1 Parse the command to get the executable path.
 //    2.2 Create a new sub-process to execute the command.
+//        If the `cmd` is a folder, there is an `execve` error.
+//        We can not use `stat`, so we do this here.
 //    2.3 In the parent process, wait for the sub-process to complete.
 // 3. Execute the right child node (if any).
 //
