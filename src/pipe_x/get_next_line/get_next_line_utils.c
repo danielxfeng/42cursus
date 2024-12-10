@@ -6,12 +6,12 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:27:49 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/09 20:24:18 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 14:15:03 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_supp.h"
 #include "../libft/libft.h"
+#include "get_next_line_supp.h"
 
 // ft_strlen, but returns `0` when `s` is NULL.
 size_t	str_len(char *s)

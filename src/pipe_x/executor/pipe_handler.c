@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:42:01 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/09 18:39:01 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 14:12:05 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,65 +21,68 @@
 //
 // The `fds` of parent-proc will be copied when `fork`.
 // So sub-process has a copy of parent-proc's `fds`.
-// And, they are copied, so the `close` doesnot affect the `fds` in parent-proc. 
-static void handle_sub_fds(t_ast *ast, t_pipe_prop *prop, bool is_pipe_input)
+// And, they are copied, so the `close` doesnot affect the `fds` in parent-proc.
+static void	handle_sub_fds(t_ast *ast, t_pipe_prop *prop, bool is_pipe_input)
 {
-    int src;
-    int dest;
-    
-    src = prop->fds[1];
-    dest = STDOUT_FILENO;
-    if (is_pipe_input)
-    {
-        src = prop->fds[0];
-        dest = STDIN_FILENO;
-    }
-    if (dup2(src, dest) < 0)
-        exit_prog(&ast, "dup2()", DUP_ERR, EXIT_FAILURE);
-    close(prop->fds[0]);
-    close(prop->fds[1]);    
+	int	src;
+	int	dest;
+
+	src = prop->fds[1];
+	dest = STDOUT_FILENO;
+	if (is_pipe_input)
+	{
+		src = prop->fds[0];
+		dest = STDIN_FILENO;
+	}
+	if (dup2(src, dest) < 0)
+		exit_prog(&ast, "dup2()", DUP_ERR, EXIT_FAILURE);
+	close(prop->fds[0]);
+	close(prop->fds[1]);
 }
 
 // Helper function to handle the sub_process.
 //
-// 1 Start a new process by syscall `fork`. 
+// 1 Start a new process by syscall `fork`.
 // Note The memory state of the current process will be COPIED to sub-process,
-// which means in sub-proc, we can access `prop`, but it's actually a copied one,
+// which means in sub-proc, we can access `prop`, but it's a copied one,
 // any modification in sub-proc does not affect the `prop` in parent-process.
 //
 // -----NOW WE ARE IN SUB-PROCESS------
 // 2 Handle the pipe in sub-process.
-// 3 Execute the child node here and return. 
+// 3 Execute the child node here and return.
 //
 // -----NOW WE ARE IN PARENT-PROCESS------
 // 2 Wait until sub-process returned.
 //
-// Note we use `pid` to determine where we are (in SUB-PROCESS, or PARENT-PROCESS)
+// Note we use `pid` to determine where we are (in SUB-PROCESS,
+// or PARENT-PROCESS)
 // We can do this because of this expression `prop->pids[direction] = fork()`
-// As I mentioned before, sub-proc gets a stand alone copy when `fork`, which means
+// As I mentioned before, sub-proc gets a stand alone copy when `fork`,
+// which means
 //  - In sub-proc, the process is created before `fork`'s return
 //    so `pid` cannot be updated.
 //  - In parent-proc. the `pid` has been updated by `fork`'s return.
-static int perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop, int direction)
+static int	perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop,
+		int direction)
 {
-    t_ast_node *child;
-    int status;
+	t_ast_node	*child;
+	int			status;
 
-    child = node->left;
-    if (direction)
-        child = node->right;
-    if ((prop->pids[direction] = fork()) < 0)
-        exit_prog(&ast, "fork()", FORK_ERR, EXIT_FAILURE);
-    if (prop->pids[direction] == 0)
-    {
-        handle_sub_fds(ast, prop, direction);
-        child->node_handler(ast, child);
-        exit(EXIT_SUCCESS);
-    }
-    waitpid(prop->pids[direction], &status, 0);
-    if (WIFEXITED(status))
-        return (WEXITSTATUS(status));
-    return (EXIT_FAILURE);
+	child = node->left;
+	if (direction)
+		child = node->right;
+	if ((prop->pids[direction] = fork()) < 0)
+		exit_prog(&ast, "fork()", FORK_ERR, EXIT_FAILURE);
+	if (prop->pids[direction] == 0)
+	{
+		handle_sub_fds(ast, prop, direction);
+		child->node_handler(ast, child);
+		exit(EXIT_SUCCESS);
+	}
+	waitpid(prop->pids[direction], &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (EXIT_FAILURE);
 }
 
 // Handle the operation of PIPE.
@@ -93,19 +96,19 @@ static int perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop, int
 //
 // Note the process is a recurrsive call by hybrid pre-post traversal,
 // which means mid->left->right->mid
-void pipe_handler(t_ast *ast, t_ast_node *ast_node)
+void	pipe_handler(t_ast *ast, t_ast_node *ast_node)
 {
-    t_pipe_prop *prop;
-    int status;
-    
-    prop = (t_pipe_prop *)ast_node->prop;
-    if (pipe(prop->fds) < 0)
-        exit_prog(&ast, "pipe()", PIPE_ERR, EXIT_FAILURE);
-    perform_sub_proc(ast, ast_node, prop, LEFT);
-    status = perform_sub_proc(ast, ast_node, prop, RIGHT);
-    close(prop->fds[0]);
-    close(prop->fds[1]);
-    prop->fds[0] = -1;
-    prop->fds[1] = -1;
-    return (status);
+	t_pipe_prop	*prop;
+	int			status;
+
+	prop = (t_pipe_prop *)ast_node->prop;
+	if (pipe(prop->fds) < 0)
+		exit_prog(&ast, "pipe()", PIPE_ERR, EXIT_FAILURE);
+	perform_sub_proc(ast, ast_node, prop, LEFT);
+	status = perform_sub_proc(ast, ast_node, prop, RIGHT);
+	close(prop->fds[0]);
+	close(prop->fds[1]);
+	prop->fds[0] = -1;
+	prop->fds[1] = -1;
+	return (status);
 }
