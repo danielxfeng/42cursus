@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:56:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/09 21:56:20 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/10 09:00:03 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ static void open_file_helper(t_ast *ast, t_red_prop *prop, bool is_in)
 
 // RED handler is mainly about the `std` redirction.
 // The only special case is to deal with `here_doc`.
+// - In this project, the `RED` has exactly one `child`
+// - And the child is a `leaf` (node without any `child`).
 int red_handler(t_ast *ast, t_ast_node *ast_node)
 {
     t_red_prop *prop;
