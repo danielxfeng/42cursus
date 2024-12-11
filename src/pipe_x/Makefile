@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/08 16:45:06 by Xifeng            #+#    #+#              #
-#    Updated: 2024/12/10 21:49:13 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/12/11 18:33:38 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ GET_NEXT_LINE := $(GET_NEXT_LINE_DIR)/getnextline.a
 
 SRC_FILES := $(CORE_DIR)/pipe_x.c \
              $(AST_DIR)/ast_factory.c $(AST_DIR)/ast_close.c $(AST_DIR)/ast_print.c \
-			 $(EXECUTOR_DIR)/cmd_handler.c $(EXECUTOR_DIR)/pipe_handler.c $(EXECUTOR_DIR)/red_handler.c
+			 $(EXECUTOR_DIR)/handler_utils.c $(EXECUTOR_DIR)/cmd_handler.c $(EXECUTOR_DIR)/pipe_handler.c $(EXECUTOR_DIR)/red_handler.c
 
 MENDATORY_FILES := $(SRC_FILES) $(SRC_DIR)/main.c
 BONUS_FILES := $(SRC_FILES) $(SRC_DIR)/main_bonus.c

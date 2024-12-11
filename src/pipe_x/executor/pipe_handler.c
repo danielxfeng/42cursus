@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:42:01 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 18:22:30 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 18:34:55 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop,
 		exit_prog(&ast, NULL, NULL, EXIT_SUCCESS);
 	}
 	waitpid(prop->pids[direction], &status, 0);
-	return_process_res(status);
+	return (return_process_res(status));
 }
 
 // Handle the operation of PIPE.

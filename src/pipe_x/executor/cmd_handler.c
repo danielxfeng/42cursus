@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:08:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 18:25:31 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 18:34:40 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,5 @@ int	cmd_handler(t_ast *ast, t_ast_node *ast_node)
 	waitpid(prop->pid, &status, 0);
 	if (ast_node->right)
 		return (ast_node->right->node_handler(ast, ast_node->right));
-	return_process_res(status);
+	return (return_process_res(status));
 }
