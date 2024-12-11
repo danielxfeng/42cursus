@@ -1,4 +1,5 @@
 #include "../../src/pipe_x/pipe_x.h"
+#include "../../src/pipe_x/get_next_line/get_next_line.h"
 #include "unity.h"
 #include <ctype.h>
 #include <limits.h>
@@ -6,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 
 // valgrind --leak-check=full --show-leak-kinds=all ./build/test_pipe_x
 
@@ -190,11 +192,62 @@ void test_cmd_handler(void)
     close_ast(&ast);         
 }
 
+void test_red_handler(void)
+{
+    char *envp[] = {
+    "USER=username",
+    "HOME=/home/username",
+    "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "SHELL=/bin/bash",
+    "LANG=en_US.UTF-8",
+    "PWD=/home/username",
+    "LOGNAME=username",
+    "TERM=xterm-256color",
+    NULL
+    };
+    int saved_stdout = dup(STDOUT_FILENO);
+    printf("%d\n", saved_stdout);
+    t_ast *ast = create_ast(envp, parse_path(envp));
+    ast->root = create_red_node(ast, "/home/xifeng/42/test/pipe_x/test.out.txt", false, true);
+    ast->root->left = create_cmd_node(ast, "echo line1");
+    TEST_ASSERT_EQUAL_INT(0, ast->root->node_handler(ast, ast->root));
+    dup2(saved_stdout, STDOUT_FILENO);
+    close(saved_stdout);
+    int outfile = open("/home/xifeng/42/test/pipe_x/test.out.txt", 0);
+    char *first = get_next_line(outfile);
+    TEST_ASSERT_EQUAL_STRING("line1\n", first);
+    free(first);
+    close(outfile);
+    print_ast(ast);
+    close_ast(&ast);
+    ast = create_ast(envp, parse_path(envp));
+    ast->root = create_red_node(ast, "/home/xifeng/42/test/pipe_x/test.out.txt", false, false);
+    ast->root->left = create_cmd_node(ast, "echo line2");
+    saved_stdout = dup(STDOUT_FILENO);
+    TEST_ASSERT_EQUAL_INT(0, ast->root->node_handler(ast, ast->root));
+    dup2(saved_stdout, STDOUT_FILENO);
+    close(saved_stdout);
+    outfile = open("/home/xifeng/42/test/pipe_x/test.out.txt", 0);
+    first = get_next_line(outfile);
+    free(first);
+    first = get_next_line(outfile);
+    TEST_ASSERT_EQUAL_STRING("line2\n", first);
+    free(first);
+    close(outfile);
+    print_ast(ast);
+    close_ast(&ast);
+    ast = create_ast(envp, parse_path(envp));
+    ast->root = create_red_node(ast, "/home/xifeng/42/test/pipe_x/test.in.txt", true, true);
+    ast->root->right = create_cmd_node(ast, "cat");
+    TEST_ASSERT_EQUAL_INT(0, ast->root->node_handler(ast, ast->root));
+    print_ast(ast);
+    close_ast(&ast);
+}
+
 // Main function to run the tests
 int	main(void)
 {
 	UNITY_BEGIN();
-    
 	RUN_TEST(test_create_ast);
     RUN_TEST(test_create_pipe_node);
     RUN_TEST(test_create_cmd_node);
@@ -202,5 +255,6 @@ int	main(void)
     RUN_TEST(test_create_multi_nodes_ast);
     RUN_TEST(test_create_tree);
     RUN_TEST(test_cmd_handler);
+    RUN_TEST(test_red_handler);
 	return (UNITY_END());
 }

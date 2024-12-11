@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:56:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 14:13:18 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 17:03:30 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ int	red_handler(t_ast *ast, t_ast_node *ast_node)
 	close(prop->fd);
 	prop->fd = -1;
 	if (prop->is_in)
-		return (ast_node->left->node_handler(ast, ast_node->left));
-	return (ast_node->right->node_handler(ast, ast_node->right));
+		return (ast_node->right->node_handler(ast, ast_node->right));
+	return (ast_node->left->node_handler(ast, ast_node->left));
 }
