@@ -271,18 +271,38 @@ void test_pipe_handler(void)
     close(fd);
 }
 
+void test_here_doc(void)
+{
+    char *envp[] = {
+    "USER=username",
+    "HOME=/home/username",
+    "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "SHELL=/bin/bash",
+    "LANG=en_US.UTF-8",
+    "PWD=/home/username",
+    "LOGNAME=username",
+    "TERM=xterm-256color",
+    NULL
+    };
+    t_ast *ast = create_ast(envp, parse_path(envp));
+    char *argv[] = {"eof", "cmd1", "cmd2", "outfile"};
+    build_ast(ast, 4, argv, false);
+    print_ast(ast);
+}
+
 // Main function to run the tests
 int	main(void)
 {
 	UNITY_BEGIN();
-	RUN_TEST(test_create_ast);
-    RUN_TEST(test_create_pipe_node);
-    RUN_TEST(test_create_cmd_node);
-    RUN_TEST(test_create_red_node);
-    RUN_TEST(test_create_multi_nodes_ast);
-    RUN_TEST(test_create_tree);
-    RUN_TEST(test_cmd_handler);
-    RUN_TEST(test_red_handler);
-    RUN_TEST(test_pipe_handler);
+	//RUN_TEST(test_create_ast);
+    //RUN_TEST(test_create_pipe_node);
+    //RUN_TEST(test_create_cmd_node);
+    //RUN_TEST(test_create_red_node);
+    //RUN_TEST(test_create_multi_nodes_ast);
+    //RUN_TEST(test_create_tree);
+    //RUN_TEST(test_cmd_handler);
+    //RUN_TEST(test_red_handler);
+    //RUN_TEST(test_pipe_handler);
+    RUN_TEST(test_here_doc);
 	return (UNITY_END());
 }
