@@ -127,6 +127,16 @@ void test_create_multi_nodes_ast(void)
     close_ast(&ast);
 }
 
+void test_create_tree(void)
+{
+    char *envp[] = {"PATH=a"};
+    t_ast *ast = create_ast(envp, parse_path(envp));
+    char *argv[] = {"infile", "cmd1 -r", "cmd2 -r -s", "outfile"};
+    build_ast(ast, 4, argv, true);
+    print_ast(ast);
+    close_ast(&ast);
+}
+
 // Main function to run the tests
 int	main(void)
 {
@@ -136,5 +146,6 @@ int	main(void)
     RUN_TEST(test_create_cmd_node);
     RUN_TEST(test_create_red_node);
     RUN_TEST(test_create_multi_nodes_ast);
+    RUN_TEST(test_create_tree);
 	return (UNITY_END());
 }

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:41:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 11:44:56 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 12:44:41 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	build_ast(t_ast *ast, int len, char **args, bool is_single)
 
 	ast->root = create_pipe_node(ast);
 	ast->root->right = create_red_node(ast, args[len - 1], false, is_single);
-	ast->root->right->left = create_cmd_node(ast, args[len - 2]);
+	ast->root->right->right = create_cmd_node(ast, args[len - 2]);
 	i = len - 3;
 	curr = ast->root;
 	while (i > 1)
@@ -143,5 +143,5 @@ void	build_ast(t_ast *ast, int len, char **args, bool is_single)
 		--i;
 	}
 	curr->left = create_red_node(ast, args[0], true, is_single);
-	curr->left->right = create_cmd_node(ast, args[1]);
+	curr->left->left = create_cmd_node(ast, args[1]);
 }
