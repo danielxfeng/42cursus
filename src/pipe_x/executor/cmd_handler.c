@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:08:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 21:42:08 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 11:37:21 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static bool	file_check(t_ast *ast, char *full_cmd, char *cmd)
 }
 
 // A helper function for `parse_full_cmd`.
-static bool return_helper_pfc(t_cmd_prop *prop, char *cmd)
+static bool	return_helper_pfc(t_cmd_prop *prop, char *cmd)
 {
 	prop->full_cmd = cmd;
 	return (true);
