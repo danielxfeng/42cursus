@@ -131,8 +131,29 @@ void test_create_tree(void)
 {
     char *envp[] = {"PATH=a"};
     t_ast *ast = create_ast(envp, parse_path(envp));
-    char *argv[] = {"infile", "cmd1 -r", "cmd2 -r -s", "outfile"};
-    build_ast(ast, 4, argv, true);
+    char *argv[] = {"infile", "cmd1 -r", "cmd2 -r -s", "cmd3", "cmd4", "outfile"};
+    build_ast(ast, 6, argv, true);
+    TEST_ASSERT_EQUAL_INT(PIPE, ast->root->type);
+    TEST_ASSERT_EQUAL_INT(PIPE, ast->root->left->type);
+    TEST_ASSERT_EQUAL_INT(RED, ast->root->right->type);
+    t_red_prop *red_prop = (t_red_prop *)ast->root->right->prop; 
+    TEST_ASSERT_EQUAL_STRING("outfile", red_prop->file_name);
+    t_cmd_prop *cmd_prop = (t_cmd_prop *)ast->root->right->left->prop;
+    TEST_ASSERT_EQUAL_STRING("cmd4", cmd_prop->args[0]);
+    cmd_prop = (t_cmd_prop *)ast->root->left->right->prop;
+    TEST_ASSERT_EQUAL_STRING("cmd3", cmd_prop->args[0]);
+    TEST_ASSERT_EQUAL_INT(PIPE, ast->root->left->left->type);
+    cmd_prop = (t_cmd_prop *)ast->root->left->left->right->prop;
+    TEST_ASSERT_EQUAL_STRING("cmd2", cmd_prop->args[0]);
+    TEST_ASSERT_EQUAL_STRING("-r", cmd_prop->args[1]);
+    TEST_ASSERT_EQUAL_STRING("-s", cmd_prop->args[2]);    
+    TEST_ASSERT_EQUAL_INT(RED, ast->root->left->left->left->type);
+    red_prop = (t_red_prop *)ast->root->left->left->left->prop; 
+    TEST_ASSERT_EQUAL_STRING("infile", red_prop->file_name);
+    TEST_ASSERT_EQUAL_INT(CMD, ast->root->left->left->left->right->type);
+    cmd_prop = (t_cmd_prop *)ast->root->left->left->left->right->prop;
+    TEST_ASSERT_EQUAL_STRING("cmd1", cmd_prop->args[0]);
+    TEST_ASSERT_EQUAL_STRING("-r", cmd_prop->args[1]);        
     print_ast(ast);
     close_ast(&ast);
 }
