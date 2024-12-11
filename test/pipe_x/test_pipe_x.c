@@ -206,7 +206,6 @@ void test_red_handler(void)
     NULL
     };
     int saved_stdout = dup(STDOUT_FILENO);
-    printf("%d\n", saved_stdout);
     t_ast *ast = create_ast(envp, parse_path(envp));
     ast->root = create_red_node(ast, "/home/xifeng/42/test/pipe_x/test.out.txt", false, true);
     ast->root->left = create_cmd_node(ast, "echo line1");
@@ -244,6 +243,34 @@ void test_red_handler(void)
     close_ast(&ast);
 }
 
+void test_pipe_handler(void)
+{
+    char *envp[] = {
+    "USER=username",
+    "HOME=/home/username",
+    "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "SHELL=/bin/bash",
+    "LANG=en_US.UTF-8",
+    "PWD=/home/username",
+    "LOGNAME=username",
+    "TERM=xterm-256color",
+    NULL
+    };
+    t_ast *ast = create_ast(envp, parse_path(envp));
+    ast->root = create_pipe_node(ast);
+    ast->root->left = create_cmd_node(ast, "echo line1");
+    ast->root->right = create_red_node(ast, "/home/xifeng/42/test/pipe_x/test.out.txt", false, true);
+    ast->root->right->left = create_cmd_node(ast, "cat");
+    TEST_ASSERT_EQUAL_INT(0, ast->root->node_handler(ast, ast->root));
+    print_ast(ast);
+    close_ast(&ast);
+    int fd = open("/home/xifeng/42/test/pipe_x/test.out.txt", 0);
+    char *first = get_next_line(fd);
+    TEST_ASSERT_EQUAL_STRING("line1\n", first);
+    free(first);
+    close(fd);
+}
+
 // Main function to run the tests
 int	main(void)
 {
@@ -256,5 +283,6 @@ int	main(void)
     RUN_TEST(test_create_tree);
     RUN_TEST(test_cmd_handler);
     RUN_TEST(test_red_handler);
+    RUN_TEST(test_pipe_handler);
 	return (UNITY_END());
 }

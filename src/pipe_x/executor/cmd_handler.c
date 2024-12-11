@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:08:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 16:11:53 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 18:24:03 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ static bool	parse_full_cmd(t_ast *ast, t_cmd_prop *prop)
 // - Because of the above reason, we have to start a new process for running
 //   this `cmd`, otherwise we can do NOTHING after `execve`, but we have to
 //   deal with the right child.
+// - Because of the above reason, we don't have to free the copied resources
+//   before return.
 // - also check the explain in `pipe_handler`.
 int	cmd_handler(t_ast *ast, t_ast_node *ast_node)
 {
