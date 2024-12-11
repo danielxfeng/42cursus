@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:08:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 11:57:06 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 16:11:53 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,13 @@ static char	*pipe_x_join_path(t_ast *ast, char *path, char *cmd)
 static bool	file_check(t_ast *ast, char *full_cmd, char *cmd)
 {
 	if (access(full_cmd, F_OK) < 0)
-		return (false);
-	if (access(full_cmd, X_OK) < 0)
 	{
 		free(full_cmd);
+		return (false);
+	}
+	if (access(full_cmd, X_OK) < 0)
+	{
+		free(full_cmd);	
 		exit_prog(&ast, cmd, PERMISSION_ERR, EXIT_EXEC_ERR);
 	}
 	return (true);
@@ -114,7 +117,7 @@ int	cmd_handler(t_ast *ast, t_ast_node *ast_node)
 		exit_prog(&ast, "fork()", FORK_ERR, EXIT_FAILURE);
 	if (prop->pid == 0)
 	{
-		if (execve(prop->args[0], prop->args, ast->envp) < 0)
+		if (execve(prop->full_cmd, prop->args, ast->envp) < 0)
 		{
 			if (ft_strchr(prop->args[0], '/'))
 				exit_prog(&ast, prop->full_cmd, DIRECTORY_ERR, EXIT_EXEC_ERR);

@@ -158,15 +158,49 @@ void test_create_tree(void)
     close_ast(&ast);
 }
 
+void test_cmd_handler(void)
+{
+    char *envp[] = {
+    "USER=username",
+    "HOME=/home/username",
+    "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "SHELL=/bin/bash",
+    "LANG=en_US.UTF-8",
+    "PWD=/home/username",
+    "LOGNAME=username",
+    "TERM=xterm-256color",
+    NULL
+    };
+    t_ast *ast = create_ast(envp, parse_path(envp));
+    ast->root = create_cmd_node(ast, "/usr/bin/ls");
+    TEST_ASSERT_EQUAL_INT(0, ast->root->node_handler(ast, ast->root));
+    print_ast(ast);
+    close_ast(&ast);
+    ast = create_ast(envp, parse_path(envp));
+    ast->root = create_cmd_node(ast, "ls");
+    TEST_ASSERT_EQUAL_INT(0, ast->root->node_handler(ast, ast->root));
+    print_ast(ast);
+    close_ast(&ast);
+    ast = create_ast(envp, parse_path(envp));
+    ast->root = create_cmd_node(ast, "ls");
+    ast->root->left = create_cmd_node(ast, "ls");
+    ast->root->right = create_cmd_node(ast, "ls");
+    TEST_ASSERT_EQUAL_INT(0, ast->root->node_handler(ast, ast->root));
+    print_ast(ast);
+    close_ast(&ast);         
+}
+
 // Main function to run the tests
 int	main(void)
 {
 	UNITY_BEGIN();
+    
 	RUN_TEST(test_create_ast);
     RUN_TEST(test_create_pipe_node);
     RUN_TEST(test_create_cmd_node);
     RUN_TEST(test_create_red_node);
     RUN_TEST(test_create_multi_nodes_ast);
     RUN_TEST(test_create_tree);
+    RUN_TEST(test_cmd_handler);
 	return (UNITY_END());
 }

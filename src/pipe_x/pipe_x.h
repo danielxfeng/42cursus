@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 11:56:48 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 15:26:24 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # define MALLOC_ERR ": malloc() failed"
 # define FORK_ERR "fork() error"
 # define PIPE_ERR "pipe() creation failed"
-# define PERMISSION_ERR ": Permission denied"
+# define PERMISSION_ERR "Permission denied"
 # define FILE_ERR ": No such file or directory"
-# define DIRECTORY_ERR ": Is a directory"
+# define DIRECTORY_ERR "Is a directory"
 # define DUP_ERR "dup2() error"
-# define CMD_ERR ": command not found"
+# define CMD_ERR "command not found"
 # define LEFT 0
 # define RIGHT 1
 # define EXIT_EXEC_ERR 126
