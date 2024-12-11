@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:08:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 18:24:03 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 18:25:31 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool	file_check(t_ast *ast, char *full_cmd, char *cmd)
 	}
 	if (access(full_cmd, X_OK) < 0)
 	{
-		free(full_cmd);	
+		free(full_cmd);
 		exit_prog(&ast, cmd, PERMISSION_ERR, EXIT_EXEC_ERR);
 	}
 	return (true);
