@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 19:15:48 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 11:56:48 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ typedef struct s_ast
 //	allowing nodes of different types (`t_node_type`) to exhibit
 //   type-specific behavior.
 //
-//	- This idea is from the concept of polymorphism in Object-Oriented Programming (OOP),
+//	- This idea is from the concept of polymorphism in OOP,
 //   while adhering to C's procedural programming paradigm.
 typedef struct s_ast_node
 {
 	t_node_type				type;
 	void					*prop;
 	int						(*node_handler)(t_ast *t_ast,
-								t_ast_node *t_ast_node);
+			t_ast_node *t_ast_node);
 	void					(*node_closer)(t_ast_node *t_ast_node);
 	t_ast_node				*left;
 	t_ast_node				*right;
@@ -141,6 +141,7 @@ int							cmd_handler(t_ast *ast, t_ast_node *ast_node);
 int							red_handler(t_ast *ast, t_ast_node *ast_node);
 void						build_ast(t_ast *ast, int argc, char **argv,
 								bool is_single);
+int							return_process_res(int status);
 
 // Parameter handler.
 

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:42:01 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 21:42:51 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 11:57:25 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ static int	perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop,
 	child = node->left;
 	if (direction)
 		child = node->right;
-	if ((prop->pids[direction] = fork()) < 0)
+	prop->pids[direction] = fork();
+	if (prop->pids[direction] < 0)
 		exit_prog(&ast, "fork()", FORK_ERR, EXIT_FAILURE);
 	if (prop->pids[direction] == 0)
 	{
@@ -80,9 +81,7 @@ static int	perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop,
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(prop->pids[direction], &status, 0);
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (EXIT_FAILURE);
+	return_process_res(status);
 }
 
 // Handle the operation of PIPE.

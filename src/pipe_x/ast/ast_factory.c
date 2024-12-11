@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:41:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 21:41:00 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 11:44:56 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ t_ast	*create_ast(char **envp, char **path)
 	ast = ft_calloc(1, sizeof(t_ast));
 	if (!ast)
 		exit_prog(&ast, "create_ast()", MALLOC_ERR, EXIT_FAILURE);
-	;
 	ast->root = NULL;
 	ast->envp = envp;
 	ast->path = path;

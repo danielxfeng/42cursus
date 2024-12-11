@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:08:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 11:37:21 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 11:57:06 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ int	cmd_handler(t_ast *ast, t_ast_node *ast_node)
 		ast_node->left->node_handler(ast, ast_node->left);
 	if (!(prop->args[0]) || !(prop->args[0][0]))
 		exit_prog(&ast, prop->args[0], CMD_ERR, EXIT_CMD_ERR);
-	if (parse_full_cmd(ast, prop) && (prop->pid = fork()) < 0)
+	parse_full_cmd(ast, prop);
+	prop->pid = fork();
+	if (prop->pid < 0)
 		exit_prog(&ast, "fork()", FORK_ERR, EXIT_FAILURE);
 	if (prop->pid == 0)
 	{
@@ -122,7 +124,5 @@ int	cmd_handler(t_ast *ast, t_ast_node *ast_node)
 	waitpid(prop->pid, &status, 0);
 	if (ast_node->right)
 		return (ast_node->right->node_handler(ast, ast_node->right));
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (EXIT_FAILURE);
+	return_process_res(status);
 }

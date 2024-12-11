@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:02:14 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/10 14:11:05 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/11 11:43:24 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ bool	validate_param(int argc, char **argv, bool is_bonus)
 	if ((is_bonus && argc < 5) || (!is_bonus && argc != 5))
 		exit_prog(NULL, NULL, "Usage: ./pipex infile cmd1 cmd2 outfile\n",
 			EXIT_FAILURE);
-	is_double = ft_strlen(argv[1]) == 8 && ft_strncmp(argv[1], "here_doc", 8);
-	if (is_bonus && ft_strlen(argv[1]) == 8 && ft_strncmp(argv[1], "here_doc",
-			8))
+	is_double = false;
+	if (is_bonus && ft_strlen(argv[1]) == 8 && (ft_strncmp(argv[1], "here_doc",
+				8)) == 0)
 	{
 		is_double = true;
 		if (argc < 6)

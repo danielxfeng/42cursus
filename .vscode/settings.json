@@ -18,6 +18,7 @@
     "push_swap.h": "c",
     "ft_printf.h": "c",
     "stdlib.h": "c",
-    "pipe_x.h": "c"
+    "pipe_x.h": "c",
+    "wait.h": "c"
   }
 }
