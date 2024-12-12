@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:56:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 17:03:30 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/12 14:07:37 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	here_doc_read_line(t_ast *ast, t_red_prop *prop, int *pipe_fds)
 
 	while (1)
 	{
-		ft_putstr_fd("heredoc> ", 1);
-		line = get_next_line(STDIN_FILENO);
+		ft_putstr_fd("pipe heredoc> ", ast->fd_out);
+		line = get_next_line(ast->fd_in);
 		if (!line)
 		{
 			close(pipe_fds[0]);
@@ -72,7 +72,7 @@ static int	here_doc_handler(t_ast *ast, t_ast_node *ast_node)
 		exit_prog(&ast, "dup2()", DUP_ERR, EXIT_FAILURE);
 	}
 	close(pipe_fds[0]);
-	return (ast_node->left->node_handler(ast, ast_node->left));
+	return (ast_node->right->node_handler(ast, ast_node->right));
 }
 
 // Helper function to open the file, and deal with the error handling.

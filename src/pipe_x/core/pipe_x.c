@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:02:14 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 11:43:24 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/12 14:50:54 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ int	pipe_x(int argc, char **argv, char **envp, bool is_bonus)
 	is_double = validate_param(argc, argv, is_bonus);
 	ast = create_ast(envp, parse_path(envp));
 	if (!is_double)
-		build_ast(ast, argc - 2, &(argv[2]), !is_double);
-	else
 		build_ast(ast, argc - 1, &(argv[1]), !is_double);
+	else
+		build_ast(ast, argc - 2, &(argv[2]), !is_double);
 	status = ast->root->node_handler(ast, ast->root);
 	exit_prog(&ast, NULL, NULL, status);
 	return (EXIT_FAILURE);

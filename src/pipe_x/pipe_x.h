@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 15:26:24 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/12 11:33:38 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define FILE_ERR ": No such file or directory"
 # define DIRECTORY_ERR "Is a directory"
 # define DUP_ERR "dup2() error"
+# define ORIGIN_DUP_ERR "dup() error"
 # define CMD_ERR "command not found"
 # define LEFT 0
 # define RIGHT 1
@@ -44,12 +45,16 @@ typedef enum a_node_type
 // The AST tree.
 // `root` the root node of AST tree.
 // `path` the string array of path from `env`.
-// `envp` is the raw `evn`.
+// `envp` is the raw `env`.
+// `fd_in` the saved `stdin`. Saving this is for `here_doc`.
+// `fd_out` the saved `stdin`.
 typedef struct s_ast
 {
 	t_ast_node				*root;
 	char					**envp;
 	char					**path;
+	int						fd_in;
+	int						fd_out;
 }							t_ast;
 
 // Represents a node of AST.

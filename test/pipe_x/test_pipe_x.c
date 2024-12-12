@@ -288,6 +288,30 @@ void test_here_doc(void)
     char *argv[] = {"eof", "cmd1", "cmd2", "outfile"};
     build_ast(ast, 4, argv, false);
     print_ast(ast);
+    close_ast(&ast);
+    ast = create_ast(envp, parse_path(envp));
+    char *argv2[] = {"eof", "cat", "cat", "/home/xifeng/42/test/pipe_x/test.out.txt"};
+    build_ast(ast, 4, argv2, false);
+    ast->root->node_handler(ast, ast->root);
+    print_ast(ast);
+    close_ast(&ast);
+}
+
+void debug()
+{
+    char *envp[] = {
+    "USER=username",
+    "HOME=/home/username",
+    "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "SHELL=/bin/bash",
+    "LANG=en_US.UTF-8",
+    "PWD=/home/username",
+    "LOGNAME=username",
+    "TERM=xterm-256color",
+    NULL
+    };
+    char *argv[] = {"pipex", "here_doc", "eof", "cat", "cat", "/home/xifeng/42/test/pipe_x/test.out.txt"};
+    pipe_x(6, argv, envp, true);
 }
 
 // Main function to run the tests
@@ -303,6 +327,7 @@ int	main(void)
     //RUN_TEST(test_cmd_handler);
     //RUN_TEST(test_red_handler);
     //RUN_TEST(test_pipe_handler);
-    RUN_TEST(test_here_doc);
+    //RUN_TEST(test_here_doc);
+    RUN_TEST(debug);
 	return (UNITY_END());
 }
