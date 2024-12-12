@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:56:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/12 14:07:37 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/12 16:31:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	here_doc_read_line(t_ast *ast, t_red_prop *prop, int *pipe_fds)
 
 	while (1)
 	{
-		ft_putstr_fd("pipe heredoc> ", ast->fd_out);
+		ft_putstr_fd("> ", ast->fd_out);
 		line = get_next_line(ast->fd_in);
 		if (!line)
 		{

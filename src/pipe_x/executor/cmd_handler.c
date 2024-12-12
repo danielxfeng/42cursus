@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:08:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 18:34:40 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/12 19:12:35 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static bool	file_check(t_ast *ast, char *full_cmd, char *cmd)
 {
 	if (access(full_cmd, F_OK) < 0)
 	{
-		free(full_cmd);
+		if (*cmd != '/' && ft_strncmp("./", cmd, 2) != 0)
+			free(full_cmd);
 		return (false);
 	}
 	if (access(full_cmd, X_OK) < 0)

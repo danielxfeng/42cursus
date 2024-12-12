@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:42:01 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/11 18:34:55 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/12 20:37:41 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,10 @@ static void	handle_sub_fds(t_ast *ast, t_pipe_prop *prop, bool is_pipe_input)
 //  - In sub-proc, the process is created before `fork`'s return
 //    so `pid` cannot be updated.
 //  - In parent-proc. the `pid` has been updated by `fork`'s return.
-static int	perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop,
+static void	perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop,
 		int direction)
 {
 	t_ast_node	*child;
-	int			status;
 
 	child = node->left;
 	if (direction)
@@ -83,8 +82,6 @@ static int	perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop,
 		child->node_handler(ast, child);
 		exit_prog(&ast, NULL, NULL, EXIT_SUCCESS);
 	}
-	waitpid(prop->pids[direction], &status, 0);
-	return (return_process_res(status));
 }
 
 // Handle the operation of PIPE.
@@ -107,10 +104,13 @@ int	pipe_handler(t_ast *ast, t_ast_node *ast_node)
 	if (pipe(prop->fds) < 0)
 		exit_prog(&ast, "pipe()", PIPE_ERR, EXIT_FAILURE);
 	perform_sub_proc(ast, ast_node, prop, LEFT);
+	perform_sub_proc(ast, ast_node, prop, RIGHT);
+	waitpid(prop->pids[LEFT], &status, WNOHANG);
+	waitpid(prop->pids[RIGHT], &status, WNOHANG);
+	status = return_process_res(status);
 	close(prop->fds[1]);
-	prop->fds[1] = -1;
-	status = perform_sub_proc(ast, ast_node, prop, RIGHT);
 	close(prop->fds[0]);
+	prop->fds[1] = -1;
 	prop->fds[0] = -1;
 	return (status);
 }

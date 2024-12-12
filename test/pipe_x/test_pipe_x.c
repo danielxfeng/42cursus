@@ -260,41 +260,15 @@ void test_pipe_handler(void)
     ast->root = create_pipe_node(ast);
     ast->root->left = create_cmd_node(ast, "echo line1");
     ast->root->right = create_red_node(ast, "/home/xifeng/42/test/pipe_x/test.out.txt", false, true);
-    ast->root->right->left = create_cmd_node(ast, "cat");
+    ast->root->right->left = create_cmd_node(ast, "wc -l");
     TEST_ASSERT_EQUAL_INT(0, ast->root->node_handler(ast, ast->root));
     print_ast(ast);
     close_ast(&ast);
     int fd = open("/home/xifeng/42/test/pipe_x/test.out.txt", 0);
     char *first = get_next_line(fd);
-    TEST_ASSERT_EQUAL_STRING("line1\n", first);
+    TEST_ASSERT_EQUAL_STRING("1\n", first);
     free(first);
     close(fd);
-}
-
-void test_here_doc(void)
-{
-    char *envp[] = {
-    "USER=username",
-    "HOME=/home/username",
-    "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
-    "SHELL=/bin/bash",
-    "LANG=en_US.UTF-8",
-    "PWD=/home/username",
-    "LOGNAME=username",
-    "TERM=xterm-256color",
-    NULL
-    };
-    t_ast *ast = create_ast(envp, parse_path(envp));
-    char *argv[] = {"eof", "cmd1", "cmd2", "outfile"};
-    build_ast(ast, 4, argv, false);
-    print_ast(ast);
-    close_ast(&ast);
-    ast = create_ast(envp, parse_path(envp));
-    char *argv2[] = {"eof", "cat", "cat", "/home/xifeng/42/test/pipe_x/test.out.txt"};
-    build_ast(ast, 4, argv2, false);
-    ast->root->node_handler(ast, ast->root);
-    print_ast(ast);
-    close_ast(&ast);
 }
 
 void debug()
@@ -310,8 +284,8 @@ void debug()
     "TERM=xterm-256color",
     NULL
     };
-    char *argv[] = {"pipex", "here_doc", "eof", "cat", "cat", "/home/xifeng/42/test/pipe_x/test.out.txt"};
-    pipe_x(6, argv, envp, true);
+    char *argv[] = {"test_pipex", "/home/xifeng/42/test/pipe_x/test.in.txt", "/home/xifeng/42/test/pipe_x/ppx_tmp", "wc", "/home/xifeng/42/test/pipe_x/test.out.txt"};
+    pipe_x(5, argv, envp, true);
 }
 
 // Main function to run the tests
