@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:42:01 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/12 20:37:41 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/13 12:34:00 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	handle_sub_fds(t_ast *ast, t_pipe_prop *prop, bool is_pipe_input)
 // 3 Execute the child node here and return.
 //
 // Note: before return, we have to free resources which are copied from
-// parent. 
+// parent.
 //
 // -----NOW WE ARE IN PARENT-PROCESS------
 // 2 Wait until sub-process returned.
@@ -104,12 +104,12 @@ int	pipe_handler(t_ast *ast, t_ast_node *ast_node)
 	if (pipe(prop->fds) < 0)
 		exit_prog(&ast, "pipe()", PIPE_ERR, EXIT_FAILURE);
 	perform_sub_proc(ast, ast_node, prop, LEFT);
-	perform_sub_proc(ast, ast_node, prop, RIGHT);
-	waitpid(prop->pids[LEFT], &status, WNOHANG);
-	waitpid(prop->pids[RIGHT], &status, WNOHANG);
-	status = return_process_res(status);
 	close(prop->fds[1]);
+	perform_sub_proc(ast, ast_node, prop, RIGHT);
 	close(prop->fds[0]);
+	waitpid(prop->pids[LEFT], &status, 0);
+	waitpid(prop->pids[RIGHT], &status, 0);
+	status = return_process_res(status);
 	prop->fds[1] = -1;
 	prop->fds[0] = -1;
 	return (status);
