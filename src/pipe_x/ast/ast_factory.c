@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:41:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/12 14:53:55 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/13 13:57:17 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	build_ast(t_ast *ast, int len, char **args, bool is_single)
 		exit_prog(&ast, "build_ast()", ORIGIN_DUP_ERR, EXIT_FAILURE);
 	ast->fd_out = dup(STDOUT_FILENO);
 	if (ast->fd_out < 0)
-		exit_prog(&ast, "build_ast()", ORIGIN_DUP_ERR, EXIT_FAILURE);	
+		exit_prog(&ast, "build_ast()", ORIGIN_DUP_ERR, EXIT_FAILURE);
 	i = len - 3;
 	curr = ast->root;
 	while (i > 1)
