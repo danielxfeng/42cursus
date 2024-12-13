@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:42:01 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/13 12:34:00 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/13 13:09:31 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ static void	handle_sub_fds(t_ast *ast, t_pipe_prop *prop, bool is_pipe_input)
 // Note: before return, we have to free resources which are copied from
 // parent.
 //
-// -----NOW WE ARE IN PARENT-PROCESS------
-// 2 Wait until sub-process returned.
-//
 // Note we use `pid` to determine where we are (in SUB-PROCESS,
 // or PARENT-PROCESS)
 // We can do this because of this expression `prop->pids[direction] = fork()`
@@ -95,6 +92,11 @@ static void	perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop,
 //
 // Note the process is a recurrsive call by hybrid pre-post traversal,
 // which means mid->left->right->mid
+// 
+// Note We apply `waitpid` to wait for the sub-process return.
+// When `RIGHT` returns, it closes the pipe before quit the process.
+// Therefore, even if `LEFT` is in an infinity loop, it will still quit 
+// for `write` is error.
 int	pipe_handler(t_ast *ast, t_ast_node *ast_node)
 {
 	t_pipe_prop	*prop;

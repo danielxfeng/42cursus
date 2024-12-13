@@ -284,7 +284,7 @@ void debug()
     "TERM=xterm-256color",
     NULL
     };
-    char *argv[] = {"test_pipex", "/dev/urandom", "cat", "wc -l", "/home/xifeng/42/test/pipe_x/test.out.txt"};
+    char *argv[] = {"test_pipex", "/home/xifeng/42/test/pipe_x/test.in.txt", "/home/xifeng/42/test/pipe_x/ppx_tmp", "wc", "/home/xifeng/42/test/pipe_x/test.out.txt"};
     pipe_x(5, argv, envp, true);
 }
 
