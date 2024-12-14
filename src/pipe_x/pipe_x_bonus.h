@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   pipe_x_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 17:44:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 12:13:55 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/12/10 21:50:23 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#ifndef PIPE_X_BONUS_H
+# define PIPE_X_BONUS_H
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
-		write(fd, s, ft_strlen(s));
-}
+# include "pipe_x.h"
+
+#endif

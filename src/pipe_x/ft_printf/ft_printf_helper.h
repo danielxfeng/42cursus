@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_printf_helper.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 17:44:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 12:13:55 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/07 19:36:05 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/26 15:36:42 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#ifndef FT_PRINTF_HELPER_H
+# define FT_PRINTF_HELPER_H
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
-		write(fd, s, ft_strlen(s));
-}
+# include "../libft/libft.h"
+# include "unistd.h"
+
+int	print_char(char c);
+int	print_str(char *s);
+int	print_ptr(void *ptr);
+int	print_nbr(int n);
+int	print_hex(unsigned int n, int is_lowercase);
+int	print_unsigned_nbr(unsigned int n);
+
+#endif

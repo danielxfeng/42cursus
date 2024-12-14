@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 17:44:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 12:13:55 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/03 18:10:55 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/03 18:37:34 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-void	ft_putstr_fd(char *s, int fd)
+static void	add_back_helper(t_list *lst, t_list *new)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+	if (!lst->next)
+	{
+		lst->next = new;
+		return ;
+	}
+	add_back_helper(lst->next, new);
+}
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	if (!(*lst))
+	{
+		*lst = new;
+		return ;
+	}
+	add_back_helper(*lst, new);
 }

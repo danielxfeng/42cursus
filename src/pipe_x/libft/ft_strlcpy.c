@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 17:44:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 12:13:55 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/02 11:13:46 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/02 14:20:10 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-void	ft_putstr_fd(char *s, int fd)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = 0;
+	while (src[i] != '\0')
+		++i;
+	count = i;
+	i = 0;
+	while (size > 0 && src[i] != '\0' && i < size - 1)
+	{
+		dst[i] = src[i];
+		++i;
+	}
+	if (size > 0)
+		dst[i] = '\0';
+	return (count);
 }

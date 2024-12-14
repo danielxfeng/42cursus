@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   str_helper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 17:44:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 12:13:55 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/07 22:29:53 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/23 20:45:46 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#include "ft_printf_helper.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	print_char(char c)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+	write(1, &c, 1);
+	return (1);
+}
+
+int	print_str(char *s)
+{
+	int	len;
+
+	if (!s)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	len = ft_strlen(s);
+	write(1, s, len);
+	return (len);
 }

@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 17:44:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 12:13:55 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/12/08 16:20:12 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/12/10 14:13:40 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#include "pipe_x.h"
 
-void	ft_putstr_fd(char *s, int fd)
+// pipe_x.h: difinition of AST.
+// ast: implementation of AST.
+// core: main logic of the program:
+//   -  program entry
+//   -  build the tree, and execute the tree.
+int	main(int argc, char **argv, char **envp)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+	return (pipe_x(argc, argv, envp, false));
 }

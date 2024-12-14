@@ -1,20 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 17:44:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 12:13:55 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/02 16:55:33 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/03 23:09:53 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-void	ft_putstr_fd(char *s, int fd)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+	size_t	i;
+	size_t	j;
+
+	if (!*little)
+		return ((char *)(big));
+	if (!len)
+		return (NULL);
+	i = 0;
+	while (big[i] && i < len)
+	{
+		if (big[i] == little[0])
+		{
+			j = 0;
+			while (little[j] && i + j < len && little[j] == big[i + j])
+				++j;
+			if (!little[j])
+				return ((char *)(big + i));
+		}
+		++i;
+	}
+	return (0);
 }

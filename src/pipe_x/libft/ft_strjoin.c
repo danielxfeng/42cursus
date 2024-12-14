@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 17:44:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 12:13:55 by Xifeng           ###   ########.fr       */
+/*   Created: 2024/11/03 13:34:42 by Xifeng            #+#    #+#             */
+/*   Updated: 2024/11/03 19:26:55 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-void	ft_putstr_fd(char *s, int fd)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+	size_t	len_s1;
+	size_t	len_s2;
+	char	*p;
+
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	p = ft_calloc(len_s1 + len_s2 + 1, sizeof(char));
+	if (!p)
+		return (NULL);
+	ft_memcpy(p, s1, len_s1);
+	ft_memcpy(p + len_s1, s2, len_s2);
+	p[len_s1 + len_s2] = '\0';
+	return (p);
 }
