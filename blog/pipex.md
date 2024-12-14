@@ -34,6 +34,8 @@ I’ll try to explain these concepts in a way that is easy to understand, though
 
 - After Linux starts, it runs within a single process. From there, another process, called the **shell**, is launched to allow user interaction and control.
 
+![The Matrix](./imgs/matrix.png)
+
 2. **fork()**
 
 - **fork()** is a sys-call used to create a new process. The process creation is essentially cloning. In Linux, **fork()** duplicates everything in the original process, including memory (both stack and heap), the program counter (PC), and other states. It’s like the cloning process in the movie [The Island](https://www.imdb.com/title/tt0399201/).
@@ -49,6 +51,8 @@ I’ll try to explain these concepts in a way that is easy to understand, though
      - The child process receives 0.
    This allows the processes to determine their identities right after the fork().
 
+![The Island](./imgs/island.png)
+
 3. **exec()**
 
 - To be honest, **exec()** is an evil. It likes the movie [The Strain](https://www.imdb.com/title/tt2654620/). After been called, the entire memory space of the process is replaced with the memory space of the new program. Essentially, the original process “loses its soul,” and its body is taken over by the new program.
@@ -58,6 +62,8 @@ I’ll try to explain these concepts in a way that is easy to understand, though
 - The combination of **fork()** and **exec()** is the way how linux creates new processes. 
    - **fork()** creates a duplicate of the current process, known as the child process.
    - **exec()** replaces the memory and code of the child process with a new program, effectively launching it.
+
+![The Strain](./imgs/strain.png)
 
 4 **pipe**
 
