@@ -34,7 +34,7 @@ I’ll try to explain these concepts in a way that is easy to understand, though
 
 - After Linux starts, it runs within a single process. From there, another process, called the **shell**, is launched to allow user interaction and control.
 
-![The Matrix](./imgs/matrix.png)
+<img src="./imgs/matrix.png" alt="The Matrix" style="max-width: 100%; max-height: 400px;">
 
 2. **fork()**
 
@@ -51,7 +51,7 @@ I’ll try to explain these concepts in a way that is easy to understand, though
      - The child process receives 0.
    This allows the processes to determine their identities right after the fork().
 
-![The Island](./imgs/island.png)
+<img src="./imgs/island.png" alt="The Island" style="max-width: 100%; max-height: 400px;">
 
 3. **exec()**
 
@@ -63,7 +63,7 @@ I’ll try to explain these concepts in a way that is easy to understand, though
    - **fork()** creates a duplicate of the current process, known as the child process.
    - **exec()** replaces the memory and code of the child process with a new program, effectively launching it.
 
-![The Strain](./imgs/strain.png)
+<img src="./imgs/strain.png" alt="The Strain" style="max-width: 100%; max-height: 400px;">
 
 4 **pipe**
 
