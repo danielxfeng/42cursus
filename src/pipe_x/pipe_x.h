@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/12 11:33:38 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/14 11:07:20 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ typedef enum a_node_type
 // `path` the string array of path from `env`.
 // `envp` is the raw `env`.
 // `fd_in` the saved `stdin`. Saving this is for `here_doc`.
-// `fd_out` the saved `stdin`.
+//   -`here_doc` may run in a sub-process, which means it's `std`
+//   may has been redirected, but the we should print out the
+//   prompt and get input from keyboard. So we have to backup the
+//   original `std` for the task.
+// `fd_out` the saved `stdout`.
 typedef struct s_ast
 {
 	t_ast_node				*root;
@@ -80,7 +84,7 @@ typedef struct s_ast_node
 	t_node_type				type;
 	void					*prop;
 	int						(*node_handler)(t_ast *t_ast,
-			t_ast_node *t_ast_node);
+								t_ast_node *t_ast_node);
 	void					(*node_closer)(t_ast_node *t_ast_node);
 	t_ast_node				*left;
 	t_ast_node				*right;

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:41:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/13 13:57:17 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/14 11:03:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ t_ast	*create_ast(char **envp, char **path)
 	ast->root = NULL;
 	ast->envp = envp;
 	ast->path = path;
+	ast->fd_in = -1;
+	ast->fd_out = -1;
 	return (ast);
 }
 
