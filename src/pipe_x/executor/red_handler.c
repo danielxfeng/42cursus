@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:56:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/12 16:31:13 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/14 12:01:34 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,7 @@ static void	here_doc_read_line(t_ast *ast, t_red_prop *prop, int *pipe_fds)
 		ft_putstr_fd("> ", ast->fd_out);
 		line = get_next_line(ast->fd_in);
 		if (!line)
-		{
-			close(pipe_fds[0]);
-			close(pipe_fds[1]);
-			exit_prog(&ast, "get_next_line()", MALLOC_ERR, EXIT_FAILURE);
-		}
+			break ;
 		if ((ft_strncmp(prop->file_name, line, ft_strlen(prop->file_name)) == 0)
 			&& line[ft_strlen(prop->file_name)] == '\n')
 		{
