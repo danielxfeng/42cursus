@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 07:17:42 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/11/28 14:15:54 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/05 18:13:51 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 #include <unistd.h>
+
+bool	is_ordered_stack(t_stacks *stacks)
+{
+	size_t	i;
+	t_node	*curr;
+
+	i = 0;
+	curr = stacks->stack_a->root;
+	while (i < stacks->stack_a->len)
+	{
+		if (i > 0 && curr->value < curr->prev->value)
+			return (false);
+		curr = curr->next;
+		++i;
+	}
+	return (true);
+}
 
 static int	error_exit(t_stacks **stacks)
 {
@@ -64,8 +81,13 @@ int	push_swap(int argc, char **argv, int (*apply_sort_func)(t_stacks *))
 	stacks = new_stacks();
 	if (!stacks || !insert_value_to_stacks(stacks, argc, argv))
 		return (error_exit(&stacks));
-	if (apply_sort_func)
-		apply_sort_func(stacks);
+	if (!is_ordered_stack(stacks))
+	{
+		if (stacks->stack_a->len < 6)
+			less_numbers_sort(stacks);
+		else
+			apply_sort_func(stacks);
+	}
 	close_stacks(&stacks);
 	return (0);
 }

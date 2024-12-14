@@ -65,12 +65,30 @@ Just to launch a virtual machine.
 ### **Zone 2**
 
 #### **`push_swap`**
-Practical Greedy, BFS, Circular Doubly Linked List, and Dependency Injection
+Sorting by 2 stacks, practical Greedy, BFS, Circular Doubly Linked List, and Dependency Injection
 - [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/push_swap)  
 - [My Thoughts](https://github.com/danielxfeng/42cursus/tree/main/blog/push_swap.md)
 
 #### **`so_long`**
-Practical Object Oriented Programming, and Dependency Injection
+A 2D game like `Pacman`, practical Object Oriented Programming, and Dependency Injection
 - [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/so_long)  
 - [My Thoughts](https://github.com/danielxfeng/42cursus/tree/main/blog/so_long.md)
 
+#### **`pipe_x`**
+
+- Implementation 
+- My Thoughts
+
+---
+
+### **Zone 3**
+
+#### **`mini_shell`**
+
+- Implementation
+- My Thoughts
+
+#### **`philosophers`**
+
+- Implementation
+- My Thoughts
