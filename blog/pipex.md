@@ -51,7 +51,7 @@ I’ll try to explain these concepts in a way that is easy to understand, though
 
 3. **exec()**
 
-- To be honest, **exec()** is an evil. It likes the movie [Parasite](https://www.imdb.com/title/tt6751668/). After been called, the entire memory space of the process is replaced with the memory space of the new program. Essentially, the original process “loses its soul,” and its body is taken over by the new program.
+- To be honest, **exec()** is an evil. It likes the movie [The Strain](https://www.imdb.com/title/tt2654620/). After been called, the entire memory space of the process is replaced with the memory space of the new program. Essentially, the original process “loses its soul,” and its body is taken over by the new program.
 
 - When **exec()** is called, the calling program loses control permanently.
 
