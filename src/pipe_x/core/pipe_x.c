@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:02:14 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/12 14:50:54 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/14 15:54:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	validate_param(int argc, char **argv, bool is_bonus)
 	bool	is_double;
 
 	if ((is_bonus && argc < 5) || (!is_bonus && argc != 5))
-		exit_prog(NULL, NULL, "Usage: ./pipex infile cmd1 cmd2 outfile\n",
+		exit_prog(NULL, NULL, "Usage: ./pipex infile cmd1 cmd2 outfile",
 			EXIT_FAILURE);
 	is_double = false;
 	if (is_bonus && ft_strlen(argv[1]) == 8 && (ft_strncmp(argv[1], "here_doc",
@@ -57,7 +57,7 @@ bool	validate_param(int argc, char **argv, bool is_bonus)
 		is_double = true;
 		if (argc < 6)
 			exit_prog(NULL, NULL,
-				"Usage: ./pipex here_doc EOF cmd1 cmd2 outfile\n",
+				"Usage: ./pipex here_doc EOF cmd1 cmd2 outfile",
 				EXIT_FAILURE);
 	}
 	return (is_double);
