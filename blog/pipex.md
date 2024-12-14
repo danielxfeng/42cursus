@@ -1,59 +1,73 @@
 ## Thoughts on `pipe_x`
 
-This was an intersting project I encountered at Hive. It helped me better understand how to maintain **state** in procedural programming with C and it's my first time to make **data structure selection** in a Hive project.
+This has been one of the most interesting projects I've worked on so far. The **mandatory part** of the project involves implementing a pipeline like this:  
+`< infile cat | grep -a > outfile`  
 
-### Challenge
-In short, the goal was to implement a function that reads a file and returns its content line by line.  
-The main challenge was the requirement to support a **custom buffer size** while **disallowing `lseek`**, meaning we had to maintain a persistent string inside the function.
+The **bonus part** requires extending the implementation to handle more complex cases, such as:  
+`<< here_doc | grep -a | ... | cat | wc -l > outfile`
 
-### Analysis
-![Queue Logic](./imgs/get_next_line.png)
+Since the next project is **mini_shell**, I aimed to design a reusable and extensible data structure for two projects. Instead of starting with the mandatory part, I focused on designing the bonus features from the beginning. I also went beyond the requirements by implementing additional functionalities, even for the bonus section, to make the solution more general-purpose.
 
-The main logic involves three key components:
+---
 
-1. **Queue**:  
-   We need to maintain a variable-length queue (referred to as `cache` here) that supports:
-   - **Push**: Appending new data read from the file to the end of the queue.
-   - **Pop**: Extracting a single line from the beginning of the queue.
+### Challenges
 
-2. **Push Logic**:  
-   This uses a fixed-size buffer (defined during compilation) to read chunks from the file and append them to the end of the queue.
+1. **Linux Fundamentals**  
+   This project challenges foundational Linux concepts, particularly process creation and management (`fork`, `exec`), inter-process communication (`pipe`), and file redirection. While my experience with courses like [CS:APP](https://csapp.cs.cmu.edu/) and [6.1810](https://pdos.csail.mit.edu/6.S081/2024/) provided a strong foundation to get started, implementing this project pushed me to go deeper into the operating system behavior. Many of the implementation details brought clarity to concepts I previously found abstract, making them **crystal clear**.
 
-3. **Pop Logic**:  
-   The function searches the queue for a `\n` or `EOF`, extracts the line, and retains the unprocessed part of the queue for subsequent calls.
+2. **Implementation Strategy**  
+   Writing a shell-like program involves a lot of error handling. My approach was to simplify the code by designing a flexible and well-structured **Abstract Syntax Tree (AST)** to represent the pipeline. This tree-based structure, combined with a polymorphic design in C, made the implementation more modular and easier to extend.
 
-### Data Structure Selection
-For the queue, we typically choose between **arrays** and **lists**. Here's a comparison:
+### Linux Fundamentals
 
-| Data Structure      | Pros                                       | Cons                                                                                     |
-|---------------------|-------------------------------------------|------------------------------------------------------------------------------------------|
-| **Array (char)**    | Simple implementation                     | Time or space efficiency can only be optimized for one, not both                         |
-| **List (char)**     | Optimal time and space complexity          | More complex to implement, especially under strict line-of-code limitations at Hive      |
-| **List (string)**   | Good time and space complexity for splitting lines | CPU caching inefficiencies might impact real-world performance                            |
+#### Operating System Fundamentals in This Project
 
-### Implementation
+I’ll try to explain these concepts in a way that is easy to understand, though not strictly professional. If you want to explore operating systems more deeply, I highly recommend the two courses I mentioned earlier—probably the best on this planet.
 
-Given the constraints of the project, I opted for a **char array** for simplicity, balancing implementation complexity and performance. My implementation follows this logic:
+1. **Process**
 
-1. If the `queue` (referred to as `cache`) can successfully `pop` (via the `extract_line` function) a complete line, it immediately returns the line.
-2. Otherwise, it continuously `pushes` data (using `read_from_file` and `append_str`) into the queue until a complete line is found.
+- A process is an abstraction that represents the execution of a program on a computer system. A process operates independently and is unaware of the existence of other processes. It is responsible for running a program and reporting its status upon completion.
 
-This approach is space-efficient, as the `queue` only holds the unprocessed portion of the file at any time. However, each `push` and `pop` operation incurs a cost of memory copying, which impacts performance.  
-![Pseudo-code](../pseudo_code/get_next_line.png)
+- A process behaves as if it has full control over the computer's hardware (although this is not the case in reality, have you watched the movie [The Matrix](https://www.imdb.com/title/tt0133093/)), including the CPU, memory, storage, etc. Most basic C programs are executed within a single process.
 
-#### Key Points
+- The lifecycle of a process is similar to that of a function—it has a birth, a runtime, and an eventual termination. While a process does not take arguments like a function, it does return a status code upon completion.
 
-1. **Handling `pop` Scenarios**:  
-   The `pop` operation (`extract_line`) considers two scenarios:
-   - It returns a line when encountering a line-break (`\n`).
-   - It returns the whole `queue` when reaching EOF (via `replicate_str`).
+- After Linux starts, it runs within a single process. From there, another process, called the **shell**, is launched to allow user interaction and control.
 
-2. **Memory Management**:  
-   Properly freeing memory is critical.  
-   I ensure that the queue (or `cache`) is freed once its length reaches `0`, a lesson learned after spending 3 hours debugging a memory leak caused by an empty `cache`.
+2. **fork()**
 
-### About State Variable
+- **fork()** is a sys-call used to create a new process. The process creation is essentially cloning. In Linux, **fork()** duplicates everything in the original process, including memory (both stack and heap), the program counter (PC), and other states. It’s like the cloning process in the movie [The Island](https://www.imdb.com/title/tt0399201/).
+- There are two key points about **fork()**:
 
-In a discussion with Lauri, we found that state variables are not stored in the stack or heap. Instead, they live in the same memory region as global variables, the static storage area.
+   1. **Everything is copied**: 
+   After the fork(), the child process gets its own copy of everything from the parent, such as memory and file descriptors. However, any changes made by the child process do not affect the parent process and vice versa. Due to this independent memory copy, if the heap memory is allocated, it must be cleaned up before the child process exits to prevent leaks.
 
-While global variables can be accessed by all functions in the program, state variables can only be assessed by the function who define it.
+   2. **Who am I?**: 
+   Imagine this sci-fi scenario: after the cloning, both the original and the clone wake up with the same memories. The first question they need to answer is, "Who am I? Am I the original or the clone?"
+   Linux has a clever solution to this: when **fork()** completes, it returns a pid (process ID). Since the return value of fork() is what distinguishes the processes:
+     - The parent process receives the PID of the child process.
+     - The child process receives 0.
+   This allows the processes to determine their identities right after the fork().
+
+3. **exec()**
+
+- To be honest, **exec()** is an evil. It likes the movie [Parasite](https://www.imdb.com/title/tt6751668/). After been called, the entire memory space of the process is replaced with the memory space of the new program. Essentially, the original process “loses its soul,” and its body is taken over by the new program.
+
+- When **exec()** is called, the calling program loses control permanently.
+
+- The combination of **fork()** and **exec()** is the way how linux creates new processes. 
+   - **fork()** creates a duplicate of the current process, known as the child process.
+   - **exec()** replaces the memory and code of the child process with a new program, effectively launching it.
+
+4 **pipe**
+
+A **pipe** is a tool for inter-process communication (IPC). It works by creating a temporary data channel that allows one process to send data to another. Pipes are implemented using kernel memory, not user-space memory like the stack or heap, so multiple processes can safely access this shared memory.
+
+#### Key Points:
+- A **pipe** consists of **two file descriptors**:
+  - One for **reading**.
+  - One for **writing**.
+- At any given time, **only one process should hold the read end**, and **only one process should hold the write end**. Having multiple processes holding the same end (read or write) can lead to undefined behavior.
+- A pipe behaves like a **stream**: the writer can continue to write data until it explicitly sends an EOF (or closes the write end).
+- If the **reader** closes its end, any subsequent `write()` call by the writer will result in the operating system sending a `SIGPIPE` signal to the writer process. If the signal is not handled, the writer process will terminate.
+- Pipes have a **capacity limit**. If the writer tries to send more data than the pipe can hold, the process will block until space becomes available, or an error occurs.
