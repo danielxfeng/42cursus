@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 11:10:50 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/14 11:54:08 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,15 @@ typedef struct s_ast_node
 }							t_ast_node;
 
 // Represents properties of CMD.
-// `args` the cmd and argumens.
-// `cmd` the cmd with full path.
+// `args` the cmd and argumens. (string array of `ori_cmd`).
+// `full_cmd` the cmd with full path. (It's on heap, free it before quit).
+// `ori_cmd` the cmd from arguments. (It's on stack, don't free it).
 // `pid` sub-process for running the `cmd`.
 typedef struct s_cmd_prop
 {
 	char					**args;
 	char					*full_cmd;
+	char					*ori_cmd;
 	pid_t					pid;
 }							t_cmd_prop;
 
@@ -150,6 +152,10 @@ int							cmd_handler(t_ast *ast, t_ast_node *ast_node);
 int							red_handler(t_ast *ast, t_ast_node *ast_node);
 void						build_ast(t_ast *ast, int argc, char **argv,
 								bool is_single);
+
+// Helper functions for `cmd_handler`.
+
+bool						is_empty_cmd(t_ast *ast, t_cmd_prop *prop);
 int							return_process_res(int status);
 
 // Parameter handler.

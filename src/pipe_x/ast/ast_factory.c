@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:41:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 11:03:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/14 11:30:27 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_ast_node	*create_cmd_node(t_ast *ast, char *argv)
 		free(prop);
 		exit_prog(&ast, "ft_split()", MALLOC_ERR, EXIT_FAILURE);
 	}
+	prop->ori_cmd = argv;
 	node->type = CMD;
 	node->prop = prop;
 	node->node_handler = cmd_handler;
