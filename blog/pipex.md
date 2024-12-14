@@ -63,7 +63,7 @@ I’ll try to explain these concepts in a way that is easy to understand, though
 
 A **pipe** is a tool for inter-process communication (IPC). It works by creating a temporary data channel that allows one process to send data to another. Pipes are implemented using kernel memory, not user-space memory like the stack or heap, so multiple processes can safely access this shared memory.
 
-#### Key Points:
+**Key Points**:
 - A **pipe** consists of **two file descriptors**:
   - One for **reading**.
   - One for **writing**.
