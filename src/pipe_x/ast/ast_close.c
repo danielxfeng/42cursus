@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:58:36 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 12:44:31 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/14 15:48:03 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	close_ast(t_ast **ast)
 		if ((*ast)->fd_in >= 0)
 			close((*ast)->fd_in);
 		if ((*ast)->fd_out >= 0)
-			close((*ast)->fd_out);			
+			close((*ast)->fd_out);
 		free(*ast);
 		*ast = NULL;
 	}

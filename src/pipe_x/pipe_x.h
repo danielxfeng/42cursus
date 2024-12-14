@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 11:54:08 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/14 15:48:50 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_ast_node
 	t_node_type				type;
 	void					*prop;
 	int						(*node_handler)(t_ast *t_ast,
-								t_ast_node *t_ast_node);
+			t_ast_node *t_ast_node);
 	void					(*node_closer)(t_ast_node *t_ast_node);
 	t_ast_node				*left;
 	t_ast_node				*right;
