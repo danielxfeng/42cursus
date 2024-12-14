@@ -52,12 +52,6 @@ This approach is space-efficient, as the `queue` only holds the unprocessed port
    Properly freeing memory is critical.  
    I ensure that the queue (or `cache`) is freed once its length reaches `0`, a lesson learned after spending 3 hours debugging a memory leak caused by an empty `cache`.
 
-### Alternative Approach:
-
-A simpler (but less optimal) solution is to read the entire file content into memory at once and then gradually process and free the `queue`.  
-
-If I were to implement this during an exam, I might choose this approach, as it reduces implementation complexity. However, the trade-off is sacrificing both time and space efficiency.
-
 ### About State Variable
 
 In a discussion with Lauri, we found that state variables are not stored in the stack or heap. Instead, they live in the same memory region as global variables, the static storage area.
