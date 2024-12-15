@@ -6,6 +6,8 @@ This has been one of the most interesting projects I've worked on so far. The **
 The **bonus part** requires extending the implementation to handle more complex cases, such as:  
 `<< here_doc | grep -a | ... | cat | wc -l > outfile`
 
+Note: The pipeline will attempt to complete execution even if some nodes encounter errors.
+
 Since the next project is **mini_shell**, I aimed to design a reusable and extensible data structure for two projects. Instead of starting with the mandatory part, I focused on designing the bonus features from the beginning. I also went beyond the requirements by implementing additional functionalities, even for the bonus section, to make the solution more general-purpose.
 
 ---
@@ -70,8 +72,48 @@ typedef struct s_cmd_prop
 
 ---
 
-### Polymorphism
+### Implementation
 
+The two major parts for this project is to build an AST, and then execute it.
+
+#### AST Building
+
+- We build the tree from right to left. Since we have to prepare sub-processes, so the right-most `pipe` should be the `root`.
+- `Pipe` is the highest priority node.
+- We try to find the first `pipe` from right to left, set it as `root`.
+- Then deal with it's `left` and `right` recursively.
+- The `redirctor` should not be a `leaf`(a node without a child), it has at least one `cmd` node. 
+- In this project, I simplified the process as a loop.
+
+This is typical tree for:
+```c
+./pipex infile cmd0 cmd1 cmd2 cmd3 outfile
+```
+![AST tree](./imgs/pipex.png)
+
+#### AST Executing
+- Executing a tree is a recursive process.
+- Typically, it follows the [In Order Traversal](https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/#inorder-traversal).
+- But for `pipe` node, it's actually a `hybrid order traversal`, since we deal with the `node` first, then `left`, then `right`, then `node`.
+- Therefore, actually we execute the node from left to right.
+
+##### Pipe Executing #####
+You can also check the below `Linux Fundamentals` first.
+
+- The most important thing for `pipe`, is to deal with the 2 `sub-processes`, and 2 `fd` from `pipe` in right **sequence.**.
+- We have to apply sub-process for the both sides of `pipe`.
+   - The both sides of commands run con-currencyly. In this project, it's also possible to avoid this complicity, but it depends on the evaluator.
+   - `redirector` should be treated `Locally`, not `Globally`.
+- Note we only need the return value from left side.
+- The psudeo code as follows
+![pipe_executor](../pseudo_code/pipex_1.png)
+
+##### Command Executing #####
+You can also check the below `Linux Fundamentals` first.
+
+- The most important thing for `command`, is to deal with the `env` and the `exec`.
+- We have to apply sub-process for `command` because after `exec`, we lost the control to the process, but we still have to deal with the return value, and continue our traversal.
+![cmd_executor](../pseudo_code/pipex_2.png)
 ---
 
 ### Linux Fundamentals
