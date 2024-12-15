@@ -48,7 +48,7 @@ The `node_handler` and `node_closer` are function pointers which like `interface
 ```c
 typedef struct s_ast_node
 {
-	t_node_type			type;
+	t_node_type type;
 	void					*prop;
 	int					(*node_handler)(t_ast *t_ast, t_ast_node *t_ast_node);
 	void					(*node_closer)(t_ast_node *t_ast_node);
@@ -67,6 +67,12 @@ typedef struct s_cmd_prop
    ...
 }
 ```
+
+---
+
+### Polymorphism
+
+---
 
 ### Linux Fundamentals
 
