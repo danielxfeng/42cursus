@@ -75,9 +75,9 @@ A 2D game like `Pacman`, practical Object Oriented Programming, and Dependency I
 - [My Thoughts](https://github.com/danielxfeng/42cursus/tree/main/blog/so_long.md)
 
 #### **`pipe_x`**
-
-- Implementation 
-- My Thoughts
+Implements an Abstract Syntax Tree (AST) to handle pipes, redirections, and commands in a binary tree structure, utilizing polymorphism in C.
+- [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/pipe_x) 
+- [My Thoughts](https://github.com/danielxfeng/42cursus/tree/main/blog/pipex.md)
 
 ---
 

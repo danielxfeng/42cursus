@@ -31,7 +31,7 @@ Without a sentinel node, **the most important consideration was to avoid infinit
 ### Dependency Injection:
 In this project, I applied the concept of **dependency injection**. This approach was chosen because it helps achieve better **decoupling** between components and makes **unit testing** more convenient.
 
-    ```c
+```c
     int push_swap(int argc, char **argv, void (*apply_sort_func)(t_stacks *))
     {
         t_stacks *stacks;
@@ -41,14 +41,14 @@ In this project, I applied the concept of **dependency injection**. This approac
         free_helper(&stacks);
         return (0);
     }
-    ```
+```
 This approach allows flexibility in selecting the sorting function and facilitates easier testing by isolating dependencies.
 
 ### Object-Oriented Design:
 Although C is a procedural language, I adopted an **object-oriented approach** when implementing the stack data structure to improve code organization, reusability, and maintainability.  
 The stack's construction and destruction are encapsulated within factory functions, making the code more modular and reusable in different contexts.
 
-    ```c
+```c
     typedef struct s_stack
     {
         t_node *root;
@@ -60,7 +60,7 @@ The stack's construction and destruction are encapsulated within factory functio
     t_stacks *new_stacks();
     t_stacks	*close_stacks(t_stacks **stacks);
     // ... other APIs
-    ```
+```
 
 ### Sorting Algorithm: A Graph Traversal Approach
 
