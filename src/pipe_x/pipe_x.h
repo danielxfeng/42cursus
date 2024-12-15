@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:24:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 15:48:50 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/15 10:45:37 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void						close_red_node(t_ast_node *node);
 
 // Other methods of AST.
 
-void						print_ast(t_ast *ast);
+bool						v(t_ast *ast, t_ast_node *curr, char *msg);
 
 // The handlers.
 

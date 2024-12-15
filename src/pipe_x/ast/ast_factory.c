@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:41:30 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 11:30:27 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/15 10:45:41 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,4 +153,5 @@ void	build_ast(t_ast *ast, int len, char **args, bool is_single)
 	}
 	curr->left = create_red_node(ast, args[0], true, is_single);
 	curr->left->right = create_cmd_node(ast, args[1]);
+	v(ast, NULL, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:42:01 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 15:24:28 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/15 10:53:59 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop,
 			waitpid(prop->pids[LEFT], NULL, 0);
 		exit_prog(&ast, "fork()", FORK_ERR, EXIT_FAILURE);
 	}
-	if (prop->pids[direction] == 0)
+	if (prop->pids[direction] == 0 && v(ast, child, "Child start now."))
 	{
 		handle_sub_fds(ast, prop, direction);
 		child->node_handler(ast, child);
@@ -107,14 +107,16 @@ int	pipe_handler(t_ast *ast, t_ast_node *ast_node)
 	int			status;
 
 	prop = (t_pipe_prop *)ast_node->prop;
-	if (pipe(prop->fds) < 0)
+	if (v(ast, ast_node, "Pipe proc start.") && pipe(prop->fds) < 0)
 		exit_prog(&ast, "pipe()", PIPE_ERR, EXIT_FAILURE);
 	perform_sub_proc(ast, ast_node, prop, LEFT);
 	close(prop->fds[1]);
 	perform_sub_proc(ast, ast_node, prop, RIGHT);
 	close(prop->fds[0]);
 	waitpid(prop->pids[LEFT], NULL, 0);
+	v(ast, ast_node, "Child left returned.");
 	waitpid(prop->pids[RIGHT], &status, 0);
+	v(ast, ast_node, "Child right returned.");
 	status = return_process_res(status);
 	prop->fds[1] = -1;
 	prop->fds[0] = -1;

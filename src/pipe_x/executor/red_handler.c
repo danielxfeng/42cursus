@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:56:32 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 12:01:34 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/15 10:54:42 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	red_handler(t_ast *ast, t_ast_node *ast_node)
 
 	prop = (t_red_prop *)ast_node->prop;
 	std = STDOUT_FILENO;
-	if ((prop->is_in))
+	if (v(ast, ast_node, "Red node start.") && (prop->is_in))
 	{
 		if (!(prop->is_single))
 			return (here_doc_handler(ast, ast_node));

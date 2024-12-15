@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:08:19 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/14 11:53:55 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/15 10:49:49 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	cmd_handler(t_ast *ast, t_ast_node *ast_node)
 	int			status;
 
 	prop = (t_cmd_prop *)ast_node->prop;
-	if (ast_node->left)
+	if (v(ast, ast_node, "Exec start.") && ast_node->left)
 		ast_node->left->node_handler(ast, ast_node->left);
 	if (is_empty_cmd(ast, prop) || !(prop->args[0]) || !(prop->args[0][0]))
 		exit_prog(&ast, prop->args[0], CMD_ERR, EXIT_CMD_ERR);
@@ -118,7 +118,7 @@ int	cmd_handler(t_ast *ast, t_ast_node *ast_node)
 	prop->pid = fork();
 	if (prop->pid < 0)
 		exit_prog(&ast, "fork()", FORK_ERR, EXIT_FAILURE);
-	if (prop->pid == 0)
+	if (prop->pid == 0 && v(ast, ast_node, "Sub proc start."))
 	{
 		if (execve(prop->full_cmd, prop->args, ast->envp) < 0)
 		{
@@ -128,7 +128,7 @@ int	cmd_handler(t_ast *ast, t_ast_node *ast_node)
 		}
 	}
 	waitpid(prop->pid, &status, 0);
-	if (ast_node->right)
+	if (v(ast, ast_node, "Sub proc end and check right now.") && ast_node->right)
 		return (ast_node->right->node_handler(ast, ast_node->right));
 	return (return_process_res(status));
 }
