@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:45:09 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/15 10:46:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/15 10:56:23 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	print_ast_helper(t_ast_node *node, int layer, t_ast_node *curr, char
 	i = 0;
 	if (!node)
 		return ;
-	print_ast_helper(node->left, layer + 1);
+	print_ast_helper(node->left, layer + 1, curr, msg);
 	while (i++ < layer)
 		ft_printf("   ");
 	if (node->type == PIPE)
