@@ -106,14 +106,14 @@ You can also check the below `Linux Fundamentals` first.
    - `redirector` should be treated `Locally`, not `Globally`.
 - Note we only need the return value from left side.
 - The psudeo code as follows
-![pipe_executor](../pseudo_code/pipex_1.png)
+![pipe_executor](../pseudo_code/pipex_2.png)
 
 ##### Command Executing #####
 You can also check the below `Linux Fundamentals` first.
 
 - The most important thing for `command`, is to deal with the `env` and the `exec`.
 - We have to apply sub-process for `command` because after `exec`, we lost the control to the process, but we still have to deal with the return value, and continue our traversal.
-![cmd_executor](../pseudo_code/pipex_2.png)
+![cmd_executor](../pseudo_code/pipex_1.png)
 ---
 
 ### Linux Fundamentals
