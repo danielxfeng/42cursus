@@ -16,13 +16,63 @@ Since the next project is **mini_shell**, I aimed to design a reusable and exten
    This project challenges foundational Linux concepts, particularly process creation and management (`fork`, `exec`), inter-process communication (`pipe`), and file redirection. While my experience with courses like [CS:APP](https://csapp.cs.cmu.edu/) and [6.1810](https://pdos.csail.mit.edu/6.S081/2024/) provided a foundation to get started, implementing this project pushed me to go deeper into the operating system behavior. Many of the implementation details brought clarity to concepts I previously found abstract, making them **crystal clear**.
 
 2. **Implementation Strategy**  
-   Writing a shell-like program involves a lot of error handling. My approach was to simplify the code by designing a flexible and well-structured **Abstract Syntax Tree (AST)** to represent the pipeline. This tree-based structure, combined with a polymorphic design in C, made the implementation more modular and easier to extend.
+   Writing a shell-like program involves a lot of error handling. My approach was to simplify the code by designing a flexible and well-structured **Abstract Syntax Tree (AST)** to represent the pipeline. This tree-based structure, combined with a polymorphic design in C, made the implementation more modular and easier to extend in future project.
+
+---
+
+### Data Structure
+
+In this project, I implemented an **Abstract Syntax Tree (AST)** based on a [Binary Tree](https://www.geeksforgeeks.org/binary-tree-data-structure/).
+
+- The **Binary Tree** structure was chosen to simplify both the `building` and `execution` processes. Based on my learning in [CS61A](https://cs61a.org/), this type of **recursive data structure** is well-suited for solving interpreter-like problems.
+- **AST** is a widely-used data structure for syntax parsing in many systems, such as [PostgreSQL](https://www.postgresql.org/) and [Node.js](https://nodejs.org), as well as in `bash`. By implementing an AST, I aimed to mimic the behavior of `bash` while managing the complexities of different execution sequences in a more structured way.
+- Actually, **AST** is totally unnecessary for this project, I applied this for preparing the `mini-shell` project.
+
+---
+
+### Polymorphism
+
+I experimented with implementing [Polymorphism](https://stackify.com/oop-concept-polymorphism/) in `C` as part of my effort to explore and incorporate more `OOP` concepts into `C` during my journey through the `42cursus` projects.
+
+- `void`
+The `prop` property is `void` type, which enables the node to hold different kinds of data, depending on its type. This idea is inspired by ([Generics](https://www.geeksforgeeks.org/generics-in-java/)) in JAVA. This setup allows the AST node to have flexible and type-specific properties, while still sharing a unified interface `AST node`.
+
+- function pointers for Polymorphic methods
+The `node_handler` and `node_closer` are function pointers which like `interfaces` in **Java** or `pure virtual methods` in **C++**. These pointers allow each AST node to execute behaviors specific to its type. For instance, a `pipe` node and a `command` node can each have their own implementation of `node_handler`, even though the function pointer in the struct is the same. This provides the `polymorphic` behavior where the actions depend on the node type.
+
+- Advantages
+   -- This `Polymorphism`-like design simplifies the complexity of handling different node types in the `AST`. Each node adheres to the same interface but exhibits different behavior during execution, aligning with the `Open/Closed` Principle from OOP.
+   -- Decoupling and Extensibility. This design approach brings clear benefits in terms of decoupling and extensibility, we can easily **add** or **modify** a node without affecting other implementation.
+   -- By following this design, the AST structure is both scalable and maintainable, making it easier to accommodate new requirements or change existing ones without impacting unrelated functionality.
+
+```c
+typedef struct s_ast_node
+{
+	t_node_type			type;
+	void					*prop;
+	int					(*node_handler)(t_ast *t_ast, t_ast_node *t_ast_node);
+	void					(*node_closer)(t_ast_node *t_ast_node);
+	t_ast_node			*left;
+	t_ast_node			*right;
+}							t_ast_node;
+
+typedef struct s_pipe_prop
+{
+	int					fds[2];
+	pid_t					pids[2];
+}							t_pipe_prop;
+
+typedef struct s_cmd_prop
+{
+   ...
+}
+```
 
 ### Linux Fundamentals
 
 #### Operating System Fundamentals in This Project
 
-I’ll try to explain these concepts in a way that is easy to understand, though not strictly professional. If you want to explore operating systems more deeply, I highly recommend the two courses I mentioned earlier—probably the best on this planet.
+I’ll try to explain these concepts in a way that is easy to understand, though **NOT strictly professional**. If you want to explore operating systems more deeply, I highly recommend the two courses I mentioned earlier—probably the best on this planet.
 
 1. **Process**
 
