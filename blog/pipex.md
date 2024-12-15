@@ -41,9 +41,9 @@ The `prop` property is `void` type, which enables the node to hold different kin
 The `node_handler` and `node_closer` are function pointers which like `interfaces` in **Java** or `pure virtual methods` in **C++**. These pointers allow each AST node to execute behaviors specific to its type. For instance, a `pipe` node and a `command` node can each have their own implementation of `node_handler`, even though the function pointer in the struct is the same. This provides the `polymorphic` behavior where the actions depend on the node type.
 
 - Advantages
-   -- This `Polymorphism`-like design simplifies the complexity of handling different node types in the `AST`. Each node adheres to the same interface but exhibits different behavior during execution, aligning with the `Open/Closed` Principle from OOP.
-   -- Decoupling and Extensibility. This design approach brings clear benefits in terms of decoupling and extensibility, we can easily **add** or **modify** a node without affecting other implementation.
-   -- By following this design, the AST structure is both scalable and maintainable, making it easier to accommodate new requirements or change existing ones without impacting unrelated functionality.
+   - This `Polymorphism`-like design simplifies the complexity of handling different node types in the `AST`. Each node adheres to the same interface but exhibits different behavior during execution, aligning with the `Open/Closed` Principle from OOP.
+   - Decoupling and Extensibility. This design approach brings clear benefits in terms of decoupling and extensibility, we can easily **add** or **modify** a node without affecting other implementation.
+   - By following this design, the AST structure is both scalable and maintainable, making it easier to accommodate new requirements or change existing ones without impacting unrelated functionality.
 
 ```c
 typedef struct s_ast_node
