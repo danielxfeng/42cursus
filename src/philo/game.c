@@ -6,11 +6,10 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:37 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/17 14:57:57 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/17 15:08:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void start_game(int argc, char **argv)
+void	start_game(int argc, char **argv)
 {
-    
 }
