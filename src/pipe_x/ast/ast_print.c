@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:45:09 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/15 10:56:23 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/17 13:45:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ bool	v(t_ast *ast, t_ast_node *curr, char *msg)
 	if (!ast)
 	{
 		ft_printf("NULL\n");
-		return ;
+		return true;
 	}
 	ft_printf("ENVP: ");
 	i = 0;

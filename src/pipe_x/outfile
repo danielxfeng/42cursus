@@ -1,0 +1,25 @@
+-----------------------AST Tree-----------------------
+ENVP: /app/bin, /app/bin, /app/bin, /usr/bin, /home/xifeng/.var/app/com.visualstudio.code/data/node_modules/bin, 
+   -RED, file: infile, fd: -1, is_in: 1, is_single: 1
+      -CMD, full path cmd: (null), args: cat, 
+-PIP, fd0: 5, fd1: 6, pids: 3668, 0
+      -CMD, full path cmd: (null), args: wc, -l,  **: Exec start.
+   -RED, file: outfile, fd: -1, is_in: 0, is_single: 1
+------------------------------------------------------
+-----------------------AST Tree-----------------------
+ENVP: /app/bin, /app/bin, /app/bin, /usr/bin, /home/xifeng/.var/app/com.visualstudio.code/data/node_modules/bin, 
+   -RED, file: infile, fd: -1, is_in: 1, is_single: 1
+      -CMD, full path cmd: (null), args: cat, 
+-PIP, fd0: 5, fd1: 6, pids: 3668, 0
+      -CMD, full path cmd: /usr/bin/wc, args: wc, -l,  **: Sub proc start.
+   -RED, file: outfile, fd: -1, is_in: 0, is_single: 1
+------------------------------------------------------
+35
+-----------------------AST Tree-----------------------
+ENVP: /app/bin, /app/bin, /app/bin, /usr/bin, /home/xifeng/.var/app/com.visualstudio.code/data/node_modules/bin, 
+   -RED, file: infile, fd: -1, is_in: 1, is_single: 1
+      -CMD, full path cmd: (null), args: cat, 
+-PIP, fd0: 5, fd1: 6, pids: 3668, 0
+      -CMD, full path cmd: /usr/bin/wc, args: wc, -l,  **: Sub proc end and check right now.
+   -RED, file: outfile, fd: -1, is_in: 0, is_single: 1
+------------------------------------------------------

@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/08 16:45:06 by Xifeng            #+#    #+#              #
-#    Updated: 2024/12/11 18:33:38 by Xifeng           ###   ########.fr        #
+#    Updated: 2024/12/17 13:50:16 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,11 @@ SRC_FILES := $(CORE_DIR)/pipe_x.c \
 
 MENDATORY_FILES := $(SRC_FILES) $(SRC_DIR)/main.c
 BONUS_FILES := $(SRC_FILES) $(SRC_DIR)/main_bonus.c
+TEST_FILES := $(SRC_FILES) $(SRC_DIR)/main_test.c
 
 MENDATORY_OBJS := $(MENDATORY_FILES:.c=.o)
 BONUS_OBJS := $(BONUS_FILES:.c=.o)
+TEST_OBJS := $(TEST_FILES:.c=.o)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -60,6 +62,9 @@ bonus: $(LIBFT) $(FT_PRINTF) $(GET_NEXT_LINE) .bonus
 .bonus: $(BONUS_OBJS)
 	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) $(FT_PRINTF) $(GET_NEXT_LINE) -o $(NAME)
 	@touch .bonus
+
+test: $(LIBFT) $(FT_PRINTF) $(GET_NEXT_LINE) $(TEST_OBJS)
+	$(CC) $(CFLAGS) $(TEST_OBJS) $(LIBFT) $(FT_PRINTF) $(GET_NEXT_LINE) -o $(NAME)_test
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean

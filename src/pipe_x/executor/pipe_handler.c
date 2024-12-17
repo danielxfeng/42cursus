@@ -6,12 +6,13 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:42:01 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/15 10:53:59 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/17 14:09:35 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipe_x.h"
 #include <sys/wait.h>
+#include <unistd.h>
 
 // Helper function to deal with fds in sub-process.
 //
@@ -80,6 +81,7 @@ static void	perform_sub_proc(t_ast *ast, t_ast_node *node, t_pipe_prop *prop,
 	if (prop->pids[direction] == 0 && v(ast, child, "Child start now."))
 	{
 		handle_sub_fds(ast, prop, direction);
+		usleep(200);  // For visual only
 		child->node_handler(ast, child);
 		exit_prog(&ast, NULL, NULL, EXIT_SUCCESS);
 	}
@@ -111,6 +113,7 @@ int	pipe_handler(t_ast *ast, t_ast_node *ast_node)
 		exit_prog(&ast, "pipe()", PIPE_ERR, EXIT_FAILURE);
 	perform_sub_proc(ast, ast_node, prop, LEFT);
 	close(prop->fds[1]);
+	usleep(500); // For visual only
 	perform_sub_proc(ast, ast_node, prop, RIGHT);
 	close(prop->fds[0]);
 	waitpid(prop->pids[LEFT], NULL, 0);
