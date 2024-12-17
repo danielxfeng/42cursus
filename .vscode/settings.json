@@ -19,6 +19,7 @@
     "ft_printf.h": "c",
     "stdlib.h": "c",
     "pipe_x.h": "c",
-    "wait.h": "c"
+    "wait.h": "c",
+    "philo.h": "c"
   }
 }
