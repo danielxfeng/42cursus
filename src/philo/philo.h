@@ -6,60 +6,42 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/17 14:56:28 by Xifeng           ###   ########.fr       */
+/*   Updated: 2024/12/17 22:00:08 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <stdbool.h>
+# include <string.h>
 # include <sys/time.h>
+# include <pthread.h>
 
-// The status of a philosopher
-typedef enum a_status
+// The type of arguments.
+typedef enum a_arg_type
 {
-	EATING,
-	SLEEPING,
-	THINKING,
-	DEAD
-}				t_status;
-
-// Represents a philosopher.
-// `idx`: index.
-// `status`: status.
-// `forks_i_have`: how many forks I do have.
-// `time_stamp`: the time stamp of last activity.
-typedef struct s_philo
-{
-	int			idx;
-	t_status	status;
-	int			forks_i_have;
-	int			time_stamp;
-}				t_philo;
+	NUMBERS,
+	TO_DIE,
+	TO_EAT,
+	TO_SLEEP,
+	EAT_TIMES
+}			t_arg_type;
 
 // Represents a game.
-// `numbers`: how many philoshpers.
-// `to_die`: If a philosopher didn’t start eating time_to_die milliseconds since
-//           the beginning of their last meal or the beginning of the simulation,
-//           they die.
-// `to_eat`: The time it takes for a philosopher to eat. During that time, they
-//           will need to hold two forks.
-// `to_sleep`: The time a philosopher will spend sleeping.
-// `eat_times`: If all philosophers have eaten at least eat_times,
-//              the simulation stops. If not specified(-1), the simulation stops
-//              when a philosopher dies.
-// `free_forks`: how many free forks.
-// `philos`: The array of philoshpers.
+// `args`: The arguments.
+// `is_over` Is the game over.
+// `forks`: The array of forks.
+// `mutexes`: The array of mutex.
 typedef struct s_game
 {
-	int			numbers;
-	int			to_die;
-	int			to_eat;
-	int			to_sleep;
-	int			eat_times;
-
-	int			free_forks;
-	t_philo		**philos;
+	int				args[5];
+	bool			is_over;
+	bool			*forks;
+	pthread_mutex_t	*mutexes;
 }				t_game;
+
+t_game  *return_null_and_free(t_game **game);
+void close_mutexes(int count, pthread_mutex_t *mutexes);
 
 #endif
