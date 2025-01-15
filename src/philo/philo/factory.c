@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/18 08:32:00 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:52:51 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ t_game *create_game(int argc, int *args)
     if (!game->forks)
         return (return_null_and_free(&game));
     memset(game->forks, 0, game->args[NUMBERS] * sizeof(bool));
-    game->mutexes = create_mutexes(game);
-    if (!game->mutexes)
+    game->locks = create_mutexes(game);
+    if (!game->locks)
         return (return_null_and_free(&game));
     return (game);
 }
