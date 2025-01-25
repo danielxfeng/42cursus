@@ -6,14 +6,17 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/15 14:52:51 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/25 14:08:23 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
 
-// Constructor of the mutexes.
+// @brief Constructor of the mutexes.
+// 
+// @param game: the pointer to game.
+// @returns: the array of mutexes.
 pthread_mutex_t *create_mutexes(t_game *game)
 {
     int             i;
@@ -22,7 +25,6 @@ pthread_mutex_t *create_mutexes(t_game *game)
     mutexes = malloc(game->args[NUMBERS] * sizeof(pthread_mutex_t));
     if (!mutexes)
         return (NULL);
-    memset(mutexes, 0, game->args[NUMBERS] * sizeof(pthread_mutex_t));
     i = 0;
     while (i < game->args[NUMBERS])
     {
@@ -36,7 +38,31 @@ pthread_mutex_t *create_mutexes(t_game *game)
     return (mutexes);
 }
 
-// Constructor of a game.
+// @brief The helper function for create_game.
+//
+// @parms game: the pointer to game.
+// @return: the pointer to game.
+static t_game *create_game_helper(t_game *game)
+{
+    game->forks = malloc(game->args[NUMBERS] * sizeof(bool));
+    if (!game->forks)
+        return (return_null_and_free(&game));
+    memset(game->forks, 0, game->args[NUMBERS] * sizeof(bool));
+    game->locks = create_mutexes(game);
+    if (!game->locks)
+        return (return_null_and_free(&game));
+    game->rounds = malloc(game->args[NUMBERS] * sizeof(int));
+    if (!game->rounds)
+        return (return_null_and_free(&game));
+    memset(game->rounds, 0, game->args[NUMBERS] * sizeof(int));
+    return (game);
+}
+
+// @brief Constructor of a game.
+//
+// @param argc: the count of args.
+// @param args: the array of args.
+// @return: the pointer to game.
 t_game *create_game(int argc, int *args)
 {
     int     i;
@@ -49,12 +75,14 @@ t_game *create_game(int argc, int *args)
     i = 0;
     while (i++ < argc)
         game->args[i - 1] = args[i - 1];
-    game->forks = malloc(game->args[NUMBERS] * sizeof(bool));
-    if (!game->forks)
+    game->even_or_odd = args[NUMBERS] % 2;
+    game->threads = malloc((game->args[NUMBERS] + 1) * sizeof(pthread_t));
+    if (!game->threads)
         return (return_null_and_free(&game));
-    memset(game->forks, 0, game->args[NUMBERS] * sizeof(bool));
-    game->locks = create_mutexes(game);
-    if (!game->locks)
+    game->mq = create_mq(args[NUMBERS] * 2);
+    if (!game->mq)
         return (return_null_and_free(&game));
+    if (!create_game_helper(game))
+        return (NULL);
     return (game);
 }

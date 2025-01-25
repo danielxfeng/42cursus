@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:07:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2024/12/17 22:03:15 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/25 14:07:51 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,23 @@ void close_mutexes(int count, pthread_mutex_t *mutexes)
 void close_game(t_game **game)
 {
     int i;
-
     if (game && *game)
     {
-        close_mutexes((*game)->args[NUMBERS], (*game)->mutexes);
-        (*game)->mutexes = NULL;
-        if ((*game)->forks)
+        if ((*game)->threads)
         {
-            free((*game)->forks);
-            (*game)->forks = NULL;
+            i = 0;
+            while (i <= (*game)->args[NUMBERS])
+                pthread_join((*game)->threads[i++], NULL);
+            free((*game)->threads);
         }
+        (*game)->threads = NULL;   
+        if ((*game)->mq)
+            (*game)->mq = close_mq(&((*game)->mq), true);
+        close_mutexes((*game)->args[NUMBERS], (*game)->locks);
+        (*game)->locks = NULL;
+        if ((*game)->forks)
+            free((*game)->forks);
+        (*game)->forks = NULL;
         free(*game);
         *game = NULL;
     }
