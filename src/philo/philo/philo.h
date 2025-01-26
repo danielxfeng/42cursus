@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 15:26:40 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 15:36:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_mq
 // `rounds`: How many times the philo ate, DATA RACE! MUST be protected by lock.
 typedef struct s_game
 {
-	long long		args[5];
+	int				args[5];
 	bool			even_or_odd;
 	pthread_t		*threads;
 	t_mq			*mq;
