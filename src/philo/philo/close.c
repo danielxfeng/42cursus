@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:07:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 15:27:57 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 17:26:08 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void close_game(t_game **game)
         if ((*game)->threads)
         {
             i = 0;
-            while (i <= (*game)->args[NUMBERS])
+            while (i < (*game)->args[NUMBERS])
                 pthread_join((*game)->threads[i++], NULL);
             free((*game)->threads);
         }

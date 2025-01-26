@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 15:27:13 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 17:25:45 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ static t_game *create_game_helper(t_game *game)
 // @param argc: the count of args.
 // @param args: the array of args.
 // @return: the pointer to game.
-t_game *create_game(int argc, int *args)
+t_game *create_game(int argc, int *argv)
 {
     int     i;
+    int     n;
     t_game  *game;
     
     game = malloc(sizeof(t_game));
@@ -70,12 +71,16 @@ t_game *create_game(int argc, int *args)
     memset(game, 0, sizeof(t_game));
     i = 0;
     while (i++ < argc)
-        game->args[i - 1] = args[i - 1];
-    game->even_or_odd = args[NUMBERS] % 2;
-    game->threads = malloc((game->args[NUMBERS] + 1) * sizeof(pthread_t));
+    {
+        if (!philo_atoi(argv[i - 1], &n))
+            return (return_null_and_free(&game));
+        game->args[i - 1] = n;
+    }
+    game->even_or_odd = argv[NUMBERS] % 2;
+    game->threads = malloc(game->args[NUMBERS] * sizeof(pthread_t));
     if (!game->threads)
         return (return_null_and_free(&game));
-    game->mq = create_mq(args[NUMBERS] * 2);
+    game->mq = create_mq(argv[NUMBERS] * 2);
     if (!game->mq)
         return (return_null_and_free(&game));
     if (!create_game_helper(game))
