@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:07:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/25 14:07:51 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 15:27:57 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ void close_game(t_game **game)
         (*game)->threads = NULL;   
         if ((*game)->mq)
             (*game)->mq = close_mq(&((*game)->mq), true);
-        close_mutexes((*game)->args[NUMBERS], (*game)->locks);
-        (*game)->locks = NULL;
-        if ((*game)->forks)
-            free((*game)->forks);
+        close_mutexes((*game)->args[NUMBERS], (*game)->forks);
         (*game)->forks = NULL;
         free(*game);
         *game = NULL;

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 09:00:34 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 15:26:40 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,32 @@ typedef struct s_mq
 // `args`: The arguments, the index is `t_arg_type`.
 // `even_or_odd` : 4 philosopher or 5?
 // `threads`: The array of threads.
-// `locks`: The array of mutex.
-// `forks`: The array of forks, DATA RACE! MUST be protected by lock.
+// `forks`: The array of forks.
 // `rounds`: How many times the philo ate, DATA RACE! MUST be protected by lock.
 typedef struct s_game
 {
-	int				args[5];
+	long long		args[5];
 	bool			even_or_odd;
 	pthread_t		*threads;
 	t_mq			*mq;
-	pthread_mutex_t	*locks;
-	bool			*forks;
+	pthread_mutex_t	*forks;
 	int				*rounds;
 }					t_game;
 
+// Represents a timestamp.
+typedef struct s_timeval {
+    time_t 		tv_sec;
+    suseconds_t tv_usec;
+}				   t_timeval;
 
 t_game				*return_null_and_free(t_game **game);
 void				close_mutexes(int count, pthread_mutex_t *mutexes);
 
 t_mq *create_mq(int capacity);
 t_mq *close_mq(t_mq **mq, bool has_lock);
+bool send_message(t_mq *mq, int ts, int id, int event);
+static bool print_message_helper(t_mq *mq);
+
+long long get_ts();
 
 #endif

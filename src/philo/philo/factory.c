@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/25 14:08:23 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 15:27:13 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,8 @@ pthread_mutex_t *create_mutexes(t_game *game)
 // @return: the pointer to game.
 static t_game *create_game_helper(t_game *game)
 {
-    game->forks = malloc(game->args[NUMBERS] * sizeof(bool));
+    game->forks = create_mutexes(game);
     if (!game->forks)
-        return (return_null_and_free(&game));
-    memset(game->forks, 0, game->args[NUMBERS] * sizeof(bool));
-    game->locks = create_mutexes(game);
-    if (!game->locks)
         return (return_null_and_free(&game));
     game->rounds = malloc(game->args[NUMBERS] * sizeof(int));
     if (!game->rounds)
