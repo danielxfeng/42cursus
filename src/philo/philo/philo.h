@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/25 13:18:21 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 09:00:34 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef enum a_status
 // `is_closed`: is the mq closed?
 typedef struct s_mq
 {
-	int				*timestamps;
+	long long		*timestamps;
 	int				*philo_ids;
 	int				*events;
 	int				read;

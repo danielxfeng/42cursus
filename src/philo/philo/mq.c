@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mq_factory.c                                       :+:      :+:    :+:   */
+/*   mq.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 10:51:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/25 13:08:23 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 09:01:11 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_mq *create_mq(int capacity) {
     mq->write = 0;
     mq->read = 0;
     mq->is_closed = false;
-    mq->timestamps = malloc(capacity * sizeof(int));
+    mq->timestamps = malloc(capacity * sizeof(long long));
     if (!mq->timestamps)
         return (close_mq(&mq, true));
     mq->events = malloc(capacity * sizeof(int));
