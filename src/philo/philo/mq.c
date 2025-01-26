@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 10:51:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 09:01:11 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 16:41:08 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ t_mq *close_mq(t_mq **mq, bool has_lock)
             free((*mq)->events);
             (*mq)->events = NULL;
         }
-        if ((*mq)->philo_ids)
+        if ((*mq)->ids)
         {
-            free((*mq)->philo_ids);
-            (*mq)->philo_ids = NULL;
+            free((*mq)->ids);
+            (*mq)->ids = NULL;
         }
-        if ((*mq)->timestamps)
+        if ((*mq)->ts)
         {
-            free((*mq)->timestamps);
-            (*mq)->timestamps = NULL;
+            free((*mq)->ts);
+            (*mq)->ts = NULL;
         }
         if (has_lock)
             pthread_mutex_destroy(&((*mq)->lock));
@@ -64,14 +64,14 @@ t_mq *create_mq(int capacity) {
     mq->write = 0;
     mq->read = 0;
     mq->is_closed = false;
-    mq->timestamps = malloc(capacity * sizeof(long long));
-    if (!mq->timestamps)
+    mq->ts = malloc(capacity * sizeof(long long));
+    if (!mq->ts)
         return (close_mq(&mq, true));
     mq->events = malloc(capacity * sizeof(int));
     if (!mq->events)
         return (close_mq(&mq, true));
-    mq->philo_ids = malloc(capacity * sizeof(int));
-    if (!mq->philo_ids)
+    mq->ids = malloc(capacity * sizeof(int));
+    if (!mq->ids)
         return (close_mq(&mq, true));
     return (mq);
 }
@@ -107,9 +107,9 @@ bool send_message(t_mq *mq, int ts, int id, int event)
         return (false);        
     }
     mq->write = (mq->write + 1) % mq->capacity;
-    mq->timestamps[mq->write] = ts;
+    mq->ts[mq->write] = ts;
     mq->events[mq->write] = event;
-    mq->philo_ids[mq->write] = id;
+    mq->ids[mq->write] = id;
     pthread_mutex_unlock(&(mq->lock));
     return (true);
 }
@@ -129,16 +129,17 @@ static bool print_message_helper(t_mq *mq)
     {
         idx = (i++ + mq->read) % mq->capacity;
         if (mq->events[idx] == GET_FORK)
-            printf("%d %d %s", mq->timestamps[idx], mq->philo_ids[idx], "has taken a fork");
+            printf("%d %d %s", mq->ts[idx], mq->ids[idx] + 1,
+            "has taken a fork");
         else if (mq->events[idx] == EATING)
-            printf("%d %d %s", mq->timestamps[idx], mq->philo_ids[idx], "is eating"); 
+            printf("%d %d %s", mq->ts[idx], mq->ids[idx] + 1, "is eating"); 
         else if (mq->events[idx] == SLEEPING)
-            printf("%d %d %s", mq->timestamps[idx], mq->philo_ids[idx], "is sleeping");  
+            printf("%d %d %s", mq->ts[idx], mq->ids[idx] + 1, "is sleeping");  
         else if (mq->events[idx] == THINKING)
-            printf("%d %d %s", mq->timestamps[idx], mq->philo_ids[idx], "is thinking");  
+            printf("%d %d %s", mq->ts[idx], mq->ids[idx] + 1, "is thinking");  
         else if (mq->events[idx] == DEAD)
         {
-            printf("%d %d %s", mq->timestamps[idx], mq->philo_ids[idx], "is died");   
+            printf("%d %d %s", mq->ts[idx], mq->ids[idx], "is died");   
             return (false);
         }
     }

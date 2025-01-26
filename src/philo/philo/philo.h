@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 15:36:13 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 16:39:33 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef enum a_status
 }					t_status;
 
 // Represents a message queue.
-// `timestamps`: the timestamps of messages.
-// `philo_ids`: the ids of philos.
+// `ts`: the timestamps of messages.
+// `ids`: the ids of philos.
 // `eventss`: the events of philos.
 // `read`: the read index of message queue.
 // `write`: the write index of first unread message.
@@ -49,8 +49,8 @@ typedef enum a_status
 // `is_closed`: is the mq closed?
 typedef struct s_mq
 {
-	long long		*timestamps;
-	int				*philo_ids;
+	long long		*ts;
+	int				*ids;
 	int				*events;
 	int				read;
 	int				write;
