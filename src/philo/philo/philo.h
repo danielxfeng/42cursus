@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 18:40:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 19:02:55 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_mq *close_mq(t_mq **mq, bool has_lock);
 bool send_message(t_mq *mq, int ts, int id, int event);
 bool print_message(t_mq *mq);
 
-void philo(t_th_param *param);
+void *philo(t_th_param *param);
 
 long long get_ts();
 bool	philo_atoi(const char *nptr, int *n);
