@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 18:38:38 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 20:03:44 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ t_game *game, int *args)
     {
         params[i].game = game;
         params[i].i = i;
-        if (game->args && !(i % 2))
-            params[i].next_status = EATING;
-        else
+        if (i % 2)
             params[i].next_status = THINKING;
+        else
+            params[i].next_status = EATING;
     }
 }
 

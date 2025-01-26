@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 18:18:52 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 20:00:02 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void phio_think(t_game *game, int *i, int *next_status, long long *ts)
         thinking_time = 2 * game->args[TO_EAT] - game->args[TO_SLEEP];
     else
         thinking_time = game->args[TO_EAT];
+    if (game->rounds[*i] == *i)
+        thinking_time += game->args[TO_EAT];
     if (try_die(game, i, ts, ts + thinking_time))
         return(unlock_and_dead(next_status, NULL, NULL));
     usleep(thinking_time);
