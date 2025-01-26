@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:58 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/15 14:20:23 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 09:06:50 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,12 @@ bool	philo_atoi(const char *nptr, int *n)
 	if (*nptr || *n <= 0)
 		return (false);
 	return (true);
+}
+
+// @brief returns the current timestamp in ms.
+long long get_ts()
+{
+	t_timeval tv;
+	gettimeofday(&tv, NULL);
+	return (long long)(tv.tv_sec) * 1000 + (long long)(tv.tv_usec) / 1000;
 }
