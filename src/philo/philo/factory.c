@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 17:25:45 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 18:38:38 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // 
 // @param game: the pointer to game.
 // @returns: the array of mutexes.
-pthread_mutex_t *create_mutexes(t_game *game)
+static pthread_mutex_t *create_mutexes(t_game *game)
 {
     int             i;
     pthread_mutex_t *mutexes;
@@ -56,12 +56,10 @@ static t_game *create_game_helper(t_game *game)
 
 // @brief Constructor of a game.
 //
-// @param argc: the count of args.
-// @param args: the array of args.
+// @param args: the pointer to args.
 // @return: the pointer to game.
-t_game *create_game(int argc, int *argv)
+static t_game *create_game(int *args)
 {
-    int     i;
     int     n;
     t_game  *game;
     
@@ -69,21 +67,66 @@ t_game *create_game(int argc, int *argv)
     if (!game)
         return (NULL);
     memset(game, 0, sizeof(t_game));
-    i = 0;
-    while (i++ < argc)
-    {
-        if (!philo_atoi(argv[i - 1], &n))
-            return (return_null_and_free(&game));
-        game->args[i - 1] = n;
-    }
-    game->even_or_odd = argv[NUMBERS] % 2;
+    game->args = args;
+    game->even_or_odd = args[NUMBERS] % 2;
     game->threads = malloc(game->args[NUMBERS] * sizeof(pthread_t));
     if (!game->threads)
         return (return_null_and_free(&game));
-    game->mq = create_mq(argv[NUMBERS] * 2);
+    game->mq = create_mq(args[NUMBERS] * 2);
     if (!game->mq)
         return (return_null_and_free(&game));
     if (!create_game_helper(game))
         return (NULL);
     return (game);
+}
+
+// @brief the helper function for crate_params.st
+static void create_params_helper(t_th_param *params, 
+t_game *game, int *args)
+{
+    int i;
+    
+    i = 0;
+    while (i < args[NUMBERS])
+    {
+        params[i].game = game;
+        params[i].i = i;
+        if (game->args && !(i % 2))
+            params[i].next_status = EATING;
+        else
+            params[i].next_status = THINKING;
+    }
+}
+
+// @brief create an array of params for each thread.
+//
+// @param argc: the count of args.
+// @param argv: the array of args.
+t_th_param *create_params(int argc, char *argv)
+{
+    int i;
+    int n;
+    int args[5];
+    t_th_param *params;
+    t_game *game;
+
+    if (argc != 5 && argc != 6)
+        return (NULL);
+    i = 1;
+    while (i < argc)
+    {
+        if (!philo_atoi(argv[i], &n))
+            return (NULL);
+        args[i++ - 1] = n;
+    }
+    if (argc == 5)
+        args[5] = -1;
+    game = create_game(args);
+    if (!game)
+        return (NULL);
+    params = malloc(sizeof(t_th_param) * args[NUMBERS]);
+    if (!params)
+        return (NULL);
+    create_params_helper(params, game, args);
+    return (params);
 }

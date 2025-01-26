@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:07:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 17:26:08 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 18:25:11 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,10 @@ void close_mutexes(int count, pthread_mutex_t *mutexes)
 // Destructor of game.
 void close_game(t_game **game)
 {
-    int i;
     if (game && *game)
     {
         if ((*game)->threads)
-        {
-            i = 0;
-            while (i < (*game)->args[NUMBERS])
-                pthread_join((*game)->threads[i++], NULL);
             free((*game)->threads);
-        }
         (*game)->threads = NULL;   
         if ((*game)->mq)
             (*game)->mq = close_mq(&((*game)->mq), true);

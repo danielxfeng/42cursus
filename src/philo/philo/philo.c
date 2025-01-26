@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 16:33:30 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 18:18:52 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,13 +148,18 @@ void phio_sleep(t_game *game, int *i, int *next_status, long long *ts)
 //
 // It's a state machine.
 //
-// @param game: the pointer to the game.
-// @param i: the idx of a philosopher.
-// @param next_status: the next status of a philosopher.
-void phio(t_game *game, int i, int next_status)
+// @param param: the data of incoming parameters.
+// @return NULL.
+void *philo(t_th_param *param)
 {
     long long start;
+    t_game *game;
+    int i;
+    int next_status;
     
+    game = param->game;
+    i = param->i;
+    next_status = param->next_status;
     start = get_ts();
     if (!send_message(game->mq, start, i, THINKING))
         return;
@@ -167,4 +172,5 @@ void phio(t_game *game, int i, int next_status)
         else if (next_status == SLEEPING)
             phio_sleep(game, i, &next_status, &start);
     }
+    return (NULL);
 }

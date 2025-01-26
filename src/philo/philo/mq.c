@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 10:51:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 16:41:08 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 18:48:40 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,8 @@ static bool print_message_helper(t_mq *mq)
             printf("%d %d %s", mq->ts[idx], mq->ids[idx] + 1, "is thinking");  
         else if (mq->events[idx] == DEAD)
         {
-            printf("%d %d %s", mq->ts[idx], mq->ids[idx], "is died");   
+            printf("%d %d %s", mq->ts[idx], mq->ids[idx], "is died");  
+            mq->is_closed = true; 
             return (false);
         }
     }

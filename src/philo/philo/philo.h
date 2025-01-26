@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 16:39:33 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/26 18:40:02 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_mq
 // `rounds`: How many times the philo ate, DATA RACE! MUST be protected by lock.
 typedef struct s_game
 {
-	int				args[5];
+	int				*args;
 	bool			even_or_odd;
 	pthread_t		*threads;
 	t_mq			*mq;
@@ -81,14 +81,27 @@ typedef struct s_timeval {
     suseconds_t tv_usec;
 }				   t_timeval;
 
+// Represents the params of a philo thread.
+typedef struct s_th_param {
+	t_game *game;
+	int i;
+	int next_status;
+}					t_th_param;
+
+t_th_param *create_params(int argc, char *argv);
+
+void close_game(t_game **game);
 t_game				*return_null_and_free(t_game **game);
 void				close_mutexes(int count, pthread_mutex_t *mutexes);
 
 t_mq *create_mq(int capacity);
 t_mq *close_mq(t_mq **mq, bool has_lock);
 bool send_message(t_mq *mq, int ts, int id, int event);
-static bool print_message_helper(t_mq *mq);
+bool print_message(t_mq *mq);
+
+void philo(t_th_param *param);
 
 long long get_ts();
+bool	philo_atoi(const char *nptr, int *n);
 
 #endif
