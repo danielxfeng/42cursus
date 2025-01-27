@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/27 21:28:41 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/27 21:37:39 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_th_param *create_params(int argc, char **argv, int *args)
         args[i++ - 1] = n;
     }
     if (argc == 5)
-        args[5] = -1;
+        args[4] = -1;
     game = create_game(args);
     if (!game)
         return (NULL);
