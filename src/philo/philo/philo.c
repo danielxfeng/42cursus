@@ -6,12 +6,13 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 20:00:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/27 08:13:04 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 // @brief the helper function to release the locks (if need), and 
 // set the next_status to DEAD, and returns null.
@@ -53,7 +54,7 @@ static bool try_die(t_game *game, int i, long long ts, long long te)
 // @param i: the idx of a philosopher.
 // @param next_status: the next status of a philosopher.
 // @param ts: the start time of EATING.
-void phio_think(t_game *game, int *i, int *next_status, long long *ts)
+void phio_think(t_game *game, int i, int *next_status, long long *ts)
 {
     int thinking_time;
     
@@ -61,9 +62,9 @@ void phio_think(t_game *game, int *i, int *next_status, long long *ts)
         thinking_time = 2 * game->args[TO_EAT] - game->args[TO_SLEEP];
     else
         thinking_time = game->args[TO_EAT];
-    if (game->rounds[*i] == *i)
+    if (game->rounds[i] == i)
         thinking_time += game->args[TO_EAT];
-    if (try_die(game, i, ts, ts + thinking_time))
+    if (try_die(game, i, *ts, *ts + thinking_time))
         return(unlock_and_dead(next_status, NULL, NULL));
     usleep(thinking_time);
     *next_status = EATING;
@@ -83,28 +84,28 @@ void phio_think(t_game *game, int *i, int *next_status, long long *ts)
 // @param i: the idx of a philosopher.
 // @param next_status: the next status of a philosopher.
 // @param ts: the start time of EATING.
-void phio_eat(t_game *game, int *i, int *next_status, long long *ts)
+void phio_eat(t_game *game, int i, int *next_status, long long *ts)
 {
     long long curr;
     
-    pthread_mutex_lock(&(game->forks[*i]));
+    pthread_mutex_lock(&(game->forks[i]));
     curr = get_ts();
-    if (try_die(game, i, ts, curr) || *i == pp(*i) ||
-     !send_message(game->mq, curr, *i, GET_FORK))
-        return unlock_and_dead(next_status, &(game->forks[*i]), NULL);
-    pthread_mutex_lock(&(game->forks[pp(*i)]));
+    if (try_die(game, i, *ts, curr) || i == pp(game, i) ||
+     !send_message(game->mq, curr, i, GET_FORK))
+        return (unlock_and_dead(next_status, &(game->forks[i]), NULL));
+    pthread_mutex_lock(&(game->forks[pp(game, i)]));
     curr = get_ts();
-    if (try_die(game, i, ts, curr) ||
-    !send_message(game->mq, curr, *i, GET_FORK) ||
-    !send_message(game->mq, curr, *i, EATING) ||
+    if (try_die(game, i, *ts, curr) ||
+    !send_message(game->mq, curr, i, GET_FORK) ||
+    !send_message(game->mq, curr, i, EATING) ||
     try_die(game, i, curr, curr + game->args[TO_SLEEP]))
-        return unlock_and_dead(next_status, &(game->forks[*i]),
-         &(game->forks[pp(*i)]));
+        return (unlock_and_dead(next_status, &(game->forks[i]),
+         &(game->forks[pp(game, i)])));
     *ts = curr;
-    ++(game->rounds[*i]);
+    ++(game->rounds[i]);
     usleep(game->args[TO_SLEEP]);
-    pthread_mutex_unlock(&(game->forks[*i]));
-    pthread_mutex_unlock(&(game->forks[pp(*i)]));
+    pthread_mutex_unlock(&(game->forks[i]));
+    pthread_mutex_unlock(&(game->forks[pp(game, i)]));
     *next_status = SLEEPING;
 }
 
@@ -123,22 +124,22 @@ void phio_eat(t_game *game, int *i, int *next_status, long long *ts)
 // @param i: the idx of a philosopher.
 // @param next_status: the next status of a philosopher.
 // @param ts: the start time of EATING.
-void phio_sleep(t_game *game, int *i, int *next_status, long long *ts)
+void phio_sleep(t_game *game, int i, int *next_status, long long *ts)
 {
     long long curr;
     
     curr = get_ts();
-    if (!send_message(game->mq, curr, *i, SLEEPING) ||
+    if (!send_message(game->mq, curr, i, SLEEPING) ||
     try_die(game, i, *ts, curr + game->args[TO_SLEEP]))
         return unlock_and_dead(next_status, NULL, NULL);
     usleep(game->args[TO_SLEEP]);
     curr = get_ts();
-    if (!send_message(game->mq, curr, *i, THINKING))
+    if (!send_message(game->mq, curr, i, THINKING))
         return unlock_and_dead(next_status, NULL, NULL);
     if (game->args[TO_SLEEP] < game->args[TO_EAT] || 
     try_die(game, i, *ts, curr + game->args[TO_SLEEP] - game->args[TO_EAT]))
         usleep(game->args[TO_SLEEP] - game->args[TO_EAT]);
-    if (game->even_or_odd && game->rounds[*i] == *i)
+    if (game->even_or_odd && game->rounds[i] == i)
         *next_status = THINKING;
     else
         *next_status = EATING;
@@ -150,21 +151,23 @@ void phio_sleep(t_game *game, int *i, int *next_status, long long *ts)
 //
 // It's a state machine.
 //
-// @param param: the data of incoming parameters.
+// @param arg: the args.
 // @return NULL.
-void *philo(t_th_param *param)
+void *philo(void *arg)
 {
+    t_th_param *param;
     long long start;
     t_game *game;
     int i;
     int next_status;
     
+    param = (t_th_param *)arg;
     game = param->game;
     i = param->i;
     next_status = param->next_status;
     start = get_ts();
     if (!send_message(game->mq, start, i, THINKING))
-        return;
+        return (NULL);
     while(next_status != DEAD)
     {
         if (next_status == THINKING)

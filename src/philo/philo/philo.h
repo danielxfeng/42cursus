@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 19:02:55 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/27 08:30:01 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,6 @@ typedef struct s_game
 	int				*rounds;
 }					t_game;
 
-// Represents a timestamp.
-typedef struct s_timeval {
-    time_t 		tv_sec;
-    suseconds_t tv_usec;
-}				   t_timeval;
-
 // Represents the params of a philo thread.
 typedef struct s_th_param {
 	t_game *game;
@@ -88,7 +82,7 @@ typedef struct s_th_param {
 	int next_status;
 }					t_th_param;
 
-t_th_param *create_params(int argc, char *argv);
+t_th_param *create_params(int argc, char **argv);
 
 void close_game(t_game **game);
 t_game				*return_null_and_free(t_game **game);
@@ -99,9 +93,10 @@ t_mq *close_mq(t_mq **mq, bool has_lock);
 bool send_message(t_mq *mq, int ts, int id, int event);
 bool print_message(t_mq *mq);
 
-void *philo(t_th_param *param);
+void *philo(void *arg);
 
 long long get_ts();
 bool	philo_atoi(const char *nptr, int *n);
+int	pp(t_game *game, int idx);
 
 #endif

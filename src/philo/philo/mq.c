@@ -6,12 +6,13 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 10:51:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 18:48:40 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/27 08:12:22 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 // @brief Destructor of mq.
 // Call it ONLY when holding the lock of mq or the lock is not inited.
@@ -129,17 +130,17 @@ static bool print_message_helper(t_mq *mq)
     {
         idx = (i++ + mq->read) % mq->capacity;
         if (mq->events[idx] == GET_FORK)
-            printf("%d %d %s", mq->ts[idx], mq->ids[idx] + 1,
+            printf("%lld %d %s", mq->ts[idx], mq->ids[idx] + 1,
             "has taken a fork");
         else if (mq->events[idx] == EATING)
-            printf("%d %d %s", mq->ts[idx], mq->ids[idx] + 1, "is eating"); 
+            printf("%lld %d %s", mq->ts[idx], mq->ids[idx] + 1, "is eating"); 
         else if (mq->events[idx] == SLEEPING)
-            printf("%d %d %s", mq->ts[idx], mq->ids[idx] + 1, "is sleeping");  
+            printf("%lld %d %s", mq->ts[idx], mq->ids[idx] + 1, "is sleeping");  
         else if (mq->events[idx] == THINKING)
-            printf("%d %d %s", mq->ts[idx], mq->ids[idx] + 1, "is thinking");  
+            printf("%lld %d %s", mq->ts[idx], mq->ids[idx] + 1, "is thinking");  
         else if (mq->events[idx] == DEAD)
         {
-            printf("%d %d %s", mq->ts[idx], mq->ids[idx], "is died");  
+            printf("%lld %d %s", mq->ts[idx], mq->ids[idx], "is died");  
             mq->is_closed = true; 
             return (false);
         }

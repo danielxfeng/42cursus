@@ -6,12 +6,13 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:07:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 18:25:11 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/27 07:52:57 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 // Destructor of mutexes.
 void close_mutexes(int count, pthread_mutex_t *mutexes)

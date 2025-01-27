@@ -6,10 +6,13 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:44:05 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/26 18:59:15 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/27 08:30:36 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "philo.h"
 
 // @brief the coordinate role of the game
@@ -101,8 +104,9 @@ int start_game(int argc, char** argv)
     return (0);
 }
 
-
+/** 
 int main(int argc, char **argv)
 {
     return(start_game(argc, argv));
 }
+*/
