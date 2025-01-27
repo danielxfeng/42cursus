@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 10:51:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/27 08:12:22 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/27 20:38:41 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,24 +123,24 @@ bool send_message(t_mq *mq, int ts, int id, int event)
 static bool print_message_helper(t_mq *mq)
 {
     int i;
-    int idx;
+    int id;
     
     i = 0;
     while (i < size_of_mq(mq)) 
     {
-        idx = (i++ + mq->read) % mq->capacity;
-        if (mq->events[idx] == GET_FORK)
-            printf("%lld %d %s", mq->ts[idx], mq->ids[idx] + 1,
+        id = (i++ + mq->read) % mq->capacity;
+        if (mq->events[id] == GET_FORK)
+            printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1,
             "has taken a fork");
-        else if (mq->events[idx] == EATING)
-            printf("%lld %d %s", mq->ts[idx], mq->ids[idx] + 1, "is eating"); 
-        else if (mq->events[idx] == SLEEPING)
-            printf("%lld %d %s", mq->ts[idx], mq->ids[idx] + 1, "is sleeping");  
-        else if (mq->events[idx] == THINKING)
-            printf("%lld %d %s", mq->ts[idx], mq->ids[idx] + 1, "is thinking");  
-        else if (mq->events[idx] == DEAD)
+        else if (mq->events[id] == EATING)
+            printf("%lld %d %s\n", mq->ts[id], mq->ids[i] + 1, "is eating"); 
+        else if (mq->events[id] == SLEEPING)
+            printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, "is sleeping");  
+        else if (mq->events[id] == THINKING)
+            printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, "is thinking");  
+        else if (mq->events[id] == DEAD)
         {
-            printf("%lld %d %s", mq->ts[idx], mq->ids[idx], "is died");  
+            printf("%lld %d %s\n", mq->ts[id], mq->ids[id], "is died");  
             mq->is_closed = true; 
             return (false);
         }

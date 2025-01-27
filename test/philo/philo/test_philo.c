@@ -22,16 +22,24 @@ void	tearDown(void)
 	// Clean up resources if needed (optional)
 }
 
-void test_first(void)
+void test_create_params(void)
 {
-    int i = 1;
-    TEST_ASSERT_EQUAL_INT16(1, i);
+	int argc = 6;
+	char *argv[6] = {"cmd", "1", "20", "30", "40", "50"};
+	t_th_param *params = create_params(argc, argv);
+	for (int i = 0; i < 5; i++)
+	{
+        printf("%d, %d\n", i, params[0].game->args[i]); 
+        TEST_ASSERT_EQUAL_INT(atoi(argv[i + 1]), params[0].game->args[i]); 
+	}
+	TEST_ASSERT_EQUAL_INT(1, params[0].game->even_or_odd);
+	TEST_ASSERT_EQUAL_INT(0, params[0].i);
 }
 
 // Main function to run the tests
 int	main(void)
 {
 	UNITY_BEGIN();
-    RUN_TEST(test_first);
+    RUN_TEST(test_create_params);
 	return (UNITY_END());
 }

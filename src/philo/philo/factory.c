@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/27 07:58:28 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/27 20:34:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ t_game *game, int *args)
             params[i].next_status = THINKING;
         else
             params[i].next_status = EATING;
+        ++i;
     }
 }
 
