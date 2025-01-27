@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:44:05 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/27 08:30:36 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/27 21:28:10 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,9 @@ int start_game(int argc, char** argv)
 {
     int i;
     t_th_param *params;
+    int args[5];
 
-    params = create_params(argc, argv);
+    params = create_params(argc, argv, args);
     if (!params)
     {
         printf("ERROR");

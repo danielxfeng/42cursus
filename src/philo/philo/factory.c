@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/27 20:34:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/27 21:28:41 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ t_game *game, int *args)
 //
 // @param argc: the count of args.
 // @param argv: the array of args.
-t_th_param *create_params(int argc, char **argv)
+// @param args: the container of args.
+t_th_param *create_params(int argc, char **argv, int *args)
 {
     int i;
     int n;
-    int args[5];
     t_th_param *params;
     t_game *game;
 

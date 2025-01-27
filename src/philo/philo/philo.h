@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/27 08:30:01 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/27 21:28:56 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_th_param {
 	int next_status;
 }					t_th_param;
 
-t_th_param *create_params(int argc, char **argv);
+t_th_param *create_params(int argc, char **argv, int *args);
 
 void close_game(t_game **game);
 t_game				*return_null_and_free(t_game **game);
