@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/27 21:28:56 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/28 10:26:44 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,27 +76,28 @@ typedef struct s_game
 }					t_game;
 
 // Represents the params of a philo thread.
-typedef struct s_th_param {
-	t_game *game;
-	int i;
-	int next_status;
+typedef struct s_th_param
+{
+	t_game			*game;
+	int				i;
+	int				next_status;
 }					t_th_param;
 
-t_th_param *create_params(int argc, char **argv, int *args);
+t_th_param			*create_params(int argc, char **argv, int *args);
 
-void close_game(t_game **game);
+void				close_game(t_game **game);
 t_game				*return_null_and_free(t_game **game);
 void				close_mutexes(int count, pthread_mutex_t *mutexes);
 
-t_mq *create_mq(int capacity);
-t_mq *close_mq(t_mq **mq, bool has_lock);
-bool send_message(t_mq *mq, int ts, int id, int event);
-bool print_message(t_mq *mq);
+t_mq				*create_mq(int capacity);
+t_mq				*close_mq(t_mq **mq, bool has_lock);
+bool				send_message(t_mq *mq, int ts, int id, int event);
+bool				print_message(t_mq *mq);
 
-void *philo(void *arg);
+void				*philo(void *arg);
 
-long long get_ts();
-bool	philo_atoi(const char *nptr, int *n);
-int	pp(t_game *game, int idx);
+long long			get_ts(void);
+bool				philo_atoi(const char *nptr, int *n);
+int					pp(t_game *game, int idx);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:58 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/27 08:29:52 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/28 10:31:02 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,6 @@ int	pp(t_game *game, int idx)
 	if (idx == game->args[NUMBERS] - 1)
 		return (0);
 	return (idx + 1);
-}
-
-// Immuted --.
-int	mm(t_game *game, int idx)
-{
-	if (idx == 0)
-		return (game->args[NUMBERS] - 1);
-	return (idx - 1);
 }
 
 // Simplified `atoi` with error handling.
@@ -50,9 +42,30 @@ bool	philo_atoi(const char *nptr, int *n)
 }
 
 // @brief returns the current timestamp in ms.
-long long get_ts()
+long long	get_ts(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
+
 	gettimeofday(&tv, NULL);
-	return (long long)(tv.tv_sec) * 1000 + (long long)(tv.tv_usec) / 1000;
+	return ((long long)(tv.tv_sec) * 1000 + (long long)(tv.tv_usec) / 1000);
+}
+
+// @brief let philo die when neccessary.
+//
+// @param game: the pointer to game.
+// @param i: the index of philo.
+// @param ts: the start time of EATING.
+// @param te: the end time the action.
+// @return: if the philo is dead.
+bool	try_die(t_game *game, int i, long long ts, long long te)
+{
+	long long	curr;
+
+	if (te - ts <= (long long)game->args[TO_DIE])
+		return (false);
+	curr = get_ts();
+	if (te > curr)
+		usleep(te - curr);
+	send_message(game->mq, get_ts(), i, DEAD);
+	return (true);
 }
