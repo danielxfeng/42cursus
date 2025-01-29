@@ -111,7 +111,7 @@ void test_create_params_invalid_too_many_args(void)
 	TEST_ASSERT_NULL(params);
 }
 
-void test_mq_normal_case(void)
+void test_mq(void)
 {
 	t_mq *mq = create_mq(4);
 	TEST_ASSERT_TRUE(print_message(mq));
@@ -129,6 +129,19 @@ void test_mq_normal_case(void)
 	TEST_ASSERT_TRUE(print_message(mq));
 	TEST_ASSERT_EQUAL_INT(2, mq->write);
 	TEST_ASSERT_EQUAL_INT(2, mq->read);	
+	TEST_ASSERT_TRUE(send_message(mq, 2, 1, EATING));
+	TEST_ASSERT_TRUE(send_message(mq, 3, 1, GET_FORK));
+	TEST_ASSERT_TRUE(send_message(mq, 4, 1, SLEEPING));
+	TEST_ASSERT_EQUAL_INT(1, mq->write);
+	TEST_ASSERT_EQUAL_INT(2, mq->read);
+	TEST_ASSERT_TRUE(print_message(mq));
+	TEST_ASSERT_EQUAL_INT(1, mq->write);
+	TEST_ASSERT_EQUAL_INT(1, mq->read);
+	TEST_ASSERT_TRUE(send_message(mq, 5, 1, DEAD));
+	TEST_ASSERT_EQUAL_INT(2, mq->write);
+	TEST_ASSERT_EQUAL_INT(1, mq->read);
+	TEST_ASSERT_FALSE(print_message(mq));
+	TEST_ASSERT_TRUE(mq->is_closed);
 	close_mq(&mq, true);
 }
 
@@ -144,6 +157,6 @@ int	main(void)
 	RUN_TEST(test_create_params_invalid_too_big);
 	RUN_TEST(test_create_params_invalid_few_args);
 	RUN_TEST(test_create_params_invalid_too_many_args);
-	RUN_TEST(test_mq_normal_case);
+	RUN_TEST(test_mq);
 	return (UNITY_END());
 }
