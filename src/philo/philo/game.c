@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:44:05 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/28 10:25:55 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:53:12 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	coordinate(t_game *game)
 
 	while (print_message(game->mq))
 	{
-		usleep(5);
+		usleep(5 * MS);
 		if (game->args[EAT_ROUNDS] == -1)
 			continue ;
 		i = 0;

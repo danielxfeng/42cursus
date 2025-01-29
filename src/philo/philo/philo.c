@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/29 19:25:11 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:55:43 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	phio_think(t_game *game, int i, int *next_status, long long *ts)
 		thinking_time += game->args[TO_EAT];
 	if (try_die(game, i, *ts, *ts + thinking_time))
 		return (unlock_and_dead(next_status, NULL, NULL));
-	usleep(thinking_time);
+	usleep(thinking_time * MS);
 	*next_status = EATING;
 }
 
@@ -84,7 +84,7 @@ void	phio_eat(t_game *game, int i, int *next_status, long long *ts)
 				&(game->forks[pp(game, i)])));
 	*ts = curr;
 	++(game->rounds[i]);
-	usleep(game->args[TO_SLEEP]);
+	usleep(game->args[TO_SLEEP] * MS);
 	pthread_mutex_unlock(&(game->forks[i]));
 	pthread_mutex_unlock(&(game->forks[pp(game, i)]));
 	*next_status = SLEEPING;
@@ -113,13 +113,13 @@ void	phio_sleep(t_game *game, int i, int *next_status, long long *ts)
 	if (!send_message(game->mq, curr, i, SLEEPING) || try_die(game, i, *ts, curr
 			+ game->args[TO_SLEEP]))
 		return (unlock_and_dead(next_status, NULL, NULL));
-	usleep(game->args[TO_SLEEP]);
+	usleep(game->args[TO_SLEEP] * MS);
 	curr = get_ts();
 	if (!send_message(game->mq, curr, i, THINKING))
 		return (unlock_and_dead(next_status, NULL, NULL));
 	if (game->args[TO_SLEEP] < game->args[TO_EAT] || try_die(game, i, *ts, curr
 			+ game->args[TO_SLEEP] - game->args[TO_EAT]))
-		usleep(game->args[TO_SLEEP] - game->args[TO_EAT]);
+		usleep((game->args[TO_SLEEP] - game->args[TO_EAT]) * MS);
 	if (game->even_or_odd && game->rounds[i] == i)
 		*next_status = THINKING;
 	else

@@ -145,10 +145,11 @@ void test_mq(void)
 	close_mq(&mq, true);
 }
 
-void test_philo(void)
+void test_philo_1_philo(void)
 {
-	char *argv[5] = {"cmd", "1", "500", "200", "100"};
+	char *argv[5] = {"cmd", "1", "200", "100", "100"};
 	start_game(5, argv);
+	// dead after 200 ms.
 }
 
 // Main function to run the tests
@@ -164,6 +165,6 @@ int	main(void)
 	RUN_TEST(test_create_params_invalid_few_args);
 	RUN_TEST(test_create_params_invalid_too_many_args);
 	RUN_TEST(test_mq);
-	RUN_TEST(test_philo);
+	RUN_TEST(test_philo_1_philo);
 	return (UNITY_END());
 }

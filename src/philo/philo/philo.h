@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/29 16:35:14 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:54:33 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdbool.h>
 # include <string.h>
 # include <sys/time.h>
+
+#define MS 1000LL
 
 // The type of arguments.
 typedef enum a_arg_type
@@ -91,7 +93,7 @@ void				close_mutexes(int count, pthread_mutex_t *mutexes);
 
 t_mq				*create_mq(int capacity);
 t_mq				*close_mq(t_mq **mq, bool has_lock);
-bool				send_message(t_mq *mq, int ts, int id, int event);
+bool	send_message(t_mq *mq, long long ts, int id, int event);
 bool				print_message(t_mq *mq);
 
 void				*philo(void *arg);
