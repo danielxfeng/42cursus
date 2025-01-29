@@ -152,11 +152,16 @@ void test_philo_1_philo(void)
 	// dead after 200 ms.
 }
 
-void test_philo_2_philos(void)
+void test_philo_2_philos_eat_less(void)
 {
-	char *argv[5] = {"cmd", "2", "5000000", "70", "100"};
+	char *argv[6] = {"cmd", "2", "5000000", "70", "100", "10"};
+	start_game(6, argv);
+}
+
+void test_philo_2_philos_eat_more(void)
+{
+	char *argv[5] = {"cmd", "2", "5000000", "100", "70"};
 	start_game(5, argv);
-	// dead after 200 ms.
 }
 
 // Main function to run the tests
@@ -173,6 +178,8 @@ int	main(void)
 	RUN_TEST(test_create_params_invalid_too_many_args);
 	RUN_TEST(test_mq);
 	// RUN_TEST(test_philo_1_philo);
-	RUN_TEST(test_philo_2_philos);
+	// RUN_TEST(test_philo_2_philos);
+	RUN_TEST(test_philo_2_philos_eat_less);
+	// RUN_TEST(test_philo_2_philos_eat_more);
 	return (UNITY_END());
 }

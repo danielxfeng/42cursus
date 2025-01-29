@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:44:05 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/29 19:53:12 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/29 21:18:28 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	coordinate(t_game *game)
 			}
 		}
 		if (can_stop)
+		{
+			game->mq->is_closed = true;
 			break ;
+		}	
 	}
 }
 
