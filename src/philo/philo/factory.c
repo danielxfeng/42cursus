@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/28 09:50:14 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/29 16:01:43 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static t_game	*create_game_helper(t_game *game)
 // @return: the pointer to game.
 static t_game	*create_game(int *args)
 {
-	int		n;
 	t_game	*game;
 
 	game = malloc(sizeof(t_game));
