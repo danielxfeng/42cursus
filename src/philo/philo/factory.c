@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/29 16:01:43 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/29 20:45:34 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static t_game	*create_game(int *args)
 	game->threads = malloc(game->args[NUMBERS] * sizeof(pthread_t));
 	if (!game->threads)
 		return (return_null_and_free(&game));
-	game->mq = create_mq(args[NUMBERS] * 2);
+	game->mq = create_mq(args[NUMBERS] * 10);
 	if (!game->mq)
 		return (return_null_and_free(&game));
 	if (!create_game_helper(game))
