@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:58 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/28 10:36:11 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:23:30 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,16 @@ bool	try_die(t_game *game, int i, long long ts, long long te)
 {
 	long long	curr;
 
-	if (te - ts <= (long long)game->args[TO_DIE])
-		return (false);
-	curr = get_ts();
-	if (te > curr)
-		usleep(te - curr);
+	if (game->args[NUMBERS] == 1)
+		usleep(game->args[TO_DIE]);
+	else
+	{
+		if (te - ts <= (long long)game->args[TO_DIE])
+			return (false);
+		curr = get_ts();
+		if (te > curr)
+			usleep(te - curr);
+	}
 	send_message(game->mq, get_ts(), i, DEAD);
 	return (true);
 }

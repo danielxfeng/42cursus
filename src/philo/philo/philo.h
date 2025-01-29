@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/28 10:26:44 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/29 16:35:14 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,7 @@ void				*philo(void *arg);
 long long			get_ts(void);
 bool				philo_atoi(const char *nptr, int *n);
 int					pp(t_game *game, int idx);
+
+int	start_game(int argc, char **argv);
 
 #endif
