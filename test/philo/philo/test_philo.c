@@ -156,12 +156,14 @@ void test_philo_2_philos_eat_less(void)
 {
 	char *argv[6] = {"cmd", "2", "5000000", "70", "100", "10"};
 	start_game(6, argv);
+	// will stop after 20 "eating".
 }
 
 void test_philo_2_philos_eat_more(void)
 {
-	char *argv[5] = {"cmd", "2", "5000000", "100", "70"};
-	start_game(5, argv);
+	char *argv[6] = {"cmd", "2", "5000000", "100", "70", "10"};
+	start_game(6, argv);
+	// will stop after 20 "eating".
 }
 
 // Main function to run the tests
@@ -179,7 +181,7 @@ int	main(void)
 	RUN_TEST(test_mq);
 	// RUN_TEST(test_philo_1_philo);
 	// RUN_TEST(test_philo_2_philos);
-	RUN_TEST(test_philo_2_philos_eat_less);
-	// RUN_TEST(test_philo_2_philos_eat_more);
+	// RUN_TEST(test_philo_2_philos_eat_less);
+	RUN_TEST(test_philo_2_philos_eat_more);
 	return (UNITY_END());
 }

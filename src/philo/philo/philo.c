@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/29 21:06:09 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/29 21:25:37 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	phio_eat(t_game *game, int i, int *next_status, long long *ts)
 		return (unlock_and_dead(next_status, &(game->forks[i]),
 				&(game->forks[pp(game, i)])));
 	*ts = curr;
-	usleep(game->args[TO_SLEEP] * MS);
+	usleep(game->args[TO_EAT] * MS);
 	++(game->rounds[i]);
 	pthread_mutex_unlock(&(game->forks[i]));
 	pthread_mutex_unlock(&(game->forks[pp(game, i)]));
