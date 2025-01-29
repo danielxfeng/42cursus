@@ -6,12 +6,13 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:58 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/28 10:31:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/28 10:36:11 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <limits.h>
+#include <unistd.h>
 
 // Immuted ++.
 int	pp(t_game *game, int idx)

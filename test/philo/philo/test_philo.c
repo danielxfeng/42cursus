@@ -75,6 +75,15 @@ void test_create_params_invalid_wrong_number(void)
 	TEST_ASSERT_NULL(params);
 }
 
+void test_create_params_invalid_zero(void)
+{
+	int argc = 5;
+	char *argv[5] = {"cmd", "0", "2", "30", "40"};
+	int args[5];
+	t_th_param *params = create_params(argc, argv, args);
+	TEST_ASSERT_NULL(params);
+}
+
 void test_create_params_invalid_too_big(void)
 {
 	int argc = 5;
@@ -102,6 +111,27 @@ void test_create_params_invalid_too_many_args(void)
 	TEST_ASSERT_NULL(params);
 }
 
+void test_mq_normal_case(void)
+{
+	t_mq *mq = create_mq(4);
+	TEST_ASSERT_TRUE(print_message(mq));
+	TEST_ASSERT_TRUE(send_message(mq, 0, 1, EATING));
+	TEST_ASSERT_TRUE(send_message(mq, 1, 1, GET_FORK));
+	TEST_ASSERT_EQUAL_INT(4, mq->capacity);
+	TEST_ASSERT_EQUAL_INT64(0, mq->ts[0]);
+	TEST_ASSERT_EQUAL_INT64(1, mq->ids[0]);
+	TEST_ASSERT_EQUAL_INT64(EATING, mq->events[0]);
+	TEST_ASSERT_EQUAL_INT64(1, mq->ts[1]);
+	TEST_ASSERT_EQUAL_INT64(1, mq->ids[1]);
+	TEST_ASSERT_EQUAL_INT64(GET_FORK, mq->events[1]);
+	TEST_ASSERT_EQUAL_INT(2, mq->write);
+	TEST_ASSERT_EQUAL_INT(0, mq->read);
+	TEST_ASSERT_TRUE(print_message(mq));
+	TEST_ASSERT_EQUAL_INT(2, mq->write);
+	TEST_ASSERT_EQUAL_INT(2, mq->read);	
+	close_mq(&mq, true);
+}
+
 // Main function to run the tests
 int	main(void)
 {
@@ -110,8 +140,10 @@ int	main(void)
 	RUN_TEST(test_create_params_valid4args);
 	RUN_TEST(test_create_params_invalid_wrong_type);
 	RUN_TEST(test_create_params_invalid_wrong_number);
+	RUN_TEST(test_create_params_invalid_zero);
 	RUN_TEST(test_create_params_invalid_too_big);
 	RUN_TEST(test_create_params_invalid_few_args);
 	RUN_TEST(test_create_params_invalid_too_many_args);
+	RUN_TEST(test_mq_normal_case);
 	return (UNITY_END());
 }

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 10:51:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/28 10:29:24 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/28 11:24:53 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ bool	send_message(t_mq *mq, int ts, int id, int event)
 		pthread_mutex_unlock(&(mq->lock));
 		return (false);
 	}
-	mq->write = (mq->write + 1) % mq->capacity;
 	mq->ts[mq->write] = ts;
 	mq->events[mq->write] = event;
 	mq->ids[mq->write] = id;
+	mq->write = (mq->write + 1) % mq->capacity;
 	pthread_mutex_unlock(&(mq->lock));
 	return (true);
 }
@@ -95,12 +95,12 @@ static bool	print_message_helper(t_mq *mq)
 	i = 0;
 	while (i < size_of_mq(mq))
 	{
-		id = (i++ + mq->read) % mq->capacity;
+		id = (i + mq->read) % mq->capacity;
 		if (mq->events[id] == GET_FORK)
 			printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1,
 				"has taken a fork");
 		else if (mq->events[id] == EATING)
-			printf("%lld %d %s\n", mq->ts[id], mq->ids[i] + 1, "is eating");
+			printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, "is eating");
 		else if (mq->events[id] == SLEEPING)
 			printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, "is sleeping");
 		else if (mq->events[id] == THINKING)
@@ -111,6 +111,7 @@ static bool	print_message_helper(t_mq *mq)
 			mq->is_closed = true;
 			return (false);
 		}
+        ++i;
 	}
 	return (true);
 }
