@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/30 18:58:33 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/30 20:30:08 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 
 bool		try_die(t_game *game, int i, long long ts, long long te);
-bool is_skip_round(t_game *game, int i);
+void wait_for_ready(t_game *game);
 
 // @brief the helper function to release the locks (if need), and
 // set the next_status to DEAD, and returns null.
@@ -161,6 +161,7 @@ void	*philo(void *arg)
 	game = param->game;
 	i = param->i;
 	next_status = param->next_status;
+	wait_for_ready(game);
 	start = get_ts();
 	if (!send_message(game->mq, start, i, THINKING))
 		return (NULL);

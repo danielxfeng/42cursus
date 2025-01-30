@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:58:58 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/29 19:55:04 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/30 20:30:44 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,16 @@ bool	try_die(t_game *game, int i, long long ts, long long te)
 	}
 	send_message(game->mq, get_ts(), i, DEAD);
 	return (true);
+}
+
+// @brief wait until all the threads are ready.
+//
+// @param game: the pointer to game.
+void wait_for_ready(t_game *game)
+{
+	pthread_mutex_lock(&(game->forks[0]));
+	++game->ready_threads;
+	pthread_mutex_unlock(&(game->forks[0]));
+	while (game->ready_threads < game->args[NUMBERS])
+		usleep(MS);
 }
