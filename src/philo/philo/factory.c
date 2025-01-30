@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/29 20:45:34 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/30 14:06:49 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ static void	create_params_helper(t_th_param *params, t_game *game, int *args)
 			params[i].next_status = EATING;
 		++i;
 	}
+	if (game->even_or_odd)
+		params[0].next_status = THINKING;
 }
 
 // @brief create an array of params for each thread.

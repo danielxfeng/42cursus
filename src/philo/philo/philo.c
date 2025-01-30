@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/30 09:00:17 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/30 18:58:33 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 
 bool		try_die(t_game *game, int i, long long ts, long long te);
+bool is_skip_round(t_game *game, int i);
 
 // @brief the helper function to release the locks (if need), and
 // set the next_status to DEAD, and returns null.
@@ -40,15 +41,15 @@ void	phio_think(t_game *game, int i, int *next_status, long long *ts)
 {
 	int	thinking_time;
 
-	if (game->args[TO_SLEEP] > game->args[TO_EAT])
-		thinking_time = 2 * game->args[TO_EAT] - game->args[TO_SLEEP];
-	else
-		thinking_time = game->args[TO_EAT];
-	if (game->rounds[i] == i)
+	thinking_time = game->args[TO_EAT] - (get_ts() - *ts);
+	if (game->even_or_odd && ( i == 0 || game->rounds[i] > 0))
 		thinking_time += game->args[TO_EAT];
-	if (try_die(game, i, *ts, *ts + thinking_time))
-		return (unlock_and_dead(next_status, NULL, NULL));
-	usleep(thinking_time * MS);
+	if (thinking_time > 0)
+	{
+		if (try_die(game, i, *ts, *ts + thinking_time))
+			return (unlock_and_dead(next_status, NULL, NULL));
+		usleep(thinking_time * MS);		
+	}
 	*next_status = EATING;
 }
 
@@ -122,17 +123,29 @@ void	phio_sleep(t_game *game, int i, int *next_status, long long *ts)
 	if (game->args[TO_SLEEP] < game->args[TO_EAT] || try_die(game, i, *ts, curr
 			+ game->args[TO_SLEEP] - game->args[TO_EAT]))
 		usleep((game->args[TO_EAT] - game->args[TO_SLEEP]) * MS);
-	if (game->even_or_odd && game->rounds[i] == i)
+	if (game->even_or_odd)
 		*next_status = THINKING;
 	else
 		*next_status = EATING;
 }
 
-// @brief the philosopher's life
-// When the status is DEAD, it can be either of this:
-// Any phiosopher is dead, or there is an error.
+// @brief The philosopher's life cycle.
 //
 // It's a state machine.
+// - When the status is `DEAD`, it can be due to:
+//   1. Any philosopher reaching is dead.
+//   2. An unexpected error occurring.
+//
+// Strategy:
+// 1. Even-indexed philosophers (0, 2, 4, ...) eat first.
+// 2. Odd-indexed philosophers (1, 3, 5, ...) eat next.
+// 3. If the total number of philosophers is odd:
+//    - Philosopher 0 skips the first eating round.
+//    - After eating, all philosophers skip 2 rounds before eating again.
+//
+// Maximum ideal wait time calculation:
+// - For even numbers of philosophers: 2 * max(to_eat, to_sleep).
+// - For odd numbers of philosophers: 3 * max(to_eat, to_sleep).
 //
 // @param arg: the args.
 // @return NULL.
