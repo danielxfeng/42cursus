@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/30 08:19:49 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/30 08:45:23 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # include <sys/time.h>
 
 #define MS 1000LL
+
+#define INFO_FORK "has taken a fork"
+#define INFO_EAT "is eating"
+#define INFO_SLEEP "is sleeping"
+#define INFO_THINK "is thinking"
+#define INFO_DEAD "is died"
 
 // The type of arguments.
 typedef enum a_arg_type

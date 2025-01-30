@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 10:51:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/30 08:21:28 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/30 08:45:56 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,17 @@ static bool	print_message_helper(t_mq *mq)
 	{
 		id = (i + mq->read) % mq->capacity;
 		if (mq->events[id] == GET_FORK)
-			printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, "has taken a fork");
+			printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, INFO_FORK);
 		else if (mq->events[id] == EATING)
-			printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, "is eating");
+			printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, INFO_EAT);
 		else if (mq->events[id] == SLEEPING)
-			printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, "is sleeping");
+			printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, INFO_SLEEP);
 		else if (mq->events[id] == THINKING)
-			printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, "is thinking");
+			printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, INFO_THINK);
 		else
 		{
 			if (mq->events[id] == DEAD)
-				printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, "is died");
+				printf("%lld %d %s\n", mq->ts[id], mq->ids[id] + 1, INFO_DEAD);
 			mq->is_closed = true;
 			return (false);
 		}
