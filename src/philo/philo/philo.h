@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/29 19:54:33 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/30 08:19:49 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef enum a_status
 	EATING,
 	THINKING,
 	SLEEPING,
-	DEAD
+	DEAD,
+	ENOUGH_ROUNDS,
 }					t_status;
 
 // Represents a message queue.

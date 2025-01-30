@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/29 21:25:37 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/30 08:24:42 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ void	phio_eat(t_game *game, int i, int *next_status, long long *ts)
 				&(game->forks[pp(game, i)])));
 	*ts = curr;
 	usleep(game->args[TO_EAT] * MS);
+	if (!send_message(game->mq, get_ts(), i, SLEEPING))
+		return (unlock_and_dead(next_status, &(game->forks[i]),
+				&(game->forks[pp(game, i)])));		
 	++(game->rounds[i]);
 	pthread_mutex_unlock(&(game->forks[i]));
 	pthread_mutex_unlock(&(game->forks[pp(game, i)]));
@@ -110,8 +113,7 @@ void	phio_sleep(t_game *game, int i, int *next_status, long long *ts)
 	long long	curr;
 
 	curr = get_ts();
-	if (!send_message(game->mq, curr, i, SLEEPING) || try_die(game, i, *ts, curr
-			+ game->args[TO_SLEEP]))
+	if (try_die(game, i, *ts, curr + game->args[TO_SLEEP]))
 		return (unlock_and_dead(next_status, NULL, NULL));
 	usleep(game->args[TO_SLEEP] * MS);
 	curr = get_ts();
