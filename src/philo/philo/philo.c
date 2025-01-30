@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/30 08:24:42 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/01/30 09:00:17 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	phio_sleep(t_game *game, int i, int *next_status, long long *ts)
 		return (unlock_and_dead(next_status, NULL, NULL));
 	if (game->args[TO_SLEEP] < game->args[TO_EAT] || try_die(game, i, *ts, curr
 			+ game->args[TO_SLEEP] - game->args[TO_EAT]))
-		usleep((game->args[TO_SLEEP] - game->args[TO_EAT]) * MS);
+		usleep((game->args[TO_EAT] - game->args[TO_SLEEP]) * MS);
 	if (game->even_or_odd && game->rounds[i] == i)
 		*next_status = THINKING;
 	else
