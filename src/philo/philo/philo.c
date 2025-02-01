@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 10:22:27 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 13:44:21 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,17 @@ static void	unlock_and_dead(int *next_status, pthread_mutex_t *fork1,
 void	phio_think(t_game *game, int i, int *next_status, long long *ts)
 {
 	int	thinking_time;
+	long long curr;
 
-	thinking_time = game->args[TO_EAT] - (get_ts() - *ts);
+	curr = get_ts();
+	thinking_time = game->args[TO_EAT] - (curr - *ts);
 	if (game->even_or_odd && (i == 0 || game->rounds[i] > 0))
+	{
 		thinking_time += game->args[TO_EAT];
+	}
 	if (thinking_time > 0)
 	{
-		if (try_die(game, i, *ts, *ts + thinking_time))
+		if (try_die(game, i, *ts, curr + thinking_time))
 			return (unlock_and_dead(next_status, NULL, NULL));
 		usleep(thinking_time * MS);
 	}
@@ -80,7 +84,7 @@ void	phio_eat(t_game *game, int i, int *next_status, long long *ts)
 	curr = get_ts();
 	if (try_die(game, i, *ts, curr) || !send_message(game->mq, curr, i,
 			GET_FORK) || !send_message(game->mq, curr, i, EATING)
-		|| try_die(game, i, curr, curr + game->args[TO_SLEEP]))
+		|| try_die(game, i, curr, curr + game->args[TO_EAT]))
 		return (unlock_and_dead(next_status, &(game->forks[i]),
 				&(game->forks[pp(game, i)])));
 	*ts = curr;
@@ -120,9 +124,12 @@ void	phio_sleep(t_game *game, int i, int *next_status, long long *ts)
 	curr = get_ts();
 	if (!send_message(game->mq, curr, i, THINKING))
 		return (unlock_and_dead(next_status, NULL, NULL));
-	if (game->args[TO_SLEEP] < game->args[TO_EAT] || try_die(game, i, *ts, curr
-			+ game->args[TO_SLEEP] - game->args[TO_EAT]))
-		usleep((game->args[TO_EAT] - game->args[TO_SLEEP]) * MS);
+	if (game->args[TO_SLEEP] < game->args[TO_EAT]) 
+	{
+		if (try_die(game, i, *ts, curr + game->args[TO_EAT] - game->args[TO_SLEEP]))
+			return (unlock_and_dead(next_status, NULL, NULL));
+		usleep((game->args[TO_EAT] - game->args[TO_SLEEP]) * MS);	
+	}
 	if (game->even_or_odd)
 		*next_status = THINKING;
 	else

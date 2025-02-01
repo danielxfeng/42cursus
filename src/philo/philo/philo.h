@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 10:21:16 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 13:10:27 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define INFO_EAT "is eating"
 # define INFO_SLEEP "is sleeping"
 # define INFO_THINK "is thinking"
-# define INFO_DEAD "is died"
+# define INFO_DEAD "died"
 
 // The type of arguments.
 typedef enum a_arg_type
