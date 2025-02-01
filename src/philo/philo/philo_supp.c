@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:42:41 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 19:44:13 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 19:49:17 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,15 @@ void	wait_for_ready(t_game *game)
 		usleep(MS);
 }
 
+// @brief the helper function to release the locks (if need), and
+// set the next_status to DEAD, and returns null.
+void	unlock_and_dead(int *next_status, pthread_mutex_t *fork1,
+		pthread_mutex_t *fork2)
+{
+	if (fork1)
+		pthread_mutex_unlock(fork1);
+	if (fork2)
+		pthread_mutex_unlock(fork2);
+	*next_status = DEAD;
+	return ;
+}

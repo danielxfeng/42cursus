@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 13:44:21 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 19:49:08 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,26 @@
 
 bool		try_die(t_game *game, int i, long long ts, long long te);
 void		wait_for_ready(t_game *game);
+void		unlock_and_dead(int *next_status, pthread_mutex_t *fork1, 
+pthread_mutex_t *fork2);
 
-// @brief the helper function to release the locks (if need), and
-// set the next_status to DEAD, and returns null.
-static void	unlock_and_dead(int *next_status, pthread_mutex_t *fork1,
-		pthread_mutex_t *fork2)
-{
-	if (fork1)
-		pthread_mutex_unlock(fork1);
-	if (fork2)
-		pthread_mutex_unlock(fork2);
-	*next_status = DEAD;
-	return ;
-}
-
-// @brief the handler of a philo who need to avoid eating for this round.
+// @brief the handler of a philo who need to avoid eating for the first round.
 // Some philos have to wait when the NUMBER of philos is odd.
 //
 // @param game: the pointer to the game.
 // @param i: the idx of a philosopher.
 // @param next_status: the next status of a philosopher.
 // @param ts: the start time of EATING.
-void	phio_think(t_game *game, int i, int *next_status, long long *ts)
+void	philo_think_1(t_game *game, int i, int *next_status, long long *ts)
 {
 	int	thinking_time;
-	long long curr;
 
-	curr = get_ts();
-	thinking_time = game->args[TO_EAT] - (curr - *ts);
-	if (game->even_or_odd && (i == 0 || game->rounds[i] > 0))
-	{
+	thinking_time = game->args[TO_EAT];
+	if (game->even_or_odd && i == 0)
 		thinking_time += game->args[TO_EAT];
-	}
 	if (thinking_time > 0)
 	{
-		if (try_die(game, i, *ts, curr + thinking_time))
+		if (try_die(game, i, *ts, get_ts() + thinking_time))
 			return (unlock_and_dead(next_status, NULL, NULL));
 		usleep(thinking_time * MS);
 	}
@@ -116,6 +101,7 @@ void	phio_eat(t_game *game, int i, int *next_status, long long *ts)
 void	phio_sleep(t_game *game, int i, int *next_status, long long *ts)
 {
 	long long	curr;
+	int			thinking_time;
 
 	curr = get_ts();
 	if (try_die(game, i, *ts, curr + game->args[TO_SLEEP]))
@@ -176,7 +162,7 @@ void	*philo(void *arg)
 	while (next_status != DEAD)
 	{
 		if (next_status == THINKING)
-			phio_think(game, i, &next_status, &start);
+			phio_think_1(game, i, &next_status, &start);
 		else if (next_status == EATING)
 			phio_eat(game, i, &next_status, &start);
 		else if (next_status == SLEEPING)
