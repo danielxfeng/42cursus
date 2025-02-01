@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:44:05 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/30 08:30:15 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 10:13:06 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	coordinate(t_game *game)
 			send_message(game->mq, get_ts(), 0, ENOUGH_ROUNDS);
 			print_message(game->mq);
 			break ;
-		}	
+		}
 	}
 }
 

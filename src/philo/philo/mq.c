@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 10:51:47 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/30 08:45:56 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 10:13:11 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static bool	print_message_helper(t_mq *mq)
 			mq->is_closed = true;
 			return (false);
 		}
-        ++i;
+		++i;
 	}
 	return (true);
 }

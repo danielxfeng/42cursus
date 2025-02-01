@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/30 20:30:08 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 10:13:14 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 
 bool		try_die(t_game *game, int i, long long ts, long long te);
-void wait_for_ready(t_game *game);
+void		wait_for_ready(t_game *game);
 
 // @brief the helper function to release the locks (if need), and
 // set the next_status to DEAD, and returns null.
@@ -42,13 +42,13 @@ void	phio_think(t_game *game, int i, int *next_status, long long *ts)
 	int	thinking_time;
 
 	thinking_time = game->args[TO_EAT] - (get_ts() - *ts);
-	if (game->even_or_odd && ( i == 0 || game->rounds[i] > 0))
+	if (game->even_or_odd && (i == 0 || game->rounds[i] > 0))
 		thinking_time += game->args[TO_EAT];
 	if (thinking_time > 0)
 	{
 		if (try_die(game, i, *ts, *ts + thinking_time))
 			return (unlock_and_dead(next_status, NULL, NULL));
-		usleep(thinking_time * MS);		
+		usleep(thinking_time * MS);
 	}
 	*next_status = EATING;
 }
@@ -73,8 +73,8 @@ void	phio_eat(t_game *game, int i, int *next_status, long long *ts)
 
 	pthread_mutex_lock(&(game->forks[i]));
 	curr = get_ts();
-	if (try_die(game, i, *ts, curr)
-		|| !send_message(game->mq, curr, i, GET_FORK))
+	if (try_die(game, i, *ts, curr) || !send_message(game->mq, curr, i,
+			GET_FORK))
 		return (unlock_and_dead(next_status, &(game->forks[i]), NULL));
 	pthread_mutex_lock(&(game->forks[pp(game, i)]));
 	curr = get_ts();
@@ -87,7 +87,7 @@ void	phio_eat(t_game *game, int i, int *next_status, long long *ts)
 	usleep(game->args[TO_EAT] * MS);
 	if (!send_message(game->mq, get_ts(), i, SLEEPING))
 		return (unlock_and_dead(next_status, &(game->forks[i]),
-				&(game->forks[pp(game, i)])));		
+				&(game->forks[pp(game, i)])));
 	++(game->rounds[i]);
 	pthread_mutex_unlock(&(game->forks[i]));
 	pthread_mutex_unlock(&(game->forks[pp(game, i)]));

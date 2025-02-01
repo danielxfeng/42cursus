@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/30 19:13:02 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 10:13:16 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 # include <string.h>
 # include <sys/time.h>
 
-#define MS 1000LL
+# define MS 1000LL
 
-#define INFO_FORK "has taken a fork"
-#define INFO_EAT "is eating"
-#define INFO_SLEEP "is sleeping"
-#define INFO_THINK "is thinking"
-#define INFO_DEAD "is died"
+# define INFO_FORK "has taken a fork"
+# define INFO_EAT "is eating"
+# define INFO_SLEEP "is sleeping"
+# define INFO_THINK "is thinking"
+# define INFO_DEAD "is died"
 
 // The type of arguments.
 typedef enum a_arg_type
@@ -72,7 +72,7 @@ typedef struct s_mq
 // `args`: The arguments, the index is `t_arg_type`.
 // `even_or_odd` : 4 philosopher or 5?
 // `threads`: The array of threads.
-// `ready_thread`: How many threads are ready.  
+// `ready_thread`: How many threads are ready.
 // `forks`: The array of forks.
 // `rounds`: How many times the philo ate, DATA RACE! MUST be protected by lock.
 typedef struct s_game
@@ -81,7 +81,7 @@ typedef struct s_game
 	bool			even_or_odd;
 	pthread_t		*threads;
 	t_mq			*mq;
-	int     		ready_threads;
+	int				ready_threads;
 	pthread_mutex_t	*forks;
 	int				*rounds;
 }					t_game;
@@ -102,7 +102,7 @@ void				close_mutexes(int count, pthread_mutex_t *mutexes);
 
 t_mq				*create_mq(int capacity);
 t_mq				*close_mq(t_mq **mq, bool has_lock);
-bool	send_message(t_mq *mq, long long ts, int id, int event);
+bool				send_message(t_mq *mq, long long ts, int id, int event);
 bool				print_message(t_mq *mq);
 
 void				*philo(void *arg);
@@ -111,6 +111,6 @@ long long			get_ts(void);
 bool				philo_atoi(const char *nptr, int *n);
 int					pp(t_game *game, int idx);
 
-int	start_game(int argc, char **argv);
+int					start_game(int argc, char **argv);
 
 #endif
