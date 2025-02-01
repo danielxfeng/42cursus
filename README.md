@@ -85,10 +85,10 @@ Implements an Abstract Syntax Tree (AST) to handle pipes, redirections, and comm
 
 #### **`mini_shell`**
 
-- Implementation
-- My Thoughts
+- [Implementation](https://github.com/danielxfeng/42-minishell)
+- [My Thoughts](https://github.com/danielxfeng/42-minishell/blob/main/README.md)
 
 #### **`philosophers`**
 
-- Implementation
+- [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/philo/philo)
 - My Thoughts
