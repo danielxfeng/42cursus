@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:44:05 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 10:24:45 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 10:26:56 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static bool	start_game_helper(t_th_param *params, int i)
 	{
 		return_null_and_free(&(params[0].game));
 		free(params);
-		printf("ERROR");
+		printf("ERROR\n");
 		return (false);
 	}
 	return (true);
@@ -90,7 +90,7 @@ int	start_game(int argc, char **argv)
 	params = create_params(argc, argv, args);
 	if (!params)
 	{
-		printf("ERROR");
+		printf("ERROR\n");
 		return (1);
 	}
 	i = 0;
