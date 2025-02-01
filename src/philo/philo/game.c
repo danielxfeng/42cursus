@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:44:05 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 10:18:24 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 10:24:45 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,7 @@ int	start_game(int argc, char **argv)
 	return (0);
 }
 
-/**
 int	main(int argc, char **argv)
 {
-	return(start_game(argc, argv));
+	return (start_game(argc, argv));
 }
-*/
