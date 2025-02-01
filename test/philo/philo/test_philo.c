@@ -243,6 +243,41 @@ void test_philo_199_philos(void)
 	// will stop after certain "eating".
 }
 
+void test_1822(void)
+{
+	char *argv[6] = {"cmd", "1", "800", "200", "200", "100"};
+	start_game(6, argv);
+	// will stop after certain "eating".
+}
+
+void test_5822(void)
+{
+	char *argv[6] = {"cmd", "5", "800", "200", "200", "10"};
+	start_game(6, argv);
+	// will stop after certain "eating".
+}
+
+void test_58227(void)
+{
+	char *argv[6] = {"cmd", "5", "800", "200", "200", "7"};
+	start_game(6, argv);
+	// will stop after certain "eating".
+}
+
+void test_4422(void)
+{
+	char *argv[6] = {"cmd", "4", "410", "200", "200", "100"};
+	start_game(6, argv);
+	// will stop after certain "eating".
+}
+
+void test_4321(void)
+{
+	char *argv[6] = {"cmd", "4", "310", "200", "100", "100"};
+	start_game(6, argv);
+	// will stop after certain "eating".
+}
+
 // Main function to run the tests
 int	main(void)
 {
@@ -269,6 +304,11 @@ int	main(void)
 	// RUN_TEST(test_philo_3_philos_dead_eat_more);
 	// RUN_TEST(test_philo_3_philos_dead_eat);
 	// RUN_TEST(test_philo_200_philos);
-	RUN_TEST(test_philo_199_philos);
+	// RUN_TEST(test_philo_199_philos);
+	// RUN_TEST(test_1822);
+	// RUN_TEST(test_5822);
+	// RUN_TEST(test_58227);
+	// RUN_TEST(test_4422);
+	RUN_TEST(test_4321);
 	return (UNITY_END());
 }
