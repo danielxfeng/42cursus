@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 19:49:08 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 20:47:47 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		unlock_and_dead(int *next_status, pthread_mutex_t *fork1,
 pthread_mutex_t *fork2);
 
 // @brief the handler of a philo who need to avoid eating for the first round.
-// Some philos have to wait when the NUMBER of philos is odd.
+// At first some philos have to wait.
 //
 // @param game: the pointer to the game.
 // @param i: the idx of a philosopher.
@@ -56,7 +56,7 @@ void	philo_think_1(t_game *game, int i, int *next_status, long long *ts)
 // @param i: the idx of a philosopher.
 // @param next_status: the next status of a philosopher.
 // @param ts: the start time of EATING.
-void	phio_eat(t_game *game, int i, int *next_status, long long *ts)
+void	philo_eat(t_game *game, int i, int *next_status, long long *ts)
 {
 	long long	curr;
 
@@ -83,6 +83,34 @@ void	phio_eat(t_game *game, int i, int *next_status, long long *ts)
 	*next_status = SLEEPING;
 }
 
+// @brief the helper function to handler the thinking after sleep.
+//
+// @param game: the pointer to the game.
+// @param i: the idx of a philosopher.
+// @param next_status: the next status of a philosopher.
+// @param ts: the start time of EATING.
+static void	philo_think(t_game *game, int i, int *next_status, long long *ts)
+{
+	int min_wait;
+	int think_time;
+	long long curr;
+	
+	curr = get_ts();
+	if (!send_message(game->mq, curr, i, THINKING))
+		return (unlock_and_dead(next_status, NULL, NULL));
+	min_wait = 2 * game->args[TO_EAT];
+	if (game->even_or_odd)
+		min_wait += game->args[TO_EAT];
+	think_time = min_wait - (curr - *ts);
+	if (think_time > 0)
+	{
+		if (try_die(game, i, *ts, curr + think_time))
+			return (unlock_and_dead(next_status, NULL, NULL));
+		usleep(think_time * MS);
+	}
+	*next_status = EATING;
+}
+
 // @brief thd handler of a philo who need to sleeping.
 //
 // The process:
@@ -98,7 +126,7 @@ void	phio_eat(t_game *game, int i, int *next_status, long long *ts)
 // @param i: the idx of a philosopher.
 // @param next_status: the next status of a philosopher.
 // @param ts: the start time of EATING.
-void	phio_sleep(t_game *game, int i, int *next_status, long long *ts)
+void	philo_sleep(t_game *game, int i, int *next_status, long long *ts)
 {
 	long long	curr;
 	int			thinking_time;
@@ -107,19 +135,7 @@ void	phio_sleep(t_game *game, int i, int *next_status, long long *ts)
 	if (try_die(game, i, *ts, curr + game->args[TO_SLEEP]))
 		return (unlock_and_dead(next_status, NULL, NULL));
 	usleep(game->args[TO_SLEEP] * MS);
-	curr = get_ts();
-	if (!send_message(game->mq, curr, i, THINKING))
-		return (unlock_and_dead(next_status, NULL, NULL));
-	if (game->args[TO_SLEEP] < game->args[TO_EAT]) 
-	{
-		if (try_die(game, i, *ts, curr + game->args[TO_EAT] - game->args[TO_SLEEP]))
-			return (unlock_and_dead(next_status, NULL, NULL));
-		usleep((game->args[TO_EAT] - game->args[TO_SLEEP]) * MS);	
-	}
-	if (game->even_or_odd)
-		*next_status = THINKING;
-	else
-		*next_status = EATING;
+	*next_status = THINKING;
 }
 
 // @brief The philosopher's life cycle.
@@ -159,14 +175,15 @@ void	*philo(void *arg)
 	start = get_ts();
 	if (!send_message(game->mq, start, i, THINKING))
 		return (NULL);
+	if (next_status == THINKING)
+		philo_think_1(game, i, &next_status, &start);
 	while (next_status != DEAD)
 	{
 		if (next_status == THINKING)
-			phio_think_1(game, i, &next_status, &start);
+			philo_think(game, i, &next_status, &start);
 		else if (next_status == EATING)
-			phio_eat(game, i, &next_status, &start);
+			philo_eat(game, i, &next_status, &start);
 		else if (next_status == SLEEPING)
-			phio_sleep(game, i, &next_status, &start);
+			philo_sleep(game, i, &next_status, &start);
 	}
-	return (NULL);
 }

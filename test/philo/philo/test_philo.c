@@ -154,14 +154,21 @@ void test_philo_1_philo(void)
 
 void test_philo_2_philos_eat_less(void)
 {
-	char *argv[6] = {"cmd", "2", "210", "70", "100", "10"};
+	char *argv[6] = {"cmd", "2", "410", "100", "200", "10"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_2_philos_eat_more(void)
 {
-	char *argv[6] = {"cmd", "2", "210", "100", "70", "10"};
+	char *argv[6] = {"cmd", "2", "410", "200", "100", "10"};
+	start_game(6, argv);
+	// will stop after certain "eating".
+}
+
+void test_philo_2_philos_eat(void)
+{
+	char *argv[6] = {"cmd", "2", "410", "200", "200", "10"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
@@ -180,6 +187,13 @@ void test_philo_2_philos_dead_eat_more(void)
 	// will stop after certain "eating".
 }
 
+void test_philo_2_philos_dead_eat(void)
+{
+	char *argv[6] = {"cmd", "2", "310", "200", "200", "10"};
+	start_game(6, argv);
+	// will stop after certain "eating".
+}
+
 void test_philo_3_philos_eat_less(void)
 {
 	char *argv[6] = {"cmd", "3", "610", "100", "200", "10"};
@@ -194,6 +208,13 @@ void test_philo_3_philos_eat_more(void)
 	// will stop after certain "eating".
 }
 
+void test_philo_3_philos_eat(void)
+{
+	char *argv[6] = {"cmd", "3", "610", "200", "200", "10"};
+	start_game(6, argv);
+	// will stop after certain "eating".
+}
+
 void test_philo_3_philos_dead_eat_more(void)
 {
 	char *argv[6] = {"cmd", "3", "410", "200", "100", "10"};
@@ -201,9 +222,16 @@ void test_philo_3_philos_dead_eat_more(void)
 	// will stop after certain "eating".
 }
 
+void test_philo_3_philos_dead_eat(void)
+{
+	char *argv[6] = {"cmd", "3", "410", "200", "200", "10"};
+	start_game(6, argv);
+	// will stop after certain "eating".
+}
+
 void test_philo_200_philos(void)
 {
-	char *argv[6] = {"cmd", "200", "410", "200", "200", "100"};
+	char *argv[6] = {"cmd", "200", "410", "200", "100", "10"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
@@ -230,13 +258,17 @@ int	main(void)
 	RUN_TEST(test_mq);
 	RUN_TEST(test_philo_1_philo);
 	// RUN_TEST(test_philo_2_philos_eat_less);
-	RUN_TEST(test_philo_2_philos_eat_more);
+	// RUN_TEST(test_philo_2_philos_eat_more);
+	// RUN_TEST(test_philo_2_philos_eat);
 	// RUN_TEST(test_philo_2_philos_dead_eat_less);
 	// RUN_TEST(test_philo_2_philos_dead_eat_more);
+	// RUN_TEST(test_philo_2_philos_dead_eat);
 	// RUN_TEST(test_philo_3_philos_eat_less);
 	// RUN_TEST(test_philo_3_philos_eat_more);
+	// RUN_TEST(test_philo_3_philos_eat);
 	// RUN_TEST(test_philo_3_philos_dead_eat_more);
+	// RUN_TEST(test_philo_3_philos_dead_eat);
 	// RUN_TEST(test_philo_200_philos);
-	// RUN_TEST(test_philo_199_philos);
+	RUN_TEST(test_philo_199_philos);
 	return (UNITY_END());
 }
