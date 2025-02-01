@@ -6,7 +6,7 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/08 16:45:06 by Xifeng            #+#    #+#              #
-#    Updated: 2025/01/29 16:00:55 by Xifeng           ###   ########.fr        #
+#    Updated: 2025/02/01 19:44:54 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RM = rm -f
 SRC_DIR := .
 
 SRC_FILES := $(SRC_DIR)/close.c $(SRC_DIR)/factory.c $(SRC_DIR)/game.c $(SRC_DIR)/mq.c \
-             $(SRC_DIR)/philo.c $(SRC_DIR)/utils.c
+             $(SRC_DIR)/philo.c $(SRC_DIR)/utils.c $(SRC_DIR)/philo_supp.c
 
 SRC_OBJS := $(SRC_FILES:.c=.o)
 
