@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/30 14:06:49 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 10:16:45 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ static t_game	*create_game(int *args)
 	return (game);
 }
 
-// @brief the helper function for crate_params.st
+// @brief the helper function for crate_params
+//
+// @param params: the pointer to params.
+// @param game: the pointer to game.
+// @param args: the pointer to args.
 static void	create_params_helper(t_th_param *params, t_game *game, int *args)
 {
 	int	i;

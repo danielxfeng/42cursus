@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 10:13:16 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 10:21:16 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_mq
 // `args`: The arguments, the index is `t_arg_type`.
 // `even_or_odd` : 4 philosopher or 5?
 // `threads`: The array of threads.
+// `mq`: The message queue of the game.
 // `ready_thread`: How many threads are ready.
 // `forks`: The array of forks.
 // `rounds`: How many times the philo ate, DATA RACE! MUST be protected by lock.
@@ -87,6 +88,9 @@ typedef struct s_game
 }					t_game;
 
 // Represents the params of a philo thread.
+// `game`: The pointer to the game.
+// `i`: The index of a philosopher.
+// `next_status`: The next status of a philosopher.
 typedef struct s_th_param
 {
 	t_game			*game;

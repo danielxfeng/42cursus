@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 10:13:14 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 10:22:27 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void	phio_sleep(t_game *game, int i, int *next_status, long long *ts)
 //   2. An unexpected error occurring.
 //
 // Strategy:
+// 0. Wait until all threads are ready.
 // 1. Even-indexed philosophers (0, 2, 4, ...) eat first.
 // 2. Odd-indexed philosophers (1, 3, 5, ...) eat next.
 // 3. If the total number of philosophers is odd:

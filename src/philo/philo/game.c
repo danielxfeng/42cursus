@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:44:05 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 10:13:06 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/01 10:18:24 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 // @brief the coordinate role of the game
 //
 // It reads message from mq, and print it.
-// When someone is dead, just quit.
-// It Also check if all the philos ate enough rounds,
-// Quit if applied.
+// When someone is dead, just set the close flag of mq..
+// It also sets the close flag if all the philos ate enough rounds.
 //
 // @param game: the pointer to game.
 void	coordinate(t_game *game)
