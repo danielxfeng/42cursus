@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/02 10:31:32 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/02 16:56:26 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static t_game	*create_game(int *args)
 	memset(game, 0, sizeof(t_game));
 	game->args = args;
 	game->even_or_odd = args[NUMBERS] % 2;
+	if (pthread_mutex_init(&(game->lock), NULL))
+		return (return_null_and_free(&game));
 	game->threads = malloc(game->args[NUMBERS] * sizeof(pthread_t));
 	if (!game->threads)
 		return (return_null_and_free(&game));

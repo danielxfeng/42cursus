@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/02 11:24:33 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:33:23 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ void	philo_eat(t_game *game, int i, int *next_status, long long *ts)
 	if (!send_message(game->mq, get_ts(), i, SLEEPING))
 		return (unlock_and_dead(next_status, &(game->forks[i]),
 				&(game->forks[pp(game, i)])));
+	pthread_mutex_lock(&(game->lock));
 	++(game->rounds[i]);
+	pthread_mutex_unlock(&(game->lock));
 	pthread_mutex_unlock(&(game->forks[i]));
 	pthread_mutex_unlock(&(game->forks[pp(game, i)]));
 	*next_status = SLEEPING;

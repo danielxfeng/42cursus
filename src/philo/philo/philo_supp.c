@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:42:41 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 19:49:17 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:21:33 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,21 @@ bool	try_die(t_game *game, int i, long long ts, long long te)
 // @param game: the pointer to game.
 void	wait_for_ready(t_game *game)
 {
-	pthread_mutex_lock(&(game->forks[0]));
+	int	ready_threads;
+
+	pthread_mutex_lock(&(game->lock));
 	++game->ready_threads;
-	pthread_mutex_unlock(&(game->forks[0]));
-	while (game->ready_threads < game->args[NUMBERS])
-		usleep(MS);
+	pthread_mutex_unlock(&(game->lock));
+	while (1)
+	{
+		pthread_mutex_lock(&(game->lock));
+		ready_threads = game->ready_threads;
+		pthread_mutex_unlock(&(game->lock));
+		if (ready_threads < game->args[NUMBERS])
+			usleep(MS);
+		else
+			return ;
+	}
 }
 
 // @brief the helper function to release the locks (if need), and

@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:07:52 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/01/28 10:29:34 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/02 16:58:27 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	close_game(t_game **game)
 			free((*game)->rounds);
 		(*game)->rounds = NULL;
 		(*game)->forks = NULL;
+		pthread_mutex_destroy(&((*game)->lock));
 		free(*game);
 		*game = NULL;
 	}

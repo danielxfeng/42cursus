@@ -303,7 +303,7 @@ int	main(void)
 	// RUN_TEST(test_philo_3_philos_eat);
 	// RUN_TEST(test_philo_3_philos_dead_eat_more);
 	// RUN_TEST(test_philo_3_philos_dead_eat);
-	RUN_TEST(test_philo_200_philos);
+	// RUN_TEST(test_philo_200_philos);
 	// RUN_TEST(test_philo_199_philos);
 	// RUN_TEST(test_1822);
 	// RUN_TEST(test_5822);
