@@ -24,10 +24,29 @@ At the start of the game, the following parameters are provided:
 - The **time to sleep**
 - The **maximum number of eating rounds** (optional)
 
-### About concurrent Programming
-My experience in [CS 6.824, Distributed System From MIT](https://pdos.csail.mit.edu/6.824/index.html), and [15-445, Database Systems From CMU](https://15445.courses.cs.cmu.edu/spring2025/) has helped me a lot in building a fundamental understanding of concurrent programming.  
+### About Concurrent Programming
+My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit.edu/6.824/index.html) and [15-445, Database Systems from CMU](https://15445.courses.cs.cmu.edu/spring2025/) has helped me build a strong fundamental understanding of concurrent programming.  
 
-Here is also an article I wrote to briefly introduce concurrent programming.
+- **Thread** – Similar to a lightweight **Process**, a **Thread** is another tool that helps execute tasks concurrently. The key differences include:  
+    - **Threads** belong to a **Process**.  
+    - Unlike a **Process**, **Threads** in the same **Process** share the same **Heap** space.  
+    - Due to shared memory, we must prevent data race to ensure data consistency.  
+  You may also find this article interesting: [Concurrency is not Parallelism](https://go.dev/blog/waza-talk).  
+
+- **Data Race** – A **Data Race** happens while multiple **Threads** access the same variable at the same time, at least one of them is writing.
+    - The most common scenario is multiple threads trying to modify a shared variable.  
+    - Surprisingly, a data race can also occur between multiple readers and a single writer because:  
+        - **Cache Coherence** – According to [the memory hierarchy system of our computers](https://www.geeksforgeeks.org/memory-hierarchy-design-and-its-characteristics/), each CPU core has its own cache system. This means a CPU core may read a variable from its local cache instead of reading the latest value written by another core.  
+        - **Instruction Reordering** – The compiler/CPU may reorder instructions for optimization, leading to unexpected behaviors.  
+        - **Non-Primitive Operations** – If an operation consists of multiple instructions(```++i```), a reader might read partially updated data.  
+
+- **Solutions**  
+    - **Mutex**  
+        - A synchronization method that prevents data races by ensuring only one thread can access the protected variables.
+        - The trade off is the performance because it's expensive.
+    - **Atomic**  
+        - A lock-free method that allows threads to perform atomic updates to shared variables by hardware supported instructions.
+        - Difficult to apply in this project.  
 
 ### Challenge
 
