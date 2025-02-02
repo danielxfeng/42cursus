@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:44:05 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 10:50:54 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:22:05 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+// @brief a helper function to check all the rounds.
+static bool	check_rounds(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->args[NUMBERS])
+	{
+		if (game->rounds[i++] < game->args[EAT_ROUNDS])
+			return (false);
+	}
+	return (true);
+}
 
 // @brief the coordinate role of the game
 //
@@ -24,7 +38,6 @@
 // @param game: the pointer to game.
 void	coordinate(t_game *game)
 {
-	int		i;
 	bool	can_stop;
 
 	while (print_message(game->mq))
@@ -32,16 +45,9 @@ void	coordinate(t_game *game)
 		usleep(5 * MS);
 		if (game->args[EAT_ROUNDS] == -1)
 			continue ;
-		i = 0;
-		can_stop = true;
-		while (i < game->args[NUMBERS])
-		{
-			if (game->rounds[i++] < game->args[EAT_ROUNDS])
-			{
-				can_stop = false;
-				break ;
-			}
-		}
+		pthread_mutex_lock(&(game->lock));
+		can_stop = check_rounds(game);
+		pthread_mutex_unlock(&(game->lock));
 		if (can_stop)
 		{
 			send_message(game->mq, get_ts(), 0, ENOUGH_ROUNDS);
@@ -107,9 +113,8 @@ int	start_game(int argc, char **argv)
 	free(params);
 	return (0);
 }
-/** 
+
 int	main(int argc, char **argv)
 {
 	return (start_game(argc, argv));
 }
-*/

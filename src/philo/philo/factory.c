@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 20:36:31 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 10:16:45 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/02 16:56:26 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static t_game	*create_game(int *args)
 	memset(game, 0, sizeof(t_game));
 	game->args = args;
 	game->even_or_odd = args[NUMBERS] % 2;
+	if (pthread_mutex_init(&(game->lock), NULL))
+		return (return_null_and_free(&game));
 	game->threads = malloc(game->args[NUMBERS] * sizeof(pthread_t));
 	if (!game->threads)
 		return (return_null_and_free(&game));
@@ -93,14 +95,9 @@ static void	create_params_helper(t_th_param *params, t_game *game, int *args)
 	{
 		params[i].game = game;
 		params[i].i = i;
-		if (i % 2)
-			params[i].next_status = THINKING;
-		else
-			params[i].next_status = EATING;
+		params[i].next_status = THINKING;
 		++i;
 	}
-	if (game->even_or_odd)
-		params[0].next_status = THINKING;
 }
 
 // @brief create an array of params for each thread.

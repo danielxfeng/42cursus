@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:19:46 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 13:10:27 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/02 16:51:48 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ typedef struct s_mq
 // `even_or_odd` : 4 philosopher or 5?
 // `threads`: The array of threads.
 // `mq`: The message queue of the game.
-// `ready_thread`: How many threads are ready.
 // `forks`: The array of forks.
+// `lock`: The mutex for protecting the rounds and ready_threads.
+// `ready_thread`: How many threads are ready.
 // `rounds`: How many times the philo ate, DATA RACE! MUST be protected by lock.
 typedef struct s_game
 {
@@ -82,8 +83,9 @@ typedef struct s_game
 	bool			even_or_odd;
 	pthread_t		*threads;
 	t_mq			*mq;
-	int				ready_threads;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	lock;
+	int				ready_threads;
 	int				*rounds;
 }					t_game;
 
