@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/02 10:49:39 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/02 11:07:15 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 bool		try_die(t_game *game, int i, long long ts, long long te);
 void		wait_for_ready(t_game *game);
-void		unlock_and_dead(int *next_status, pthread_mutex_t *fork1, 
-pthread_mutex_t *fork2);
+void		unlock_and_dead(int *next_status, pthread_mutex_t *fork1,
+				pthread_mutex_t *fork2);
 
 // @brief the handler of a philo who need to avoid eating for the first round.
 // At first some philos have to wait.
@@ -30,12 +30,12 @@ void	philo_think_1(t_game *game, int i, int *next_status, long long *ts)
 {
 	int	thinking_time;
 
-	if (!send_message(game->mq, *ts, i, THINKING) || 
-	(!(game->even_or_odd) || (i > 0 && i % 2 == 0)))
+	if (!send_message(game->mq, *ts, i, THINKING) || (!(game->even_or_odd)
+			|| (i > 0 && i % 2 == 0)))
 	{
 		*next_status = EATING;
 		return ;
-	}	
+	}
 	thinking_time = game->args[TO_EAT];
 	if (game->even_or_odd && i == 0)
 		thinking_time += game->args[TO_EAT];
@@ -97,10 +97,10 @@ void	philo_eat(t_game *game, int i, int *next_status, long long *ts)
 // @param ts: the start time of EATING.
 static void	philo_think(t_game *game, int i, int *next_status, long long *ts)
 {
-	int min_wait;
-	int think_time;
-	long long curr;
-	
+	int			min_wait;
+	int			think_time;
+	long long	curr;
+
 	curr = get_ts();
 	if (!send_message(game->mq, curr, i, THINKING))
 		return (unlock_and_dead(next_status, NULL, NULL));
