@@ -39,5 +39,12 @@ Here is also an article I wrote to briefly introduce concurrent programming.
 
 #### The Cost of System Calls  
 - **Thread Management** – The subject requires one thread per philosopher. Thread creation and initialization are time-consuming. The subject allows up to **200 philosophers**, which means we need to manage up to **200 threads**. We need to handle this properly to avoid failures caused by performance issues.  
-- **Write System Calls** – It is frequently used in this project and can introduce unnecessary delays.  
+- **Write System Calls** – It is frequently used in this project and can introduce unnecessary delays.
+
+### Solution
+
+#### Overall strategy
+- A **Coordinator** to handle the message printing, set the **End flag**, and check the **Round Conter** if appliable.
+- A state machine for each to perfrom the actions by the different **state** of a Philosopher.
+- 
 
