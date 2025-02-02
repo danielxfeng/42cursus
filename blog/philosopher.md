@@ -57,8 +57,8 @@ My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit
 - **Print Operations** – To avoid output overlap, we must also prevent data races between philosopher threads when printing logs.  
 
 #### The Cost of System Calls  
-- **Thread Management** – The subject requires one thread per philosopher. Thread creation and initialization are time-consuming. The subject allows up to **200 philosophers**, which means we need to manage up to **200 threads**. We need to handle this properly to avoid failures caused by performance issues.  
-- **Write System Calls** – It is frequently used in this project and can introduce unnecessary delays.
+- **Thread Management** – The problem requires one thread per philosopher. Thread creation and initialization can be expensive. Since the problem allows up to **200 philosophers**, we may need to manage up to **200 threads**. We need a proper way to handle it.
+- **Write System Call** – `write` syscall is a frequent operation in this project, we need to pay attention to the expense of the cost of syscalls.
 
 ### Solution
 
