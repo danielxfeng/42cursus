@@ -62,8 +62,26 @@ My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit
 
 ### Solution
 
-#### Overall strategy
-- A **Coordinator** to handle the message printing, set the **End flag**, and check the **Round Conter** if appliable.
-- A state machine for each to perfrom the actions by the different **state** of a Philosopher.
-- 
+#### **Overall Strategy**  
+- A **Coordinator** is responsible for handling message printing, setting the **End Flag**, and checking the **Round Counter** if applicable.  
+- Each philosopher operates as a **state machine**, transitioning between different **statuses** (Thinking, Eating, Sleeping).  
+- A **Message Queue** is used to handle messages, following a **Multiple Producers, Single Consumer** pattern to centralize logging.  
 
+#### **Message Queue**  
+- Implemented using a **circular array buffer**, which consists of an array, two indexes (`read` and `write`), and is protected by a **mutex**.  
+- To simplify the implementation, it is a **fixed-length queue**, meaning it must be initialized with a sufficiently large capacity.  
+- This approach **reduces Write Syscalls**, centralizes the **printing feature** to ensure message order, and also helps handle game termination, preventing unnecessary logs after the game ends.  
+
+#### **Eating Strategy**  
+- If the number of philosophers is **odd**, the odd-indexed philosophers eat first. Once they sleep, the even-indexed philosophers eat.  
+- If the number of philosophers is **even**, they are split into three shifts. The **third shift** consists only of the first philosopher.  
+
+#### **Data Race Prevention**  
+- **Forks** – An array of **mutexes** represents the forks. When a philosopher locks a mutex, it means they have acquired the fork. To prevent **deadlock**, forks are always acquired in a consistent order (picking up the left fork first, then the right fork).  
+- **Round Counter** & **End Flag** – Initially, I applied a **data race-tolerant approach**, locking only on writes while allowing reads without locks. This approach actually met the performance requirements.  
+  However, during evaluation, I was told that **no data races are allowed in this project**, which I hadn't noticed before. I later modified it to use **mutex locks for both reads and writes**, ensuring full synchronization.  
+- **Print Operations** – Solved by the **Message Queue**.  
+
+#### **Efficiency Improvements**  
+- **Thread Management** – When there are **200 philosophers**, CPU usage was nearly **100%** during thread creation, causing the program to fail. To handle this, the game only starts **after all threads are created and initialized**, preventing performance issues.  
+- **Write System Calls** – The centralized **Message Queue** prevents excessive logging issues. Although I had a plan called the **batch writing approach**, which involves **printing without locking**, I didn’t implement it since the performance was good enough to pass the tests.  
