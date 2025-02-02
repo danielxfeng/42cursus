@@ -154,84 +154,84 @@ void test_philo_1_philo(void)
 
 void test_philo_2_philos_eat_less(void)
 {
-	char *argv[6] = {"cmd", "2", "410", "100", "200", "10"};
+	char *argv[6] = {"cmd", "2", "410", "100", "200", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_2_philos_eat_more(void)
 {
-	char *argv[6] = {"cmd", "2", "410", "200", "100", "10"};
+	char *argv[6] = {"cmd", "2", "410", "200", "100", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_2_philos_eat(void)
 {
-	char *argv[6] = {"cmd", "2", "410", "200", "200", "10"};
+	char *argv[6] = {"cmd", "2", "410", "200", "200", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_2_philos_dead_eat_less(void)
 {
-	char *argv[6] = {"cmd", "2", "310", "120", "200", "10"};
+	char *argv[6] = {"cmd", "2", "310", "120", "200", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_2_philos_dead_eat_more(void)
 {
-	char *argv[6] = {"cmd", "2", "310", "200", "100", "10"};
+	char *argv[6] = {"cmd", "2", "310", "200", "100", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_2_philos_dead_eat(void)
 {
-	char *argv[6] = {"cmd", "2", "310", "200", "200", "10"};
+	char *argv[6] = {"cmd", "2", "310", "200", "200", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_3_philos_eat_less(void)
 {
-	char *argv[6] = {"cmd", "3", "610", "100", "200", "10"};
+	char *argv[6] = {"cmd", "3", "610", "100", "200", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_3_philos_eat_more(void)
 {
-	char *argv[6] = {"cmd", "3", "610", "200", "100", "10"};
+	char *argv[6] = {"cmd", "3", "610", "200", "100", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_3_philos_eat(void)
 {
-	char *argv[6] = {"cmd", "3", "610", "200", "200", "10"};
+	char *argv[6] = {"cmd", "3", "610", "200", "200", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_3_philos_dead_eat_more(void)
 {
-	char *argv[6] = {"cmd", "3", "410", "200", "100", "10"};
+	char *argv[6] = {"cmd", "3", "410", "200", "100", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_3_philos_dead_eat(void)
 {
-	char *argv[6] = {"cmd", "3", "410", "200", "200", "10"};
+	char *argv[6] = {"cmd", "3", "410", "200", "200", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_philo_200_philos(void)
 {
-	char *argv[6] = {"cmd", "200", "410", "200", "100", "10"};
+	char *argv[6] = {"cmd", "200", "410", "200", "100", "100"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
@@ -266,14 +266,14 @@ void test_58227(void)
 
 void test_4422(void)
 {
-	char *argv[6] = {"cmd", "4", "410", "200", "200", "100"};
+	char *argv[6] = {"cmd", "4", "410", "200", "200", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
 
 void test_4321(void)
 {
-	char *argv[6] = {"cmd", "4", "310", "200", "100", "100"};
+	char *argv[6] = {"cmd", "4", "310", "200", "100", "30"};
 	start_game(6, argv);
 	// will stop after certain "eating".
 }
@@ -303,12 +303,12 @@ int	main(void)
 	// RUN_TEST(test_philo_3_philos_eat);
 	// RUN_TEST(test_philo_3_philos_dead_eat_more);
 	// RUN_TEST(test_philo_3_philos_dead_eat);
-	// RUN_TEST(test_philo_200_philos);
+	RUN_TEST(test_philo_200_philos);
 	// RUN_TEST(test_philo_199_philos);
 	// RUN_TEST(test_1822);
 	// RUN_TEST(test_5822);
 	// RUN_TEST(test_58227);
 	// RUN_TEST(test_4422);
-	RUN_TEST(test_4321);
+	// RUN_TEST(test_4321);
 	return (UNITY_END());
 }

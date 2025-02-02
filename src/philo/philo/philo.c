@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/01 20:47:47 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/02 10:49:39 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ void	philo_think_1(t_game *game, int i, int *next_status, long long *ts)
 {
 	int	thinking_time;
 
+	if (!send_message(game->mq, *ts, i, THINKING) || 
+	(!(game->even_or_odd) || (i > 0 && i % 2 == 0)))
+	{
+		*next_status = EATING;
+		return ;
+	}	
 	thinking_time = game->args[TO_EAT];
 	if (game->even_or_odd && i == 0)
 		thinking_time += game->args[TO_EAT];
@@ -173,10 +179,7 @@ void	*philo(void *arg)
 	next_status = param->next_status;
 	wait_for_ready(game);
 	start = get_ts();
-	if (!send_message(game->mq, start, i, THINKING))
-		return (NULL);
-	if (next_status == THINKING)
-		philo_think_1(game, i, &next_status, &start);
+	philo_think_1(game, i, &next_status, &start);
 	while (next_status != DEAD)
 	{
 		if (next_status == THINKING)
