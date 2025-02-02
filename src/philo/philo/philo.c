@@ -6,7 +6,7 @@
 /*   By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:57:15 by Xifeng            #+#    #+#             */
-/*   Updated: 2025/02/02 11:07:15 by Xifeng           ###   ########.fr       */
+/*   Updated: 2025/02/02 11:24:33 by Xifeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	philo_think_1(t_game *game, int i, int *next_status, long long *ts)
 {
 	int	thinking_time;
 
-	if (!send_message(game->mq, *ts, i, THINKING) || (!(game->even_or_odd)
-			|| (i > 0 && i % 2 == 0)))
+	if (!send_message(game->mq, *ts, i, THINKING) || (game->even_or_odd && i > 0
+			&& (i % 2 == 0)) || (!(game->even_or_odd) && (i % 2 == 0)))
 	{
 		*next_status = EATING;
 		return ;
@@ -135,7 +135,6 @@ static void	philo_think(t_game *game, int i, int *next_status, long long *ts)
 void	philo_sleep(t_game *game, int i, int *next_status, long long *ts)
 {
 	long long	curr;
-	int			thinking_time;
 
 	curr = get_ts();
 	if (try_die(game, i, *ts, curr + game->args[TO_SLEEP]))
@@ -189,4 +188,5 @@ void	*philo(void *arg)
 		else if (next_status == SLEEPING)
 			philo_sleep(game, i, &next_status, &start);
 	}
+	return (NULL);
 }
