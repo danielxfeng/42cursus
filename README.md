@@ -84,7 +84,7 @@ Implements an Abstract Syntax Tree (AST) to handle pipes, redirections, and comm
 ### **Zone 3**
 
 #### **`philosophers`**
-
+A concurrent programming challenge, implemented with a State Machine and a simple Synchronized Message Queue.
 - [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/philo/philo)
 - [My Thoughts](https://github.com/danielxfeng/42cursus/tree/main/blog/philosopher.md)
 
