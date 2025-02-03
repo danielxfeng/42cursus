@@ -80,7 +80,10 @@ My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit
 
 - This approach **reduces Write Syscalls**, centralizes the **printing feature** to ensure message order, and also helps handle game termination, preventing unnecessary logs after the game ends.
 
-- But for this project, actually it can be replaced by just a simple **print when you hold a lock** strategy.
+- Possible Future Optimizations:
+  Actually the **Message Queue** is interesting and has more possibilities for future optimization.
+    - For this project, actually it can be replaced by just a simple **print when you hold a lock** strategy.
+    - The `read` index actually used only by the **Coordinator**. so, is the mutex really neccessary for printing? Is the mutex really neccessary for printing?
 
 #### **Eating Strategy**
 ![Eating Strategy](./imgs/philo_1.png) 
