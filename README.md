@@ -83,12 +83,12 @@ Implements an Abstract Syntax Tree (AST) to handle pipes, redirections, and comm
 
 ### **Zone 3**
 
+#### **`philosophers`**
+
+- [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/philo/philo)
+- [My Thoughts](https://github.com/danielxfeng/42cursus/tree/main/blog/philosopher.md)
+
 #### **`mini_shell`**
 
 - [Implementation](https://github.com/danielxfeng/42-minishell)
 - [My Thoughts](https://github.com/danielxfeng/42-minishell/blob/main/README.md)
-
-#### **`philosophers`**
-
-- [Implementation](https://github.com/danielxfeng/42cursus/tree/main/src/philo/philo)
-- My Thoughts
