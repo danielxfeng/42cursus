@@ -38,7 +38,7 @@ My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit
     - Surprisingly, a data race can also occur between multiple readers and a single writer because:  
         - **Cache Coherence** – According to [the memory hierarchy system of our computers](https://www.geeksforgeeks.org/memory-hierarchy-design-and-its-characteristics/), each CPU core has its own cache system. This means a CPU core may read a variable from its local cache instead of reading the latest value written by another core.  
         - **Instruction Reordering** – The compiler/CPU may reorder instructions for optimization, leading to unexpected behaviors.  
-        - **Non-Primitive Operations** – If an operation consists of multiple instructions(```++i```), a reader might read partially updated data.  
+        - **Non-Atomic Operations** – If an operation consists of multiple instructions(```x = x + 1```), a reader might read partially updated data.  
 
 - **Solutions**  
     - **Mutex**  
@@ -55,7 +55,7 @@ My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit
 
 - **Round Counter** – This tracks how many rounds a philosopher has eaten. The value is written by a philosopher thread and read by the main/other thread, creating a potential data race.  
 
-- **End Flag** – This indicates the end of the game. Because we cannot print anything after a philosopher dies, there is another possible data race.  
+- **End Flag** – This indicates the end of the game. Since no output is allowed after a philosopher dies, the **End Flag** should be properly synchronized across all threads to ensure consistency.
 
 - **Print Operations** – To avoid output overlap, we must also prevent data races between philosopher threads when printing logs.  
 
@@ -120,4 +120,4 @@ My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit
 
 #### **Efficiency Improvements**  
 - **Thread Management** – When there are **200 philosophers**, CPU usage was nearly **100%** during thread creation, causing the program to fail. To handle this, the game only starts **after all threads are created and initialized**, preventing performance issues.  
-- **Write System Calls** – The centralized **Message Queue** prevents excessive logging issues. Although I had a plan called the **batch writing approach**, which involves **printing without locking**, I didn’t implement it since the performance was good enough to pass the tests.  
+- **Write System Calls** – The centralized **Message Queue** prevents excessive logging issues. Although I had a plan called the **batch writing approach**, which avoids locking during printing, I didn’t implement it since the performance was good enough to pass the tests.  
