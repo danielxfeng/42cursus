@@ -72,7 +72,8 @@ My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit
 
 - A **Message Queue** is used to handle messages, following a **Multiple Producers, Single Consumer** pattern to centralize logging.  
 
-#### **Message Queue**  
+#### **Message Queue** 
+![Message Queue](./imgs/philo_1.png) 
 - Implemented using a **circular array buffer**, which consists of an array, two indexes (`read` and `write`), and is protected by a **mutex**.  
 
 - To simplify the implementation, it is a **fixed-length queue**, meaning it must be initialized with a sufficiently large capacity.  
@@ -81,7 +82,12 @@ My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit
 
 - But for this project, actually it can be replaced by just a simple **print when you hold a lock** strategy.
 
-#### **Eating Strategy**  
+#### **Eating Strategy**
+![Eating Strategy](./imgs/philo_2.png) 
+![Eating Strategy](./imgs/philo_3.png) 
+![Eating Strategy](./imgs/philo_4.png)
+Thanks to the [Philosophers Visualizer](https://nafuka11.github.io/philosophers-visualizer/) for providing a great visualization tool.
+
 - If the number of philosophers is **odd**, the odd-indexed philosophers eat first. Once they sleep, the even-indexed philosophers eat.  
 
 - If the number of philosophers is **even**, they are split into three shifts. The **third shift** consists only of the first philosopher.  
