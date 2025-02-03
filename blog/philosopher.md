@@ -52,8 +52,11 @@ My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit
 
 #### The Data Race  
 - **Forks** – Since each fork is a shared resource, and the subject explicitly requires using a mutex for each fork, it ensures safety but also introduces the risk of **deadlock** when we have many mutexes.  
+
 - **Round Counter** – This tracks how many rounds a philosopher has eaten. The value is written by a philosopher thread and read by the main/other thread, creating a potential data race.  
+
 - **End Flag** – This indicates the end of the game. Because we cannot print anything after a philosopher dies, there is another possible data race.  
+
 - **Print Operations** – To avoid output overlap, we must also prevent data races between philosopher threads when printing logs.  
 
 #### The Cost of System Calls  
@@ -64,23 +67,56 @@ My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit
 
 #### **Overall Strategy**  
 - A **Coordinator** is responsible for handling message printing, setting the **End Flag**, and checking the **Round Counter** if applicable.  
-- Each philosopher operates as a **state machine**, transitioning between different **statuses** (Thinking, Eating, Sleeping).  
+
+- Each philosopher operates as a **State Machine**, transitioning between different **Statuses** (Thinking, Eating, Sleeping).  
+
 - A **Message Queue** is used to handle messages, following a **Multiple Producers, Single Consumer** pattern to centralize logging.  
 
 #### **Message Queue**  
 - Implemented using a **circular array buffer**, which consists of an array, two indexes (`read` and `write`), and is protected by a **mutex**.  
+
 - To simplify the implementation, it is a **fixed-length queue**, meaning it must be initialized with a sufficiently large capacity.  
-- This approach **reduces Write Syscalls**, centralizes the **printing feature** to ensure message order, and also helps handle game termination, preventing unnecessary logs after the game ends.  
+
+- This approach **reduces Write Syscalls**, centralizes the **printing feature** to ensure message order, and also helps handle game termination, preventing unnecessary logs after the game ends.
+
+- But for this project, actually it can be replaced by just a simple **print when you hold a lock** strategy.
 
 #### **Eating Strategy**  
 - If the number of philosophers is **odd**, the odd-indexed philosophers eat first. Once they sleep, the even-indexed philosophers eat.  
+
 - If the number of philosophers is **even**, they are split into three shifts. The **third shift** consists only of the first philosopher.  
 
 #### **Data Race Prevention**  
 - **Forks** – An array of **mutexes** represents the forks. When a philosopher locks a mutex, it means they have acquired the fork. To prevent **deadlock**, forks are always acquired in a consistent order (picking up the left fork first, then the right fork).  
-- **Round Counter** & **End Flag** – Initially, I applied a **data race-tolerant approach**, locking only on writes while allowing reads without locks. This approach actually met the performance requirements.  
-  However, during evaluation, I was told that **no data races are allowed in this project**, which I hadn't noticed before. I later modified it to use **mutex locks for both reads and writes**, ensuring full synchronization.  
-- **Print Operations** – Solved by the **Message Queue**.  
+
+- **End Flag** – Since for this project, we cannot print out anything after someone dies, which means the **End Flag** should be protected by a mutex.
+
+- **Print Operations** – Solved by the **Message Queue**.
+
+- **Round Counting** - Initially, I applied a **data race tolerant approach** as an optimization. However, during evaluation, I was told that **no data races are allowed in this project**, which I hadn't noticed before. I modified it to apply **mutex locks for both reads and writes**, ensuring full synchronization.  
+
+#### **My Data Race Tolerant Approach**  
+
+- **What's it?**  
+  I hold the lock when writing, but I read without locking.  
+
+- **Why does it work?**  
+  When executing `lock` and `unlock`, the implementation of **Mutex** actually performs three tasks:  
+  1. Executes these commands as an **atomic operation**.  
+  2. Handles the **Memory Barrier**, ensuring **Cache Coherence**.  
+  3. Prevents **Instruction Reordering** optimizations.  
+
+  So, when I write with a lock, everything is fine.  
+
+  When I read without a lock, since reading a **32-bit `int`** on an **x86** computer is also a **primitive operation**, the worst-case scenario is that I might read an **outdated** value, not a **corrupted** one. The 1-2 ms delay in ending the game is **totally tolerable**, so this approach works in practice.  
+
+- **Why is it not suitable for this project?**  
+  This approach works only under two specific conditions:  
+  1. The read operation is a **primitive operation**.  
+  2. Reading outdated data is **acceptable** in this context.  
+
+  However, in the **general case**, this is still a **data race**, and due to the project rule **"no data races are allowed"**, all data races are flagged by **Valgrind**.  
+
 
 #### **Efficiency Improvements**  
 - **Thread Management** – When there are **200 philosophers**, CPU usage was nearly **100%** during thread creation, causing the program to fail. To handle this, the game only starts **after all threads are created and initialized**, preventing performance issues.  
