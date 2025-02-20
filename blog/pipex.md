@@ -93,8 +93,7 @@ This is typical tree for:
 
 #### AST Executing
 - Executing a tree is a recursive process.
-- Typically, it follows the [In Order Traversal](https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/#inorder-traversal).
-- But for `pipe` node, it's actually a `hybrid order traversal`, since we deal with the `node` first, then `left`, then `right`, then `node`.
+- Typically, it follows the [PreOrder and PostOrder Traversal](https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/).
 - Therefore, actually we execute the node from left to right.
 
 ##### Pipe Executing #####
