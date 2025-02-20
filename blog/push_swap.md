@@ -62,7 +62,7 @@ The stack's construction and destruction are encapsulated within factory functio
     // ... other APIs
 ```
 
-### Sorting Algorithm: A Graph Traversal Approach
+### Sorting Algorithm: A Greedy Graph Traversal Approach
 
 To sort 500 numbers within 5500 operations, we face several constraints:
 - Traditional sorting algorithms like merge sort or quick sort cannot be used because we lack random access to stack elements.
