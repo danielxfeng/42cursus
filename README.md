@@ -89,6 +89,8 @@ A concurrent programming challenge, implemented with a State Machine and a simpl
 - [My Thoughts](https://github.com/danielxfeng/42cursus/tree/main/blog/philosopher.md)
 
 #### **`mini_shell`**
-
+A simplified version of the Linux shell that follows the POSIX protocol.
+ - Implemented a State Machine and a very simplified `vector` for `parser`.
+ - Used an Abstract Syntax Tree with mixed pre-order and post-order travelsal for `executor`.
 - [Implementation](https://github.com/danielxfeng/42-minishell)
 - [My Thoughts](https://github.com/danielxfeng/42-minishell/blob/main/README.md)

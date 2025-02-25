@@ -46,7 +46,7 @@ My experience in [CS 6.824, Distributed Systems from MIT](https://pdos.csail.mit
         - The trade off is the performance because it's expensive.
     - **Atomic**  
         - A lock-free method that allows threads to perform atomic updates to shared variables by hardware supported instructions.
-        - Difficult to apply in this project.  
+        - Didn't try in this project.
 
 ### Challenge
 
