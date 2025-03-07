@@ -94,3 +94,14 @@ A simplified version of the Linux shell that follows the POSIX protocol.
  - Used an Abstract Syntax Tree with mixed pre-order and post-order travelsal for `executor`.
 - [Implementation](https://github.com/danielxfeng/42-minishell)
 - [My Thoughts](https://github.com/danielxfeng/42-minishell/blob/main/README.md)
+
+---
+
+### **Zone 4**
+
+#### **`mini_rt`**
+- Implementations
+- My Thoughts
+
+#### **`cpp module`
+- Implementations
