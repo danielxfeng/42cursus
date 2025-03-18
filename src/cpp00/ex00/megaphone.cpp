@@ -8,12 +8,9 @@ int main(int argc, char **argv)
     {
         for (int i = 1; i < argc; ++i)
         {
-            int j = 0;
-            while (argv[i][j])
-            {
-                std::cout << (char)std::toupper(argv[i][j]);
-                ++j;
-            }
+            std::string word = argv[i];
+            for (size_t j = 0; j < word.length(); ++j)
+                std::cout << (char)std::toupper(word[j]);
         }
     }
     std::cout << std:: endl;
