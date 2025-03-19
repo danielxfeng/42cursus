@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/19 10:04:29 by Xifeng            #+#    #+#              #
+#    Updated: 2025/03/19 10:04:32 by Xifeng           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 SRCS = megaphone.cpp
 OBJS = megaphone.o
 NAME = megaphone
@@ -17,5 +29,6 @@ clean:
 fclean:
 	rm -f $(OBJS) $(NAME)
 
-re: fclean
-re: all
+re: fclean all
+
+.PHONY: all clean fclean re
