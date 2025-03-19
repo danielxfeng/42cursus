@@ -8,40 +8,41 @@ std::string truncate(std::string str) {
 
 void PhoneBook::updateCount()
 {
-    idx_ = idx_ == CAPACITY - 1 ? 0 : idx_ + 1;
+    next_ = next_ == CAPACITY - 1 ? 0 : next_ + 1;
     if (size_ < CAPACITY)
         ++size_;
 }
 
-bool PhoneBook::add(std::string first_name, std::string last_name, std::string nick_name,
+void PhoneBook::add(std::string first_name, std::string last_name, std::string nick_name,
     std::string phone_number, std::string darkest_secret) {
-    if (first_name.empty() || last_name.empty() || nick_name.empty()
-        || phone_number.empty() || darkest_secret.empty())
-        return false;
+    contacts_[next_].set(first_name, last_name, nick_name, phone_number, darkest_secret);
     updateCount();
-    contacts_[idx_].set(first_name, last_name, nick_name, phone_number, darkest_secret);
-    return true;
 }
 
-bool PhoneBook::query(size_t idx)
+void PhoneBook::query(size_t idx)
 {
     if (idx >= size_)
-        return false;
-    std::cout << "|" << idx
-              << "|" << std::setw(10) << truncate(contacts_[idx].getFirstName())
-              << "|" << std::setw(10) << truncate(contacts_[idx].getLastName())
-              << "|" << std::setw(10) << truncate(contacts_[idx].getNickName())
-              << "|" << std::endl;
-    return (true);
+        return;
+    Contact &c = contacts_[idx];
+    std::cout << "Firstname: " << c.getFirstName() << std::endl;
+    std::cout << "Lastname: " << c.getLastName() << std::endl;
+    std::cout << "Nickname: " << c.getNickName() << std::endl;
+    std::cout << "Phone Number: " << c.getPhoneNumber() << std::endl;
+    std::cout << "Darkest Secret: " << c.getDarkestSecret() << std::endl;
 }
 
 void PhoneBook::queryAll()
 {
-    for (Contact& c : contacts_) {
-        std::cout << "Firstname: " << c.getFirstName() << std::endl;
-        std::cout << "Lastname: " << c.getLastName() << std::endl;
-        std::cout << "Nickname: " << c.getNickName() << std::endl;
-        std::cout << "PhoneNumber: " << c.getPhoneNumber() << std::endl;
-        std::cout << "Darkest Secret: " << c.getDarkestSecret() << std::endl;
+    std::cout << "|" << std::setw(10) << "Index"
+    << "|" << std::setw(10) << "Firstname"
+    << "|" << std::setw(10) << "Lastname"
+    << "|" << std::setw(10) << "Nickname"
+    << "|" << std::endl;
+    for (size_t idx = 0; idx < size_; ++idx) {
+        std::cout << "|" << std::setw(10) << idx
+        << "|" << std::setw(10) << truncate(contacts_[idx].getFirstName())
+        << "|" << std::setw(10) << truncate(contacts_[idx].getLastName())
+        << "|" << std::setw(10) << truncate(contacts_[idx].getNickName())
+        << "|" << std::endl;
     }
 }
