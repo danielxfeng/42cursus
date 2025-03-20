@@ -55,19 +55,29 @@ bool Fixed::operator!=(const Fixed &o) const {
 }
 
 Fixed Fixed::operator+(const Fixed &o) const {
-    return Fixed(toFloat() + o.toFloat());
+    Fixed f;
+    f.setRawBits(value_ + o.getRawBits());
+    return f;
 }
 
 Fixed Fixed::operator-(const Fixed &o) const {
-    return Fixed(toFloat() - o.toFloat());
+    Fixed f;
+    f.setRawBits(value_ - o.getRawBits());
+    return f;
 }
 
 Fixed Fixed::operator*(const Fixed &o) const {
-    return Fixed(toFloat() * o.toFloat());
+    int64_t result = (uint64_t)value_ * o.getRawBits() / (1 << fractionalBits_);
+    Fixed f;
+    f.setRawBits((int)result);
+    return f;
 }
 
 Fixed Fixed::operator/(const Fixed &o) const {
-    return Fixed(toFloat() / o.toFloat());
+    int64_t result = ((int64_t)value_ << fractionalBits_) / o.getRawBits();
+    Fixed f;
+    f.setRawBits((int)result);
+    return f;
 }
 
 Fixed &Fixed::operator++() {
