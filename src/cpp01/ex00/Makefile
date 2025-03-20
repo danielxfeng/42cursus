@@ -6,14 +6,14 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:04:29 by Xifeng            #+#    #+#              #
-#    Updated: 2025/03/20 09:43:11 by Xifeng           ###   ########.fr        #
+#    Updated: 2025/03/20 09:53:44 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = Zombie.cpp newZombie.cpp randomChump.cpp main.cpp 
 OBJS = Zombie.o newZombie.o randomChump.o main.o
 NAME = zombie
-CPPFLAGS = -Wall -Wextra #-Werror
+CPPFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
