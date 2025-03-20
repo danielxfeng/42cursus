@@ -2,11 +2,9 @@
 
 int main(void)
 {
-    auto z1 = newZombie("alaaaa on heap");
-    z1->announce();
-    delete z1;
-
-    randomChump("blaaaa on stack");
-
+    auto zs = zombieHorde(3, "no name");
+    for (auto i = 0; i < 3; ++i)
+        zs[i].announce();
+    delete []zs;
     return (EXIT_SUCCESS);
 }
