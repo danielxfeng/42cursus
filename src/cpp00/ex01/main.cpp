@@ -22,12 +22,12 @@ void handleAdd(PhoneBook &pb)
 
 void handleQuery(PhoneBook &pb)
 {
+    pb.queryAll();
     std::string idxString = "";
     while (!std::cin.eof() && idxString != "EXIT") {
-        pb.queryAll();
         std::cout << "Please input a valid index:" << std::endl;
         std::getline(std::cin, idxString);
-        if (idxString.length() != 1 || (idxString.at(0) < '0' && idxString.at(0) > '7'))
+        if (idxString.length() != 1 || idxString.at(0) < '0' || idxString.at(0) > '7')
             continue;
         size_t idx = std::stoi(idxString);
             pb.query(idx);

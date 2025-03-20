@@ -76,7 +76,8 @@
     "text_encoding": "cpp",
     "cinttypes": "cpp",
     "typeinfo": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "fstream": "cpp"
   },
   "cmake.sourceDirectory": "/home/xifeng/42cursus/src/so_long/mlx"
 }
