@@ -1,10 +1,23 @@
-#include "Zombie.hpp"
+# include "Weapon.hpp"
+# include "HumanA.hpp"
+# include "HumanB.hpp"
 
-int main(void)
+int	main(void)
 {
-    auto zs = zombieHorde(3, "no name");
-    for (auto i = 0; i < 3; ++i)
-        zs[i].announce();
-    delete []zs;
-    return (EXIT_SUCCESS);
+	{
+		Weapon club = Weapon("crude spiked club");
+		HumanA bob("Bob", club);
+		bob.attack();
+		club.setType("some other type of club");
+		bob.attack();
+	}
+	{
+		Weapon club = Weapon("crude spiked club");
+		HumanB jim("Jim");
+		jim.setWeapon(club);
+		jim.attack();
+		club.setType("some other type of club");
+		jim.attack();
+	}
+	return (0);
 }

@@ -6,13 +6,13 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:04:29 by Xifeng            #+#    #+#              #
-#    Updated: 2025/03/20 09:53:38 by Xifeng           ###   ########.fr        #
+#    Updated: 2025/03/20 15:05:40 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = Zombie.cpp zombieHorde.cpp main.cpp 
-OBJS = Zombie.o zombieHorde.o main.o
-NAME = zombie
+SRCS = Weapon.cpp HumanA.cpp HumanB.cpp main.cpp 
+OBJS = Weapon.o HumanA.o HumanB.o main.o
+NAME = human
 CPPFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
@@ -20,7 +20,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	c++ -o $@ $^ $(CPPFLAGS)
 
-%.o: %.cpp Zombie.hpp
+%.o: %.cpp Weapon.hpp HumanA.hpp HumanB.hpp
 	c++ -c $< $(CPPFLAGS)
 
 clean:
