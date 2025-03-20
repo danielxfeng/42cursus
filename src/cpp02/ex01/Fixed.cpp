@@ -12,7 +12,7 @@ Fixed::Fixed(const int value) {
 
 Fixed::Fixed(const float value) {
     std::cout << "Float constructor called" << std::endl;
-    value_ = (int)(value * (1 << fractionalBits_));
+    value_ = std::roundf(value * (1 << fractionalBits_));
 }
 
 Fixed::Fixed(const Fixed &o) {
