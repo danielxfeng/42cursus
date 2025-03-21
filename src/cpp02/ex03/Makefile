@@ -6,12 +6,12 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:04:29 by Xifeng            #+#    #+#              #
-#    Updated: 2025/03/21 12:03:11 by Xifeng           ###   ########.fr        #
+#    Updated: 2025/03/21 12:14:00 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = Fixed.cpp Point.cpp bsp.cpp main.cpp 
-OBJS = Fixed.o Point.o bsp.cpp main.o
+OBJS = Fixed.o Point.o bsp.o main.o
 NAME = bsp
 CPPFLAGS = -Wall -Wextra -Werror
 
