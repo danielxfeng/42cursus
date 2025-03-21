@@ -105,4 +105,4 @@ A simplified version of the Linux shell that follows the POSIX protocol.
 
 #### **`cpp module`**
 OOP Practice
-- [C00](https://github.com/danielxfeng/42cursus/tree/main/src/cpp00) [C01](https://github.com/danielxfeng/42cursus/tree/main/src/cpp01)
+- [C00](https://github.com/danielxfeng/42cursus/tree/main/src/cpp00) [C01](https://github.com/danielxfeng/42cursus/tree/main/src/cpp01) [C02](https://github.com/danielxfeng/42cursus/tree/main/src/cpp02)
