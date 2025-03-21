@@ -4,16 +4,16 @@
 ClapTrap::ClapTrap(void) { std::cout << "ClapTrap default constructor" << std::endl; }
 
 ClapTrap::ClapTrap(const ClapTrap &o) {
-    std::cout << "ClapTrap copy constructor for " << name_ << std::endl;
     *this = o;
+    std::cout << "ClapTrap copy constructor for " << name_ << std::endl;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &o) {
-    std::cout << "ClapTrap copy assignment operator" << std::endl;
     name_ = o.name_;
     hit_points_ = o.hit_points_;
     energy_points_ = o.energy_points_;
     attack_damage_ = o.attack_damage_;
+    std::cout << "ClapTrap copy assignment operator" << std::endl;
     return *this;
 }
 
