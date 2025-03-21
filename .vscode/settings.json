@@ -5,8 +5,8 @@
   "42header.username": "Xifeng",
   "42header.email": "xifeng@student.hive.fi",
   "files.associations": {
-    "*.css": "tailwindcss",
     "*.embeddedhtml": "html",
+    "*.css": "tailwindcss",
     "unity.h": "c",
     "bitset": "c",
     "libft.h": "c",
@@ -77,7 +77,22 @@
     "cinttypes": "cpp",
     "typeinfo": "cpp",
     "variant": "cpp",
-    "fstream": "cpp"
+    "fstream": "cpp",
+    "__locale": "cpp",
+    "__threading_support": "cpp",
+    "__verbose_abort": "cpp",
+    "ios": "cpp",
+    "locale": "cpp",
+    "mutex": "cpp",
+    "print": "cpp",
+    "__bit_reference": "cpp",
+    "__hash_table": "cpp",
+    "__node_handle": "cpp",
+    "__split_buffer": "cpp",
+    "complex": "cpp",
+    "execution": "cpp",
+    "queue": "cpp",
+    "stack": "cpp"
   },
   "cmake.sourceDirectory": "/home/xifeng/42cursus/src/so_long/mlx"
 }
