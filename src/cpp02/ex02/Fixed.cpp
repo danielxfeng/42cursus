@@ -67,7 +67,7 @@ Fixed Fixed::operator-(const Fixed &o) const {
 }
 
 Fixed Fixed::operator*(const Fixed &o) const {
-    int64_t result = (uint64_t)value_ * o.getRawBits() / (1 << fractionalBits_);
+    int64_t result = (int64_t)value_ * o.getRawBits() / (1 << fractionalBits_);
     Fixed f;
     f.setRawBits((int)result);
     return f;

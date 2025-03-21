@@ -1,5 +1,6 @@
 # include "Fixed.hpp"
 # include <iostream>
+# include <cmath>
 
 Fixed::Fixed() : value_(0) {
     std::cout << "Default constructor called" << std::endl;
@@ -12,7 +13,7 @@ Fixed::Fixed(const int value) {
 
 Fixed::Fixed(const float value) {
     std::cout << "Float constructor called" << std::endl;
-    value_ = std::roundf(value * (1 << fractionalBits_));
+    value_ = roundf(value * (1 << fractionalBits_));
 }
 
 Fixed::Fixed(const Fixed &o) {
