@@ -13,6 +13,7 @@ void Harl::complain( std::string level ) {
         case 1: info();
         case 2: warning();
         case 3: error();
+        default: return;
     }
 }
 
