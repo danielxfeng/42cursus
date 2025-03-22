@@ -6,12 +6,12 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:04:29 by Xifeng            #+#    #+#              #
-#    Updated: 2025/03/22 22:34:31 by Xifeng           ###   ########.fr        #
+#    Updated: 2025/03/22 22:43:20 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp main.cpp
-OBJS = Animal.o Dog.o Cat.o WrongAnimal.o WrongCat.o Brain.cpp main.o
+OBJS = Animal.o Dog.o Cat.o WrongAnimal.o WrongCat.o Brain.o main.o
 NAME = animal
 CPPFLAGS = -Wall -Wextra -Werror
 
