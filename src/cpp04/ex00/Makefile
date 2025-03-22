@@ -6,12 +6,12 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:04:29 by Xifeng            #+#    #+#              #
-#    Updated: 2025/03/21 22:59:24 by Xifeng           ###   ########.fr        #
+#    Updated: 2025/03/22 22:04:54 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = Animal.cpp Dog.cpp Cat.cpp main.cpp
-OBJS = Animal.o Dog.o Catp.o main.o
+SRCS = Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat main.cpp
+OBJS = Animal.o Dog.o Cat.o WrongAnimal.o WrongCat.o main.o
 NAME = animal
 CPPFLAGS = -Wall -Wextra -Werror
 
@@ -20,7 +20,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	c++ -o $@ $^ $(CPPFLAGS)
 
-%.o: %.cpp Animal.hpp Dog.hpp Cat.hpp
+%.o: %.cpp Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp
 	c++ -c $< $(CPPFLAGS)
 
 clean:
