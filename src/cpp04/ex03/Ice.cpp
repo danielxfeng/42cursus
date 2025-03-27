@@ -1,7 +1,7 @@
 # include "Ice.hpp"
 # include <iostream>
 
-Ice::Ice(void) : { type_ = "ice"; }
+Ice::Ice(void) { type_ = "ice"; }
 
 Ice::Ice(const Ice &o) { *this = o; }
 
