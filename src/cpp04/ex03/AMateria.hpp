@@ -3,6 +3,8 @@
 #include "ICharacter.hpp"
 # include <string>
 
+class ICharacter;
+
 class AMateria {
     public:
         AMateria(void);

@@ -3,7 +3,7 @@
 
 Ice::Ice(void) { type_ = "ice"; }
 
-Ice::Ice(const Ice &o) { *this = o; }
+Ice::Ice(const Ice &o)  : AMateria(o) { *this = o; }
 
 Ice &Ice::operator=(const Ice &o) {
     type_ = o.type_;
