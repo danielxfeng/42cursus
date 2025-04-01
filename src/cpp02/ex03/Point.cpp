@@ -1,7 +1,7 @@
 # include "Point.hpp"
 
 Point::Point() : x_(Fixed(0)), y_(Fixed(0)) {}
-Point::Point(const Fixed &x, const Fixed &y) : x_(x), y_(y) {}
+Point::Point(const float x, const float y) : x_(Fixed(x)), y_(Fixed(y)) {}
 Point::Point(const Point &o) {*this = o;}
 Point& Point::operator=(const Point &o) {
     muted = true;
