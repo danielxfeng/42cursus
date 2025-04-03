@@ -98,11 +98,17 @@ Fixed Fixed::operator/(const Fixed &o) const {
 }
 
 Fixed &Fixed::operator++() {
+    int64_t overflow_killer = value_ + 1;
+    if (int(overflow_killer) != overflow_killer)
+        throw std::overflow_error("The number can not be converted to a Fixed number safely.");
     ++value_;
     return *this;
 }
 
 Fixed Fixed::operator++(int) {
+    int64_t overflow_killer = value_ + 1;
+    if (int(overflow_killer) != overflow_killer)
+        throw std::overflow_error("The number can not be converted to a Fixed number safely.");
     Fixed tmp(*this);
     ++value_;
     return tmp;
