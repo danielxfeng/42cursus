@@ -9,7 +9,8 @@ Dog::Dog(void) : brain_(new Brain()) {
 
 Dog::Dog(const Dog &o) {
     std::cout << "Dog created by copying" << std::endl;
-    *this = o;
+    brain_ = new Brain(*o.brain_);
+    type_ = o.type_;
 }
 
 Dog &Dog::operator=(const Dog &o) {

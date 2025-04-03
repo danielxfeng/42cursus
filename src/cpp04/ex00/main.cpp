@@ -11,7 +11,7 @@ int main( void ) {
 	const Animal *j = new Dog();
 	const Animal *i = new Cat();
 	const WrongAnimal *k = new WrongAnimal();
-	const WrongCat *l = new WrongCat();
+	const WrongAnimal *l = new WrongCat();
 
 	std::cout << j->getType() << " " << std::endl;
 	std::cout << i->getType() << " " << std::endl;

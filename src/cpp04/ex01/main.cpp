@@ -4,6 +4,7 @@
 #include "Cat.hpp"
 
 int main( void ) {
+	/*
 	const Animal *animals[6];
 	for (int i = 0; i < 3; i++) {
 		animals[i] = new Dog();
@@ -16,6 +17,11 @@ int main( void ) {
 	}
 	for (int i = 0; i < 6; i++) {
 		delete animals[i];
+	}*/
+
+	Dog basic;
+	{
+		Dog tmp = basic;
 	}
 	return 0;
 }
