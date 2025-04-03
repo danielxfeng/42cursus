@@ -3,7 +3,7 @@
 
 Cure::Cure(void) { type_ = "cure"; }
 
-Cure::Cure(const Cure &o) { *this = o; }
+Cure::Cure(const Cure &o) : AMateria(o) { *this = o; }
 
 Cure &Cure::operator=(const Cure &o) {
     type_ = o.type_;

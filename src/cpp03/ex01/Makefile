@@ -6,21 +6,21 @@
 #    By: Xifeng <xifeng@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 10:04:29 by Xifeng            #+#    #+#              #
-#    Updated: 2025/03/22 16:37:51 by Xifeng           ###   ########.fr        #
+#    Updated: 2025/03/21 21:33:04 by Xifeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = Harl.cpp main.cpp 
-OBJS = Harl.o main.o
-NAME = harlFilter
-CPPFLAGS = -Wall -Wextra -Werror
+SRCS = ClapTrap.cpp ScavTrap.cpp main.cpp 
+OBJS = ClapTrap.o ScavTrap.o main.o
+NAME = st
+CPPFLAGS = -Wall -Wextra -Werror -std=c++11
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	c++ -o $@ $^ $(CPPFLAGS)
 
-%.o: %.cpp Harl.hpp
+%.o: %.cpp ClapTrap.hpp ScavTrap.hpp
 	c++ -c $< $(CPPFLAGS)
 
 clean:
