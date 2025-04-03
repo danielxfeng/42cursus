@@ -13,7 +13,7 @@ WrongCat::WrongCat(const WrongCat &o) {
 
 WrongCat &WrongCat::operator=(const WrongCat &o) {
     std::cout << "WrongCat assigned" << std::endl;
-    (void)o;
+    type_ = o.type_;
     return *this;
 }
 

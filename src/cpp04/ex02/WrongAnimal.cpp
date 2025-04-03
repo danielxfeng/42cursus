@@ -10,7 +10,7 @@ WrongAnimal::WrongAnimal(const WrongAnimal &o) {
 
 WrongAnimal &WrongAnimal::operator=(const WrongAnimal &o) {
     std::cout << "WrongAnimal assigned" << std::endl;
-    (void)o;
+    type_ = o.type_;
     return *this;
 }
 

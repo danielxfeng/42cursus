@@ -8,7 +8,8 @@ Cat::Cat(void) : brain_(new Brain()) {
 
 Cat::Cat(const Cat &o) {
     std::cout << "Cat created by copying" << std::endl;
-    *this = o;
+    brain_ = new Brain(*o.brain_);
+    type_ = o.type_;
 }
 
 Cat &Cat::operator=(const Cat &o) {
