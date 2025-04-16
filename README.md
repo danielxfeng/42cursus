@@ -100,8 +100,8 @@ A simplified version of the Linux shell that follows the POSIX protocol.
 ### **Zone 4**
 
 #### **`mini_rt`**
-- Implementations
-- My Thoughts
+- [Implementations](https://github.com/danielxfeng/42-miniRT)
+- [My Thoughts](https://github.com/danielxfeng/42-miniRT/blob/main/README.md)
 
 #### **`cpp module`**
 OOP Practice
@@ -109,3 +109,16 @@ OOP Practice
 
 #### **`network_practice`**
 Exercises about the relationship between ip address and netmask.
+
+---
+
+### **Zone 5**
+
+#### **`inception`**
+Exercises about deploy the Docker, Nginx, Redis.
+
+#### **`cpp module`**
+OOP Practice
+- [C05]() [C06]() [C07]() [C08]() [C09]()
+
+  
