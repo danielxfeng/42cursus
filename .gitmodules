@@ -1,0 +1,6 @@
+[submodule "src/42minishell"]
+	path = src/42minishell
+	url = https://github.com/danielxfeng/42-minishell.git
+[submodule "src/42minirt"]
+	path = src/42minirt
+	url = https://github.com/danielxfeng/42-miniRT.git
