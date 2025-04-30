@@ -1,3 +1,8 @@
-[submodule "minishell"]
-	path = minishell
+[submodule "src/minishell"]
+	path = src/minishell
 	url = https://github.com/danielxfeng/42-minishell.git
+	branch = main
+[submodule "src/minirt"]
+	path = src/minirt
+	url = https://github.com/danielxfeng/42-miniRT.git
+	branch = main
