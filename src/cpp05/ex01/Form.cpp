@@ -6,7 +6,7 @@ Form::Form(std::string name, int sign_grade, int execute_grade_) : name_(name), 
     validateGrade();
 }
 
-Form::Form(const Form &o) : name_(o.name_), sign_grade_(o.sign_grade_), exec_grade_(o.exec_grade_) {}
+Form::Form(const Form &o) : name_(o.name_), sign_grade_(o.sign_grade_), exec_grade_(o.exec_grade_) { is_signed_ = o.is_signed_; }
 
 Form::~Form() {}
 
