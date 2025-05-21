@@ -4,7 +4,7 @@
 
 bool isChar(const std::string &str)
 {
-    if (str.length() != 1 || !isprint(str[0]))
+    if (str.length() != 3 || str[0] != '\'' || str[2] != '\'')
         return false;
     return true;
 }
@@ -86,6 +86,25 @@ bool isDouble(const std::string &str)
     return true;
 }
 
+void printCharType (const char c)
+{
+    if (isprint(c)) 
+    {
+        std::cout << "char: '" << c << "'" << std::endl;
+        const int n = static_cast<int>(c);
+        std::cout << "int: " << n << std::endl;
+        std::cout << "float: " << n << ".0f" << std::endl;
+        std::cout << "double: " << n << ".0" << std::endl;
+    }
+    else
+    {
+        std::cout << "char: Non displayable" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+        std::cout << "float: impossible" << std::endl;
+        std::cout << "double: impossible" << std::endl;
+    }
+}
+
 void printChar(const double n)
 {
     if (isprint(n))
@@ -114,19 +133,24 @@ void printFloat(const double n)
     if (n > std::numeric_limits<float>::max() || n < std::numeric_limits<float>::min())
         std::cout << "float: impossible" << std::endl;
     else
-        std::cout << "int: " << static_cast<float>(n) << std::endl;
+        std::cout << "float: " << static_cast<float>(n) << "f" << std::endl;
 }
 
-bool isDoubleOverFlow(const std::string &str)
+double convertToDouble(const std::string str)
 {
+    double value = 0;
     try
     {
-        std::stod(str);
-        return false;
+        value = std::stod(str);
+        return value;
     }
-    catch (std::out_of_range &e)
+    catch (std::exception &e)
     {
-        return true;
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+        std::cout << "float: impossible" << std::endl;
+        std::cout << "double: impossible" << std::endl;
+        return std::numeric_limits<double>::max();
     }
 }
 
@@ -164,11 +188,11 @@ void ScalarConverter::convert(const std::string &str)
     t_type type = UNKNOWN;
     if (isChar(str))
         type = CHAR;
-    if (isInt(str))
+    else if (isInt(str))
         type = INT;
-    if (isFloat(str))
+    else if (isFloat(str))
         type = FLOAT;
-    if (isDouble(str))
+    else if (isDouble(str))
         type = DOUBLE;
 
     // print
@@ -176,16 +200,30 @@ void ScalarConverter::convert(const std::string &str)
     {
     case CHAR:
     {
-        printChar(static_cast<double>(str[0]));
-        std::cout << "int: " << static_cast<int>(str[0]) << std::endl;
+        printCharType(str[1]);
+        return;
+    }
+    // will fall through to `double`
+    case INT:
+    case FLOAT:
+    case DOUBLE:
+    {
+        double value = convertToDouble(str);
+        if (value == std::numeric_limits<double>::max())
+            return;
+        printChar(value);
+        printInt(value);
+        printFloat(value);
+        std::cout << "double: " << value << std::endl;
+        return;
+    }
+    default:
+    {
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
         std::cout << "float: impossible" << std::endl;
         std::cout << "double: impossible" << std::endl;
         return;
-    }
-    case INT 
-    {
-        const double n = static_cast<double>(str);
-        if (isIntOutflow(n))
     }
     }
 }

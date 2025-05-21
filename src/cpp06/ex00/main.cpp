@@ -1,13 +1,50 @@
 #include "ScalarConverter.hpp"
+#include <iostream>
 
 int main()
 {
+    ScalarConverter::convert("");
+    std::cout << std::endl;
     ScalarConverter::convert("aa");
-    ScalarConverter::convert("aa");
-    ScalarConverter::convert("12");
-    ScalarConverter::convert("12.99");
-    ScalarConverter::convert("12.99f");
-    ScalarConverter::convert("1222833883883833333333");
-
-
+    std::cout << std::endl;
+    ScalarConverter::convert("'a'");
+    std::cout << std::endl;
+    ScalarConverter::convert("'1'");
+    std::cout << std::endl;
+    ScalarConverter::convert("1");
+    std::cout << std::endl;
+    ScalarConverter::convert("-1");
+    std::cout << std::endl;
+    ScalarConverter::convert("42");
+    std::cout << std::endl;
+    ScalarConverter::convert("42.");
+    std::cout << std::endl;
+    ScalarConverter::convert("42.0");
+    std::cout << std::endl;
+    ScalarConverter::convert("42.f");
+    std::cout << std::endl;
+    ScalarConverter::convert("42f");
+    std::cout << std::endl;
+    ScalarConverter::convert("42.0f");
+    std::cout << std::endl;
+    ScalarConverter::convert("-42.0f");
+    std::cout << std::endl;
+    ScalarConverter::convert("42.42");
+    std::cout << std::endl;
+    ScalarConverter::convert("42.42f");
+    std::cout << std::endl;
+    ScalarConverter::convert("2313221313212321");
+    std::cout << std::endl;
+    ScalarConverter::convert("nan");
+    std::cout << std::endl;
+    ScalarConverter::convert("nanf");
+    std::cout << std::endl;
+    ScalarConverter::convert("-inf");
+    std::cout << std::endl;
+    ScalarConverter::convert("-inff");
+    std::cout << std::endl;
+    ScalarConverter::convert("+inf");
+    std::cout << std::endl;
+    ScalarConverter::convert("+inff");
+    std::cout << std::endl;
 }
