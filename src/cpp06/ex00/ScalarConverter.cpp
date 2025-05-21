@@ -1,6 +1,8 @@
 #include "ScalarConverter.hpp"
 #include <iostream>
+#include <sstream>
 #include <limits>
+#include <string>
 
 bool isChar(const std::string &str)
 {
@@ -86,7 +88,7 @@ bool isDouble(const std::string &str)
     return true;
 }
 
-void printCharType (const char c)
+void printCharType (char c)
 {
     if (isprint(c)) 
     {
@@ -105,35 +107,40 @@ void printCharType (const char c)
     }
 }
 
-void printChar(const double n)
-{
-    if (isprint(n))
-        std::cout << "char: '" << static_cast<char>(n) << "'" << std::endl;
-    else
-        std::cout << "char: Non displayable" << std::endl;
-}
-
-bool isIntOutflow(const double n)
+bool isIntOverflow(double n)
 {
     if (n > std::numeric_limits<int>::max() || n < std::numeric_limits<int>::min())
         return true;
     return false;
 }
 
-void printInt(const double n)
+void printChar(double n)
 {
-    if (isIntOutflow(n))
+    if (!isIntOverflow(n) && isprint(n))
+        std::cout << "char: '" << static_cast<char>(n) << "'" << std::endl;
+    else
+        std::cout << "char: Non displayable" << std::endl;
+}
+
+void printInt(double n)
+{
+    if (isIntOverflow(n))
         std::cout << "int: impossible" << std::endl;
     else
         std::cout << "int: " << static_cast<int>(n) << std::endl;
 }
 
-void printFloat(const double n)
+void printFloat(double n, bool has_dot)
 {
-    if (n > std::numeric_limits<float>::max() || n < std::numeric_limits<float>::min())
+    if (n > std::numeric_limits<float>::max() || n < std::numeric_limits<float>::lowest())
         std::cout << "float: impossible" << std::endl;
     else
-        std::cout << "float: " << static_cast<float>(n) << "f" << std::endl;
+    {
+        if (!has_dot)
+            std::cout << "float: " << static_cast<float>(n) << ".0f" << std::endl;
+        else
+            std::cout << "float: " << static_cast<float>(n) << "f" << std::endl;
+    }
 }
 
 double convertToDouble(const std::string str)
@@ -152,6 +159,16 @@ double convertToDouble(const std::string str)
         std::cout << "double: impossible" << std::endl;
         return std::numeric_limits<double>::max();
     }
+}
+
+bool is_has_dot(double n)
+{
+    std::stringstream ss;
+    ss << n;
+    const std::string str = ss.str();
+    if (str.find('e') != std::string::npos)
+        return true;
+    return str.find('.') != std::string::npos;
 }
 
 void ScalarConverter::convert(const std::string &str)
@@ -213,8 +230,12 @@ void ScalarConverter::convert(const std::string &str)
             return;
         printChar(value);
         printInt(value);
-        printFloat(value);
-        std::cout << "double: " << value << std::endl;
+        const auto has_dot = is_has_dot(value);
+        printFloat(value, has_dot);
+        if (has_dot)
+            std::cout << "double: " << value << std::endl;
+        else
+            std::cout << "double: " << value << ".0" << std::endl;
         return;
     }
     default:

@@ -33,8 +33,6 @@ int main()
     std::cout << std::endl;
     ScalarConverter::convert("42.42f");
     std::cout << std::endl;
-    ScalarConverter::convert("2313221313212321");
-    std::cout << std::endl;
     ScalarConverter::convert("nan");
     std::cout << std::endl;
     ScalarConverter::convert("nanf");
@@ -47,4 +45,17 @@ int main()
     std::cout << std::endl;
     ScalarConverter::convert("+inff");
     std::cout << std::endl;
+    ScalarConverter::convert("2313221313212321");
+    std::cout << std::endl;
+    
+
+    /** 
+    if (argc != 2)
+    {
+        std::cout << "useage: ./convert '1' or ./convert 1" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    ScalarConverter::convert(argv[1]);
+    exit(EXIT_SUCCESS);
+    */
 }
