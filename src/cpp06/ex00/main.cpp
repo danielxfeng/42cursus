@@ -1,8 +1,9 @@
 #include "ScalarConverter.hpp"
 #include <iostream>
 
-int main()
+int main(int argc, char **argv)
 {
+    /**
     ScalarConverter::convert("");
     std::cout << std::endl;
     ScalarConverter::convert("aa");
@@ -47,9 +48,8 @@ int main()
     std::cout << std::endl;
     ScalarConverter::convert("2313221313212321");
     std::cout << std::endl;
-    
-
-    /** 
+    */
+     
     if (argc != 2)
     {
         std::cout << "useage: ./convert '1' or ./convert 1" << std::endl;
@@ -57,5 +57,4 @@ int main()
     }
     ScalarConverter::convert(argv[1]);
     exit(EXIT_SUCCESS);
-    */
 }
