@@ -14,6 +14,7 @@ class ScalarConverter {
         ScalarConverter() = delete;
         ScalarConverter(const ScalarConverter &o) = delete;
         ScalarConverter &operator=(const ScalarConverter &o) = delete;
+        ~ScalarConverter() = delete;
 
         static void convert(const std::string &str);
 };

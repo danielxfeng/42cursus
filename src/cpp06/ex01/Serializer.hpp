@@ -8,6 +8,7 @@ public:
     Serializer() = delete;
     Serializer(const Serializer &o) = delete;
     Serializer &operator=(const Serializer &o) = delete;
+    ~Serializer() = delete;
 
     static uintptr_t serialize(Data *ptr);
     static Data* deserialize(uintptr_t raw);
