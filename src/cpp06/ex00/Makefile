@@ -1,6 +1,6 @@
 SRCS = ScalarConverter.cpp main.cpp
 OBJS = ScalarConverter.o main.o
-NAME = sc
+NAME = convert
 CPPFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
