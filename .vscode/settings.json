@@ -92,7 +92,9 @@
     "complex": "cpp",
     "execution": "cpp",
     "queue": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "list": "cpp",
+    "set": "cpp"
   },
   "cmake.sourceDirectory": "/home/xifeng/42cursus/src/so_long/mlx"
 }
