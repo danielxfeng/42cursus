@@ -6,7 +6,7 @@ private:
     std::vector<int> container_;
     size_t max_;
 
-    int minMaxSpan(bool isMin) const;
+    int minMaxSpan(bool is_min) const;
 
 public:
     Span();

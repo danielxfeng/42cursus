@@ -21,46 +21,35 @@ void Span::addNumber(int n)
     container_.push_back(n);
 }
 
-int Span::minMaxSpan(bool isMin) const
+int Span::minMaxSpan(bool is_min) const
 {
     if (container_.size() <= 1)
         throw std::out_of_range("no span can be found.");
 
-    std::vector<int> copied_container = container_;
-    std::sort(copied_container.begin(), copied_container.end());
+    int min_span = std::numeric_limits<int>::max();
+    int max_span = -1;
 
-    if (!isMin)
-    {
-        // need to handle the possible overflow.
-        const long long loggest_span = static_cast<long long>(copied_container.back()) - static_cast<long long>(copied_container.front());
-
-        if (loggest_span > std::numeric_limits<int>::max())
-            throw std::overflow_error("span is overflow");
-
-        return static_cast<int>(loggest_span);
-    }
-
-    auto it = copied_container.begin();
+    auto it = container_.begin();
     auto next_it = std::next(it, 1);
 
-    int min_span = -1;
-
-    while (next_it != copied_container.end())
+    while (next_it != container_.end())
     {
         // Overflow is possible when there are 2.
-        const long long span = static_cast<long long>(*next_it) - static_cast<long long>(*it);
+        const long long span = std::abs(static_cast<long long>(*next_it) - static_cast<long long>(*it));
 
-        if (span <= std::numeric_limits<int>::max() && (min_span == -1 || span < min_span))
-            min_span = static_cast<int>(span);
+        if (span > std::numeric_limits<int>::max())
+            throw std::overflow_error("the span is overflow.");
+
+        if (span < min_span)
+            min_span = span;
+        if (span > max_span)
+            max_span = span;
 
         ++it;
         ++next_it;
     }
 
-    if (min_span == -1)
-        throw std::overflow_error("span is overflow.");
-
-    return min_span;
+    return is_min ? min_span : max_span;
 }
 
 int Span::shortestSpan() const
