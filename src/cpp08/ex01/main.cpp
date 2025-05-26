@@ -53,5 +53,12 @@ int main()
     {
         std::cout << e.what() << std::endl;
     }
-    std::cout << span.shortestSpan() << std::endl;
+    try
+    {
+        span.shortestSpan();
+    }
+    catch (std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
 }
