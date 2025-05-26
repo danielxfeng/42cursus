@@ -17,7 +17,7 @@ int main()
     }
 
     std::deque<int> dq = {2, 3, 4, 5};
-    std::cout << easyfind(dq, 3) << std::endl;
+    std::cout << easyfind(dq, 4) << std::endl;
     try
     {
         std::cout << easyfind(dq, 9) << std::endl;
