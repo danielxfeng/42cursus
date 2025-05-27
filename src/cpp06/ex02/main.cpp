@@ -59,7 +59,7 @@ void identify(Base &p)
     try
     {
         auto c = dynamic_cast<C &>(p);
-        auto (*c);
+        void (*c);
         std::cout << "ref c" << std::endl;
     }
     catch (std::bad_cast &e)
