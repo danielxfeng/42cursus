@@ -41,8 +41,7 @@ void identify(Base &p)
     try
     {
         auto a = dynamic_cast<A &>(p);
-        void (*a);
-        std::cout << "ref a" << std::endl;
+        std::cout << &a << std::endl;
     }
     catch (std::bad_cast &e)
     {
@@ -50,8 +49,7 @@ void identify(Base &p)
     try
     {
         auto b = dynamic_cast<B &>(p);
-        void (*b);
-        std::cout << "ref b" << std::endl;
+        std::cout << &b << std::endl;
     }
     catch (std::bad_cast &e)
     {
@@ -59,8 +57,7 @@ void identify(Base &p)
     try
     {
         auto c = dynamic_cast<C &>(p);
-        void (*c);
-        std::cout << "ref c" << std::endl;
+        std::cout << &c << std::endl;
     }
     catch (std::bad_cast &e)
     {
