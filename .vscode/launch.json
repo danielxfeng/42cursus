@@ -107,8 +107,26 @@
             "environment": [],
             "linux": {
                 "program": "valgrind",
-                "args": ["--leak-check=full", "--show-leak-kinds=all", "--track-origins=yes", "${workspaceFolder}/build/your_program"]
+                "args": [
+                    "--leak-check=full",
+                    "--show-leak-kinds=all",
+                    "--track-origins=yes",
+                    "${workspaceFolder}/build/your_program"
+                ]
             }
+        },
+        {
+            "name": "google test debug config",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/cpp09ex00",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "google test cmake"
         }
     ]
 }

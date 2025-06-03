@@ -94,7 +94,47 @@
     "queue": "cpp",
     "stack": "cpp",
     "list": "cpp",
-    "set": "cpp"
+    "set": "cpp",
+    "any": "cpp",
+    "codecvt": "cpp",
+    "condition_variable": "cpp",
+    "forward_list": "cpp",
+    "unordered_set": "cpp",
+    "semaphore": "cpp",
+    "stop_token": "cpp",
+    "thread": "cpp",
+    "future": "cpp"
   },
-  "cmake.sourceDirectory": "/home/xifeng/42cursus/src/so_long/mlx"
+  "cmake.sourceDirectory": "/home/xifeng/42",
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "cmake.configureArgs": [
+    "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+  ],
+  "gtestExplorer.testAutoRun": true,
+  "gtestExplorer.testExecution": "onSave",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "googletest.failed",
+        "settings": {
+          "foreground": "#f00"
+        }
+      },
+      {
+        "scope": "googletest.passed",
+        "settings": {
+          "foreground": "#0f0"
+        }
+      },
+      {
+        "scope": "googletest.run",
+        "settings": {
+          "foreground": "#0f0"
+        }
+      }
+    ]
+  },
+  "gtest-adapter.debugConfig": "google test debug config",
+  "gtest-adapter.supportLocation": true
 }

@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.14)
+project(MyProject)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Include Google Test subdirectory
+add_subdirectory(gtest)
+
+# Enable testing
+enable_testing()
+
+# Add test executable(s)
+add_executable(cpp09ex00 test/cpp09/ex00/test.cpp src/cpp09/ex00/BitcoinExchange.cpp)
+
+target_include_directories(cpp09ex00 PRIVATE ${CMAKE_SOURCE_DIR}/src/cpp09/ex00/)
+
+# Link Google Test libraries to your tests
+target_link_libraries(cpp09ex00 PRIVATE gtest_main)
+
+# Register test executable with CTest
+add_test(NAME cpp09ex00 COMMAND cpp09ex00)
+
+#cmake -S . -B build
+#cmake --build build
+#cd ./build
+#ctest cpp09ex00 --verbose

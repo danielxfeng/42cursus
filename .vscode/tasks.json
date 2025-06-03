@@ -42,6 +42,18 @@
                 "$gcc"
             ],
             "detail": "Compiles the test file and source files with Unity"
+        },
+        {
+            "label": "google test cmake",
+            "type": "shell",
+            "command": "cmake -S . -B build && cmake --build build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }
