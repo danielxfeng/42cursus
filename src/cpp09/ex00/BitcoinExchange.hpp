@@ -21,7 +21,7 @@ private:
 
 public:
     BitcoinExchange() = delete;
-    BitcoinExchange(std::string &db_filename);
+    BitcoinExchange(std::string db_filename);
     BitcoinExchange(const BitcoinExchange &o);
     BitcoinExchange &operator=(const BitcoinExchange &o);
     ~BitcoinExchange();

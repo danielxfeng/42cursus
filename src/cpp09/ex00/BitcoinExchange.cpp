@@ -102,7 +102,7 @@ bool parseEntry(std::pair<std::string, float> &entry, const t_file_type file_typ
     return true;
 }
 
-BitcoinExchange::BitcoinExchange(std::string &db_filename) : db_(buildDb(db_filename)) {}
+BitcoinExchange::BitcoinExchange(std::string db_filename) : db_(buildDb(db_filename)) {}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &o) : db_(o.db_) {}
 
@@ -177,6 +177,58 @@ std::map<std::string, float> BitcoinExchange::buildDb(std::string &db_filename)
     return db;
 }
 
+/**
+ * @details
+ * 1 Check the file existance
+ * 2 Skip the first line(header)
+ * 3 Iterate the lines:
+ *   3.1 Skip on parsing error.
+ *   3.2 Calculate and print out.
+ */
 void BitcoinExchange::calculate(std::string input_fn)
 {
+    // Open the db file
+    std::ifstream file(input_fn);
+    if (!file.is_open())
+        throw std::invalid_argument("Error: could not open file.");
+
+    // Read the db line by line
+    std::string line;
+    bool is_head = true;
+    while (std::getline(file, line))
+    {
+
+        // Set the flag, which means we are waiting for the EOF.
+        if (line.empty())
+        {
+            std::cerr << "Error: bad input => " << line << "." << std::endl;
+            continue;
+        }
+
+        // Skip the first line, which means the title.
+        if (is_head)
+        {
+            is_head = false;
+            continue;
+        }
+
+        // Try to parse the entry.
+        std::pair<std::string, float> entry;
+
+        // We skip the calculation on error.
+        if (!parseEntry(entry, INPUT, line))
+            continue;
+
+        // We try to find the upperbound one.
+        auto it = db_.upper_bound(entry.first);
+        // Shift back.
+        if (it == db_.end() || --it == db_.end())
+        {
+            std::cerr << "Error: data not found => " << line << "." << std::endl;
+            continue;
+        }
+
+        // Calculate and print
+        std::cout << entry.first << " => " << entry.second << " = " << entry.second * it->second << std::endl;
+    };
 }

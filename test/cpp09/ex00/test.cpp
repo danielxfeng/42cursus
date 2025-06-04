@@ -18,6 +18,7 @@ TEST(TrimString, Test) {
 
 TEST(ParseDate, Test) {
     EXPECT_EQ(parseDate("2002-07-12"), "2002-07-12");
+    EXPECT_EQ(parseDate("2020-02-29"), "2020-02-29");
     EXPECT_THROW(parseDate("2002-1-1"), std::invalid_argument);
     EXPECT_THROW(parseDate(""), std::invalid_argument);
     EXPECT_THROW(parseDate("2002-11"), std::invalid_argument);
