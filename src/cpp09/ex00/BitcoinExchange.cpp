@@ -47,7 +47,7 @@ bool parseEntry(std::pair<std::string, float> &entry, const t_file_type file_typ
     size_t pos = str.find(delimiter);
     if (pos == std::string::npos)
     {
-        std::cerr << "Error: bad " << getFilename(file_type) << " =>" << str << "." << std::endl;
+        std::cerr << "Error: bad " << getFilename(file_type) << " => " << str << "." << std::endl;
         return false;
     }
     auto str_date = str.substr(0, pos);
@@ -59,7 +59,7 @@ bool parseEntry(std::pair<std::string, float> &entry, const t_file_type file_typ
     }
     catch (std::invalid_argument &e)
     {
-        std::cerr << "Error: bad " << getFilename(file_type) << " =>" << str << "." << std::endl;
+        std::cerr << "Error: bad " << getFilename(file_type) << " => " << str << "." << std::endl;
         ;
         return false;
     }
@@ -78,12 +78,12 @@ bool parseEntry(std::pair<std::string, float> &entry, const t_file_type file_typ
     }
     catch (std::invalid_argument &e)
     {
-        std::cerr << "Error: bad " << getFilename(file_type) << " =>" << str << "." << std::endl;
+        std::cerr << "Error: bad " << getFilename(file_type) << " => " << str << "." << std::endl;
         return false;
     }
     catch (std::out_of_range &e)
     {
-        std::cerr << "Error: bad " << getFilename(file_type) << " =>" << str << "." << std::endl;
+        std::cerr << "Error: bad " << getFilename(file_type) << " => " << str << "." << std::endl;
         return false;
     }
 
