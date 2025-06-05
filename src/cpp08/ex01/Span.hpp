@@ -4,7 +4,7 @@ class Span
 {
 private:
     std::vector<int> container_;
-    size_t max_;
+    std::size_t max_;
 
     int minMaxSpan(bool is_min) const;
 
