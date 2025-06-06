@@ -1,14 +1,14 @@
-SRCS = RPN.cpp main.cpp
-OBJS = RPN.o main.o
-NAME = RPN
-CPPFLAGS = -Wall -Wextra -Werror
+SRCS = PmergeMe.cpp main.cpp
+OBJS = PmergeMe.o main.o
+NAME = pmergeme
+CPPFLAGS = -Wall -Wextra -Werror -std=c++20
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	c++ -o $@ $^ $(CPPFLAGS)
 
-%.o: %.cpp RPN.hpp
+%.o: %.cpp PmergeMe.hpp
 	c++ -c $< $(CPPFLAGS)
 
 clean:
