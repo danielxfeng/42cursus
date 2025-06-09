@@ -2,18 +2,20 @@
 #include <iostream>
 #include <span>
 
-std::vector<int> PmergeMe::sort(std::vector<int> &data, std::size_t size)
+std::vector<int> PmergeMe::sort(std::vector<int> &&data, std::size_t size)
 {
     if (size == 0)
-        return data;
+        return std::move(data);
     auto span = std::span<int>(data.data(), data.size());
     std::cout << span[0] << std::endl;
-    return data;
+    return std::move(data);
 }
 
-std::array<int, ARG_MAX> PmergeMe::sort(std::array<int, ARG_MAX> &data, std::size_t size)
+std::array<int, ARG_MAX> PmergeMe::sort(std::array<int, ARG_MAX> &&data, std::size_t size)
 {
+    if (size == 0)
+        return std::move(data);
     auto span = std::span<int>(data.data(), size);
     std::cout << span[0]  << std::endl;
-    return data;
+    return std::move(data);
 }

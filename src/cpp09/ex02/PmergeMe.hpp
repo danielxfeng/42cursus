@@ -28,16 +28,16 @@ public:
 
     /**
      * @brief Perform a Merge-insertion sort
-     * @param data a vector of integers
+     * @param data a rvalue of integers container
      * @returns the sorted data (moved).
      */
-    static std::vector<int> sort(std::vector<int> &data, std::size_t size);
+    static std::vector<int> sort(std::vector<int> &&data, std::size_t size);
 
     /**
      * @brief Perform a Merge-insertion sort
-     * @param data an array of integers
+     * @param data a rvalue of integers container
      * @param size the actual size of the array
      * @returns the sorted data (moved).
      */
-    static std::array<int, ARG_MAX> sort(std::array<int, ARG_MAX> &data, std::size_t size);
+    static std::array<int, ARG_MAX> sort(std::array<int, ARG_MAX> &&data, std::size_t size);
 };

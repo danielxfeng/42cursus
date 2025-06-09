@@ -17,8 +17,8 @@ void parse(std::size_t size, char **argv, std::vector<int> &vec, std::array<int,
     {
         try
         {
-            int n = std::stoi(argv[i + 1], &end); // argv starts from 1
-            if (argv[i + 1][end] != '\0')                // check end of the int
+            int n = std::stoi(argv[i + 1], &end);  // argv starts from 1
+            if (argv[i + 1][end] != '\0' || n < 0) // check end of the int, or value is not positive
                 throw std::invalid_argument("illegal argument");
             vec.push_back(n);
             arr[i] = n;
@@ -54,7 +54,7 @@ int errorHandler()
  */
 void printTs(std::size_t size, std::string container, double duration)
 {
-    std::cout << "Time to process a range of " << size << " elements with std::[" << container <<"] : " << duration << " us" << std::endl;
+    std::cout << "Time to process a range of " << size << " elements with std::[" << container << "] : " << duration << " us" << std::endl;
 }
 
 /**
@@ -76,7 +76,7 @@ void resultCheck(const std::vector<int> &vec, const std::array<int, ARG_MAX> &ar
 double sort(auto &data, size_t size)
 {
     auto now = std::chrono::high_resolution_clock::now();
-    data = PmergeMe::sort(data, size);
+    data = PmergeMe::sort(std::move(data), size);
     std::chrono::duration<double, std::micro> elapsed = std::chrono::high_resolution_clock::now() - now;
     return elapsed.count();
 }
@@ -105,6 +105,7 @@ int main(int argc, char **argv)
         auto duration_vec = sort(vec, size);
 
         // Output the sorted data.
+        std::cout << "after: ";
         output(vec, size);
 
         // Sort using array.
