@@ -5,39 +5,59 @@
 #include <iostream>
 
 #define ARG_MAX 147056
+#define DEBUG 1
 
 /**
  * @brief An implementation of merge-insertion sort
  *
  * @details
  * - Merge-insertion sort is a "MINIMUM-COMPARISON SORTING".
- *   However it's rarely used in pratical.
+ *   However it's rarely used in practical.
  *
  * - The implementation:
- *   Aims to implement a Merge-insertion sort, to reach the  O(n log n) time, and O(n) space.
- *   - std::span is used to avoid the unneccessary copy.
+ *   Aims to implement a Merge-insertion sort.
+ *   - std::span is used to wrap the `vector` or `array`.
+ *   - IntView is a `slice` of a `span`.
  *
  */
 class PmergeMe
 {
+private:
+    /**
+     * @brief IntView acts like the `slice` of a span.
+     */
+    class IntView
+    {
+    private:
+        std::span<int> span_;
+
+    public:
+        IntView() = delete;
+        IntView(std::span<int> span);
+        IntView(const IntView &o);
+        IntView &operator=(const IntView &o);
+        ~IntView();
+
+        std::span<int>::iterator begin() const;
+        std::span<int>::iterator end() const;
+    };
+
 public:
-    PmergeMe() = delete;
-    PmergeMe(const PmergeMe &o) = delete;
-    PmergeMe &operator=(const PmergeMe &o) = delete;
-    ~PmergeMe() = delete;
+    PmergeMe();
+    PmergeMe(const PmergeMe &o);
+    PmergeMe &operator=(const PmergeMe &o);
+    ~PmergeMe();
 
     /**
-     * @brief Perform a Merge-insertion sort
-     * @param data a rvalue of integers container
-     * @returns the sorted data (moved).
+     * @brief Perform a In-place Merge-insertion sort
+     * @param data a container of integers.
      */
-    static std::vector<int> sort(std::vector<int> &&data, std::size_t size);
+    void sort(std::vector<int> &data, std::size_t size);
 
     /**
-     * @brief Perform a Merge-insertion sort
-     * @param data a rvalue of integers container
+     * @brief Perform an In-place Merge-insertion sort
+     * @param data a container of integers
      * @param size the actual size of the array
-     * @returns the sorted data (moved).
      */
-    static std::array<int, ARG_MAX> sort(std::array<int, ARG_MAX> &&data, std::size_t size);
+    void sort(std::array<int, ARG_MAX> &data, std::size_t size);
 };
