@@ -75,8 +75,9 @@ void resultCheck(const std::vector<int> &vec, const std::array<int, ARG_MAX> &ar
  */
 double sort(auto &data, size_t size)
 {
+    auto pm = PmergeMe();
     auto now = std::chrono::high_resolution_clock::now();
-    data = PmergeMe::sort(std::move(data), size);
+    pm.sort(std::move(data), size);
     std::chrono::duration<double, std::micro> elapsed = std::chrono::high_resolution_clock::now() - now;
     return elapsed.count();
 }
