@@ -49,18 +49,24 @@ void easySort(std::span<int> span)
  * Recursively applies pairwise comparison and swapping within groups of 2^depth elements.
  * Operates in-place on the provided span.
  * Unpaired elements are preserved.
- * 
+ *
  * For example:
  * Input:  [11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7]
- * Output: [6, 15, 8, 16, 2, 11, 0, 7,       9, 18, 14, 19, 3, 10, 1, 21,      5, 4, 20, 7, 13]
+ * Output: [6, 15, 8, 16, 2, 11, 0, 17,       9, 18, 14, 19, 3, 10, 1, 21,      5, 12, 4, 20, 7, 13]
+ * returns 16
+ * 
+ * @param span The int span to sort
+ * @param depth the curr recursive depth
+ * 
+ * @return the final pairs_group_size
  */
-void pairwiseComparator(std::span<int> span, std::size_t depth)
+std::size_t pairwiseComparator(std::span<int> span, std::size_t depth)
 {
     // how many numbers in one "pairs group"
     const std::size_t pairs_group_size = static_cast<std::size_t>(std::pow(2, depth));
     if (pairs_group_size == 0 || pairs_group_size > span.size())
         throw std::runtime_error("why I am here.");
-    
+
     // how many iterations we need to perform, the unpaired numbers are ignored to match the requirements.
     const std::size_t rounds = span.size() / pairs_group_size;
 
@@ -79,7 +85,7 @@ void pairwiseComparator(std::span<int> span, std::size_t depth)
 
     // base case
     if (rounds <= 1)
-        return;
+        return pairs_group_size;
     // recursive call
     return pairwiseComparator(span, depth + 1);
 }

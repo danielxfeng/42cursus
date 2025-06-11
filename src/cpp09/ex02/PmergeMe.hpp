@@ -7,7 +7,7 @@
 #define ARG_MAX 147056
 #define DEBUG 1
 
-void pairwiseComparator(std::span<int> span, std::size_t depth);
+std::size_t pairwiseComparator(std::span<int> span, std::size_t depth);
 
 /**
  * @brief An implementation of merge-insertion sort
