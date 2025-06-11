@@ -54,10 +54,10 @@ void easySort(std::span<int> span)
  * Input:  [11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7]
  * Output: [6, 15, 8, 16, 2, 11, 0, 17,       9, 18, 14, 19, 3, 10, 1, 21,      5, 12, 4, 20, 7, 13]
  * returns 16
- * 
+ *
  * @param span The int span to sort
  * @param depth the curr recursive depth
- * 
+ *
  * @return the final pairs_group_size
  */
 std::size_t pairwiseComparator(std::span<int> span, std::size_t depth)
@@ -90,6 +90,23 @@ std::size_t pairwiseComparator(std::span<int> span, std::size_t depth)
     return pairwiseComparator(span, depth + 1);
 }
 
+// Generates a Jacobsthal Numbers without the first 2 elements.
+void customJacobsthalNumbers(int arr[], std::size_t size)
+{
+    int j0 = 0;
+    int j1 = 1;
+    for (size_t i = 0; i < size; ++i)
+    {
+        arr[i] = j1 + 2 * j0;
+        j0 = j1;
+        j1 = arr[i];
+    }
+}
+
+void insertBack(std::span<int> span, std::size_t pair_size, int jn[], std::size_t jn_size)
+{
+}
+
 /**
  * @brief To dispatch the task based on the size of the container.
  */
@@ -98,7 +115,15 @@ void scheduler(std::span<int> span)
     if (span.size() < 4)
         easySort(span);
     else
-        pairwiseComparator(span, 1);
+    {
+        const std::size_t pairs_group_size = pairwiseComparator(span, 1);
+
+        const std::size_t jn_size = std::log(span.size()) + 1;
+        int jn[jn_size];
+        customJacobsthalNumbers(jn, jn_size);
+        
+        insertBack(span, pairs_group_size / 2, jn, jn_size);
+    }
 }
 
 void PmergeMe::sort(std::vector<int> &data, std::size_t size)
