@@ -7,6 +7,8 @@
 #define ARG_MAX 147056
 #define DEBUG 1
 
+void pairwiseComparator(std::span<int> span, std::size_t depth);
+
 /**
  * @brief An implementation of merge-insertion sort
  *
@@ -17,31 +19,10 @@
  * - The implementation:
  *   Aims to implement a Merge-insertion sort.
  *   - std::span is used to wrap the `vector` or `array`.
- *   - IntView is a `slice` of a `span`.
  *
  */
 class PmergeMe
 {
-private:
-    /**
-     * @brief IntView acts like the `slice` of a span.
-     */
-    class IntView
-    {
-    private:
-        std::span<int> span_;
-
-    public:
-        IntView() = delete;
-        IntView(std::span<int> span);
-        IntView(const IntView &o);
-        IntView &operator=(const IntView &o);
-        ~IntView();
-
-        std::span<int>::iterator begin() const;
-        std::span<int>::iterator end() const;
-    };
-
 public:
     PmergeMe();
     PmergeMe(const PmergeMe &o);
