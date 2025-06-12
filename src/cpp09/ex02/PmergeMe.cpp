@@ -46,27 +46,23 @@ void easySort(std::span<int> span)
 /**
  * @brief The pairwise comparator stage of sorting.
  * @details
- * Recursively applies pairwise comparison and swapping within groups of 2^depth elements.
+ * Applies pairwise comparison for the span, and swapping within the pairs_group.
  * Operates in-place on the provided span.
- * Unpaired elements are preserved.
  *
  * For example:
- * Input:  [11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7]
- * Output: [6, 15, 8, 16, 2, 11, 0, 17,       9, 18, 14, 19, 3, 10, 1, 21,      5, 12, 4, 20, 7, 13]
- * returns 16
+ * Input:  [4, 7, 9, 8, 6], 2
+ * Output: [4, 7,   8, 9,   6]
+ *
+ * Input:  [4, 7, 8, 9, 6, 87, 53, 54], 4
+ * Output: [4, 7, 8, 9,   53, 54, 6, 87]
  *
  * @param span The int span to sort
- * @param depth the curr recursive depth
+ * @param pairs_group_size The size of a pair of numbers
  *
- * @return the final pairs_group_size
+ * @return How many rounds of the comparasion
  */
-std::size_t pairwiseComparator(std::span<int> span, std::size_t depth)
+std::size_t pairwiseComparator(std::span<int> span, std::size_t pairs_group_size)
 {
-    // how many numbers in one "pairs group"
-    const std::size_t pairs_group_size = static_cast<std::size_t>(std::pow(2, depth));
-    if (pairs_group_size == 0 || pairs_group_size > span.size())
-        throw std::runtime_error("why I am here.");
-
     // how many iterations we need to perform, the unpaired numbers are ignored to match the requirements.
     const std::size_t rounds = span.size() / pairs_group_size;
 
@@ -83,11 +79,30 @@ std::size_t pairwiseComparator(std::span<int> span, std::size_t depth)
             std::swap_ranges(left_start, right_start, right_start);
     }
 
-    // base case
-    if (rounds <= 1)
-        return pairs_group_size;
+    return rounds;
+}
+
+void insertBack()
+{
+    return;
+}
+
+void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert = true)
+{
+    // how many numbers in one "pairs group"
+    const std::size_t pairs_group_size = static_cast<std::size_t>(std::pow(2, depth));
+    if (pairs_group_size == 0 || pairs_group_size > span.size())
+        throw std::runtime_error("why I am here.");
+
+    const auto rounds = pairwiseComparator(span, pairs_group_size);
+
     // recursive call
-    return pairwiseComparator(span, depth + 1);
+    if (rounds > 1)
+        return mergeInsertionSort(span, depth + 1);
+
+    // todo
+    if (is_insert)
+        insertBack();
 }
 
 // Generates a Jacobsthal Numbers without the first 2 elements.
@@ -103,10 +118,6 @@ void customJacobsthalNumbers(int arr[], std::size_t size)
     }
 }
 
-void insertBack(std::span<int> span, std::size_t pair_size, int jn[], std::size_t jn_size)
-{
-}
-
 /**
  * @brief To dispatch the task based on the size of the container.
  */
@@ -115,15 +126,7 @@ void scheduler(std::span<int> span)
     if (span.size() < 4)
         easySort(span);
     else
-    {
-        const std::size_t pairs_group_size = pairwiseComparator(span, 1);
-
-        const std::size_t jn_size = std::log(span.size()) + 1;
-        int jn[jn_size];
-        customJacobsthalNumbers(jn, jn_size);
-        
-        insertBack(span, pairs_group_size / 2, jn, jn_size);
-    }
+        mergeInsertionSort(span, 1);
 }
 
 void PmergeMe::sort(std::vector<int> &data, std::size_t size)
