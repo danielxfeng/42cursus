@@ -20,6 +20,42 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert);
  * - The implementation:
  *   Aims to implement a Merge-insertion sort.
  *   - std::span is used to wrap the `vector` or `array`.
+ * 
+ * ##The merge-insertion sort##
+ * 
+ * We sort it as a **Tournament Tree**, implemented by an array or vector like data structure.
+ *
+ * ### 1. Pairwise Comparison — Building the Tree
+ * ** O(nlog(n)), n movements, and log(n) recursive calls **
+ *
+ * We recursively compare elements in pairs (log(n)):
+ * - In each pair, the **larger** (the winner) moves to the next round.
+ * - The **smaller** stays in place, but still carries its subtree.
+ * - We maintain the invariant: (loser, winner), with subtrees swapped together.
+ *
+ * ### Example (Depth = 0 to 4):
+ * Original input:
+ *     11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7
+ * 
+ * The tournament tree without swapping
+ * 4th:                              21
+ * 3rd:                 17                          21
+ * 2nd:          17            16            21            19             20
+ * 1st:      11     17     16     15     10     21     18     19      12     20     13
+ * 0th:    11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5,  4, 20, 13, 7
+ *
+ * The tournament tree with swapping
+ * 
+ * 4th:                              21
+ * 3rd:                 17                          21
+ * 2nd:          16           17             19           21              20
+ * 1st:      15     16     11     17     18     19     10     21      12     20     13
+ * 0th:    6, 15   8, 16  2, 11  0, 17  9, 18 14, 19  3, 10  1, 21  5, 12   4, 20  7, 13
+ *
+ * The final winner is 21, found at the root of the tree.
+ * 
+ * 2 Insertion
+ * We try to sort the tree from root to leaf by insertion
  *
  */
 class PmergeMe

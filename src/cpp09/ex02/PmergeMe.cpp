@@ -94,6 +94,7 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert =
     if (pairs_group_size == 0 || pairs_group_size > span.size())
         throw std::runtime_error("why I am here.");
 
+    // applies the 
     const auto rounds = pairwiseComparator(span, pairs_group_size);
 
     // recursive call
