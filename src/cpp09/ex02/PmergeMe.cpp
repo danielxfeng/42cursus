@@ -1,7 +1,9 @@
 #include "PmergeMe.hpp"
 #include <iostream>
 #include <span>
+#include <unordered_map>
 #include <algorithm>
+#include <ranges>
 #include <cmath>
 
 // Jacobsthal Numbers
@@ -86,9 +88,40 @@ std::size_t pairwiseComparator(std::span<int> span, std::size_t pairs_group_size
     return rounds;
 }
 
-void insertBack(std::span<int> span, std::size_t depth, std::size_t pairs_group_size)
+void insert(std::span<int> span, std::size_t pair_size)
 {
-    return;
+    // create the sub-spans
+    std::vector<std::span<int>> spans;
+    const std::size_t size = span.size() / pair_size;
+    for (std::size_t i = 0; i < size; ++i)
+        spans.push_back(span.subspan(i * pair_size, pair_size));
+
+    // split to main_chain and pend, and create a hashmap map to speed up the searching.
+    std::vector<std::span<int>> main_chain;
+    std::vector<std::span<int>> pend;
+    std::unordered_map<std::size_t, std::span<int>> map;
+    for (size_t i = 0; i < size; ++i) // [b1, a1, b2, a2 ...], main chain [b1, a1, a2...], pend [b2...]
+    {
+        if (i == 0 || i % 2 == 1)
+        {
+            main_chain.push_back(spans[i]);
+            if (i > 2)
+                map.insert({i / 2, spans[i]});
+        }
+        else
+            pend.push_back(spans[i]);
+    }
+
+    // For each element in pend, find the proper place, and insert into both main chain and original span.
+    // todo, apply jn.
+    for (std::size_t i = 0; i < pend.size(); ++i)
+    {
+        auto it = std::lower_bound(main_chain.begin(), map[i + 1], pend[i], [=](std::span<int> s1, std::span<int> s2)
+                                   { return s1.back() < s2.back(); });
+        main_chain.push_back(pend[i]);
+        std::rotate(); // todo, rotate the main chain
+        std::rotate(); // todo, rotate the original span.
+    }
 }
 
 void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert = true)
@@ -107,7 +140,7 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert =
 
     // performs insertion
     if (is_insert)
-        insertBack(span, depth, pairs_group_size);
+        insert(span, pairs_group_size / 2);
 }
 
 /**

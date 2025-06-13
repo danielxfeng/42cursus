@@ -103,7 +103,8 @@
     "semaphore": "cpp",
     "stop_token": "cpp",
     "thread": "cpp",
-    "future": "cpp"
+    "future": "cpp",
+    "ranges": "cpp"
   },
   "cmake.sourceDirectory": "/home/xifeng/42",
   "cmake.buildDirectory": "${workspaceFolder}/build",
