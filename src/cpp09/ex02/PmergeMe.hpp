@@ -33,7 +33,7 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert);
  * - The **smaller** stays in place, but still carries its subtree.
  * - We maintain the invariant: (loser, winner), with subtrees swapped together.
  *
- * ### Example (Depth = 0 to 4):
+ * #### Example (Depth = 0 to 4):
  * Original input:
  *     11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7
  * 
@@ -54,9 +54,26 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert);
  *
  * The final winner is 21, found at the root of the tree.
  * 
- * 2 Insertion
- * We try to sort the tree from root to leaf by insertion
+ * ### 2. Insertion Phase — Reconstructing the Sorted Array
+ * We reconstruct the array layer by layer, from top to bottom (4th → 0th), then split pairs and merge sub-results.
  *
+ * ### Challenge: Expanding Search Range
+ * - As more elements from **pend** are inserted, the **main chain grows**, so the **search range expands**.
+ * - Later insertions must search over larger portions of the chain, increasing the number of comparisons.
+ *
+ * ### Jacobsthal Numbers for Efficient Insertion
+ * Jacobsthal numbers: [0, 1, 1, 3, 5, 11, ...]  
+ * We use [1, 3, 5, 11, ...] as Jacobsthal indices.
+ * - The actual insertion order: 3, 2, 5, 4, 11, 10, 9, 8, 7, 6, ...
+ *
+ * - As we can use a balanced BST (binary search tree) to represent the main chain, 
+ *   the sequence grows in a way that **mirrors the balanced BST expansion**.
+ * - During the **Jacobsthal steps**, each pending element is inserted near its ideal position,
+ *   so the **search range remains fixed and shallow**, reducing total comparison cost.
+ * 
+ * ### The Binary Search
+ * - For example, when inserting b5, we search for its position between the start and a5 in the **main chain**.
+ * - After all elements in **pend** are inserted in the correct order, the current layer becomes fully sorted.
  */
 class PmergeMe
 {

@@ -4,6 +4,10 @@
 #include <algorithm>
 #include <cmath>
 
+// Jacobsthal Numbers
+constexpr int JacobsthalNumbers[17] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381};
+const std::span<const int> JN(JacobsthalNumbers);
+
 /**
  * @brief a log tool
  */
@@ -82,7 +86,7 @@ std::size_t pairwiseComparator(std::span<int> span, std::size_t pairs_group_size
     return rounds;
 }
 
-void insertBack()
+void insertBack(std::span<int> span, std::size_t depth, std::size_t pairs_group_size)
 {
     return;
 }
@@ -94,29 +98,16 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert =
     if (pairs_group_size == 0 || pairs_group_size > span.size())
         throw std::runtime_error("why I am here.");
 
-    // applies the 
+    // applies the
     const auto rounds = pairwiseComparator(span, pairs_group_size);
 
     // recursive call
     if (rounds > 1)
         return mergeInsertionSort(span, depth + 1);
 
-    // todo
+    // performs insertion
     if (is_insert)
-        insertBack();
-}
-
-// Generates a Jacobsthal Numbers without the first 2 elements.
-void customJacobsthalNumbers(int arr[], std::size_t size)
-{
-    int j0 = 0;
-    int j1 = 1;
-    for (size_t i = 0; i < size; ++i)
-    {
-        arr[i] = j1 + 2 * j0;
-        j0 = j1;
-        j1 = arr[i];
-    }
+        insertBack(span, depth, pairs_group_size);
 }
 
 /**
