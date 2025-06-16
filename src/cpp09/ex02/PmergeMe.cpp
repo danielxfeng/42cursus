@@ -19,6 +19,14 @@ void debugInfo(std::string &msg)
         std::cout << "debug: " << msg << std::endl;
 }
 
+// There is a index convertion, JN 3 points to b3, but the `pend`[0] points to b2, so i = JN - 2.
+std::size_t jnConverter(std::size_t jn_idx)
+{
+    if (jn_idx < 2)
+        throw std::runtime_error("why I am here");
+    return jn_idx - 2;
+}
+
 // --------------------------------  Constructor and Destructors of PmergeMe.
 PmergeMe::PmergeMe() {}
 PmergeMe::PmergeMe(const PmergeMe &o) {}
@@ -112,15 +120,22 @@ void insert(std::span<int> span, std::size_t pair_size)
             pend.push_back(spans[i]);
     }
 
-    // For each element in pend, find the proper place, and insert into both main chain and original span.
-    // todo, apply jn.
-    for (std::size_t i = 0; i < pend.size(); ++i)
+    // Apply Jacobsthal Numbers
+    // we start from the 2nd one.
+    for (auto it = (JN.begin() + 1); it != JN.end(); ++it)
     {
-        auto it = std::lower_bound(main_chain.begin(), map[i + 1], pend[i], [=](std::span<int> s1, std::span<int> s2)
-                                   { return s1.back() < s2.back(); });
-        main_chain.push_back(pend[i]);
-        std::rotate(); // todo, rotate the main chain
-        std::rotate(); // todo, rotate the original span.
+        const auto prev = it - 1;
+        // Shortcut path, for JN number [3, 5], if pend.size() <= 2, we can break the loop.
+        if (pend.size() <= jnConverter(*prev + 1))
+            break;
+        for (std::size_t i = *it; i > *prev; --i)
+        {
+            const std::size_t idx = jnConverter(i);
+            // For prev example, if pend.size() = 3, and JN number is 5, we need to skip the first iter.
+            if (pend.size() - 1 < idx)
+                continue;
+            // todo lowerbound, and rotate twice.
+        }
     }
 }
 
