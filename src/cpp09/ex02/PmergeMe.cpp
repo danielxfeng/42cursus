@@ -10,6 +10,8 @@
 constexpr int JacobsthalNumbers[17] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381};
 const std::span<const int> JN(JacobsthalNumbers);
 
+std::size_t count = 0;
+
 /**
  * @brief a log tool
  */
@@ -88,12 +90,19 @@ std::size_t pairwiseComparator(std::span<int> span, std::size_t pairs_group_size
         auto right_start = left_start + pairs_group_size / 2;
         auto left_end = right_start - 1;
         auto right_end = right_start + pairs_group_size / 2 - 1;
+        ++count;
         // moves the winners to the right.
         if (*(left_end) > *(right_end))
             std::swap_ranges(left_start, right_start, right_start);
     }
 
     return rounds;
+}
+
+bool compare(const std::span<int> &s1, const std::span<int> &s2)
+{
+    ++count;
+    return s1.back() < s2.back()
 }
 
 void insert(std::span<int> span, std::size_t pair_size)
@@ -128,13 +137,26 @@ void insert(std::span<int> span, std::size_t pair_size)
         // Shortcut path, for JN number [3, 5], if pend.size() <= 2, we can break the loop.
         if (pend.size() <= jnConverter(*prev + 1))
             break;
+
+        // This is how to decide the end sign of iteration.
+        // When we perform **b3**, the end target is **a3**, the **a3** is at main_chain[3] (b1, a1, a2, a3),
+        // because we compared them in pairwise stage.
+        // When we perfrom **b2**, the end target is **a2**, the end sign is at main_chain[3] for worst case (b1, b3, a1, a2),
+        // because when we move from a3 to a2, b3 may also be inserted.
+        // When we perfrom **b7**, then end sign is at main[9] (b1, a1, b2, a2, b3, a3, a4, a5, a6, a7)
+        std::size_t search_end_index = std::min(*it + *prev - 1, main_chain.size());
+        auto main_chain_end = main_chain.begin() + search_end_index;
+
         for (std::size_t i = *it; i > *prev; --i)
         {
             const std::size_t idx = jnConverter(i);
             // For prev example, if pend.size() = 3, and JN number is 5, we need to skip the first iter.
             if (pend.size() - 1 < idx)
                 continue;
-            // todo lowerbound, and rotate twice.
+            // binary search
+            auto pos = std::lower_bound(main_chain.begin(), main_chain_end, pend[idx], [](const std::span<int> &s1, const std::span<int> &s2)
+                                        { return compare(s1, s2); });
+            // rotate the main_chain and orginal span. todo
         }
     }
 }
