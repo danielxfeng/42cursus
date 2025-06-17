@@ -22,7 +22,7 @@ void debugInfo(std::string &msg)
 }
 
 // There is a index convertion, JN 3 points to b3, but the `pend`[0] points to b2, so i = JN - 2.
-std::size_t jnConverter(std::size_t jn_idx)
+std::size_t jnToPendIdx(std::size_t jn_idx)
 {
     if (jn_idx < 2)
         throw std::runtime_error("why I am here");
@@ -31,7 +31,7 @@ std::size_t jnConverter(std::size_t jn_idx)
 
 // --------------------------------  Constructor and Destructors of PmergeMe.
 PmergeMe::PmergeMe() {}
-PmergeMe::PmergeMe(const PmergeMe &o) {}
+PmergeMe::PmergeMe(const PmergeMe &o) { }
 PmergeMe &PmergeMe::operator=(const PmergeMe &o) { return *this; }
 PmergeMe::~PmergeMe() {}
 
@@ -102,7 +102,7 @@ std::size_t pairwiseComparator(std::span<int> span, std::size_t pairs_group_size
 bool compare(const std::span<int> &s1, const std::span<int> &s2)
 {
     ++count;
-    return s1.back() < s2.back()
+    return s1.back() < s2.back();
 }
 
 void insert(std::span<int> span, std::size_t pair_size)
@@ -115,6 +115,7 @@ void insert(std::span<int> span, std::size_t pair_size)
 
     // split to main_chain and pend, and create a hashmap map to speed up the searching.
     std::vector<std::span<int>> main_chain;
+    main_chain.reserve(size);
     std::vector<std::span<int>> pend;
     std::unordered_map<std::size_t, std::span<int>> map;
     for (size_t i = 0; i < size; ++i) // [b1, a1, b2, a2 ...], main chain [b1, a1, a2...], pend [b2...]
@@ -135,7 +136,7 @@ void insert(std::span<int> span, std::size_t pair_size)
     {
         const auto prev = it - 1;
         // Shortcut path, for JN number [3, 5], if pend.size() <= 2, we can break the loop.
-        if (pend.size() <= jnConverter(*prev + 1))
+        if (pend.size() <= jnToPendIdx(*prev + 1))
             break;
 
         // This is how to decide the end sign of iteration.
@@ -144,24 +145,40 @@ void insert(std::span<int> span, std::size_t pair_size)
         // When we perfrom **b2**, the end target is **a2**, the end sign is at main_chain[3] for worst case (b1, b3, a1, a2),
         // because when we move from a3 to a2, b3 may also be inserted.
         // When we perfrom **b7**, then end sign is at main[9] (b1, a1, b2, a2, b3, a3, a4, a5, a6, a7)
-        std::size_t search_end_index = std::min(*it + *prev - 1, main_chain.size());
+        std::size_t search_end_index = std::min(static_cast<std::size_t>(*it + *prev - 1), static_cast<std::size_t>(main_chain.size()));
         auto main_chain_end = main_chain.begin() + search_end_index;
 
         for (std::size_t i = *it; i > *prev; --i)
         {
-            const std::size_t idx = jnConverter(i);
+            const std::size_t pend_idx = jnToPendIdx(i);
             // For prev example, if pend.size() = 3, and JN number is 5, we need to skip the first iter.
-            if (pend.size() - 1 < idx)
+            if (pend.size() - 1 < pend_idx)
                 continue;
+
+            const auto &pend_item = pend[pend_idx];
+
             // binary search
-            auto pos = std::lower_bound(main_chain.begin(), main_chain_end, pend[idx], [](const std::span<int> &s1, const std::span<int> &s2)
-                                        { return compare(s1, s2); });
-            // rotate the main_chain and orginal span. todo
+            const auto pos_main_chain = std::lower_bound(main_chain.begin(), main_chain_end, pend_item, [](const std::span<int> &s1, const std::span<int> &s2)
+                                                         { return compare(s1, s2); });
+
+            // rotate the original span to re-order the sorted pend item.
+            if (pend_item.data() < (*pos_main_chain).data())
+                std::rotate(pend_item.data(), pend_item.data() + pair_size, (*pos_main_chain).data());
+            else
+                std::rotate((*pos_main_chain).data(), (*pos_main_chain).data() + pair_size, pend_item.data());
+
+            // rotate the main_chain to insert the sorted pend item.
+            main_chain.push_back(pend_item);
+            std::rotate(pos_main_chain, main_chain.end() - 1, main_chain.end());
         }
     }
+
+    for (auto dit = span.begin(); dit != span.end(); ++dit)
+        std::cout << *dit << ", ";
+    std::cout << std::endl;
 }
 
-void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert = true)
+void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert)
 {
     // how many numbers in one "pairs group"
     const std::size_t pairs_group_size = static_cast<std::size_t>(std::pow(2, depth));
@@ -173,11 +190,15 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert =
 
     // recursive call
     if (rounds > 1)
-        return mergeInsertionSort(span, depth + 1);
+        mergeInsertionSort(span, depth + 1, is_insert);
 
     // performs insertion
     if (is_insert)
+    {
+        std::cout << "[debug insert] " << depth << std::endl;
         insert(span, pairs_group_size / 2);
+    }
+        
 }
 
 /**
@@ -188,7 +209,7 @@ void scheduler(std::span<int> span)
     if (span.size() < 4)
         easySort(span);
     else
-        mergeInsertionSort(span, 1);
+        mergeInsertionSort(span, 1, true);
 }
 
 void PmergeMe::sort(std::vector<int> &data, std::size_t size)
