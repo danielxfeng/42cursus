@@ -1,6 +1,6 @@
 {
   "[c]": {
-      "editor.defaultFormatter": "keyhr.42-c-format"
+    "editor.defaultFormatter": "keyhr.42-c-format"
   },
   "42header.username": "Xifeng",
   "42header.email": "xifeng@student.hive.fi",
@@ -136,7 +136,9 @@
       }
     ]
   },
-  "gtest-adapter.debugConfig": "google test debug config",
+  "gtest-adapter.debugConfig": [
+    "google test debug config"
+  ],
   "gtest-adapter.supportLocation": true,
-  "C_Cpp.errorSquiggles": "disabled"
+  "C_Cpp.errorSquiggles": "disabled",
 }

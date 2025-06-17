@@ -119,7 +119,7 @@
             "name": "google test debug config",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/test",
+            "program": "${workspaceFolder}/build/cpp09ex02test",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
