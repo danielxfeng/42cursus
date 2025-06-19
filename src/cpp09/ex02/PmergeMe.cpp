@@ -1,4 +1,5 @@
 #include "PmergeMe.hpp"
+#include "SpanSlice.hpp"
 #include <iostream>
 #include <span>
 #include <unordered_map>
@@ -99,7 +100,7 @@ std::size_t pairwiseComparator(std::span<int> span, std::size_t pairs_group_size
     return rounds;
 }
 
-bool compare(const std::span<int> &s1, const std::span<int> &s2)
+bool compare(const SpanSlice &s1, const SpanSlice &s2)
 {
     ++count;
     return s1.back() < s2.back();
@@ -108,39 +109,34 @@ bool compare(const std::span<int> &s1, const std::span<int> &s2)
 void insert(std::span<int> span, std::size_t pair_size)
 {
     // create the sub-spans
-    std::vector<std::span<int>> spans;
+    std::vector<SpanSlice> slices;
     const std::size_t size = span.size() / pair_size;
     for (std::size_t i = 0; i < size; ++i)
-        spans.push_back(span.subspan(i * pair_size, pair_size));
+        slices.push_back(SpanSlice(span, i * pair_size, pair_size));
 
     // split to main_chain and pend, and create a hashmap map to speed up the searching.
-    std::vector<std::span<int>> main_chain;
+    std::vector<SpanSlice> main_chain;
     main_chain.reserve(size);
-    std::vector<std::span<int>> pend;
-    std::unordered_map<std::size_t, std::span<int>> map;
+    std::vector<SpanSlice> pend;
     for (size_t i = 0; i < size; ++i) // [b1, a1, b2, a2 ...], main chain [b1, a1, a2...], pend [b2...]
     {
         if (i == 0 || i % 2 == 1)
-        {
-            main_chain.push_back(spans[i]);
-            if (i > 2)
-                map.insert({i / 2, spans[i]});
-        }
+            main_chain.push_back(slices[i]);
         else
-            pend.push_back(spans[i]);
+            pend.push_back(slices[i]);
     }
 
     std::cout << "before everything the main chain ";
-    for (auto &span : main_chain)
+    for (auto &slice : main_chain)
     {
-        std::cout << *(span.data()) << ", ";
+        std::cout << slice.back() << ", ";
     }
     std::cout << std::endl;
 
     std::cout << "before everything the pend ";
-    for (auto &span : pend)
+    for (auto &slice : pend)
     {
-        std::cout << *(span.data()) << ", ";
+        std::cout << slice.back() << ", ";
     }
     std::cout << std::endl;
 
@@ -171,40 +167,56 @@ void insert(std::span<int> span, std::size_t pair_size)
 
             const auto &pend_item = pend[pend_idx];
 
-            std::cout << "pend_item " << *(pend[pend_idx].data()) << std::endl;
+            std::cout << "pend_item " << pend[pend_idx].back() << std::endl;
 
             // binary search
-            const auto pos_main_chain = std::lower_bound(main_chain.begin(), main_chain_end, pend_item, [](const std::span<int> &s1, const std::span<int> &s2)
+            const auto pos_main_chain = std::lower_bound(main_chain.begin(), main_chain_end, pend_item, [](const SpanSlice &s1, const SpanSlice &s2)
                                                          { return compare(s1, s2); });
 
-            std::cout << "pos_main_chain " << (*(*pos_main_chain).data()) << std::endl;
+            std::cout << "pos_main_chain " << (*pos_main_chain).back() << std::endl;
 
             // rotate the original span to re-order the sorted pend item.
-            if (pend_item.data() < (*pos_main_chain).data())
+            if (pend_item.begin() < (*pos_main_chain).begin())
             {
                 std::cout << "left" << std::endl;
-                std::rotate(pend_item.data(), pend_item.data() + pair_size, (*pos_main_chain).data());
+                std::rotate(pend_item.begin(), pend_item.end(), (*pos_main_chain).begin());
+                SpanSlice::syncIndex(main_chain, pend_item.getIdx(), pend_item.getIdx() + pair_size, (*pos_main_chain).getIdx() - pair_size);
+                SpanSlice::syncIndex(pend, pend_item.getIdx(), pend_item.getIdx() + pair_size, (*pos_main_chain).getIdx() - pair_size);
             }
             else
             {
                 std::cout << "right" << std::endl;
-                std::rotate((*pos_main_chain).data(), pend_item.data(), pend_item.data() + pair_size);
+                std::rotate((*pos_main_chain).begin(), pend_item.begin(), pend_item.end());
+                SpanSlice::syncIndex(main_chain, (*pos_main_chain).getIdx(), pend_item.getIdx(), pend_item.getIdx());
+                SpanSlice::syncIndex(pend, (*pos_main_chain).getIdx(), pend_item.getIdx(), pend_item.getIdx());
             }
 
             std::cout << "before rotate the main chain ";
-            for (auto &span : main_chain)
+            for (auto &slice : main_chain)
             {
-                std::cout << *(span.data()) << ", ";
+                std::cout << slice.back() << ", ";
+            }
+            std::cout << std::endl;
+            std::cout << "before rotate the pend ";
+            for (auto &slice : pend)
+            {
+                std::cout << slice.back() << ", ";
             }
             std::cout << std::endl;
 
             // rotate the main_chain to insert the sorted pend item.
-            main_chain.push_back(pend_item);
+            main_chain.push_back(pend[pend_idx]);
             std::rotate(pos_main_chain, main_chain.end() - 1, main_chain.end());
             std::cout << "after rotate the main chain ";
-            for (auto &span : main_chain)
+            for (auto &slice : main_chain)
             {
-                std::cout << *(span.data()) << ", ";
+                std::cout << slice.back() << ", ";
+            }
+            std::cout << std::endl;
+            std::cout << "after rotate the pend ";
+            for (auto &slice : pend)
+            {
+                std::cout << slice.back() << ", ";
             }
             std::cout << std::endl;
         }

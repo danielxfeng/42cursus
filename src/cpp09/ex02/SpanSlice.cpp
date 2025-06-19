@@ -1,8 +1,21 @@
 #include "SpanSlice.hpp"
 
-SpanSlice::~SpanSlice() {}
-
 SpanSlice::SpanSlice(std::span<int> &base, std::size_t idx, std::size_t size) : base_(base), idx_(idx), size_(size) {}
+
+SpanSlice::SpanSlice(const SpanSlice &o) : base_(o.base_), idx_(o.idx_), size_(o.size_) {}
+
+SpanSlice &SpanSlice::operator=(const SpanSlice &o)
+{
+    if (this != &o)
+    {
+        base_ = o.base_;
+        idx_ = o.idx_;
+        size_ = o.size_;
+    }
+    return *this;
+}
+
+SpanSlice::~SpanSlice() {}
 
 std::span<int>::iterator SpanSlice::begin() const { return base_.begin() + idx_; }
 
@@ -14,15 +27,19 @@ int SpanSlice::back() const { return *(end() - 1); }
 
 void SpanSlice::move(std::size_t distance, bool isForward) { idx_ += distance * (isForward ? 1 : -1); }
 
-static void SpanSlice::rotate(std::vector<SpanSlice> &container, std::size_t first, std::size_t middle, std::size_t last)
+std::size_t SpanSlice::getIdx() const { return idx_; }
+
+void SpanSlice::syncIndex(std::vector<SpanSlice> &container, std::size_t first, std::size_t middle, std::size_t last)
 {
     const std::size_t right_offset = last - middle;
     const std::size_t left_offset = middle - first;
-    for (std::size_t i = first; i < last; ++i)
+    for (SpanSlice &curr : container)
     {
-        if (i < middle)
-            container[i].move(right_offset, true);
+        if (curr.getIdx() < first || curr.getIdx() >= last)
+            continue;
+        if (curr.getIdx() < middle)
+            curr.move(right_offset, true);
         else
-            container[i].move(left_offset, false);
+            curr.move(left_offset, false);
     }
 }

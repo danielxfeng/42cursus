@@ -18,8 +18,8 @@ private:
 
 public:
     SpanSlice() = delete;
-    SpanSlice(const SpanSlice &o) = delete;
-    SpanSlice &operator=(const SpanSlice &o) = delete;
+    SpanSlice(const SpanSlice &o);
+    SpanSlice &operator=(const SpanSlice &o);
     ~SpanSlice();
     SpanSlice(std::span<int> &base, std::size_t idx, std::size_t size);
 
@@ -27,9 +27,12 @@ public:
     std::span<int>::iterator end() const;
     int front() const;
     int back() const;
+    std::size_t getIdx() const;
 
     /**
      * @brief This is to sync the indexes of SpanSlice when std::rotate is applied to base container.
+     * @param container the base container
+     * @param first, middle, last the indexes of base container for rotation
      */
-    static void rotate(std::vector<SpanSlice> &container, std::size_t first, std::size_t middle, std::size_t last);
+    static void syncIndex(std::vector<SpanSlice> &container, std::size_t first, std::size_t middle, std::size_t last);
 };
