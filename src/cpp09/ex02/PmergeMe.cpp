@@ -31,7 +31,7 @@ std::size_t jnToPendIdx(std::size_t jn_idx)
 
 // --------------------------------  Constructor and Destructors of PmergeMe.
 PmergeMe::PmergeMe() {}
-PmergeMe::PmergeMe(const PmergeMe &o) { }
+PmergeMe::PmergeMe(const PmergeMe &o) {}
 PmergeMe &PmergeMe::operator=(const PmergeMe &o) { return *this; }
 PmergeMe::~PmergeMe() {}
 
@@ -130,6 +130,20 @@ void insert(std::span<int> span, std::size_t pair_size)
             pend.push_back(spans[i]);
     }
 
+    std::cout << "before everything the main chain ";
+    for (auto &span : main_chain)
+    {
+        std::cout << *(span.data()) << ", ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "before everything the pend ";
+    for (auto &span : pend)
+    {
+        std::cout << *(span.data()) << ", ";
+    }
+    std::cout << std::endl;
+
     // Apply Jacobsthal Numbers
     // we start from the 2nd one.
     for (auto it = (JN.begin() + 1); it != JN.end(); ++it)
@@ -157,19 +171,42 @@ void insert(std::span<int> span, std::size_t pair_size)
 
             const auto &pend_item = pend[pend_idx];
 
+            std::cout << "pend_item " << *(pend[pend_idx].data()) << std::endl;
+
             // binary search
             const auto pos_main_chain = std::lower_bound(main_chain.begin(), main_chain_end, pend_item, [](const std::span<int> &s1, const std::span<int> &s2)
                                                          { return compare(s1, s2); });
 
+            std::cout << "pos_main_chain " << (*(*pos_main_chain).data()) << std::endl;
+
             // rotate the original span to re-order the sorted pend item.
             if (pend_item.data() < (*pos_main_chain).data())
+            {
+                std::cout << "left" << std::endl;
                 std::rotate(pend_item.data(), pend_item.data() + pair_size, (*pos_main_chain).data());
+            }
             else
-                std::rotate((*pos_main_chain).data(), (*pos_main_chain).data() + pair_size, pend_item.data());
+            {
+                std::cout << "right" << std::endl;
+                std::rotate((*pos_main_chain).data(), pend_item.data(), pend_item.data() + pair_size);
+            }
+
+            std::cout << "before rotate the main chain ";
+            for (auto &span : main_chain)
+            {
+                std::cout << *(span.data()) << ", ";
+            }
+            std::cout << std::endl;
 
             // rotate the main_chain to insert the sorted pend item.
             main_chain.push_back(pend_item);
             std::rotate(pos_main_chain, main_chain.end() - 1, main_chain.end());
+            std::cout << "after rotate the main chain ";
+            for (auto &span : main_chain)
+            {
+                std::cout << *(span.data()) << ", ";
+            }
+            std::cout << std::endl;
         }
     }
 
@@ -198,7 +235,6 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert)
         std::cout << "[debug insert] " << depth << std::endl;
         insert(span, pairs_group_size / 2);
     }
-        
 }
 
 /**
