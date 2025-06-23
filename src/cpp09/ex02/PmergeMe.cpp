@@ -169,35 +169,56 @@ void insert(std::span<int> span, std::size_t pair_size)
 
             std::cout << "pend_item " << pend[pend_idx].back() << std::endl;
 
-            // binary search
-            const auto pos_main_chain = std::lower_bound(main_chain.begin(), main_chain_end, pend_item, [](const SpanSlice &s1, const SpanSlice &s2)
-                                                         { return compare(s1, s2); });
-
-            std::cout << "pos_main_chain " << (*pos_main_chain).back() << std::endl;
-
-            // rotate the original span to re-order the sorted pend item.
-            if (pend_item.begin() < (*pos_main_chain).begin())
-            {
-                std::cout << "left" << std::endl;
-                std::rotate(pend_item.begin(), pend_item.end(), (*pos_main_chain).begin());
-                SpanSlice::syncIndex(main_chain, pend_item.getIdx(), pend_item.getIdx() + pair_size, (*pos_main_chain).getIdx() - pair_size);
-                SpanSlice::syncIndex(pend, pend_item.getIdx(), pend_item.getIdx() + pair_size, (*pos_main_chain).getIdx() - pair_size);
-            }
-            else
-            {
-                std::cout << "right" << std::endl;
-                std::rotate((*pos_main_chain).begin(), pend_item.begin(), pend_item.end());
-                SpanSlice::syncIndex(main_chain, (*pos_main_chain).getIdx(), pend_item.getIdx(), pend_item.getIdx());
-                SpanSlice::syncIndex(pend, (*pos_main_chain).getIdx(), pend_item.getIdx(), pend_item.getIdx());
-            }
-
-            std::cout << "before rotate the main chain ";
+            std::cout << "before sync the main chain ";
             for (auto &slice : main_chain)
             {
                 std::cout << slice.back() << ", ";
             }
             std::cout << std::endl;
-            std::cout << "before rotate the pend ";
+            std::cout << "before sync the pend ";
+            for (auto &slice : pend)
+            {
+                std::cout << slice.back() << ", ";
+            }
+            std::cout << std::endl;
+
+            // binary search
+            const auto pos_main_chain = std::lower_bound(main_chain.begin(), main_chain_end, pend_item, [](const SpanSlice &s1, const SpanSlice &s2)
+                                                         { return compare(s1, s2); });
+
+            std::cout << "pos_main_chain " << (*pos_main_chain).back() << std::endl;
+            // rotate the original span to re-order the sorted pend item.
+            std::size_t start;
+            std::size_t middle;
+            std::size_t end;
+            if (pend_item.begin() < (*pos_main_chain).begin())
+            {
+                start = pend_item.getIdx();
+                middle = pend_item.getIdx() + pair_size;
+                end = (*pos_main_chain).getIdx() - pair_size;
+                std::cout << "left" << std::endl;
+                std::rotate(pend_item.begin(), pend_item.end(), (*pos_main_chain).begin());
+            }
+            else
+            {
+                start = (*pos_main_chain).getIdx();
+                middle = pend_item.getIdx();
+                end = pend_item.getIdx() + pair_size;
+                std::cout << "right" << std::endl;
+                std::rotate((*pos_main_chain).begin(), pend_item.begin(), pend_item.end());
+            }
+            std::cout << "sync main" << std::endl;
+            SpanSlice::syncIndex(main_chain, start, middle, end);
+            std::cout << "sync pend" << std::endl;
+            SpanSlice::syncIndex(pend, start, middle, end);
+
+            std::cout << "after sync the main chain ";
+            for (auto &slice : main_chain)
+            {
+                std::cout << slice.back() << ", ";
+            }
+            std::cout << std::endl;
+            std::cout << "after sync the pend ";
             for (auto &slice : pend)
             {
                 std::cout << slice.back() << ", ";

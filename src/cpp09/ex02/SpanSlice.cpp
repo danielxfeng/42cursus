@@ -1,4 +1,5 @@
 #include "SpanSlice.hpp"
+#include <iostream>
 
 SpanSlice::SpanSlice(std::span<int> &base, std::size_t idx, std::size_t size) : base_(base), idx_(idx), size_(size) {}
 
@@ -38,8 +39,16 @@ void SpanSlice::syncIndex(std::vector<SpanSlice> &container, std::size_t first, 
         if (curr.getIdx() < first || curr.getIdx() >= last)
             continue;
         if (curr.getIdx() < middle)
+        {
+            std::cout << "syncIndex -> right: " << curr.back() << ", " << right_offset << std::endl;
             curr.move(right_offset, true);
+        }
+            
         else
+        {
+            std::cout << "syncIndex left <- : " << curr.back() << ", " << left_offset << std::endl;
             curr.move(left_offset, false);
+        }
+            
     }
 }
