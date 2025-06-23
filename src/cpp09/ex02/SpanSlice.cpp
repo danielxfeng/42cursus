@@ -40,15 +40,11 @@ void SpanSlice::syncIndex(std::vector<SpanSlice> &container, std::size_t first, 
             continue;
         if (curr.getIdx() < middle)
         {
-            std::cout << "syncIndex -> right: " << curr.back() << ", " << right_offset << std::endl;
             curr.move(right_offset, true);
         }
-            
         else
         {
-            std::cout << "syncIndex left <- : " << curr.back() << ", " << left_offset << std::endl;
             curr.move(left_offset, false);
         }
-            
     }
 }

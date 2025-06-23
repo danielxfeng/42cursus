@@ -13,15 +13,6 @@ const std::span<const int> JN(JacobsthalNumbers);
 
 std::size_t count = 0;
 
-/**
- * @brief a log tool
- */
-void debugInfo(std::string &msg)
-{
-    if (DEBUG)
-        std::cout << "debug: " << msg << std::endl;
-}
-
 // There is a index convertion, JN 3 points to b3, but the `pend`[0] points to b2, so i = JN - 2.
 std::size_t jnToPendIdx(std::size_t jn_idx)
 {
@@ -126,20 +117,6 @@ void insert(std::span<int> span, std::size_t pair_size)
             pend.push_back(slices[i]);
     }
 
-    std::cout << "before everything the main chain ";
-    for (auto &slice : main_chain)
-    {
-        std::cout << slice.back() << ", ";
-    }
-    std::cout << std::endl;
-
-    std::cout << "before everything the pend ";
-    for (auto &slice : pend)
-    {
-        std::cout << slice.back() << ", ";
-    }
-    std::cout << std::endl;
-
     // Apply Jacobsthal Numbers
     // we start from the 2nd one.
     for (auto it = (JN.begin() + 1); it != JN.end(); ++it)
@@ -167,85 +144,53 @@ void insert(std::span<int> span, std::size_t pair_size)
 
             const auto &pend_item = pend[pend_idx];
 
-            std::cout << "pend_item " << pend[pend_idx].back() << std::endl;
 
-            std::cout << "before sync the main chain ";
-            for (auto &slice : main_chain)
-            {
-                std::cout << slice.back() << ", ";
-            }
-            std::cout << std::endl;
-            std::cout << "before sync the pend ";
-            for (auto &slice : pend)
-            {
-                std::cout << slice.back() << ", ";
-            }
-            std::cout << std::endl;
+            // rotate the original span to re-order the sorted pend item.
+            std::size_t start;
+            std::size_t middle;
+            std::size_t end;
 
             // binary search
             const auto pos_main_chain = std::lower_bound(main_chain.begin(), main_chain_end, pend_item, [](const SpanSlice &s1, const SpanSlice &s2)
                                                          { return compare(s1, s2); });
 
-            std::cout << "pos_main_chain " << (*pos_main_chain).back() << std::endl;
-            // rotate the original span to re-order the sorted pend item.
-            std::size_t start;
-            std::size_t middle;
-            std::size_t end;
-            if (pend_item.begin() < (*pos_main_chain).begin())
+            if (pos_main_chain == main_chain.end()) // special case: pos is at the end.
+            {
+
+                start = pend_item.getIdx();
+                middle = start + pair_size;
+                end = main_chain.back().getIdx() + pair_size;
+                if (start < middle && middle < end)
+                    std::rotate(pend_item.begin(), pend_item.end(), main_chain.back().end());
+            }
+            else if (pend_item.begin() < (*pos_main_chain).begin())
             {
                 start = pend_item.getIdx();
                 middle = pend_item.getIdx() + pair_size;
-                end = (*pos_main_chain).getIdx() - pair_size;
-                std::cout << "left" << std::endl;
-                std::rotate(pend_item.begin(), pend_item.end(), (*pos_main_chain).begin());
+                end = (*pos_main_chain).getIdx();
+                if (start < middle && middle < end)
+                    std::rotate(pend_item.begin(), pend_item.end(), (*pos_main_chain).begin());
             }
             else
             {
                 start = (*pos_main_chain).getIdx();
                 middle = pend_item.getIdx();
                 end = pend_item.getIdx() + pair_size;
-                std::cout << "right" << std::endl;
-                std::rotate((*pos_main_chain).begin(), pend_item.begin(), pend_item.end());
+                if (start < middle && middle < end)
+                    std::rotate((*pos_main_chain).begin(), pend_item.begin(), pend_item.end());
             }
-            std::cout << "sync main" << std::endl;
-            SpanSlice::syncIndex(main_chain, start, middle, end);
-            std::cout << "sync pend" << std::endl;
-            SpanSlice::syncIndex(pend, start, middle, end);
 
-            std::cout << "after sync the main chain ";
-            for (auto &slice : main_chain)
+            if (start < middle && middle < end)
             {
-                std::cout << slice.back() << ", ";
+                SpanSlice::syncIndex(main_chain, start, middle, end);
+                SpanSlice::syncIndex(pend, start, middle, end);
             }
-            std::cout << std::endl;
-            std::cout << "after sync the pend ";
-            for (auto &slice : pend)
-            {
-                std::cout << slice.back() << ", ";
-            }
-            std::cout << std::endl;
 
             // rotate the main_chain to insert the sorted pend item.
             main_chain.push_back(pend[pend_idx]);
             std::rotate(pos_main_chain, main_chain.end() - 1, main_chain.end());
-            std::cout << "after rotate the main chain ";
-            for (auto &slice : main_chain)
-            {
-                std::cout << slice.back() << ", ";
-            }
-            std::cout << std::endl;
-            std::cout << "after rotate the pend ";
-            for (auto &slice : pend)
-            {
-                std::cout << slice.back() << ", ";
-            }
-            std::cout << std::endl;
         }
     }
-
-    for (auto dit = span.begin(); dit != span.end(); ++dit)
-        std::cout << *dit << ", ";
-    std::cout << std::endl;
 }
 
 void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert)
@@ -265,7 +210,6 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert)
     // performs insertion
     if (is_insert)
     {
-        std::cout << "[debug insert] " << depth << std::endl;
         insert(span, pairs_group_size / 2);
     }
 }
@@ -278,7 +222,9 @@ void scheduler(std::span<int> span)
     if (span.size() < 4)
         easySort(span);
     else
+    {
         mergeInsertionSort(span, 1, true);
+    }
 }
 
 void PmergeMe::sort(std::vector<int> &data, std::size_t size)
