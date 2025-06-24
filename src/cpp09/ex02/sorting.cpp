@@ -27,6 +27,7 @@ std::size_t jnToPendIdx(std::size_t jn_idx)
  */
 void easySort(std::span<int> span)
 {
+    count = 0;
     if (span.size() > 3)
         throw std::runtime_error("why I am here.");
     if (span.size() < 2)
@@ -92,9 +93,21 @@ std::size_t pairwiseComparator(std::span<int> span, std::size_t pairs_group_size
     return rounds;
 }
 
+/**
+ * @brief insert stage of merge-insertion sort
+ * @param span to sort
+ * @param pair_size the size of number pair
+ * 
+ * @details
+ * 1. Creates the main chain and pend
+ * 2. Performs insertion loop based on Jacobsthal Numbers
+ *   2.1 Binary search by std::rotate
+ *   2.2 Sync the indexes in main chain and pend
+ *   2.3 Append the inserted Slice to main chain as well
+ */
 void insert(std::span<int> span, std::size_t pair_size)
 {
-    // create the sub-spans
+    // create the slices
     std::vector<SpanSlice> slices;
     const std::size_t size = span.size() / pair_size;
     for (std::size_t i = 0; i < size; ++i)
@@ -148,6 +161,7 @@ void insert(std::span<int> span, std::size_t pair_size)
             const auto pos_main_chain = std::lower_bound(main_chain.begin(), main_chain_end, pend_item, [](const SpanSlice &s1, const SpanSlice &s2)
                                                          { return compare(s1, s2); });
 
+            // Use std::rotate to perform an in-place insert, then sync the indexes in main chain and pend.
             if (pos_main_chain == main_chain.end()) // special case: pos is at the end.
             {
 

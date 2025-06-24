@@ -9,6 +9,7 @@
 
 std::size_t pairwiseComparator(std::span<int> span, std::size_t pairs_group_size);
 void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert);
+std::size_t scheduler(std::span<int> span);
 
 /**
  * @brief An implementation of merge-insertion sort
@@ -16,6 +17,14 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert);
  * @details
  * - Merge-insertion sort is a "MINIMUM-COMPARISON SORTING".
  *   However it's rarely used in practical.
+ *
+ * - Time complicity
+ *   - O(n²) in total, but it has minimun comparisons:)
+ *   - O(n*log(n)) in Pairwise Comparison, O(n²) in Insertion.
+ * 
+ * - Space complicity
+ *   - O(n) in total.
+ *   - O(1) in Pairwise Coparison, O(n) in Insertion.
  *
  * - The implementation:
  *   Aims to implement a Merge-insertion sort.
@@ -26,7 +35,6 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert);
  * We sort it as a **Tournament Tree**, implemented by an array or vector like data structure.
  *
  * ### 1. Pairwise Comparison — Building the Tree
- * ** O(nlog(n)), n movements, and log(n) recursive calls **
  *
  * We recursively compare elements in pairs (log(n)):
  * - In each pair, the **larger** (the winner) moves to the next round.

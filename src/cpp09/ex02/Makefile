@@ -1,5 +1,5 @@
-SRCS = PmergeMe.cpp main.cpp
-OBJS = PmergeMe.o main.o
+SRCS = SpanSlice.cpp sorting.cpp PmergeMe.cpp main.cpp
+OBJS = SpanSlice.o sorting.o PmergeMe.o main.o
 NAME = pmergeme
 CPPFLAGS = -Wall -Wextra -Werror -std=c++20
 
@@ -8,7 +8,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	c++ -o $@ $^ $(CPPFLAGS)
 
-%.o: %.cpp PmergeMe.hpp
+%.o: %.cpp SpanSlice.hpp PmergeMe.hpp
 	c++ -c $< $(CPPFLAGS)
 
 clean:

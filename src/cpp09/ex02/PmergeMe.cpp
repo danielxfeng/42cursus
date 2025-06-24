@@ -1,10 +1,6 @@
 #include "PmergeMe.hpp"
 #include <span>
 
-// A scheduler to handle the sorting.
-std::size_t scheduler(std::span<int> span);
-
-// --------------------------------  Constructor and Destructors of PmergeMe.
 PmergeMe::PmergeMe() {}
 PmergeMe::PmergeMe(const PmergeMe &o) {}
 PmergeMe &PmergeMe::operator=(const PmergeMe &o) { return *this; }
