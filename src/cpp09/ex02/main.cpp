@@ -84,7 +84,6 @@ double sort(auto &data, size_t size)
 
 int main(int argc, char **argv)
 {
-    std::cout <<"argc" << argc << std::endl;
     if (argc == 1 || argc > ARG_MAX)
         return errorHandler();
 
