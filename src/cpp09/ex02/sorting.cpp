@@ -5,12 +5,21 @@
 #include <ranges>
 #include <cmath>
 
+// The comparison times.
 std::size_t count = 0;
 
-bool compare(const SpanSlice &s1, const SpanSlice &s2)
+//----------- Jacobsthal Numbers --------------//
+
+// Jacobsthal Numbers
+constexpr int JacobsthalNumbers[17] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381};
+const std::span<const int> JN(JacobsthalNumbers);
+
+// There is a index convertion, JN 3 points to b3, but the `pend`[0] points to b2, so i = JN - 2.
+std::size_t jnToPendIdx(std::size_t jn_idx)
 {
-    ++count;
-    return s1.back() < s2.back();
+    if (jn_idx < 2)
+        throw std::runtime_error("why I am here");
+    return jn_idx - 2;
 }
 
 /**
@@ -35,16 +44,12 @@ void easySort(std::span<int> span)
         std::swap(span[1], span[2]);
 }
 
-// Jacobsthal Numbers
-constexpr int JacobsthalNumbers[17] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381};
-const std::span<const int> JN(JacobsthalNumbers);
+//---------- MERGE INSERTION SORT -----------------------//
 
-// There is a index convertion, JN 3 points to b3, but the `pend`[0] points to b2, so i = JN - 2.
-std::size_t jnToPendIdx(std::size_t jn_idx)
+bool compare(const SpanSlice &s1, const SpanSlice &s2)
 {
-    if (jn_idx < 2)
-        throw std::runtime_error("why I am here");
-    return jn_idx - 2;
+    ++count;
+    return s1.back() < s2.back();
 }
 
 /**
@@ -203,6 +208,8 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert)
         insert(span, pairs_group_size / 2);
     }
 }
+
+//---------- ENTRY -----------------------//
 
 /**
  * @brief To dispatch the task based on the size of the container.
