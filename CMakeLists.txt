@@ -12,7 +12,7 @@ enable_testing()
 
 # Add test executable(s)
 add_executable(cpp09ex00test test/cpp09/ex00/test.cpp src/cpp09/ex00/BitcoinExchange.cpp)
-add_executable(cpp09ex02test test/cpp09/ex02/test.cpp src/cpp09/ex02/SpanSlice.cpp src/cpp09/ex02/PmergeMe.cpp)
+add_executable(cpp09ex02test test/cpp09/ex02/test.cpp src/cpp09/ex02/SpanSlice.cpp src/cpp09/ex02/sorting.cpp src/cpp09/ex02/PmergeMe.cpp)
 
 target_include_directories(cpp09ex00test PRIVATE ${CMAKE_SOURCE_DIR}/src/cpp09/ex00/)
 target_include_directories(cpp09ex02test PRIVATE ${CMAKE_SOURCE_DIR}/src/cpp09/ex02/)
