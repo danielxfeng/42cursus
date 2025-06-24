@@ -86,13 +86,15 @@ public:
     /**
      * @brief Perform a In-place Merge-insertion sort
      * @param data a container of integers.
+     * @return the comparision times
      */
-    void sort(std::vector<int> &data, std::size_t size);
+    std::size_t sort(std::vector<int> &data, std::size_t size);
 
     /**
      * @brief Perform an In-place Merge-insertion sort
      * @param data a container of integers
      * @param size the actual size of the array
+     * @return the comparision times
      */
-    void sort(std::array<int, ARG_MAX> &data, std::size_t size);
+    std::size_t sort(std::array<int, ARG_MAX> &data, std::size_t size);
 };
