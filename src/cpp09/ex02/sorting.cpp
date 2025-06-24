@@ -27,7 +27,6 @@ std::size_t jnToPendIdx(std::size_t jn_idx)
  */
 void easySort(std::span<int> span)
 {
-    count = 0;
     if (span.size() > 3)
         throw std::runtime_error("why I am here.");
     if (span.size() < 2)
@@ -203,7 +202,6 @@ void insert(std::span<int> span, std::size_t pair_size)
 
 void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert)
 {
-    count = 0;
     // how many numbers in one "pairs group"
     const std::size_t pairs_group_size = static_cast<std::size_t>(std::pow(2, depth));
     if (pairs_group_size == 0 || pairs_group_size > span.size())
@@ -230,6 +228,7 @@ void mergeInsertionSort(std::span<int> span, std::size_t depth, bool is_insert)
  */
 std::size_t scheduler(std::span<int> span)
 {
+    count = 0;
     if (span.size() < 4)
         easySort(span);
     else
