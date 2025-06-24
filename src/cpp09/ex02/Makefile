@@ -1,6 +1,6 @@
 SRCS = SpanSlice.cpp sorting.cpp PmergeMe.cpp main.cpp
 OBJS = SpanSlice.o sorting.o PmergeMe.o main.o
-NAME = pmergeme
+NAME = PmergeMe
 CPPFLAGS = -Wall -Wextra -Werror -std=c++20
 
 all: $(NAME)

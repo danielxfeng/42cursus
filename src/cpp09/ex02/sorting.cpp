@@ -143,7 +143,7 @@ void insert(std::span<int> span, std::size_t pair_size)
         std::size_t search_end_index = std::min(static_cast<std::size_t>(*it + *prev - 1), static_cast<std::size_t>(main_chain.size()));
         auto main_chain_end = main_chain.begin() + search_end_index;
 
-        for (std::size_t i = *it; i > *prev; --i)
+        for (int i = *it; i > *prev; --i)
         {
             const std::size_t pend_idx = jnToPendIdx(i);
             // For prev example, if pend.size() = 3, and JN number is 5, we need to skip the first iter.

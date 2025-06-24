@@ -86,10 +86,10 @@ std::size_t scheduler(std::span<int> span);
 class PmergeMe
 {
 public:
-    PmergeMe();
-    PmergeMe(const PmergeMe &o);
-    PmergeMe &operator=(const PmergeMe &o);
-    ~PmergeMe();
+    PmergeMe() = default;
+    PmergeMe(const PmergeMe &o) = default;
+    PmergeMe &operator=(const PmergeMe &o) = default;
+    ~PmergeMe() = default;
 
     /**
      * @brief Perform a In-place Merge-insertion sort

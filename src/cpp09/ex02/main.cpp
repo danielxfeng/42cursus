@@ -77,14 +77,15 @@ double sort(auto &data, size_t size)
 {
     auto pm = PmergeMe();
     auto now = std::chrono::high_resolution_clock::now();
-    pm.sort(std::move(data), size);
+    pm.sort(data, size);
     std::chrono::duration<double, std::micro> elapsed = std::chrono::high_resolution_clock::now() - now;
     return elapsed.count();
 }
 
 int main(int argc, char **argv)
 {
-    if (argc > ARG_MAX)
+    std::cout <<"argc" << argc << std::endl;
+    if (argc == 1 || argc > ARG_MAX)
         return errorHandler();
 
     auto vec = std::vector<int>{};
@@ -106,7 +107,7 @@ int main(int argc, char **argv)
         auto duration_vec = sort(vec, size);
 
         // Output the sorted data.
-        std::cout << "after: ";
+        std::cout << "after:  ";
         output(vec, size);
 
         // Sort using array.
