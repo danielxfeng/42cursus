@@ -1,26 +1,43 @@
+#include <limits>
 #include "RPN.hpp"
 #include "iostream"
 
-int calHelper(char c, int a, int b)
+int calHelper(char c, int64_t a, int64_t b)
 {
+    int64_t res;
     switch (c)
     {
     case ('+'):
-        return a + b;
+    {
+        res = a + b;
+        break;
+    }
     case ('-'):
-        return a - b;
+    {
+        res = a - b;
+        break;
+    }
     case ('*'):
-        return a * b;
+    {
+        res = a * b;
+        break;
+    }
     case ('/'):
     {
         if (b == 0)
             throw std::invalid_argument("invalid string");
-        return a / b;
+        res = a / b;
+        break;
     }
 
     default:
         throw std::runtime_error("I am a ghost.");
     }
+
+    // Logic of overflow
+    if (res > std::numeric_limits<int>::max() || res < std::numeric_limits<int>::min())
+        throw std::out_of_range("overflow");
+    return res;
 }
 
 t_type getType(char c)
@@ -43,13 +60,13 @@ RPN &RPN::operator=(const RPN &o)
 }
 RPN::~RPN() {}
 
-int RPN::popHelper()
+int64_t RPN::popHelper()
 {
     if (container_.empty())
         throw std::invalid_argument("invalid string");
     const int a = container_.top();
     container_.pop();
-    return a;
+    return static_cast<int64_t>(a);
 }
 
 int RPN::calculate(std::string expr)
@@ -76,8 +93,8 @@ int RPN::calculate(std::string expr)
         };
         case OPERATOR:
         {
-            int right = popHelper();
-            int left = popHelper();
+            int64_t right = popHelper();
+            int64_t left = popHelper();
 
             container_.push(calHelper(c, left, right));
             break;

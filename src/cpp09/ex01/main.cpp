@@ -21,4 +21,9 @@ int main(int argc, char **argv)
         std::cerr << "Error" << std::endl;
         exit(EXIT_FAILURE);
     }
+    catch (std::out_of_range&e)
+    {
+        std::cerr << "Error" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 }

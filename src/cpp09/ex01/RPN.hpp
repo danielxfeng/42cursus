@@ -12,7 +12,7 @@ class RPN
 {
 private:
     std::stack<int> container_;
-    int popHelper();
+    int64_t popHelper();
 
 public:
     RPN();

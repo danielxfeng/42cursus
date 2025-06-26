@@ -5,6 +5,7 @@
 #include <sstream>
 #include <ctime>
 #include <iomanip>
+#include <chrono>
 
 std::string getFilename(const t_file_type file_type)
 {
@@ -17,14 +18,36 @@ void trimStr(std::string &str)
     str.erase(str.find_last_not_of(" \t") + 1);
 }
 
+unsigned int convertNumbers(const std::string &str)
+{
+    std::size_t endSign = 0;
+
+    try
+    {
+        int parsed = std::stoi(str, &endSign);
+        if (endSign != str.length())
+            throw std::invalid_argument("bad date format");
+        return static_cast<unsigned int>(parsed);
+    }
+    catch (std::invalid_argument &e)
+    {
+        throw std::invalid_argument("bad date format");
+    }
+}
+
 std::string parseDate(const std::string &str)
 {
     if (str.length() != 10) // Only "2022-01-02" is supported
         throw std::invalid_argument("bad date format");
-    tm tm{};
-    std::istringstream ss(str);
-    ss >> std::get_time(&tm, "%Y-%m-%d");
-    if (ss.fail())
+
+    std::string year = str.substr(0, 4);
+    std::string month = str.substr(5, 2);
+    std::string day = str.substr(8, 2);
+    auto y = std::chrono::year{static_cast<int>(convertNumbers(year))};
+    auto m = std::chrono::month{convertNumbers(month)};
+    auto d = std::chrono::day{convertNumbers(day)};
+    std::chrono::year_month_day date{y, m, d};
+    if (!date.ok())
         throw std::invalid_argument("bad date format");
     return str;
 }
@@ -60,7 +83,6 @@ bool parseEntry(std::pair<std::string, float> &entry, const t_file_type file_typ
     catch (std::invalid_argument &e)
     {
         std::cerr << "Error: bad " << getFilename(file_type) << " => " << str << "." << std::endl;
-        ;
         return false;
     }
 
@@ -221,14 +243,17 @@ void BitcoinExchange::calculate(std::string input_fn)
 
         // We try to find the upperbound one.
         auto it = db_.upper_bound(entry.first);
-        // Shift back.
-        if (it == db_.end() || --it == db_.end())
+        if (it == db_.begin())
         {
             std::cerr << "Error: data not found => " << line << "." << std::endl;
             continue;
         }
 
+        // shift back.
+        --it;
+
         // Calculate and print
-        std::cout << entry.first << " => " << entry.second << " = " << entry.second * it->second << std::endl;
+        double res = static_cast<double>(entry.second) * it->second;
+        std::cout << entry.first << " => " << entry.second << " = " << res << std::endl;
     };
 }
