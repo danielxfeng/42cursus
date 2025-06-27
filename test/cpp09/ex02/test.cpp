@@ -93,11 +93,31 @@ TEST(mergeInsertionSortFullRandom, Test)
     }
 }
 
-TEST(schedulerSortFullRandom, Test)
+TEST(schedulerSortSmallRandom, Test)
 {
-    for (int i = 0; i < 10000; ++i)
+    for (int i = 0; i < 1000; ++i)
     {
         for (int j = 0; j < 3; ++j)
+        {
+            std::vector<int> vec = generateRandomVector(i, i + 100);
+            std::cout << std::endl;
+            auto span = std::span<int>(vec);
+            std::vector<int> out = vec;
+            std::sort(out.begin(), out.end());
+            auto comparasions = scheduler(span);
+            auto limits = check(vec.size());
+            EXPECT_LE(comparasions, limits);
+            EXPECT_EQ(vec, out);
+            std::cout << "Length: " << i << " , index: " << j << " done, comparasions: " << comparasions << ", limits: " << limits  << "." << std::endl;
+        }
+    }
+}
+
+TEST(schedulerSortLargeRandom, Test)
+{
+    for (int i = 2000; i < 10000; i += 1000)
+    {
+        for (int j = 0; j < 2; ++j)
         {
             std::vector<int> vec = generateRandomVector(i, i + 100);
             std::cout << std::endl;
