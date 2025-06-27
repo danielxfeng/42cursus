@@ -40,24 +40,24 @@ void identify(Base &p)
 {
     try
     {
-        dynamic_cast<A &>(p);
-        std::cout << "ref a" << std::endl;
+        auto a = dynamic_cast<A &>(p);
+        std::cout << &a << std::endl;
     }
     catch (std::bad_cast &e)
     {
     };
     try
     {
-        dynamic_cast<B &>(p);
-        std::cout << "ref b" << std::endl;
+        auto b = dynamic_cast<B &>(p);
+        std::cout << &b << std::endl;
     }
     catch (std::bad_cast &e)
     {
     };
     try
     {
-        dynamic_cast<C &>(p);
-        std::cout << "ref c" << std::endl;
+        auto c = dynamic_cast<C &>(p);
+        std::cout << &c << std::endl;
     }
     catch (std::bad_cast &e)
     {
