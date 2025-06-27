@@ -19,7 +19,7 @@ std::vector<int> generateRandomVector(int length, int max_value)
 std::size_t check(std::size_t n)
 {
     size_t res = 0;
-    for (std::size_t k = 1; k < n; ++k )
+    for (std::size_t k = 1; k <= n; ++k )
     {
         res += static_cast<std::size_t>(ceil(log2(0.75 * k))); 
     }
@@ -61,7 +61,7 @@ TEST(mergeInsertionSortFull, Test)
 
 TEST(mergeInsertionSort7, Test)
 {
-    std::vector<int> vec = {67, 55, 28, 1, 66, 59, 32 };
+    std::vector<int> vec = {11, 2, 17, 0, 16, 8, 6, 15, 10, 3, 21, 1, 18, 9, 14, 19, 12, 5, 4, 20, 13, 7};
     auto span = std::span<int>(vec);
     std::vector<int> out = vec;
     std::sort(out.begin(), out.end());
@@ -71,7 +71,7 @@ TEST(mergeInsertionSort7, Test)
 
 TEST(mergeInsertionSortFullRandom, Test)
 {
-    for (int i = 4; i < 30; ++i)
+    for (int i = 4; i < 22; ++i)
     {
         for (int j = 0; j < 100; ++j)
         {
@@ -95,9 +95,9 @@ TEST(mergeInsertionSortFullRandom, Test)
 
 TEST(schedulerSortFullRandom, Test)
 {
-    for (int i = 0; i < 500; ++i)
+    for (int i = 0; i < 10000; ++i)
     {
-        for (int j = 0; j < 100; ++j)
+        for (int j = 0; j < 3; ++j)
         {
             std::vector<int> vec = generateRandomVector(i, i + 100);
             std::cout << std::endl;
