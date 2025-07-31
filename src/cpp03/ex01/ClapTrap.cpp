@@ -26,7 +26,6 @@ void ClapTrap::attack(const std::string &string) {
         std::cout << "ClapTrap " << name_ << " has no points and cannot attack" << std::endl;
         return;
     }
-    --hit_points_;
     --energy_points_;
     std::cout << "ClapTrap " << name_ << " attacks " << string << " , causing " << attack_damage_ << " points of damage!" << std::endl;
 }
