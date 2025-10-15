@@ -1,0 +1,9 @@
+
+secrets/
+*.txt
+
+.env
+
+data/
+
+.dockerignore
