@@ -8,10 +8,10 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     echo "Installing WordPress..."
     
     # Wait for MariaDB to be ready
-    until wp db check --allow-root 2>/dev/null; do
-        echo "Waiting for MariaDB to be ready..."
-        sleep 3
-    done
+    #until mysqladmin ping -h"$WORDPRESS_DB_HOST" -u"$WORDPRESS_DB_USER" -p"$WORDPRESS_DB_PASSWORD" --silent; do
+    #    echo "MariaDB is unavailable - sleeping"
+    #    sleep 3
+    #done
     
     # Download WordPress
     wp core download --path=/var/www/html --allow-root
