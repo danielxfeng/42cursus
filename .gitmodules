@@ -6,9 +6,6 @@
 	path = src/42minirt
 	url = https://github.com/danielxfeng/42-miniRT.git
 	branch = main
-[submodule "src/42webserver"]
-	path = src/42webserver
-	url = https://github.com/danielxfeng/webserv.git
 [submodule "gtest"]
 	path = gtest
 	url = https://github.com/google/googletest.git
