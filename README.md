@@ -128,3 +128,10 @@ A minimum Nginx, the most interesting project in Hive so far.
 - [Implementations](https://github.com/danielxfeng/webserv)
 - [My Thoughts](https://github.com/danielxfeng/webserv/blob/main/README.md)
 
+---
+
+### **Zone 6**
+
+#### **`transcendence`**
+
+
